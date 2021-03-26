@@ -21,6 +21,7 @@
 ## Credits
 
  - [Hitsuki](https://github.com/HitsukiNetwork/Hitsukix)
+ - [Utah](https://github.com/minatouzuki/utah)
  - [FridayUserbot](https://github.com/DevsExpo/FridayUserbot)
  - [MissJuliaRobot](https://github.com/MissJuliaRobot/MissJuliaRobot)
  - [DaisyX](https://github.com/teamdaisyx/daisy-x)
