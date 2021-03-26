@@ -11,7 +11,14 @@
   "repository": "https://github.com/TeamDaisyX/Daisy-x",
   "website": "daisyproject.studio",
   "success_url": "t.me/DaisyXUpdates",
-  "stack": "container",
+  "buildpacks": [
+   {
+     "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+   },
+   {
+     "url": "heroku/python"
+   }     
+  ],    
   "env": {
     "API_ID": {
       "description": "Get this value from my.telegram.org! Please do not steal",
