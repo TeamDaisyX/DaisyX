@@ -28,6 +28,7 @@ from DaisyX.services.telethon import tbot as tgbot
 
 
 
+
 @tgbot.on(events.InlineQuery)
 async def inline_handler(event):
     builder = event.builder
@@ -45,6 +46,9 @@ async def inline_handler(event):
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"explore")))
 async def explore(event):     
     tbot_username = "DaisyXBot"
+    LEGENDX = [[Button.switch_inline("Youtube", query='yt', same_peer=True), Button.switch_inline("Google", query='google', same_peer=True)]]
+    LEGENDX += [[Button.switch_inline("Deezer", query='deezer', same_peer=True), Button.switch_inline("Xkcd", query='xkcd', same_peer=True)]]
+    LEGENDX = [[Button.switch_inline("Pornhub", query='ph', same_peer=True)]]
     oof_stark = f"""**Inline bot service powered by @DaisyXBot**
 **I'm fully functional in groups. Also I have some cool stuff in inline too**
 **- Search Youtube Video's / Download In Any Chat Itself!**
@@ -64,7 +68,7 @@ async def explore(event):
 **Example :** `@{tbot_username} ph nohorny`
 **Note :** `Many More Coming! SoonTM`
     	"""
-    await event.edit(oof_stark)    
+    await event.edit(oof_stark, buttons=LEGENDX)    
 
 @tgbot.on(events.InlineQuery(pattern=r"torrent (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
