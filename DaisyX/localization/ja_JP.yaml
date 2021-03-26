@@ -1,0 +1,669 @@
+---
+language_info:
+  flag: "🇯🇵"
+  code: ja
+STRINGS:
+  notes:
+    #/save
+    note_saved: "🗒 メモ <code>{note_name}</code> は <b>{chat_title}に保存されました</b>!"
+    note_updated: "🗒 メモ <code>{note_name}</code> は <b>{chat_title}で更新されました</b>!"
+    you_can_get_note: "\n <code>/get {note_name}</code>または <code>#{note_name}</code> を使用して、このメモを取得できます。"
+    #Translator note: please keep sure that you don't have space in the end of string
+    note_aliases: "\nメモのエイリアス:"
+    blank_note: "空白のメモを保存することはできません！"
+    notename_cant_contain: "メモ名には \"<code>{symbol}</code>\" を含めることはできません!"
+    #/get
+    cant_find_note: <b>{chat_name}</b> にこのメモが見つかりません！
+    no_note: "そのメモが見つかりません。"
+    no_notes_pattern: "パターン <code>%s</code> でメモが見つかりません"
+    u_mean: "\n<code>#{note_name}</code> のことですか？"
+    #/notes
+    notelist_no_notes: "<b>{chat_title}</b> にはノートがありません！"
+    notelist_header: "<b> {chat_name}のノート</b>:"
+    notes_in_private: "ノート一覧を取得するには、下のボタンをクリックします。"
+    notelist_search: |
+      <b>パターン:</b> <code>{request}</code>
+      <b>一致するノート:</b>
+    #/clear
+    note_removed: "メモ <code>#{note_name}</code> で <b>{chat_name}</b> が削除されました!"
+    note_removed_multiple: |
+      <b>{chat_name}</b>
+      <b>削除済み:</b><code>{removed}</code>
+    not_removed_multiple: "<b>削除されていません:</b><code>{not_removed}</code>"
+    #/clearall
+    clear_all_text: "{chat_name}からすべてのメモが削除されます。よろしいですか？"
+    clearall_btn_yes: "はい、私のノートをすべて削除してください！"
+    clearall_btn_no: "いいえ！"
+    clearall_done: "{chat_name} のすべての（<code>{num}</code>）メモが削除されました！"
+    #/search
+    search_header: |
+      <b> {chat_name} での検索リクエスト</b>：
+      <b>パターン：</b> <code>{request}</code>
+      <b>一致するメモ：</b>
+    #/noteinfo
+    note_info_title: "<b>メモの情報</b>\n"
+    note_info_note: "メモ名: %s\n"
+    note_info_content: "ノートの内容: %s\n"
+    note_info_parsing: "解析モード: <code>%s</code>\n"
+    note_info_created: "作成されました: <code>{date}</code> によって {user}\n"
+    note_info_updated: "最終更新日: <code>{date}</code> by {user}\n"
+    user_blocked: "自分のPMに/startを書きましょう！"
+    #/privatenotes
+    private_notes_false_args: "<code></code> を無効にして <code></code> を有効にする 2 つのオプションがあります。"
+    already_enabled: "%sでプライベートノートは既に有効になっています"
+    current_state_info: "現在 {state} のプライベートノートは {chat} です！ "
+    enabled_successfully: "プライベートノートは%sで<b>有効</b>になりました。"
+    disabled_successfully: "プライベートノートは <b>無効</b> の %s です！"
+    not_enabled: "プライベートノートは無効にすることはできません。"
+    privatenotes_notif: "<b>{chat}</b> のノートに正常に接続されました! 切断するには、コマンド <code>/切断</code> を使用してください!"
+    enabled: '有効'
+    disabled: '無効'
+    #/cleannotes
+    clean_notes_enable: "<b>{chat_name}</b> でノートをクリーンアップしました"
+    clean_notes_disable: "<b>{chat_name}</b> でメモを消去しました"
+    clean_notes_enabled: "クリーニングノートは現在 <b></b> で <b>{chat_name}</b> 有効です"
+    clean_notes_disabled: "クリーニングノートは <b>無効化されています</b> <b>{chat_name}</b>"
+    #Filter
+    filters_title: 'メモを送信'
+    filters_setup_start: 'ノート名を送信してください。'
+  #delmsg_no_arg: "deletemsg button can contain only 'admin' or 'user' argument!"
+  #bot_msg: "I'm sorry, I am not able to get this message, probably this a other bot's message, so I can't save it."
+  filters:
+    no_filters_found: "<b>{chat_name}</b> にフィルターが見つかりませんでした！"
+    #/addfilter
+    anon_detected: 匿名管理者であるため、新しいフィルターを追加することはできません。代わりにコネクションを使用してください。
+    regex_too_slow: "Your regex pattern is matching too slow (more than the half of second), it can't be added!"
+    cancel_btn: "🛑 キャンセル"
+    adding_filter: |
+      フィルター <code>{handler}</code> の <b>{chat_name}</b>
+      以下のアクションを選択します:
+    saved: "新しいフィルターが正常に保存されました！"
+    #/filters
+    list_filters: "<b>{chat_name}</b>:\n のフィルター"
+    #/delfilter
+    no_such_filter: <b>{chat_name}</b>でそのフィルターが見つかりません。有効になっているフィルターを <code>/filters</code> コマンドでチェックしてください。
+    del_filter: "ハンドラでフィルター '<code>{handler}</code>' が削除されました!"
+    select_filter_to_remove: |
+      私は多くのフィルタがあります。 ハンドラ'<code>{handler}</code>'
+      削除するフィルタを選択してください:
+    #/delfilters or /delallfilters
+    not_chat_creator: このコマンドを使用できるのはチャット作成者だけです。
+    delall_header: このチャット内のすべてのフィルターを削除します。元に戻すことはできません。
+    confirm_yes: '⚠ すべて削除'
+    confirm_no: '❌ キャンセル'
+    delall_success: チャット内のすべてのフィルター（{count}）を削除しました！
+  warns:
+    #/warn
+    warn_sofi: "自分自身を警告する方法はありません!"
+    warn_self: "自分自身に警告したいですか？チャットはそのままにしておきましょう。"
+    warn_admin: "あなたが間違っています。管理者に警告することはできません。"
+    warn: "{admin} has warned {user} in <b>{chat_name}</b>\n"
+    warn_bun: "警告を超えました! {user} は禁止されています!"
+    warn_num: "警告: {curr_warns}/{max_warns}\n"
+    warn_rsn: "理由: <code>{reason}</code>\n"
+    max_warn_exceeded: 警告を超えました! %s は %s です!
+    "max_warn_exceeded:tmute": 警告を超えました! %s は %s の間タミュートされました!
+    #warn rmv callback
+    warn_no_admin_alert: "⚠ 警告を削除する管理者ではありません！"
+    warn_btn_rmvl_success: "✅ {admin} によって警告が削除されました！"
+    #/warns
+    warns_header: "ここでは、このチャットで警告があります \n\n"
+    warns: "{count} : <code>{reason}</code> by {admin}\n"
+    no_warns: "{user} には警告はありません。"
+    #/warnlimit
+    warn_limit: "<b>{chat_name}</b> の警告の上限は現在: <code>{num}</code>"
+    warnlimit_short: '警告の上限は少なくとも2でなければなりません！'
+    warnlimit_long: '警告の上限は1,000より短くする必要があります！'
+    warnlimit_updated: '✅警告制限を {num}に更新しました'
+    #/delwarns
+    purged_warns: "{admin} reset <code>{num}</code> warns of {user} in <b>{chat_title}</b>!"
+    usr_no_wrn: "{user} はリセットする警告を持っていません。"
+    rst_wrn_sofi: 'Daisyは、リセットするように警告することがありませんでした。'
+    not_digit: 警告制限は数字でなければなりません！
+    #/warnmode
+    same_mode: これは現在のモードです！どうやって変更できますか？
+    no_time: モード「tmute」を選択するには、時間を言及する必要があります!
+    invalid_time: 無効な時間！
+    warnmode_success: <b>%s</b> の警告モードが正常に <b>%s</b> に変更されました!
+    wrng_args: |
+      以下は利用可能なオプションです:
+      <code>%s</code>
+    mode_info: |
+      このチャットのモードは <b>%s</b> です。
+    banned: アクセス禁止
+    muted: ミュート
+    filters_title: ユーザーに警告する
+    filter_handle_rsn: 自動フィルターアクション！
+  msg_deleting:
+    no_rights_purge: "このグループを削除する権限がありません！"
+    reply_to_msg: "削除するメッセージに返信します！"
+    purge_error: "パージを続けることはできません。主に2日以上前に送信されたメッセージからパージを開始したからです。"
+    fast_purge_done: "<b>高速パージ完了！</b>\nこのメッセージは5秒後に削除されます。"
+    purge_user_done: "{user} からのすべてのメッセージは正常に削除されました！"
+  misc:
+    your_id: "あなたのID: <code>{id}</code>\n"
+    chat_id: "Group ID: <code>{id}</code>\n"
+    user_id: "{user}'s ID: <code>{id}</code>\n"
+    conn_chat_id: "現在接続されているチャット ID: <code>{id}</code>"
+    help_btn: "ヘルプのためにクリックしてください!"
+    help_txt: "ヘルプのために下のボタンをクリックしてください!"
+    delmsg_filter_title: 'メッセージを削除する'
+    send_text: 返信メッセージを送信してください！
+    replymsg_filter_title: 'メッセージに返信'
+    send_customised_reason: アクションメッセージに含めたい <i>理由</i> を送信してください。<code></code>"理由 <i>なし</i> が与えられません！
+    expected_text: テキストメッセージを期待しています！
+  promotes:
+    promote_success: "{user} は {chat_name} で正常に宣伝されました！"
+    promote_title: "\nカスタムロール <code>{role}</code>!"
+    rank_to_loong: "カスタムロールテキストは16文字以上にすることはできません。"
+    promote_failed: "プロモーションに失敗しました！権限があるか確認してください。"
+    demote_success: "{user} は {chat_name} で降格しました！"
+    demote_not_admin: "そのユーザーは管理者ではありません。"
+    demote_failed: "降格に失敗しました。降格できないか、誰か他の人に昇格させられました。"
+    cant_get_user: "ユーザーを取得できませんでした！もしよろしければ、彼のメッセージに返信して、もう一度お試しください。"
+    cant_promote_yourself: "自分自身を昇進させることはできません。"
+    emoji_not_allowed: "申し訳ありませんが、管理者の役割は絵文字を持つことができません。 :explosed_face:"
+  pm_menu:
+    start_hi_group: 'こんにちは！私の名前はDaisy'
+    start_hi: "こんにちは！私の名前はDaisyです。効率的な方法であなたのグループを管理するのを助けます！"
+    btn_source: "📦 ソース コード"
+    btn_help: "❔ ヘルプ"
+    btn_lang: "🇷🇺 Language"
+    btn_channel: ":satellite_アンテナ: Daisy News"
+    btn_group_help: "ヘルプのためにクリックしてください!"
+    back: 戻る
+    #/help
+    help_header: "ねえ！ 私の名前は<b>Daisy</b>です。 私はグループ管理ボットです。ここでは、グループ内を移動して順序を維持するのに役立ちます。\n洪水調節、警告システム、メモ管理システム、さらには特定のキーワードに対する事前に決められた返信など、便利な機能がたくさんあります。"
+    click_btn: ここをクリック
+  disable:
+    #/disableable
+    disablable: "<b>無効なコマンド:</b>\n"
+    #/disabled
+    no_disabled_cmds: <b>{chat_name}</b> に無効化されたコマンドはありません!
+    disabled_list: "<b> {chat_name}:</b>\n で無効化されたコマンド"
+    #/disable
+    wot_to_disable: "何を無効にしますか？"
+    already_disabled: "このコマンドは既に無効化されています！"
+    disabled: "コマンド <code>{cmd}</code> は <b>{chat_name}で無効化されました</b>!"
+    #/enable
+    wot_to_enable: "何を有効にしますか？"
+    already_enabled: "このコマンドは無効になっていません！"
+    enabled: "コマンド <code>{cmd}</code> は <b>{chat_name}で有効になりました</b>!"
+    #/enableall
+    not_disabled_anything: "<b>{chat_title}</b>で無効になっていない！"
+    enable_all_text: "<b>{chat_name}</b>内のすべてのコマンドが有効になります。よろしいですか？"
+    enable_all_btn_yes: "はい。すべてのコマンドを有効にします。"
+    enable_all_btn_no: "いいえ！"
+    enable_all_done: "すべてのコマンド (<code>{num}</code>) は <b>{chat_name}</b> で有効になりました。"
+  bot_rights:
+    change_info: "グループ情報を変更する権限がありません。その権限で管理者にさせてください。"
+    edit_messages: "メッセージを編集する権限がありません！"
+    delete_messages: "ここでメッセージを削除する権限はありません。"
+    ban_user: "ユーザーを禁止する権限がありません。その権限で管理者にしてください。"
+    pin_messages: "メッセージをピン留めする権限がありません。その権限で管理者にさせてください。"
+    add_admins: "管理者を追加する権限がありません。その権限で管理者にさせてください。"
+  feds:
+    #decorators
+    need_fed_admin: "あなたは <b>{name}</b> 連盟の管理者ではありません"
+    need_fed_owner: "あなたは <b>{name}</b> 連盟の所有者ではありません"
+    cant_get_user: "申し訳ありませんが、そのユーザーを取得できません。ユーザーIDを使用してみてください"
+    #/fnew
+    fed_name_long: "Federation名は60シンボルより長くすることはできません！"
+    can_only_1_fed: "1 人のユーザーは、1 つの連合のみを作成できます。1 つを削除してください。"
+    name_not_avaible: "名前 <code>{name}</code> のフェデレーションは既に終了しています！別の名前を使用してください。"
+    created_fed: |
+      Congrats, you have successfully created Federation.
+      <b>Name:</b> {name}
+      <b>ID:</b> <code>{id}</code>
+      <b>Creator:</b> {creator}
+      Use <code>/fjoin {id}</code> to connect federation to chat\
+    disallow_anon: Being anonymous, you cannot create new federation!
+    #/fjoin
+    only_creators: "チャットを連盟に接続できるようにするには、チャット作成者である必要があります。"
+    fed_id_invalid: "与えられたフェデレーションIDが無効です！有効なIDを教えてください。"
+    joined_fed_already: "このチャットはすでに連盟に加入しています。/fleave を使って連盟から脱退してください。"
+    join_fed_success: "チャット <b>{chat}</b> が <b>{fed}</b> 連盟の一員になりました！"
+    join_chat_fed_log: |
+      <b>Chat joined Federation</b> #ChatJoined
+      <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>Chat:</b> {chat_name} (<code>{chat_id}</code>)
+    #/leavefed
+    chat_not_in_fed: "このチャットはまだ連邦にありません。"
+    leave_fed_success: "チャット <b>{chat}</b> が <b>{fed}</b> 連盟を脱退しました。"
+    leave_chat_fed_log: |
+      <b>Chat left Federation</b> #ChatLeaved
+      <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>Chat:</b> {chat_name} (<code>{chat_id}</code>)
+    #/fsub
+    already_subsed: "Federation <b>{name}</b> は既に <b>{name2}</b> を購読しています"
+    subsed_success: "フェデレーション <b>{name}</b> が <b>{name2}</b> を購読しました!"
+    #/funsub
+    not_subsed: "Federation <b>{name}</b> は <b>{name2}</b> の購読を解除していません。"
+    unsubsed_success: "フェデレーション <b>{name}</b> の登録解除 <b>{name2}</b>!"
+    #/fpromote
+    #admin_already_in_fed: "User {user} is already a fed admin in <b>{name}</b> Federation."
+    admin_added_to_fed: "ユーザー {user} が <b>{name}</b> フェデレーション管理者に追加されました。"
+    promote_user_fed_log: |
+      <b>User promoted to the fed admins</b> #UserPromoted
+      <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>User:</b> {user} (<code>{user_id}</code>)
+    "restricted_user:promote": このユーザーはフェデレーション管理者に制限されています！
+    #/fdemote
+    #admin_not_in_fed: "User {user} is not <b>{name}</b> Federation admin."
+    admin_demoted_from_fed: "ユーザー {user} が <b>{name}</b> フェデレーション管理者から降格しました。"
+    demote_user_fed_log: |
+      <b>User demoted from the fed admins</b> #UserDemoted
+      <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>User:</b> {user} (<code>{user_id}</code>)
+    #/fsetlog
+    already_have_chatlog: "<b>{name}</b> 他のチャット/チャンネルでのログインが既に有効になっています！"
+    set_chat_log: |
+      This chat now logging all actions in <b>{name}</b> Federation
+
+      Federation logging is used for internal assessment of federation and its performance.
+      it should NOT be used as a show wall to public thereby respecting user data and our privacy guidelines.
+    set_log_fed_log: |
+      <b>ログの有効化</b> #LoggingEnabled
+      <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
+    no_right_to_post: そのチャンネルにメッセージを投稿する権限がありません！
+    #/funsetlog
+    not_logging: "<b>{name}</b> 連盟はチャット/チャンネルにログインしていません！"
+    logging_removed: "ログ記録を <b>{name}</b> 連盟から削除しました。"
+    unset_log_fed_log: |
+      <b>ログを無効にする</b> #LoggingDisabled
+      <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
+    #/fchatlist
+    no_chats: "この <b>{name}</b> 連盟に参加したチャットはありません"
+    chats_in_fed: "<b> {name} 連盟に接続されたチャット:</b>\n"
+    too_large: "出力が大きすぎます。ファイルとして送信しています"
+    #/finfo
+    finfo_text: |
+      <b>Federation info</b>
+      <b>Name:</b> {name}
+      <b>ID:</b> <code>{fed_id}</code>
+      <b>Creator:</b> {creator}
+      <b>Chats in the fed:</b> {chats}
+      <b>Banned users in the fed:</b> {fbanned}
+    finfo_subs_title: "<b>Federation is subscribed to this feds:</b>\n"
+    #/fadminlist
+    fadmins_header: "<b>{fed_name}</b> Fed:\n"
+    #no_fbanned_in_fed: "There isn't any banned users in {fed_name} Federation!"
+    #/fban
+    user_wl: "このユーザーは禁止からホワイトリストに登録されています。"
+    fban_self: "素敵なショーだね！"
+    fban_creator: "どうやって連邦制作者を禁止することができますか？！面白くないと思います。"
+    fban_fed_admin: "私は彼ら自身のfedからフィード管理者を禁止するつもりはありません!"
+    update_fban: "このユーザーは以前にfbanされたため、理由を <code>{reason}</code>に更新しています"
+    already_fbanned: "{user} はすでにこの連合でBANされています。"
+    fbanned_header: "<b>新しいFedBan</b>\n"
+    fban_info: |
+      <b>Federation:</b> {fed}
+      <b>Fed admin:</b> {fadmin}
+      <b>User:</b> {user} (<code>{user_id}</code>)
+    fbanned_reason: "<b>理由:</b> <code>{reason}</code>"
+    fbanned_process: "\n<b>状態:</b> チャットの禁止 <code>{num}</code>"
+    fbanned_done: "\n<b>状態:</b> 完了! <code>{num}</code> チャットでBAN!"
+    fbanned_silence: "このメッセージは5秒後に消去されます"
+    fbanned_subs_process: "\n<b>ステータス:</b> <code>{feds}</code> 登録された連邦での禁止..."
+    fbanned_subs_done: "\n<b>Status:</b> Done! banned in <code>{chats}</code> chats of this federation and <code>{subs_chats}</code> chats of <code>{feds}</code> subscribed feds"
+    fban_usr_rmvd: |
+      ユーザー {user} は現在のフェデレーションでBANされています <b>{fed}</b>.Soが削除されました!
+      理由: <code>{rsn}</code>
+    fban_log_fed_log: |
+      <b>Ban user in the fed</b> #FedBan
+      <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>User:</b> {user} ({user_id})
+      <b>By:</b> {by}
+      <b>Chats banned:</b> user banned in <code>{chat_count}</code>/<code>{all_chats}</code> chats
+    fban_reason_fed_log: "<b>理由:</b> <code>{reason}</code>\n"
+    fban_subs_fed_log: "\n<b>加入したFBI：</b> <code>{subs_chats}</code> チャット <code>{feds}</code> フェデレーションで禁止"
+    #/unfban
+    unfban_self: "これの代わりに楽しみを持っている他の何かについて考えなさい。"
+    user_not_fbanned: "{user} はこの連合でBANされていませんでした。"
+    un_fbanned_header: "<b>新しい非FedBan</b>\n"
+    un_fbanned_process: "\n<b>状態:</b> <code>{num}</code> のチャットで禁止を解除..."
+    un_fbanned_done: "\n<b>ステータス:</b> 完了! <code>{num}</code> チャットでBANを解除!"
+    un_fbanned_subs_process: "\n<b>ステータス:</b> <code>{feds}</code> 登録された連邦での禁止を解除..."
+    un_fbanned_subs_done: "\n<b>Status:</b> Done! Unbanned in <code>{chats}</code> chats of this federation and <code>{subs_chats}</code> chats of <code>{feds}</code> subscribed feds"
+    un_fban_log_fed_log: |
+      <b>Unban user in the fed</b> #FedUnBan
+      <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>User:</b> {user} ({user_id})
+      <b>By:</b> {by}
+      <b>Chats:</b> user unbanned in <code>{chat_count}</code>/<code>{all_chats}</code> chats
+    un_fban_subs_fed_log: "\n<b>加入したFBI：</b> <code>{subs_chats}</code> チャット <code>{feds}</code> フェデレーション"
+    #/delfed
+    delfed_btn_yes: はい。フェデレーションを削除します
+    delfed_btn_no: いいえ。
+    delfed: |
+      Are you sure to delete this federation <b>%s</b>?
+
+      <i>Disclaimer: Deleting federation will remove all datas associated with it from our Database!
+      This action cannot be reversed at any cost!</i>
+    delfed_success: 連合を削除しました！
+    #/frename
+    frename_same_name: 既存の名前とは異なる名前を入力してください！
+    frename_success: 連盟 <b>{old_name}</b> の名前を <b>{new_name}</b> に変更しました。
+    #/fbanlist
+    fbanlist_locked: fbanlistを再度使用するには %s までお待ちください。
+    creating_fbanlist: fban リストを作成しています！しばらくお待ちください..
+    fbanlist_done: Fbanlist of Federation <b>%s</b>!
+    #/importfbans
+    send_import_file: |
+      インポート ファイルを送信します!
+
+      このプロセスをキャンセルするには、/cancel を使用します
+    rpl_to_file: ファイルに返信してください！
+    importfbans_locked: この連合で %s のファンのインポートがロックされています。
+    big_file_csv: '{num} メガバイト以下のインポートcsvファイルのみをサポートしています！'
+    big_file_json: |
+      現在jsonファイルは {num} メガバイトに制限されています！
+      大きいファイルをインポートする場合はcsv形式を使用してください。
+    invalid_file: "ファイルが無効です"
+    wrong_file_ext: "ファイル形式が間違っています！現在のサポートは次のとおりです: json, csv"
+    importing_process: <b>連盟をインポート中...</b>
+    import_done: 供給された禁止令のインポートが完了しました！ {num} 禁止令がインポートされました。
+    #def
+    automatic_ban: ユーザー {user} は現在のフェデレーション <b>{fed_name}</b>でBANされています。削除されました！
+    automatic_ban_sfed: ユーザー {user} はサブフェデレーション <b>{fed_name}</b>でBANされています。削除されました！
+    automatic_ban_reason: "\n理由: <code>{text}</code>"
+    #/fcheck
+    fcheck_header: "<b>連盟禁止情報：</b>\n"
+    fbanned_count_pm: "あなたは {count} つのフェデレーションでfbanされています！\n"
+    "fban_info:fcheck": "あなたは {fed} の {date}フェデレーションでfbanされました。与えられた理由はありません！"
+    "fban_info:fcheck:reason": "あなたは理由により {fed} の {date} フェデレーションでfbanされました。\n {reason}\n"
+    fbanned_data: "{user} は {count} のフェデレーションでfbanされました\n"
+    fbanned_nowhere: "{user} はどこでもfbanされていません！"
+    fbanned_in_fed: "この <b>{fed}</b> 連合を含む！\n"
+    "fbanned_in_fed:reason": "理由として、この <b>{fed}</b> フェデレーションを含む -\n <code>{reason}</code>"
+    contact_in_pm: "\n\nあなたのfbansの詳細については、私に直接メッセージを送ってください。このようにあなたのプライバシーは保護されています！"
+    too_long_fbaninfo: "まあ!あなたのfbaninfoはファイルが必要です!"
+    didnt_fbanned: "このfedでfbanされていません。"
+    not_fbanned_in_fed: Anyway, they aren't fbanned in fed <b>{fed_name}</b>
+  reports:
+    user_user_admin: "あなたは管理者です。なぜ誰かに報告する必要がありましたか？.."
+    user_is_whitelisted: "あなたはホワイトリストに登録されたユーザーですが、なぜ誰かに報告する必要がありますか?"
+    reports_disabled: "レポートは現在 <b>このグループで</b> 無効化されています。"
+    no_user_to_report: "どのユーザーを報告しますか？"
+    report_admin: "You <b>cannot</b> report admin."
+    report_whitedlisted: "<b>ホワイトリストに登録されたユーザーを</b> 報告することはできません。"
+    reported_user: "<b></b> {user} を管理者に報告しました。"
+    reported_reason: "\n<b>理由:</b>\n<code>{reason}</code>"
+    reports_on: "このグループのレポートは <b>に</b> をオンにします。"
+    reports_off: "レポートはこのグループで <b></b> をオフにします。"
+    reports_already_on: "<b>レポートはすでにオンになっています。</b>"
+    reports_turned_on: "レポートが <b>をオンにしました。</b>"
+    reports_already_off: "<b>レポートは既にオフになっています。</b>"
+    wrong_argument: "<b> 引数が間違っています。 </b>"
+  language:
+    your_lang: "現在の言語: <b>{lang}</b>"
+    chat_lang: "現在のチャット言語: <b>{lang}</b>"
+    select_pm_lang: "\n<b>新しい言語を選択:</b>"
+    select_chat_lang: "\n<b>新しいチャット言語を選択:</b>"
+    crowdin_btn: "🌎 翻訳を手伝ってください"
+    help_us_translate: "\n\n<a href=\"https://crowdin.com/project/DaisyXx\">🌎 翻訳の改善にご協力ください</a>"
+    not_supported_lang: この言語はサポートされていません！
+    lang_changed: 言語が <b>{lang_name}</b> に変更されました。
+    see_translators: ':busts_in_sシルエット: 翻訳者を参照'
+    back: 戻る
+  connections:
+    pm_connected: "あなたのPMは <b>{chat_name}</b>に正常に接続されました！"
+    connected_pm_to_me: "あなたのPMは <b>{chat_name}</b>に正常に接続されました！接続を開始するにはpmを私にしてください。"
+    chat_connection_tlt: "<b>チャット接続</b>\n"
+    connected_chat: |
+      <b>現在接続中のチャット:</b>
+      {chat_name}
+      チャットから切断するには/disconectを書く
+    "connected_chat:cmds": |
+      <b>Current connected chat:</b>
+      {chat_name}, (bridged commands are {commands}),
+      ⚠ <i>You can only access bridged commands of the connected chat! all other commands would be treated as Local chat</i>
+      Write /disconect to disconnect from chat.
+    u_wasnt_connected: "以前はチャットに接続されていません！"
+    select_chat_to_connect: "\n<b>接続するチャットを選択:</b>"
+    disconnected: "<b>{chat_name}</b> から切断されました。"
+    cant_find_chat: "このチャットが見つかりません。"
+    cant_find_chat_use_id: "このチャットが見つかりません。チャット ID を使用してください。"
+    bad_arg_bool: "不正な選択肢: <code>の</code>/<code>off</code> <code>enable</code>/<code>disable</code>"
+    enabled: 有効
+    disabled: 無効
+    chat_users_connections_info: "通常のユーザーの接続は現在 <b>{status}</b> <b>{chat_name}</b> です"
+    chat_users_connections_cng: "通常のユーザーへの接続が <b>{status}</b> <b>{chat_name}</b> に変更されました"
+    not_in_group: "あなたは接続しようとしているグループにいない、参加してメッセージを送信します。"
+    history_empty: "履歴のチャットに接続されていません。`/connect (chat id)`で接続してください"
+    not_in_chat: "あなたはもうこのチャットに参加していない、私はあなたを切断します。"
+    u_should_be_admin: "あなたは{}の管理者である必要があります！"
+    usage_only_in_groups: "グループ内でのみ使用可能です！"
+    anon_admin_conn: |
+      接続するには下のボタンをクリックしてください！
+    click_here: ここをクリック！
+  global:
+    u_not_admin: 管理者である必要があります！
+    #Rights
+    "bot_no_right:not_admin": 管理者ではありません！
+    bot_no_right: "権限がありません！ \n権限がありません： <b>%s</b>"
+    user_no_right: "You should have required permission to do it! \nMissing permission: <b>%s</b>"
+    "user_no_right:not_admin": 管理者である必要があります!
+    #is chat creator
+    unable_identify_creator: "匿名のチャット作成者を識別できません。重複した署名（タイトル）が見つかりました！"
+  owner_stuff:
+    father: "\n彼は私の創造者です."
+    sudo_crown: "\nHey! ほら、そのユーザーが王冠を持っているのを見て、それを見ましょう... うわー、それは彫刻を持っています - <b>'sudo user'</b>!"
+  stickers:
+    rpl_to_sticker: "ステッカーに返信!"
+    ur_sticker: |
+      <b>絵文字:</b> <code>{emoji}</code>
+      <b>ステッカーID:</b> <code>{id}</code>
+  pins:
+    no_reply_msg: "ピン留めするにはメッセージに返信してください！"
+    chat_not_modified_pin: "そのメッセージはすでにピン留めされています！"
+    chat_not_modified_unpin: "ピン留めを解除するメッセージはありません！"
+    pinned_success: "正常にピン留めされました！"
+    unpin_success: "正常に固定解除されました！"
+  users:
+    user_info: "<b>ユーザー情報:</b>\n"
+    info_id: "ID: <code>{id}</code>"
+    info_first: "\n名: {first_name}"
+    info_last: "\n姓: {last_name}"
+    info_username: "\nユーザー名: {username}"
+    info_link: "\nユーザーリンク: {user_link}"
+    info_saw: "\n <code>{num}グループ</code> で彼らを見ました"
+    info_sw_ban: "\nこのユーザーは @SpamWatchで禁止されています！"
+    info_sw_ban_reason: "\n理由: <code>{sw_reason}</code>"
+    info_fbanned: "\n現在の連邦で禁止: "
+    info_admeme: "\nユーザーはこのチャットで管理者権限を持っています。"
+    upd_cache: "キャッシュを更新中..."
+    upd_cache_done: "管理者キャッシュを更新しました。"
+    admins: "<b>管理者：</b>\n"
+  imports_exports:
+    #Exporting
+    started_exporting: エクスポートを開始しました。お待ちください...
+    export_done: <b>{chat_name}</b> からエクスポートが完了しました！
+    exports_locked: エクスポートを再度使用するまで %s をお待ちください！
+    #Importing
+    invalid_file: "ファイルが無効です"
+    send_import_file: インポートファイルを送信してください！
+    rpl_to_file: ファイルに返信してください！
+    big_file: サポートされているインポートファイルは50 MB未満です！
+    started_importing: インポートを開始しました。お待ちください...
+    bad_file: ファイルが正しくありません! <code>'general'</code> 列が期待されています。
+    file_version_so_new: エクスポートされたファイルのバージョンは現在サポートされているDaisyより新しいです!
+    imports_locked: インポートが再び使用されるまで、 %s をお待ちください！
+    import_done: インポート完了！
+  restrictions:
+    user_not_in_chat: 僅用於中文
+    #Kicks
+    kick_DaisyX: 私をキックしようとする代わりに、あなたはより良いあなたの時間を過ごすことができます.
+    kick_admin: 管理者をキックすることは最良のアイデアではありません。
+    kick_self: あなたが自己をキックしたいなら、このチャットから去ってください。 私は、自罰でこれらの哀れな試みを見るより、むしろあなたに会わないでしょう。
+    user_kicked: "{user} は {admin} で {chat_name} にキックされました。"
+    #Mutes
+    mute_DaisyX: 実際には、私は代わりにあなたを黙らせて喜んでいます。
+    mute_admin: 管理者を黙らせられると思ったら間違っています！
+    mute_self: あなたが自己をキックしたいなら、このチャットから去ってください。 私は、自罰でこれらの哀れな試みを見るより、むしろあなたに会わないでしょう。
+    user_muted: "{user} は {admin} で {chat_name} によってミュートされました。"
+    unmute_DaisyX: 実際は、私はミュートされていません。
+    unmute_admin: いや、最初に彼をミュートしてみてください！
+    unmute_self: 最初にミュートしましょうか。
+    user_unmuted: "{user} は {admin} で {chat_name} によってミュート解除されました。"
+    #Bans
+    ban_DaisyX: いいえ、私はそれをしません! チャットの作成者にそれを行うように頼みます!
+    ban_admin: ハハハ、先に <code>/degrete</code> をやろう。
+    ban_self: なぜ自分を禁止しようとしているのですか。
+    user_banned: "{user} は {admin} で {chat_name} によってBANされました。"
+    unban_DaisyX: 実際、私は禁止されていません。
+    unban_admin: いや、最初に彼を禁止してみてください!
+    unban_self: 私はあなたを最初に禁止する必要がありますか?
+    user_unband: "{user} は {admin} で {chat_name} によってBANを解除されました。"
+    invalid_time: 無効な時間です！
+    enter_time: 時間を追加してください！
+    on_time: "\n <code>%s</code> 用"
+    reason: "\n理由: <code>%s</code>"
+    purge: "\n5秒以内にメッセージがパージされます!"
+    filter_title_ban: ユーザーをBANする
+    filter_action_rsn: <code>自動フィルターアクション!</code>
+    filtr_ban_success: '%s は %s に対して %s を禁止しました'
+    filtr_mute_success: '%s が %s の %s をミュートしました'
+    filtr_tmute_success: |
+      %s が %s をミュートしました %s
+      理由は %s です
+    time_setup_start: 時間を送信してください！
+    filtr_tban_success: |
+      %s は %s を %s禁止しました
+      理由は %s です
+    filter_title_tmute: tMute the user
+    filter_title_mute: ユーザーをミュート
+    filter_title_tban: 利用者を禁止する
+    filter_title_kick: ユーザーをキックする
+  rules:
+    #Set
+    saved: ルールは <b>%s</b>に保存されました
+    updated: ルールは <b>%s</b> で更新されました
+    #Reset
+    deleted: ルールが削除されました！
+    not_found: ルールが見つかりませんでした！
+    #Callback
+    user_blocked: "自分のPMに/startを書きましょう！"
+    rules_was_pmed: ルールがPMに送信されました！
+  #cannot_find_note: "I can't find the note <code>{}</code>"
+  #set_note: "Successfully set the rules note to <code>{}</code>"
+  #didnt_set_note: "This group doesn't have rules note set."
+  #cannot_find_set_note: "I can't find the rules note."
+  #havent_set_rules_note: "You haven't set the rules note yet."
+  #success_remove_rules_note: "Successfully removed rules note in <b>{}</b>."
+  greetings:
+    default_welcome: "Welcome {mention}! How are you?"
+    thank_for_add: "Thanks for adding me to your group! Take a look at /help and follow my news channel @DaisyXUpdates."
+    default_security_note: "ようこそ {mention}! ボタンを押して、人間としての認証を行ってください!"
+    bool_invalid_arg: 引数が無効です。 <code>が</code>/<code></code> に期待されています。
+    #/setwelcome
+    saved: ウェルカムメッセージは <b>%s</b>に保存されました
+    updated: ウェルカムメッセージは <b>%s</b>で更新されました
+    #/turnwelcome
+    turnwelcome_status: Welcomes are <code>{status}</code> in <b>{chat_name}</b>
+    turnwelcome_enabled: <b>%s</b> でWelcomes enabled
+    turnwelcome_disabled: <b>%s</b> でWelcomes disabled
+    #/welcome
+    enabled: 有効
+    disabled: 無効
+    wlcm_security_enabled: "有効にした場合、 {level} に設定します"
+    wlcm_mutes_enabled: "有効にした場合、 {time} に設定します"
+    welcome_info: |
+      <b>Welcome settings in {chat_name}:</b>
+      Welcomes are <code>{welcomes_status}</code>
+      Welcome security is <code>{wlcm_security}</code>
+      Welcome mutes is <code>{wlcm_mutes}</code>
+      Deleting old welcomes is <code>{clean_welcomes}</code>
+      Deleting service messages is <code>{clean_service}</code>
+    wlcm_note: "\n\nウェルカムノート:"
+    raw_wlcm_note: "未加工の歓迎メモ:"
+    security_note: "ウェルカムセキュリティーテキスト:"
+    #/setsecuritynote
+    security_note_saved: "カスタムセキュリティテキストが保存されました <b>%s</b>"
+    security_note_updated: "カスタムセキュリティテキストが更新されました <b>%s</b>"
+    #/delsecuritynote
+    security_note_not_found: <b>%s</b> のセキュリティテキストは以前にインストールされていません
+    del_security_note_ok: セキュリティテキストは <b>%s</b> でデフォルトにリセットされました
+    #/cleanwelcome
+    cleanwelcome_enabled: <b>%s</b> で歓迎をクリーニングする
+    cleanwelcome_disabled: クリーニングは <b>%s</b> で無効化されていることを歓迎します
+    cleanwelcome_status: Cleaning welcomes is <code>{status}</code> in <b>{chat_name}</b>
+    #/cleanservice
+    cleanservice_enabled: <b>%sでサービスメッセージのクリーニングが有効になっています</b>
+    cleanservice_disabled: <b>%s</b> でサービスメッセージのクリーニングが無効になっています
+    cleanservice_status: クリーニング中のサービスメッセージは <code>{status}</code> <b>{chat_name}</b>
+    #/welcomemute
+    welcomemute_invalid_arg: 無効な引数、期待された時間です。
+    welcomemute_enabled: <b>%s</b> でウェルカムミュートが有効になります
+    welcomemute_disabled: ウェルカムミュートは <b>%s</b>で無効になっています
+    welcomemute_status: ウェルカムミュートは <code>{status}</code> の <b>{chat_name}</b> です
+    #/welcomesecurity
+    welcomesecurity_enabled: ウェルカムセキュリティは <b>{chat_name}</b> から <code>{level}</code> レベルで有効になります。
+    "welcomesecurity_enabled:customized_time": |
+      ウェルカムセキュリティは <b>{chat_name}</b> から <code>{level}</code>で有効になり、 {time} 内で検証されていないユーザーをキックします。
+    ask_for_time_customization: |
+      未認証ユーザーをキックする期間をカスタマイズしますか？（デフォルトは {time} です）
+    send_time: Please send time.
+    invalid_time: "無効な時間です！"
+    welcomesecurity_enabled_word: 有効にしました。レベル {level} に設定
+    welcomesecurity_disabled: ウェルカムセキュリティは <b>%s</b> で無効になっています。
+    welcomesecurity_invalid_arg: 無効な引数です。期待されている <code>ボタン</code>/<code>Captcha</code>。
+    welcomesecurity_status: Welcome security is <code>{status}</code> in <b>{chat_name}</b>
+    yes_btn: "はい"
+    no_btn: "いいえ"
+    #Welcomesecurity handler
+    click_here: ここをクリック！
+    not_allowed: これを使用することはできません！
+    ws_captcha_text: こんにちは {user}、チャットでミュート解除されるキャプチャの番号を入力してください。
+    regen_captcha_btn: '🔄 CAPTCHAを変更'
+    num_is_not_digit: 数字のみを入力してください！
+    bad_num: 番号が違います！もう一度やり直してください。
+    passed: 検証が完了しました。 <b>%s</b> でミュート解除されました！
+    passed_no_frm: 検証が完了しました。 %s でミュート解除されました！
+    last_chance: Captcha を入力する最後のチャンスがあります！
+    btn_button_text: "あなた自身を証明するために下のボタンをクリックしてください。"
+    btn_wc_text: |
+      この式に一致する右ボタンを押してください:
+      %s
+    math_wc_rtr_text: "最後のチャンスがあります！気をつけてください！\n"
+    math_wc_wrong: 間違っています、もう一度やり直してください！
+    math_wc_sry: 申し訳ありませんが、最後の試行を使用しました。チャット管理者に聞いてください。
+    not_admin_wm: ここでは人を制限できないので、welcomeミュートは使わない！
+    not_admin_ws: 私はここで人を制限することはできませんので、ウェルカムセキュリティを使用しません!
+    not_admin_wsr: メッセージは削除できませんので、サービスメッセージは削除しません。
+    #/resetwelcome
+    deleted: <b>{chat}</b> で挨拶をリセットしました！
+    not_found: リセットするものはありません！
+    #...
+    verification_done: 認証が完了しました！ミュート解除されました。
+  locks:
+    locks_header: "{chat_title} の現在のロック設定は次のとおりです \n\n"
+    no_lock_args: 私にロックするためにいくつかのアルゴをください！
+    already_locked: これはすでにあざがロックされています
+    no_such_lock: 何がロックされてアンロックされているかを確認するために /locks を参照してください！
+    locked_successfully: '{lock} で {chat} をロックしました！'
+    no_unlock_args: 解放するにはいくつかの引数をください！
+    not_locked: 英国人はロックを解除するためにロックされていません。
+    unlocked_successfully: '{lock} で {chat} のロックを解除しました！'
+  antiflood:
+    #enforcer
+    flood_exceeded: "{action} {user} で洪水に！"
+    #/setflood
+    "invalid_args:setflood": "Expected an integer!"
+    overflowed_count: 最大カウントは200未満でなければなりません！
+    config_proc_1: 有効期限が切れていないため、'0' (ゼロ) を送信してください。
+    cancel: '❌ キャンセル'
+    setup_success: Successfully configured antiflood, now enforces against those who sends {count} messages within {time}!
+    "setup_success:no_exp": アンチルードの設定が正常に完了しました。 {count} 件のメッセージを連続的に許可します！
+    invalid_time: 無効な時間です！
+    #/antiflood | /flood
+    not_configured: Antiflood isn't configured in this chat yet!
+    turned_off: Disabled antiflood in <b>{chat_title}</b>!
+    "configuration_info:with_time": Antiflood is configured in this chat, those who sents {count} message within {time} would be {action}!
+    configuration_info: Antiflood is configured in this chat, those who sents {count} consecutively would be {action}!
+    ban: banned
+    mute: muted
+    kick: kicked
+    #/setfloodaction
+    invalid_args: "Unsupported action, expected {supported_actions}!"
+    setfloodaction_success: "Successfully updated flood action to <b>{action}</b>!"
