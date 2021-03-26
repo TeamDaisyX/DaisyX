@@ -8,7 +8,7 @@
   <img src="https://media.giphy.com/media/tXwHTbQuyjo1q/giphy.gif">
 </p>
 <p align="center">
-    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/commits/master"><img src="https://img.shields.io/github/last-commit/TeamDaisyX/daisyx-v2.0/master?label=Last%20Commit&style=flat-square&logo=github&color=F10070" alt="Commit" /></a>
+    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/commits/main"><img src="https://img.shields.io/github/last-commit/TeamDaisyX/daisyx-v2.0/main?label=Last%20Commit&style=flat-square&logo=github&color=F10070" alt="Commit" /></a>
     <a href="https://github.com/TeamDaisyX/daisyx-v2.0/stargazers"><img src="https://img.shields.io/github/stars/TeamDaisyX/daisyx-v2.0?label=Stars&style=flat-square&logo=github&color=F10070" alt="Stars" /></a>
     <a href="https://github.com/TeamDaisyX/daisyx-v2.0/network/members"><img src="https://img.shields.io/github/forks/TeamDaisyX/daisyx-v2.0?label=Fork&style=flat-square&logo=github&color=F10070" alt="Fork" /></a>
 </p>
@@ -25,7 +25,7 @@
  - [FridayUserbot](https://github.com/DevsExpo/FridayUserbot)
  - [MissJuliaRobot](https://github.com/MissJuliaRobot/MissJuliaRobot)
  - [DaisyX](https://github.com/teamdaisyx/daisy-x)
- - [Marsha](https://github.com/Mr-Dark-Prince/MashaRoBot/)
+ - [Masha](https://github.com/Mr-Dark-Prince/MashaRoBot/)
 
 
 The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie)
