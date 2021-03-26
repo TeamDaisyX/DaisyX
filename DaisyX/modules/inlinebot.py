@@ -18,7 +18,7 @@ from re import findall
 from urllib.parse import quote
 import json
 import requests
-from pornhub_api import PornhubApi
+#from pornhub_api import PornhubApi
 from search_engine_parser import GoogleSearch
 from telethon import Button, custom, events
 from youtube_search import YoutubeSearch
@@ -36,7 +36,7 @@ async def inline_handler(event):
     query = event.text
     if not query:
         results = builder.article(
-                title="Hello Boss, I'm Daisy! Your Girlfriend",
+                title="Hello, I'm Daisy! Your Girlfriend",
                 text=f"Wonder What All You Can Do With Me? Click Below To Know More.",
                 buttons=custom.Button.inline("Explore!", data="explore")
             )
@@ -265,31 +265,31 @@ async def inline_id_handler(event: events.InlineQuery.Event):
     await event.answer(results)
 
 
-@tgbot.on(events.InlineQuery(pattern=r"ph (.*)"))
-async def inline_id_handler(event: events.InlineQuery.Event):
-    event.builder
-    results = []
-    input_str = event.pattern_match.group(1)
-    api = PornhubApi()
-    data = api.search.search(input_str, ordering="mostviewed")
-    ok = 1
-    for vid in data.videos:
-        if ok <= 5:
-            lul_m = f"**PORN-HUB SEARCH** \n**Video title :** `{vid.title}` \n**Video link :** `https://www.pornhub.com/view_video.php?viewkey={vid.video_id}`"
-            results.append(
-                await event.builder.article(
-                    title=vid.title,
-                    text=lul_m,
-                    buttons=[
-                        Button.switch_inline(
-                            "Search Again", query="ph ", same_peer=True
-                        )
-                    ],
-                )
-            )
-        else:
-            pass
-    await event.answer(results)
+#@tgbot.on(events.InlineQuery(pattern=r"ph (.*)"))
+#async def inline_id_handler(event: events.InlineQuery.Event):
+#    event.builder
+#    results = []
+#    input_str = event.pattern_match.group(1)
+#    api = PornhubApi()
+#   data = api.search.search(input_str, ordering="mostviewed")
+#    ok = 1
+#    for vid in data.videos:
+ #       if ok <= 5:
+  #          lul_m = f"**PORN-HUB SEARCH** \n**Video title :** `{vid.title}` \n**Video link :** `https://www.pornhub.com/view_video.php?viewkey={vid.video_id}`"
+#            results.append(
+#                await event.builder.article(
+#                    title=vid.title,
+#                    text=lul_m,
+ #                   buttons=[
+   #                     Button.switch_inline(
+   #                         "Search Again", query="ph ", same_peer=True
+   #                     )
+  #                  ],
+   #             )
+   #         )
+   #     else:
+  #          pass
+  #  await event.answer(results)
 
 
 @tgbot.on(events.InlineQuery(pattern=r"xkcd (.*)"))
