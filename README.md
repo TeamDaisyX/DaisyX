@@ -12,6 +12,7 @@
     <a href="https://github.com/TeamDaisyX/daisyx-v2.0/stargazers"><img src="https://img.shields.io/github/stars/TeamDaisyX/daisyx-v2.0?label=Stars&style=flat-square&logo=github&color=F10070" alt="Stars" /></a>
     <a href="https://github.com/TeamDaisyX/daisyx-v2.0/network/members"><img src="https://img.shields.io/github/forks/TeamDaisyX/daisyx-v2.0?label=Fork&style=flat-square&logo=github&color=F10070" alt="Fork" /></a>
     <a href="https://github.com/TeamDaisyX/daisyx-v2.0/watchers"><img src="https://img.shields.io/github/watchers/TeamDaisyX/daisyx-v2.0?label=Watch&style=flat-square&logo=github&color=F10070" alt="Watch" /></a>
+    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/graphs/contributors"><img src="https://img.shields.io/github/contributors-anon/TeamDaisyX/daisyx-v2.0?label=Contributors&style=flat-square&logo=github&color=F10070" alt="Contributors" /></a>  
 </p>
 
 ## https://daisyproject.studio
