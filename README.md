@@ -8,9 +8,9 @@
   <img src="https://media.giphy.com/media/tXwHTbQuyjo1q/giphy.gif">
 </p>
 <p align="center">
-    <a href="https://github.com/inukaasith/virtualuserbot/commits/master"><img src="https://img.shields.io/github/last-commit/inukaasith/virtualuserbot/master?label=Last%20Commit&style=flat-square&logo=github&color=F10070" alt="Commit" /></a>
-    <a href="https://github.com/inukaasith/virtualuserbot/stargazers"><img src="https://img.shields.io/github/stars/inukaasith/virtualuserbot?label=Stars&style=flat-square&logo=github&color=F10070" alt="Stars" /></a>
-    <a href="https://github.com/inukaasith/virtualuserbot/network/members"><img src="https://img.shields.io/github/forks/inukaasith/virtualuserbot?label=Fork&style=flat-square&logo=github&color=F10070" alt="Fork" /></a>
+    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/commits/master"><img src="https://img.shields.io/github/last-commit/TeamDaisyX/daisyx-v2.0/master?label=Last%20Commit&style=flat-square&logo=github&color=F10070" alt="Commit" /></a>
+    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/stargazers"><img src="https://img.shields.io/github/stars/TeamDaisyX/daisyx-v2.0?label=Stars&style=flat-square&logo=github&color=F10070" alt="Stars" /></a>
+    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/network/members"><img src="https://img.shields.io/github/forks/TeamDaisyX/daisyx-v2.0?label=Fork&style=flat-square&logo=github&color=F10070" alt="Fork" /></a>
 </p>
 
 ## https://daisyproject.studio
