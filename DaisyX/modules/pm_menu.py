@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from contextlib import suppress
-
+import random
 from aiogram.utils.callback_data import CallbackData
 from aiogram.utils.exceptions import MessageNotModified
 from aiogram.types.inline_keyboard import (
@@ -39,6 +39,18 @@ def help_markup(modules):
             module, callback_data=helpmenu_cb.new(mod=module)))
     return markup
 
+STICKERS = (
+    "CAACAgUAAxkBAAJOGmBeli95P073FKVkgc4esfKE4UlXAAIOAgACyavAVkbLMIidWYdyHgQ",
+    "CAACAgUAAxkBAAJOG2BeljABwlCfwzHT1gzyiciBri6_AAIsAgACXBPBVgpGQRz-1qmlHgQ",
+    "CAACAgUAAxkBAAJOHGBeljOJ35CQNnkpnVcgRoHuJX6DAAL3AQACN8TBVm1PIART01cWHgQ",
+    "CAACAgUAAxkBAAJOHWBeljXW9QzYQ51gpCjHZHCF5Ui6AAJ7AgAC3zDBVo2xenp7JYhAHgQ",
+    "CAACAgUAAxkBAAJOHmBeljjU0_FT_QpdUUJBqVUC0nfJAAKYAgACJ_jBVvntHY_8WF27HgQ",
+    "CAACAgUAAxkBAAJOH2BeljrV68mPLu8_6n4edT20Q3IQAAJ9AgACq3LBVmLuZuNPlvkfHgQ",
+    "CAACAgUAAxkBAAJOIGBeljttuniUPykRtzkSZj3SRwKJAAI7AgACNm_BVp8TCkE6ZqCoHgQ",
+    "CAACAgUAAxkBAAJOIWBelj-P_2vtVqtkF2OMlVN3M0N4AAK3AQACSm3BVkXF2voraS2tHgQ",
+    "CAACAgUAAxkBAAJOImBelkJxUBm2rL1iPfMZfk-_9DaOAALrAgAC4T3BVniopXQVsZ4KHgQ",
+    "CAACAgUAAxkBAAJOI2BelkMO0AX_wtAc7hUZz1NixuMlAAKEAwACY4TAViVuNLTBmmkgHgQ"
+)
 
 @register(cmds='start', no_args=True, only_groups=True)
 @disableable_dec('start')
@@ -49,12 +61,14 @@ async def start_group_cmd(message, strings):
 
 @register(cmds='start', no_args=True, only_pm=True)
 async def start_cmd(message):
+    await message.reply_sticker(random.choice(STICKERS)
     await get_start_func(message)
 
 
 @get_strings_dec('pm_menu')
 async def get_start_func(message, strings, edit=False):
     msg = message.message if hasattr(message, 'message') else message
+    
     task = msg.edit_text if edit else msg.reply
     buttons = InlineKeyboardMarkup()
     buttons.add(InlineKeyboardButton(strings['btn_help'], callback_data='get_help'))
