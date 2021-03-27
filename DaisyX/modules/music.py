@@ -94,7 +94,8 @@ async def ytmusic(client,message: Message):
 async def ytmusic(client, message: Message):        
     urlissed = get_text(message)
     if not urlissed:
-        await lel.edit("Invalid Command Syntax, Please Check Help Menu To Know More!")
+        await client.send_message(
+            message.chat.id,"Invalid Command Syntax, Please Check Help Menu To Know More!")
         return
     pablo = await client.send_message(
             message.chat.id,f"`Getting {urlissed} From Youtube Servers. Please Wait.`")
