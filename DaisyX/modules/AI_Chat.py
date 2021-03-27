@@ -1,5 +1,6 @@
 
-#    Copyright (C) 2020-2021 by @InukaAsith
+#    Copyright (C) 2020-2021 by @AmarnathCdj & @InukaAsith
+#    Chatbot system written by @AmarnathCdj databse added and recoded for pyrogram by @InukaAsith
 #    This programme is a part of DaisyX (TG bot) project
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -15,7 +16,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #    Kang with the credits
-#    Special credits to @Mr_Dark_Prince
+#    Special credits to @AmarnathCdj
 
 import emoji
 import requests
