@@ -46,6 +46,21 @@
       "value": "DaisyX",
       "required": false
     },
+    "HEROKU_APP_NAME": {
+      "description": "Your heroku app name (not compulsory)",
+      "value": "",
+      "required": false  
+    },
+    "HEROKU_API_KEY": {
+      "description": "Your heroku api key (not compulsory)",
+      "value": "",
+      "required": false  
+    },
+    "UPSTREAM_REPO_URL": {
+      "description": "Only for fork users else don't change",
+      "value": "https://github.com/TeamDaisyX/DaisyX-v2.0",
+      "required": false  
+    },
     "API_PORT": {
       "description": "Don't change.",
       "value": "8080"
