@@ -146,48 +146,48 @@ async def upstream(ups):
         await lol.edit("`Force-Syncing to latest main bot code, please wait...`")
     else:
         await lol.edit("`Still Running ....`")
-
-    if HEROKU_API_KEY is not None:
-        heroku = heroku3.from_key(HEROKU_API_KEY)
-        heroku_app = None
-        heroku_applications = heroku.apps()
-        if not HEROKU_APP_NAME:
+    if conf == 'deploy':
+        if HEROKU_API_KEY is not None:
+            heroku = heroku3.from_key(HEROKU_API_KEY)
+            heroku_app = None
+            heroku_applications = heroku.apps()
+            if not HEROKU_APP_NAME:
+                await lol.edit(
+                    "`Please set up the HEROKU_APP_NAME variable to be able to update your bot.`"
+                )
+                repo.__del__()
+                return
+            for app in heroku_applications:
+                if app.name == HEROKU_APP_NAME:
+                    heroku_app = app
+                    break
+            if heroku_app is None:
+                await lol.edit(
+                    f"{txt}\n`Invalid Heroku credentials for updating bot dyno.`"
+                )
+                repo.__del__()
+                return
             await lol.edit(
-                "`Please set up the HEROKU_APP_NAME variable to be able to update your bot.`"
+                "`[Updater]\
+                            Your bot is being deployed, please wait for it to complete.\nIt may take upto 5 minutes `"
             )
-            repo.__del__()
-            return
-        for app in heroku_applications:
-            if app.name == HEROKU_APP_NAME:
-                heroku_app = app
-                break
-        if heroku_app is None:
-            await lol.edit(
-                f"{txt}\n`Invalid Heroku credentials for updating bot dyno.`"
+            ups_rem.fetch(ac_br)
+            repo.git.reset("--hard", "FETCH_HEAD")
+            heroku_git_url = heroku_app.git_url.replace(
+                "https://", "https://api:" + HEROKU_API_KEY + "@"
             )
-            repo.__del__()
-            return
-        await lol.edit(
-            "`[Updater]\
-                        Your bot is being deployed, please wait for it to complete.\nIt may take upto 5 minutes `"
-        )
-        ups_rem.fetch(ac_br)
-        repo.git.reset("--hard", "FETCH_HEAD")
-        heroku_git_url = heroku_app.git_url.replace(
-            "https://", "https://api:" + HEROKU_API_KEY + "@"
-        )
-        if "heroku" in repo.remotes:
-            remote = repo.remote("heroku")
-            remote.set_url(heroku_git_url)
-        else:
-            remote = repo.create_remote("heroku", heroku_git_url)
-        try:
-            remote.push(refspec="HEAD:refs/heads/main", force=True)
-        except GitCommandError as error:
-            await lol.edit(f"{txt}\n`Here is the error log:\n{error}`")
-            repo.__del__()
-            return
-        await lol.edit("Successfully Updated!\n" "Restarting.......")
+            if "heroku" in repo.remotes:
+                remote = repo.remote("heroku")
+                remote.set_url(heroku_git_url)
+            else:
+                remote = repo.create_remote("heroku", heroku_git_url)
+            try:
+                remote.push(refspec="HEAD:refs/heads/main", force=True)
+            except GitCommandError as error:
+                await lol.edit(f"{txt}\n`Here is the error log:\n{error}`")
+                repo.__del__()
+                return
+            await lol.edit("Successfully Updated!\n" "Restarting.......")
     else:
         try:
             ups_rem.pull(ac_br)
