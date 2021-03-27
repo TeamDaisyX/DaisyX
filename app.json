@@ -90,7 +90,7 @@
       "required": false
     },
     "DATABASE_URL": {
-      "description": "get from elephntsql.com",
+      "description": "get from elephantsql.com",
       "value": "",
       "required": true
     },
