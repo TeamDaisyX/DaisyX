@@ -1,7 +1,7 @@
 # COPYRIGHT (C) 2021 BY LEGENDX22 AND PROBOYX
 
 # MADE BY LEGEND X AND TEAM LEGEND
-# MADE FOR LEGEND ROBOT
+# MADE FOR LEGEND ROBOT & DAISYX
 # FULL CREDITS TEAM LEGEND🔥🔥🔥
 # IF YOU KANG THIS THAN KEEP CREDITS
 # 1ST UPDATER FOR GROUP MANAGEMENT BOTS
@@ -26,8 +26,7 @@ from DaisyX.config import get_str_key
 
 HEROKU_APP_NAME = get_str_key("HEROKU_APP_NAME", None)
 HEROKU_API_KEY = get_str_key("HEROKU_API_KEY", None)
-UPSTREAM_REPO_URL = "https://github.com/TeamDaisyX/DaisyX-v2.0"
-
+UPSTREAM_REPO_URL = get_str_key("UPSTREAM_REPO_URL", "https://github.com/TeamDaisyX/DaisyX-v2.0")
 
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
