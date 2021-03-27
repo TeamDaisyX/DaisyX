@@ -62,7 +62,7 @@ async def updateme_requirements():
 async def upstream(ups):
     global UPSTREAM_REPO_URL
     check = ups.message.sender_id
-    OK = 1100231654 or int(OWNER_ID)
+    OK = int(OWNER_ID)
     if int(check) != OK:
         return
     lol = await ups.reply("`Checking for updates, please wait....`")
@@ -196,6 +196,6 @@ async def upstream(ups):
             repo.git.reset("--hard", "FETCH_HEAD")
         reqs_upgrade = await updateme_requirements()
         await lol.edit("`Successfully Updated!\n" "restarting......`")
-        args = [sys.executable, "-m", "LEGEND"]
+        args = [sys.executable, "-m", "DaisyX"]
         execle(sys.executable, *args, environ)
         return
