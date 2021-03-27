@@ -1,21 +1,22 @@
 from DaisyX import OWNER_ID
 from DaisyX.services.telethon import tbot
 from DaisyX import OPERATORS  as DEV_USERS
-from LEGEND.events import register
+from DaisyX.services.events import register
 import os
 import asyncio
 import os
 import time
 from datetime import datetime
-from LEGEND import TEMP_DOWNLOAD_DIRECTORY as path
-from LEGEND import TEMP_DOWNLOAD_DIRECTORY
 from datetime import datetime
 import asyncio
-from LEGEND.events import register
+
 import os
 import time
 from datetime import datetime as dt
 # from LEGEND import LEGENDX, telethn as client
+
+TEMP_DOWNLOAD_DIRECTORY = "./"
+path = "./"
 opn = []
 
 @register(pattern="/open")
