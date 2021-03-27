@@ -47,7 +47,7 @@ async def inline_handler(event):
 async def explore(event):     
     tbot_username = "DaisyXBot"
     LEGENDX = [
-        [Button.switch_inline("Youtube", query='yt', same_peer=True), button.switch_inline("Google", query='google', same_peer=True)]
+        [Button.switch_inline("Youtube", query='yt', same_peer=True), Button.switch_inline("Google", query='google', same_peer=True)]
         [Button.switch_inline("Torrent", query='torrent', same_peer=True), Button.switch_inline("Xkcd", query='xkcd', same_peer=True)]
         [Button.switch_inline("JioSaavn", query='jm', same_peer=True), Button.switch_inline("Pornhub", query='ph', same_peer=True)]
     ]
