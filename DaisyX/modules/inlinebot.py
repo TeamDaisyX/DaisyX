@@ -36,7 +36,7 @@ async def inline_handler(event):
     query = event.text
     if not query:
         results = builder.article(
-                title="Hello, I'm Daisy! Your Girlfriend",
+                title="Hello, I'm Daisy! Touch for help!",
                 text=f"Wonder What All You Can Do With Me? Click Below To Know More.",
                 buttons=custom.Button.inline("Explore!", data="explore")
             )
@@ -46,9 +46,9 @@ async def inline_handler(event):
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"explore")))
 async def explore(event):     
     tbot_username = "DaisyXBot"
-    LEGENDX = [[Button.switch_inline("Youtube", query='yt', same_peer=True), Button.switch_inline("Google", query='google', same_peer=True)]]
-    LEGENDX = [[Button.switch_inline("Deezer", query='deezer', same_peer=True), Button.switch_inline("Xkcd", query='xkcd', same_peer=True)]]
-    LEGENDX = [[Button.switch_inline("Pornhub", query='ph', same_peer=True)]]
+    LEGENDX = [[Button.switch_inline("Youtube", query='yt', same_peer=True)], [Button.switch_inline("Google", query='google', same_peer=True)]]
+    LEGENDX = [[Button.switch_inline("Torrent", query='torrent', same_peer=True)], [Button.switch_inline("Xkcd", query='xkcd', same_peer=True)]]
+    LEGENDX = [[Button.switch_inline("JioSaavn", query='jm', same_peer=True)], [Button.switch_inline("Pornhub", query='ph', same_peer=True)]]
     oof_stark = f"""**Inline bot service powered by @DaisyXBot**
 **I'm fully functional in groups. Also I have some cool stuff in inline too**
 **- Search Youtube Video's / Download In Any Chat Itself!**
