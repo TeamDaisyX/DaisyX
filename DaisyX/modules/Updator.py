@@ -119,7 +119,7 @@ async def upstream(ups):
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
 
     if not changelog and not force_update:
-        await lol.edit("\n`Your bot is`  **up-to-date**  \n")
+        await lol.edit("\nYour DaisyX  >>  **up-to-date**  \n")
         repo.__del__()
         return
 
