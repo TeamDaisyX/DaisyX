@@ -399,16 +399,16 @@ Here is how you can do it:
 <b> Parameters </b> -
  ▪️ poll-id - a poll id consists of an 5 digit random integer, this id is automatically removed from the system when you stop your previous poll
  ▪️ question - the question you wanna ask
- ▪️ <True@optionnumber/False>(1) - quiz mode, you must state the correct answer with @ eg: True@ or True@2
- ▪️ <True/False>(2) - public votes
- ▪️ <True/False>(3) - multiple choice
+ ▪️ [True@optionnumber/False](1) - quiz mode, you must state the correct answer with @ eg: True@ or True@2
+ ▪️ [True/False](2) - public votes
+ ▪️ [True/False](3) - multiple choice
 <b> Syntax </b> -
-/poll <poll-id> <question> | <True@optionnumber/False> <True/False> <True/False> <option1> <option2> ... upto <option10>
+/poll <poll-id> <i>question</i> | <i>True@optionnumber/False</i> [True/False] [True/False] [option1] [option2] ... upto [option10]
 <b> Examples </b> -
 /poll 12345 | am i cool? | False False False yes no`
 /poll 12345 | am i cool? | True@1 False False yes no`
 <b> To stop a poll </b>
-Reply to the poll with `/stoppoll <poll-id>` to stop the poll
+Reply to the poll with `/stoppoll [poll-id]` to stop the poll
 <b> Fogot poll id </b>
 /forgotpollid - to reset poll
 
