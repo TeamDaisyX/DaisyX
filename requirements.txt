@@ -48,7 +48,8 @@ geopy
 tswift
 lyricsgenius
 sentry_sdk
-
+lxml
+html5lib
 
 #Pyrogram
 tgCrypto>=1.2.2
