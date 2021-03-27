@@ -47,7 +47,7 @@ async def _(event):
     let = None
     if event.reply_to_msg_id:
         reply = await event.get_reply_message()
-        userid = reply.sender_id
+        userid = event.sender_id
     else:
         try:
             for (ent, txt) in event.get_entities_text():
