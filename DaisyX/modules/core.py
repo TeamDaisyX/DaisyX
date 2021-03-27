@@ -1,4 +1,4 @@
-from DaisyX import OWNER_ID, 
+from DaisyX import OWNER_ID
 from DaisyX.services.telethon import tbot
 from DaisyX import OPERATORS  as DEV_USERS
 from LEGEND.events import register
