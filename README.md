@@ -18,7 +18,7 @@
 ## Avaiilable on Telegram as [@DaisyXBot](https://t.me/daisyxbot)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamDaisyX/DaisyX-v2.0.git)
-
+[Generate String Session]https://replit.com/@SpEcHiDe/GenerateStringSession)
 ## Credits
 
  - [Hitsuki](https://github.com/HitsukiNetwork/Hitsukix)
