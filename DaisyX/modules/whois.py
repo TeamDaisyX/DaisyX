@@ -56,7 +56,7 @@ def FullName(user: User):
     return user.first_name + " " + user.last_name if user.last_name else user.first_name
 
 
-@pbot.on_message(filters.command("whois"))
+@pbot.on_message(filters.command("whois") & ~filters.edited & ~filters.bot)
 async def whois(client, message):
     cmd = message.command
     if not message.reply_to_message and len(cmd) == 1:
@@ -112,7 +112,7 @@ class AioHttp:
                 return await resp.read()
 
 
-@kp.on_message(filters.command("spwinfo"))
+@pbot.on_message(filters.command("spwinfo") & ~filters.edited & ~filters.bot)
 async def lookup(client, message):
     cmd = message.command
     if not message.reply_to_message and len(cmd) == 1:
