@@ -19,7 +19,7 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamDaisyX/DaisyX-v2.0.git)
 
-[Generate String Session]https://replit.com/@SpEcHiDe/GenerateStringSession)  << Select telethon
+[Generate String Session](https://replit.com/@SpEcHiDe/GenerateStringSession)  << Select telethon
 ## Credits
 
  - [Hitsuki](https://github.com/HitsukiNetwork/Hitsukix)
