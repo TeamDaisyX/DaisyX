@@ -3,7 +3,7 @@ import os
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.raw.functions.channels import GetFullChannel
-from DaisyX.function.pluginhelpers import fetch_audio, get_readable_time, progress,edit_or_reply
+from DaisyX.function.pluginhelpers import fetch_audio, get_readable_time, progress,edit_or_reply,admins_only
 from DaisyX.services.pyrogram import pbot
 import asyncio
 import math
@@ -16,6 +16,7 @@ from pyrogram import filters
 from json import JSONDecodeError
 import json
 @pbot.on_message(filters.command(["identify", "shazam"]))
+@admins_only
 async def shazamm(client, message):
     kek = await edit_or_reply(message, "`Shazaming In Progress!`")
     if not message.reply_to_message:
@@ -55,11 +56,11 @@ async def shazamm(client, message):
     os.remove(downloaded_file_name)
     await kek.delete()
 
-__mod_name__ = "Shazam"
-__help__ = """
-<b> SHAZAMMER </b>
-<u> Find any song with it's music or part of song</u>
-- /shazam : identify the song from Friday's Database
+#__mod_name__ = "Shazam"
+#__help__ = """
+#<b> SHAZAMMER </b>
+#<u> Find any song with it's music or part of song</u>
+#- /shazam : identify the song from Friday's Database
 
-<i> Special credits to friday userbot</i>
-"""
+#<i> Special credits to friday userbot</i>
+#"""
