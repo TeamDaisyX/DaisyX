@@ -17,10 +17,11 @@ from bs4 import BeautifulSoup
 from pyrogram import filters
 from DaisyX.services.pyrogram import pbot
 
-from DaisyX.function.pluginhelpers import progress
+from DaisyX.function.pluginhelpers import progress,admins_only
 
 
 @pbot.on_message(filters.command("mod") & ~filters.edited & ~filters.bot)
+@admins_only
 async def mudapk(client, message):
     pablo = await client.send_message(message.chat.id, "`Searching For Mod App.....`")
     sgname = message.text
@@ -81,7 +82,7 @@ async def mudapk(client, message):
     os.remove(imme)
     await pablo.delete()
 
-__mod_name__ = "Mod Apps"
-__help__ = """
-- /mod [app name] : Download and upload mod apps
-"""
+#__mod_name__ = "Mod Apps"
+#__help__ = """
+#- /mod [app name] : Download and upload mod apps
+#"""
