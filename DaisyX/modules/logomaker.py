@@ -35,7 +35,7 @@ def download_images(images):
 
                     r = str(r, 'utf-8')
                 except UnicodeDecodeError:
-                    with open("logo@FridayOT.jpg", "wb+") as f: 
+                    with open("logo@DaisyXBOT.jpg", "wb+") as f: 
                         f.write(r)
                     count += 1
             except: 
