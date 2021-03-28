@@ -23,7 +23,7 @@ import random
 import requests
 from pyrogram import filters
 from DaisyX.services.pyrogram import pbot
-from DaisyX.function.pluginhelpers import get_text
+from DaisyX.function.pluginhelpers import get_text, admins_only
 
 def download_images(images): 
     count = 0
@@ -70,6 +70,7 @@ def mainne(name, typeo):
 
 
 @pbot.on_message(filters.command("logo") & ~filters.edited & ~filters.bot)
+@admins_only
 async def logogen(client, message):
     pablo = await client.send_message(message.chat.id,"`Creating The Logo.....`")
     Godzilla = get_text(message)
