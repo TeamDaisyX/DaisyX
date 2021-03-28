@@ -1,3 +1,18 @@
+#    Copyright (C) @DevsExpo 2020-2021
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+
 from bs4 import *
 import shutil
 import requests
@@ -8,7 +23,7 @@ import random
 import requests
 from pyrogram import filters
 from DaisyX.services.pyrogram import pbot
-
+from DaisyX.function.pluginhelpers import get_text
 
 def download_images(images): 
     count = 0
@@ -57,7 +72,7 @@ def mainne(name, typeo):
 @pbot.on_message(filters.command("logo") & ~filters.edited & ~filters.bot)
 async def logogen(client, message):
     pablo = await client.send_message(message.chat.id,"`Creating The Logo.....`")
-    Godzilla = message.text
+    Godzilla = get_text(message)
     if not Godzilla:
         await pablo.edit("Invalid Command Syntax, Please Check Help Menu To Know More!")
         return
