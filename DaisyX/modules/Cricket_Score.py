@@ -22,6 +22,7 @@ from DaisyX.services.telethon import tbot
 from telethon.tl import functions, types
 from telethon.tl.types import *
 async def is_register_admin(chat, user):
+    
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
         return isinstance(
@@ -48,10 +49,10 @@ async def _(event):
     if event.fwd_from:
         return
     if event.is_group:
-    if await is_register_admin(event.input_chat, event.message.sender_id):
-        pass
-    else:
-        return
+        if await is_register_admin(event.input_chat, event.message.sender_id):
+            pass
+        else:
+            return
     score_page = "http://static.cricinfo.com/rss/livescores.xml"
     page = urllib.request.urlopen(score_page)
     soup = BeautifulSoup(page, "html.parser")
