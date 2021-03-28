@@ -57,7 +57,7 @@ def mainne(name, typeo):
 @pbot.on_message(filters.command("logo") & ~filters.edited & ~filters.bot)
 async def logogen(client, message):
     pablo = await client.send_message(message.chat.id,"`Creating The Logo.....`")
-    Godzilla = get_text(message)
+    Godzilla = message.text
     if not Godzilla:
         await pablo.edit("Invalid Command Syntax, Please Check Help Menu To Know More!")
         return
