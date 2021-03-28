@@ -4,7 +4,7 @@ __help__ = """
 VC player plays plays music in your group's voice chat
 
 <b> Setting up </b>
-1) Add @DaisyXAssistant to your group
+1) Add @DaisyXMusic to your group
 2) Make bot admin
 3) Start a voice chat
 
