@@ -132,18 +132,17 @@ async def ws(event):
     if not await is_admin(event, BOT_ID):
         return
     if await is_admin(event, event.message.sender_id):
-        return   
-    if event.chat_id == c["id"]:
-        await event.client.download_media(event.photo, "nudes.jpg")
-        if nude.is_nude("./nudes.jpg"):
-            await event.delete()
-            st = sender.first_name
-            hh = sender.id
-            final = f"**NSFW DETECTED**\n\n{st}](tg://user?id={hh}) your message contain NSFW content.. So, Daisy deleted the message\n\n **Nsfw Sender - User / Bot :** {st}](tg://user?id={hh})  \n\n`⚔️Automatic Detections Powered By DaisyAI` \n**#GROUP_GUARDIAN** "
-            dev = await event.respond(final)
-            await asyncio.sleep(10)
-            await dev.delete()
-            os.remove("nudes.jpg")
+        return      
+    await event.client.download_media(event.photo, "nudes.jpg")
+    if nude.is_nude("./nudes.jpg"):
+        await event.delete()
+        st = sender.first_name
+        hh = sender.id
+        final = f"**NSFW DETECTED**\n\n{st}](tg://user?id={hh}) your message contain NSFW content.. So, Daisy deleted the message\n\n **Nsfw Sender - User / Bot :** {st}](tg://user?id={hh})  \n\n`⚔️Automatic Detections Powered By DaisyAI` \n**#GROUP_GUARDIAN** "
+        dev = await event.respond(final)
+        await asyncio.sleep(10)
+        await dev.delete()
+        os.remove("nudes.jpg")
 
 """
 
