@@ -133,6 +133,7 @@ async def ws(event):
         return
     if await is_admin(event, event.message.sender_id):
         return      
+    sender = await event.get_sender()
     await event.client.download_media(event.photo, "nudes.jpg")
     if nude.is_nude("./nudes.jpg"):
         await event.delete()
