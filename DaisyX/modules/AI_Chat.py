@@ -72,7 +72,7 @@ async def hmm(client,message):
   if message.reply_to_message.from_user.id != BOT_ID:
     return
   test = message.text
-  if test.startswith("/"):
+  if test.startswith("/") or test.startswith("@"):
     return
   test = emoji.demojize(test.strip())
 
@@ -126,7 +126,7 @@ async def hmm(client,message):
         ~filters.via_bot & ~filters.forwarded)
 async def inuka(client,message):
   test = message.text
-  if test.startswith("/"):
+  if test.startswith("/") or test.startswith("@"):
      return
   test = emoji.demojize(test.strip())
   if "daisy" in test or 'Daisy' in test:
@@ -177,6 +177,8 @@ async def inuka(client,message):
         ~filters.via_bot & ~filters.forwarded & ~filters.reply & ~filters.channel,group=2)
 async def inuka(client,message):
   test = str(message.text)
+  if test.startswith("/") or test.startswith("@"):
+    return
   test = emoji.demojize(test.strip())
   if "daisy" in test or 'Daisy' in test:
     try:
