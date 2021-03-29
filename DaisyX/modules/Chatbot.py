@@ -147,6 +147,7 @@ async def _(event):
             #print (rm)
             lan = translator.detect(rm)
         msg = rm
+        test = msg
         if not "en" in lan and not lan == "":
             msg = translator.translate(test, lang_tgt="en")
         sesh, exp = sql.get_ses(chat.id)
