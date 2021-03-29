@@ -15,7 +15,7 @@ from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 from DaisyX.services.sql import BASE, SESSION
 
 
-class Nightmode(BASE):
+class Talkmode(BASE):
     __tablename__ = "talkmode"
     chat_id = Column(String(14), primary_key=True)
 
@@ -23,31 +23,31 @@ class Nightmode(BASE):
         self.chat_id = chat_id
 
 
-Nightmode.__table__.create(checkfirst=True)
+Talkmode.__table__.create(checkfirst=True)
 
 
 def add_talkmode(chat_id: str):
-    nightmoddy = Nightmode(str(chat_id))
-    SESSION.add(nightmoddy)
+    talkmoddy = Talkmode(str(chat_id))
+    SESSION.add(talkmoddy)
     SESSION.commit()
 
 
 def rmtalkmode(chat_id: str):
-    rmnightmoddy = SESSION.query(Nightmode).get(str(chat_id))
-    if rmnightmoddy:
-        SESSION.delete(rmnightmoddy)
+    rmtalkmoddy = SESSION.query(talkmode).get(str(chat_id))
+    if rmtalkmoddy:
+        SESSION.delete(rmtalkmoddy)
         SESSION.commit()
 
 
 def get_all_chat_id():
-    stark = SESSION.query(Nightmode).all()
+    stark = SESSION.query(talkmode).all()
     SESSION.close()
     return stark
 
 
 def is_talkmode_indb(chat_id: str):
     try:
-        s__ = SESSION.query(Nightmode).get(str(chat_id))
+        s__ = SESSION.query(talkmode).get(str(chat_id))
         if s__:
             return str(s__.chat_id)
     finally:
