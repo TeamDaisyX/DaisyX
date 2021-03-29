@@ -33,6 +33,7 @@ translator = google_translator()
 def extract_emojis(s):
     return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
 daisy_chats = []
+en_chats = []
 # AI Chat (C) 2020-2021 by @InukaAsith
 
 @daisyx.on_message(filters.command("chatbot") & ~filters.edited & ~filters.bot)
@@ -46,6 +47,8 @@ async def hmm(_, message):
     chat_id = message.chat.id
     if status == "ON" or status == "on" or status == "On":
         if chat_id not in daisy_chats:
+            if chat_id in en_chats:
+                en_chats.remove(chat_id)
             daisy_chats.append(message.chat.id)
             text = "Chatbot Enabled Reply To Any Message" \
                    + "Of Daisy To Get A Reply"
@@ -56,8 +59,17 @@ async def hmm(_, message):
 
     elif status == "OFF" or status == "off" or status == "Off":
         if chat_id in daisy_chats:
+            if chat_id in en_chats:
+                en_chats.remove(chat_id)
             daisy_chats.remove(chat_id)
             await message.reply_text("AI chat Disabled!")
+            return
+        await message.reply_text("AI Chat Is Already Disabled.")
+        message.continue_propagation()
+    elif status == "EN" or status == "en" or status == "english":
+        if not chat_id in en_chats:
+            en_chats.append(chat_id)
+            await message.reply_text("English AI chat Enabled!")
             return
         await message.reply_text("AI Chat Is Already Disabled.")
         message.continue_propagation()
@@ -76,6 +88,38 @@ async def hmm(client,message):
   msg = message.text
   if msg.startswith("/") or msg.startswith("@"):
     message.continue_propagation()
+  if chat_id in en_chats:
+    test = msg
+    test = test.replace('daisy', 'Jessica')
+    test = test.replace('Daisy', 'Jessica')
+    r = ('\n    \"consent\": true,\n    \"ip\": \"::1\",\n    \"question\": \"{}\"\n').format(test)
+    k = f"({r})"
+    new_string = k.replace("(", "{")
+    lol = new_string.replace(")","}")
+    payload = lol
+    headers = {
+        'content-type': "application/json",
+        'x-forwarded-for': "<user's ip>",
+        'x-rapidapi-key': "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
+        'x-rapidapi-host': "iamai.p.rapidapi.com"
+        }
+ 
+    response = requests.request("POST", url, data=payload, headers=headers)
+    lodu = response.json()
+    result = (lodu['message']['text'])
+    pro = result
+    pro = pro.replace('Thergiakis Eftichios','Inuka Asith')
+    pro = pro.replace('Jessica','Daisy')
+    if "Out of all ninja turtle" in result:
+     pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
+    if "ann" in result:
+     pro = "My name is Daisy"
+    try:
+      await daisyx.send_chat_action(message.chat.id, "typing")
+      await message.reply_text(pro)
+    except CFError as e:
+           print(e)
+    return
   u = msg.split()
   emj = extract_emojis(msg)
   msg = msg.replace(emj, "")
