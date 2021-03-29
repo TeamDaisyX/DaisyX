@@ -16,7 +16,7 @@ from telethon import events
 from DaisyX.config import get_str_key
 from google_trans_new import google_translator
 from gtts import gTTS, gTTSError
-from DaisyX.services.sql.talk_mode_sql import add_talkmode, rmtalktmode, get_all_chat_id, is_talkmode_indb
+from DaisyX.services.sql.talk_mode_sql import add_talkmode, rmtalkmode, get_all_chat_id, is_talkmode_indb
 translator = google_translator()
 from DaisyX.function.telethonbasics import is_admin
 def extract_emojis(s):
