@@ -203,12 +203,12 @@ async def _(client,message):
     print("lv1",msg)
     if msg.startswith("/") or msg.startswith("@"):
         message.continue_propagation()
+    print("hmm")
     global api_client
     chat = message.chat
     is_chat = sql.is_chat(chat.id)
+    print("Success")
     if not is_chat:
-        message.continue_propagation()
-    if msg.startswith("/") or msg.startswith("@"):
         message.continue_propagation()
     print("LV2",msg)
     if msg:   
