@@ -70,9 +70,9 @@ async def hmm(_, message):
         ~filters.via_bot & ~filters.forwarded ,group=2)
 async def hmm(client,message):
   if message.chat.id not in daisy_chats:
-    return
+    message.continue_propagation()
   if message.reply_to_message.from_user.id != BOT_ID:
-    return
+    message.continue_propagation()
   msg = message.text
   if msg.startswith("/") or msg.startswith("@"):
     message.continue_propagation()
