@@ -15,7 +15,10 @@ from DaisyX.services.events import register
 from telethon import events
 from DaisyX.config import get_str_key
 from google_trans_new import google_translator
+from gtts import gTTS, gTTSError
+from DaisyX.services.sql.talk_mode_sql import add_talkmode, rmtalktmode, get_all_chat_id, is_talkmode_indb
 translator = google_translator()
+from DaisyX.function.telethonbasics import is_admin
 def extract_emojis(s):
     return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
 
@@ -38,6 +41,40 @@ async def can_change_info(message):
         )
     except Exception:
         return False
+    
+@tbot.on(events.NewMessage(pattern="/talkmode (.*)"))
+async def close_ws(event):
+    
+    if not event.is_group:
+        await event.reply("You Can Only do this in Groups.")
+        return
+    input_str = event.pattern_match.group(1)
+    if not await is_admin(event, BOT_ID): 
+        await event.reply("`I Should Be Admin To Do This!`")
+        return
+    if await is_admin(event, event.message.sender_id):      
+        if (input_str == 'on' or input_str == 'On' or input_str == 'ON' or input_str == 'enable'):
+          if is_talkmode_indb(str(event.chat_id)):
+              await event.reply("This Chat is Has Already enabled talk mode.")
+              return
+          add_talkmode(str(event.chat_id))
+          await event.reply(f"**Added Chat {event.chat.title} With Id {event.chat_id} To Database. I'll talk in here**")
+        elif (input_str == 'off' or input_str == 'Off' or input_str == 'OFF' or input_str == 'disable'):
+
+          if not is_talkmode_indb(str(event.chat_id)):
+              await event.reply("This Chat is Has Not Enabled Night Mode.")
+              return
+          rmtalkmode(str(event.chat_id))
+          await event.reply(f"**Removed Chat {event.chat.title} With Id {event.chat_id} From Database. You can't hear my voice anymore**")
+        else:
+            await event.reply(
+                "I undestand `/talkmode on` and `/talkmode off` only"
+            )
+    else:
+        await event.reply("`You Should Be Admin To Do This!`")
+        return   
+    
+    
     
 @register(pattern="^/enlydia$")
 async def _(event):
@@ -147,6 +184,7 @@ async def _(event):
     if msg.startswith("/") or msg.startswith("@"):
         return
     if msg:   
+        ws_chats = get_all_chat_id()
         if not await check_message(event):
             return
         if event.chat_id in en_chats:
@@ -216,7 +254,30 @@ async def _(event):
                     pro = rep
                     if not "en" in lan and not lan == "":
                         pro = translator.translate(rep, lang_tgt=lan[0])
-                    await event.reply(pro)
+                    if event.chat_id in ws_chats:                    
+                        answer = pro
+                        try:
+                            tts = gTTS(answer, tld="com", lang=lan)
+                            tts.save("results.mp3")
+                        except AssertionError:
+                            return
+                        except ValueError:
+                            return
+                        except RuntimeError:
+                            return
+                        except gTTSError:
+                            return
+                        with open("results.mp3", "r"):
+                            await tbot.send_file(
+                                event.chat_id,
+                                "results.mp3",
+                                voice_note=True,
+                                reply_to=event.id,
+                            )
+                        os.remove("results.mp3")
+                        os.remove(required_file_name)            
+                    else:     
+                        await event.reply(pro)
             except CFError as e:
                 print(e)
             
