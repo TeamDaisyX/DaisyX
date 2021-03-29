@@ -169,24 +169,25 @@ async def check_message(event):
         return False
 
 
-@tbot.on(events.NewMessage(pattern=None))
-async def _(event):
-    if event.is_group:
-        pass
+@daisyx.on_message(filters.text & filters.reply & ~filters.bot &
+        ~filters.via_bot & ~filters.forwarded & ~filters.private ,group=2)
+async def _(client,message):
+   # if event.is_group:
+       # pass
     else:
-        return
+        message.continue_propagation()
     global api_client
-    msg = str(event.text)
-    chat = event.chat
+    msg = str(message.text)
+    chat = message.chat
     is_chat = sql.is_chat(chat.id)
     if not is_chat:
-        return
+        message.continue_propagation()
     if msg.startswith("/") or msg.startswith("@"):
-        return
+        message.continue_propagation()
     if msg:   
-        if not await check_message(event):
-            return
-        if event.chat_id in en_chats:
+       # if not await check_message(event):
+            #return
+        if message.chat.id in en_chats:
             sesh, exp = sql.get_ses(chat.id)
             query = msg
             try:
@@ -200,7 +201,7 @@ async def _(event):
                 pass
             try:          
                     rep = api_client.think_thought(sesh, query)
-                    await event.reply(rep)
+                    await message.reply(rep)
             except CFError as e:
                 print(e)
         else:
@@ -253,29 +254,28 @@ async def _(event):
                     pro = rep
                     if not "en" in lan and not lan == "":
                         pro = translator.translate(rep, lang_tgt=lan[0])
-                    if event.chat_id in ws_chats:                    
+                    if message.chat_id in ws_chats:                    
                         answer = pro
                         try:
                             tts = gTTS(answer, tld="com", lang=lan[0])
                             tts.save("results.mp3")
                         except AssertionError:
-                            return
+                            message.continue_propagation()
                         except ValueError:
-                            return
+                            message.continue_propagation()
                         except RuntimeError:
-                            return
+                            message.continue_propagation()
                         except gTTSError:
-                            return
+                            message.continue_propagation()
                         with open("results.mp3", "r"):
-                            await tbot.send_file(
-                                event.chat_id,
+                            await pbot.send_voice(
+                                message.chat.id,
                                 "results.mp3",
-                                voice_note=True,
-                                reply_to=event.id,
+                                reply_to_message_id=message.id,
                             )
                         os.remove("results.mp3")          
                     else:     
-                        await event.reply(pro)
+                        await message.reply(pro)
             except CFError as e:
                 print(e)
             
