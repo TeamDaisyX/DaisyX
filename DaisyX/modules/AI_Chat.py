@@ -84,6 +84,7 @@ async def hmm(client,message):
     return
   if message.chat.id in sin_chats:
     lan = "si"
+    print("si")
   else:
     lan = "en"
   test = message.text
@@ -133,7 +134,7 @@ async def hmm(client,message):
   else:
     try:
       await daisyx.send_chat_action(message.chat.id, "typing")
-      await message.reply_text(result)
+      await message.reply_text(pro)
     except CFError as e:
            print(e)
   
