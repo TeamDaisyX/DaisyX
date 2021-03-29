@@ -39,10 +39,10 @@ async def addfilter(client, message):
                 title = chat.title
             except:
                 await message.reply_text("Make sure I'm present in your group!!", quote=True)
-                return
+                message.continue_propagation()
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
-            return
+            message.continue_propagation()
 
     elif (chat_type == "group") or (chat_type == "supergroup"):
         grp_id = message.chat.id
@@ -51,31 +51,31 @@ async def addfilter(client, message):
 
     else:
         print("hmm")
-        return
+        message.continue_propagation()
 
     st = await client.get_chat_member(grp_id, userid)
     if not ((st.status == "administrator")):
         print('admin check')
-        return
+        message.continue_propagation()
         
 
     if len(args) < 2:
         await message.reply_text("Command Incomplete :(", quote=True)
-        return
+        message.continue_propagation()
     
     extracted = split_quotes(args[1])
     text = extracted[0].lower()
    
     if not message.reply_to_message and len(extracted) < 2:
         await message.reply_text("Add some content to save your filter!", quote=True)
-        return
+        message.continue_propagation()
 
     if (len(extracted) >= 2) and not message.reply_to_message:
         reply_text, btn, alert = parser(extracted[1], text)
         fileid = None
         if not reply_text:
             await message.reply_text("You cannot have buttons alone, give some text to go with it!", quote=True)
-            return
+            message.continue_propagation()
 
     elif message.reply_to_message and message.reply_to_message.reply_markup:
         try:
@@ -164,7 +164,7 @@ async def addfilter(client, message):
             alert = None
 
     else:
-        return
+        message.continue_propagation()
     
     await add_filter(grp_id, text, reply_text, btn, fileid, alert)
 
@@ -190,21 +190,21 @@ async def get_all(client, message):
                 title = chat.title
             except:
                 await message.reply_text("Make sure I'm present in your group!!", quote=True)
-                return
+                message.continue_propagation()
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
-            return
+            message.continue_propagation()
 
     elif (chat_type == "group") or (chat_type == "supergroup"):
         grp_id = message.chat.id
         title = message.chat.title
 
     else:
-        return
+        message.continue_propagation()
 
     st = await client.get_chat_member(grp_id, userid)
     if not ((st.status == "administrator") or (st.status == "creator")):
-        return
+        message.continue_propagation()
 
     texts = await get_filters(grp_id)
     count = await count_filters(grp_id)
@@ -223,7 +223,7 @@ async def get_all(client, message):
                     document=keyword_file,
                     quote=True
                 )
-            return
+            message.continue_propagation()
     else:
         filterlist = f"There are no active filters in **{title}**"
 
@@ -248,7 +248,7 @@ async def deletefilter(client, message):
                 title = chat.title
             except:
                 await message.reply_text("Make sure I'm present in your group!!", quote=True)
-                return
+                message.continue_propagation()
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
 
@@ -257,11 +257,11 @@ async def deletefilter(client, message):
         title = message.chat.title
 
     else:
-        return
+        message.continue_propagation()
 
     st = await client.get_chat_member(grp_id, userid)
     if not ((st.status == "administrator") or (st.status == "creator")):
-        return
+        message.continue_propagation()
 
     try:
         cmd, text = message.text.split(" ", 1)
@@ -272,7 +272,7 @@ async def deletefilter(client, message):
             "Use /filters to view all available filters",
             quote=True
         )
-        return
+        message.continue_propagation()
 
     query = text.lower()
 
@@ -294,17 +294,17 @@ async def delallconfirm(client, message):
                 title = chat.title
             except:
                 await message.reply_text("Make sure I'm present in your group!!", quote=True)
-                return
+                message.continue_propagation()
         else:
             await message.reply_text("I'm not connected to any groups!", quote=True)
-            return
+            message.continue_propagation()
 
     elif (chat_type == "group") or (chat_type == "supergroup"):
         grp_id = message.chat.id
         title = message.chat.title
 
     else:
-        return
+        message.continue_propagation()
 
     st = await client.get_chat_member(grp_id, userid)
     if (st.status == "creator"):
