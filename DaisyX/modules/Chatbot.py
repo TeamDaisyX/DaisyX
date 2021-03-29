@@ -1,3 +1,23 @@
+
+#    Copyright (C) 2020-2021 by @InukaAsith
+#    This programme is a part of DaisyX (TG bot) project
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#    Kang with the credits
+
+
+
 import re
 import emoji
 import os
@@ -179,10 +199,10 @@ async def check_message(event):
 async def _(client,message):
     if message.reply_to_message.from_user.id != BOT_ID:
         message.continue_propagation()
+    msg = str(message.text)
     if msg.startswith("/") or msg.startswith("@"):
         message.continue_propagation()
     global api_client
-    msg = str(message.text)
     chat = message.chat
     is_chat = sql.is_chat(chat.id)
     if not is_chat:
@@ -306,3 +326,24 @@ __help__ = """
 """
 
 __mod_name__ = "AI Assistant"           
+
+
+
+
+
+#    Copyright (C) 2020-2021 by @InukaAsith
+#    This programme is a part of DaisyX (TG bot) project
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#    Kang with the credits
