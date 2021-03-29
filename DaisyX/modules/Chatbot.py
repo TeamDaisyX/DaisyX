@@ -69,29 +69,42 @@ async def can_change_info(message):
 
 from DaisyX.services.mongo import mongodb as db_x
 
-nsfw = db_x["CHAT_BOT"]
+lydia = db_x["LYDIA"]
 
-
-def add_chat(chat_id):
-    nsfw.insert_one({"chat_id": chat_id})
-
-
-def rm_chat(chat_id):
-    nsfw.delete_one({"chat_id": chat_id})
-
-
-def get_all_chatbot_chats():
-    lol = list(nsfw.find({}))
-    return lol
-
-
-def is_chat_in_db(chat_id):
-    k = nsfw.find_one({"chat_id": chat_id})
-    if k:
-        return True
+def add_chat(chat_id, session_id):
+    stark = lydia.find_one({"chat_id": chat_id})
+    if stark:
+        return False
     else:
-        return False    
-    
+        lydia.insert_one({"chat_id": chat_id, "session_id": session_id})
+        return True
+
+
+def remove_chat(chat_id):
+    stark = lydia.find_one({"chat_id": chat_id})
+    if not stark:
+        return False
+    else:
+        lydia.delete_one({"chat_id": chat_id})
+        return True
+
+def get_all_chats():
+    r = list(lydia.find())
+    if r:
+        return r
+    else:
+        return False
+
+
+def get_session(chat_id):
+    stark = lydia.find_one({"chat_id": chat_id})
+    if not stark:
+        return False
+    else:
+        return stark
+
+def update_session(chat_id, session_id):
+    lydia.update_one({"chat_id": chat_id}, {"$set": {"session_id": session_id}})
     
     
     
@@ -160,25 +173,29 @@ async def _(event):
 
 @pbot.on_message(filters.command("addlydia") & ~filters.edited & ~filters.bot)
 async def _(client,message):
-    if is_chat_in_db(message.chat.id):
-        await message.reply("AI already enabled!")
-        return
     if message.chat.id in en_chats:
         en_chats.remove(message.chat.id)
-    add_chat(message.chat.id)
-    await message.reply("AI enabled successfully!")
+    pablo = await message.reply("`Processing...`")
+    session = api_client.create_session()
+    session_id = session.id
+    lol = add_chat(int(message.chat.id), session_id)
+    if not lol:
+        await pablo.edit("Lydia Already Activated In This Chat")
+        return
+    await pablo.edit(f"Lydia AI Successfully Added For Users In The Chat {message.chat.id}")
 
 
 
 @pbot.on_message(filters.command("rmlydia") & ~filters.edited & ~filters.bot)
 async def _(client,message):
-    if not is_chat_in_db(message.chat.id):
-        await message.reply("AI isn't enabled here in the first place!")
-        return
     if message.chat.id in en_chats:
         en_chats.remove(message.chat.id)
-    rm_chat(message.chat.id)
-    await message.reply("AI disabled successfully!")
+    pablo = await message.reply("`Processing...`")
+    Escobar = remove_chat(int(message.chat.id))
+    if not Escobar:
+        await pablo.edit("Lydia Was Not Activated In This Chat")
+        return
+    await pablo.edit(f"Lydia AI Successfully Deactivated For Users In The Chat {message.chat.id}")
 
 
 @tbot.on(events.NewMessage(pattern=None))
@@ -203,38 +220,34 @@ async def check_message(event):
 async def _(client,message):
     if message.reply_to_message.from_user.id != BOT_ID:
         message.continue_propagation()
-    msg = message.text
+    if not message.text:
+        message.continue_propagation()
+    
     print("lv1",msg)
     if msg.startswith("/") or msg.startswith("@"):
         message.continue_propagation()
     print("hmm")
-    global api_client
-    lol = get_all_chatbot_chats()
-    if len(lol) == 0:
-        message.continue_propagation()
-    if not is_chat_in_db(message.chat.id):
+    if not get_session(int(message.chat.id)):
         message.continue_propagation()
     print("LV2",msg)
+    await client.send_chat_action(message.chat.id, "typing")
+    session = get_session(int(message.chat.id))
+    msg = message.text
     if msg:   
        # if not await check_message(event):
             #return
         if message.chat.id in en_chats:
-            sesh, exp = sql.get_ses(chat.id)
-            query = msg
             try:
-                if int(exp) < time():
-                    ses = api_client.create_session()
-                    ses_id = str(ses.id)
-                    expires = str(ses.expires)
-                    sql.set_ses(chat.id, ses_id, expires)
-                    sesh, exp = sql.get_ses(chat.id)
-            except ValueError:
-                pass
-            try:          
-                    rep = api_client.think_thought(sesh, query)
-                    await message.reply(rep)
-            except CFError as e:
-                print(e)
+                session_id = session.get("session_id")
+                text_rep = lydia.think_thought(session_id, msg)
+            except:
+                 session = lydia.create_session()
+                 session_id = session.id
+                 text_rep = lydia.think_thought(session_id, msg)
+                 update_session(message.chat.id, session_id)
+            await message.reply(text_rep)
+            await client.send_chat_action(message.chat.id, "cancel")
+            message.continue_propagation()
         else:
             u = msg.split()
             emj = extract_emojis(msg)
@@ -269,47 +282,44 @@ async def _(client,message):
             test = msg
             if not "en" in lan and not lan == "":
                 msg = translator.translate(test, lang_tgt="en")
-            sesh, exp = sql.get_ses(chat.id)
-            query = msg
             try:
-                if int(exp) < time():
-                    ses = api_client.create_session()
-                    ses_id = str(ses.id)
-                    expires = str(ses.expires)
-                    sql.set_ses(chat.id, ses_id, expires)
-                    sesh, exp = sql.get_ses(chat.id)
-            except ValueError:
-                pass
-            try:          
-                    rep = api_client.think_thought(sesh, query)
-                    pro = rep
-                    if not "en" in lan and not lan == "":
-                        pro = translator.translate(rep, lang_tgt=lan[0])
-                    if message.chat.id in ws_chats:                    
-                        answer = pro
-                        try:
-                            tts = gTTS(answer, tld="com", lang=lan[0])
-                            tts.save("results.mp3")
-                        except AssertionError:
-                            message.continue_propagation()
-                        except ValueError:
-                            message.continue_propagation()
-                        except RuntimeError:
-                            message.continue_propagation()
-                        except gTTSError:
-                            message.continue_propagation()
-                        with open("results.mp3", "r"):
-                            await pbot.send_voice(
-                                message.chat.id,
-                                "results.mp3",
-                                reply_to_message_id=message.id,
-                            )
-                        os.remove("results.mp3")          
-                    else:     
-                        await message.reply(pro)
-            except CFError as e:
-                print(e)
-            
+                session_id = session.get("session_id")
+                rep = lydia.think_thought(session_id, msg)
+            except:
+                 session = lydia.create_session()
+                 session_id = session.id
+                 rep = lydia.think_thought(session_id, msg)
+                 update_session(message.chat.id, session_id)
+            await message.reply(rep)
+            pro = rep
+            if not "en" in lan and not lan == "":
+                pro = translator.translate(rep, lang_tgt=lan[0])
+            if message.chat.id in ws_chats:                    
+                answer = pro
+                try:
+                    tts = gTTS(answer, tld="com", lang=lan[0])
+                    tts.save("results.mp3")
+                except AssertionError:
+                    message.continue_propagation()
+                except ValueError:
+                    message.continue_propagation()
+                except RuntimeError:
+                    message.continue_propagation()
+                except gTTSError:
+                    message.continue_propagation()
+                with open("results.mp3", "r"):
+                    await pbot.send_voice(
+                        message.chat.id,
+                        "results.mp3",
+                        reply_to_message_id=message.id,
+                    )
+                os.remove("results.mp3")          
+            else:     
+                await message.reply(pro)
+            await client.send_chat_action(message.chat.id, "cancel")
+            message.continue_propagation()
+
+
 __help__ = """
 <b> Chatbot </b>
 <i> PRESENTING DAISY AI 3.0. THE ONLY AI SYSTEM WHICH CAN DETECT & REPLY UPTO 200 LANGUAGES </i>
