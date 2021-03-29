@@ -1,23 +1,3 @@
-
-#    Copyright (C) 2020-2021 by @InukaAsith
-#    This programme is a part of DaisyX (TG bot) project
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-#    Kang with the credits
-
-
-
 import re
 import emoji
 import os
@@ -39,11 +19,6 @@ from gtts import gTTS, gTTSError
 #from DaisyX.services.sql.talk_mode_sql import add_talkmode, rmtalkmode, get_all_chat_id, is_talkmode_indb
 translator = google_translator()
 from DaisyX.function.telethonbasics import is_admin
-from DaisyX import OWNER_ID, BOT_ID
-from DaisyX.services.pyrogram import pbot
-from pyrogram import filters
-import asyncio, os
-
 def extract_emojis(s):
     return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
 
@@ -66,47 +41,6 @@ async def can_change_info(message):
         )
     except Exception:
         return False
-
-from DaisyX.services.mongo import mongodb as db_x
-
-lydia = db_x["LYDIA"]
-
-def add_chat(chat_id, session_id):
-    stark = lydia.find_one({"chat_id": chat_id})
-    if stark:
-        return False
-    else:
-        lydia.insert_one({"chat_id": chat_id, "session_id": session_id})
-        return True
-
-
-def remove_chat(chat_id):
-    stark = lydia.find_one({"chat_id": chat_id})
-    if not stark:
-        return False
-    else:
-        lydia.delete_one({"chat_id": chat_id})
-        return True
-
-def get_all_chats():
-    r = list(lydia.find())
-    if r:
-        return r
-    else:
-        return False
-
-
-def get_session(chat_id):
-    stark = lydia.find_one({"chat_id": chat_id})
-    if not stark:
-        return False
-    else:
-        return stark
-
-def update_session(chat_id, session_id):
-    lydia.update_one({"chat_id": chat_id}, {"$set": {"session_id": session_id}})
-    
-    
     
 @tbot.on(events.NewMessage(pattern="/talkmode (.*)"))
 async def close_ws(event):
@@ -171,31 +105,51 @@ async def _(event):
     return ""
 
 
-@pbot.on_message(filters.command("addlydia") & ~filters.edited & ~filters.bot)
-async def _(client,message):
-    if message.chat.id in en_chats:
-        en_chats.remove(message.chat.id)
-    pablo = await message.reply("`Processing...`")
-    session = api_client.create_session()
-    session_id = session.id
-    lol = add_chat(int(message.chat.id), session_id)
-    if not lol:
-        await pablo.edit("Lydia Already Activated In This Chat")
+
+@register(pattern="^/addlydia$")
+async def _(event):
+    if event.is_group:
+        if not await can_change_info(message=event):
+            return
+    else:
+        return    
+    global api_client
+    chat = event.chat
+    send = await event.get_sender()
+    user = await tbot.get_entity(send)
+    is_chat = sql.is_chat(chat.id)
+    if not is_chat:
+        ses = api_client.create_session()
+        ses_id = str(ses.id)
+        expires = str(ses.expires)
+        sql.set_ses(chat.id, ses_id, expires)
+        if event.chat_id in en_chats:
+            en_chats.remove(event.chat_id)
+        await event.reply("AI successfully enabled for this chat!")
         return
-    await pablo.edit(f"Lydia AI Successfully Added For Users In The Chat {message.chat.id}")
+    await event.reply("AI is already enabled for this chat!")
+    return ""
 
 
 
-@pbot.on_message(filters.command("rmlydia") & ~filters.edited & ~filters.bot)
-async def _(client,message):
-    if message.chat.id in en_chats:
-        en_chats.remove(message.chat.id)
-    pablo = await message.reply("`Processing...`")
-    Escobar = remove_chat(int(message.chat.id))
-    if not Escobar:
-        await pablo.edit("Lydia Was Not Activated In This Chat")
+@register(pattern="^/rmlydia$")
+async def _(event):
+    if event.is_group:
+        if not await can_change_info(message=event):
+            return
+    else:
         return
-    await pablo.edit(f"Lydia AI Successfully Deactivated For Users In The Chat {message.chat.id}")
+    chat = event.chat
+    send = await event.get_sender()
+    user = await tbot.get_entity(send)
+    is_chat = sql.is_chat(chat.id)
+    if not is_chat:
+        await event.reply("AI isn't enabled here in the first place!")
+        return ""
+    if event.chat_id in en_chats:
+        en_chats.remove(event.chat_id)
+    sql.rem_chat(chat.id)
+    await event.reply("AI disabled successfully!")
 
 
 @tbot.on(events.NewMessage(pattern=None))
@@ -215,39 +169,40 @@ async def check_message(event):
         return False
 
 
-@pbot.on_message(filters.text & filters.reply & ~filters.bot &
-        ~filters.via_bot & ~filters.forwarded & ~filters.private ,group=2)
-async def _(client,message):
-    if message.reply_to_message.from_user.id != BOT_ID:
-        message.continue_propagation()
-    if not message.text:
-        message.continue_propagation()
-    msg = message.text
-    print("lv1")
+@tbot.on(events.NewMessage(pattern=None))
+async def _(event):
+    if event.is_group:
+        pass
+    else:
+        return
+    global api_client
+    msg = str(event.text)
+    chat = event.chat
+    is_chat = sql.is_chat(chat.id)
+    if not is_chat:
+        return
     if msg.startswith("/") or msg.startswith("@"):
-        message.continue_propagation()
-    print("hmm")
-    if not get_session(int(message.chat.id)):
-        message.continue_propagation()
-    print("LV2",msg)
-    await client.send_chat_action(message.chat.id, "typing")
-    session = get_session(int(message.chat.id))
-
+        return
     if msg:   
-       # if not await check_message(event):
-            #return
-        if message.chat.id in en_chats:
+        if not await check_message(event):
+            return
+        if event.chat_id in en_chats:
+            sesh, exp = sql.get_ses(chat.id)
+            query = msg
             try:
-                session_id = session.get("session_id")
-                text_rep = api_client.think_thought(session_id, msg)
-            except:
-                 session = api_client.create_session()
-                 session_id = session.id
-                 text_rep = api_client.think_thought(session_id, msg)
-                 update_session(message.chat.id, session_id)
-            await message.reply(text_rep)
-            await client.send_chat_action(message.chat.id, "cancel")
-            message.continue_propagation()
+                if int(exp) < time():
+                    ses = api_client.create_session()
+                    ses_id = str(ses.id)
+                    expires = str(ses.expires)
+                    sql.set_ses(chat.id, ses_id, expires)
+                    sesh, exp = sql.get_ses(chat.id)
+            except ValueError:
+                pass
+            try:          
+                    rep = api_client.think_thought(sesh, query)
+                    await event.reply(rep)
+            except CFError as e:
+                print(e)
         else:
             u = msg.split()
             emj = extract_emojis(msg)
@@ -282,42 +237,48 @@ async def _(client,message):
             test = msg
             if not "en" in lan and not lan == "":
                 msg = translator.translate(test, lang_tgt="en")
+            sesh, exp = sql.get_ses(chat.id)
+            query = msg
             try:
-                session_id = session.get("session_id")
-                rep = api_client.think_thought(session_id, msg)
-            except:
-                 session = api_client.create_session()
-                 session_id = session.id
-                 rep = api_client.think_thought(session_id, msg)
-                 update_session(message.chat.id, session_id)
+                if int(exp) < time():
+                    ses = api_client.create_session()
+                    ses_id = str(ses.id)
+                    expires = str(ses.expires)
+                    sql.set_ses(chat.id, ses_id, expires)
+                    sesh, exp = sql.get_ses(chat.id)
+            except ValueError:
+                pass
+            try:          
+                    rep = api_client.think_thought(sesh, query)
+                    pro = rep
+                    if not "en" in lan and not lan == "":
+                        pro = translator.translate(rep, lang_tgt=lan[0])
+                    if event.chat_id in ws_chats:                    
+                        answer = pro
+                        try:
+                            tts = gTTS(answer, tld="com", lang=lan[0])
+                            tts.save("results.mp3")
+                        except AssertionError:
+                            return
+                        except ValueError:
+                            return
+                        except RuntimeError:
+                            return
+                        except gTTSError:
+                            return
+                        with open("results.mp3", "r"):
+                            await tbot.send_file(
+                                event.chat_id,
+                                "results.mp3",
+                                voice_note=True,
+                                reply_to=event.id,
+                            )
+                        os.remove("results.mp3")          
+                    else:     
+                        await event.reply(pro)
+            except CFError as e:
+                print(e)
             
-            pro = rep
-            if not "en" in lan and not lan == "":
-                pro = translator.translate(rep, lang_tgt=lan[0])
-            if message.chat.id in ws_chats:                    
-                answer = pro
-                try:
-                    tts = gTTS(answer, tld="com", lang=lan[0])
-                    tts.save("results.mp3")
-                except AssertionError:
-                    message.continue_propagation()
-                except ValueError:
-                    message.continue_propagation()
-                except RuntimeError:
-                    message.continue_propagation()
-                except gTTSError:
-                    message.continue_propagation()
-                with open("results.mp3", "r"):
-                    await pbot.send_voice(
-                        message.chat.id,
-                        "results.mp3",
-                        reply_to_message_id=message.message_id,
-                    )
-                os.remove("results.mp3")          
-            else:     
-                await message.reply(pro)
-
-
 __help__ = """
 <b> Chatbot </b>
 <i> PRESENTING DAISY AI 3.0. THE ONLY AI SYSTEM WHICH CAN DETECT & REPLY UPTO 200 LANGUAGES </i>
@@ -340,24 +301,3 @@ __help__ = """
 """
 
 __mod_name__ = "AI Assistant"           
-
-
-
-
-
-#    Copyright (C) 2020-2021 by @InukaAsith
-#    This programme is a part of DaisyX (TG bot) project
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-#    Kang with the credits
