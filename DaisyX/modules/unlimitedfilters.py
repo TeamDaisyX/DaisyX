@@ -4,7 +4,7 @@ import io
 import pyrogram
 
 from pyrogram import filters
-from DaisyX.services.pyrogram import pbot as Client
+from DaisyX.services.pyrogram import pbot
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
@@ -23,8 +23,7 @@ from  DaisyX.db.mongo_helpers.users_mdb import add_user, all_users
 from DaisyX.modules.utils.buttonhelper import parser,split_quotes
 SAVE_USER = "no"
 
-
-@Client.on_message(filters.command("filter"))
+@pbot.on_message(filters.command("filter") & ~filters.edited & ~filters.bot)
 async def addfilter(client, message):
       
     userid = message.from_user.id
@@ -173,7 +172,8 @@ async def addfilter(client, message):
     )
 
 
-@Client.on_message(filters.command('filters'))
+
+@pbot.on_message(filters.command("filters") & ~filters.edited & ~filters.bot)
 async def get_all(client, message):
     userid = message.from_user.id
     chat_type = message.chat.type
@@ -230,7 +230,8 @@ async def get_all(client, message):
         parse_mode="md"
     )
         
-@Client.on_message(filters.command("stop"))
+
+@pbot.on_message(filters.command("stop") & ~filters.edited & ~filters.bot)
 async def deletefilter(client, message):
     userid = message.from_user.id
     chat_type = message.chat.type
@@ -275,7 +276,8 @@ async def deletefilter(client, message):
     await delete_filter(message, query, grp_id)
         
 
-@Client.on_message(filters.command("stopall"))
+
+@pbot.on_message(filters.command("stopall") & ~filters.edited & ~filters.bot)
 async def delallconfirm(client, message):
     userid = message.from_user.id
     chat_type = message.chat.type
@@ -313,7 +315,7 @@ async def delallconfirm(client, message):
         )
 
 
-@Client.on_message(filters.group & filters.text)
+@pbot.on_message(filters.group & filters.text)
 async def give_filter(client,message):
     group_id = message.chat.id
     name = message.text
