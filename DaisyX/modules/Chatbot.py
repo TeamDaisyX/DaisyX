@@ -61,6 +61,9 @@ async def _(event):
             en_chats.append(event.chat_id)
         await event.reply("English AI successfully enabled for this chat!")
         return
+    if not event.chat_id in en_chats:            
+        en_chats.append(event.chat_id)
+        await event.reply("English only AI activated!")
     await event.reply("AI is already enabled for this chat!")
     return ""
 
