@@ -42,14 +42,14 @@ DaisyX-v2.0 (Base AioGram)
 
 
 ## Special Credits
-- [@Kaviya-Admin](https://github.com/kaviya-admin) - A Developer of Project
-- [@LEGENDX](https://github.com/LEGENDXOP) - A Developer of Project
-- [@Anjana_Ma](https://github.com/Anjana_Ma) - A Developer of Project
+- [Kaviya-Admin](https://github.com/kaviya-admin) - A Developer of Project
+- [LEGENDX](https://github.com/LEGENDXOP) - A Developer of Project
+- [Anjana_Ma](https://github.com/Anjana_Ma) - A Developer of Project
 - [Dark Prince](https://github.com/Mr-Dark-Prince) - A Co-Developer of Project
 - [Official_Bawwa](https://github.com/OfficialBawwa) - A Developer of Project
 - [Inuka Asith](https://github.com/inukaasith) - A Developer of the project
 - [annihilatorrrr](https://github.com/annihilatorrrr) - A Co-Developer of Project
-- [@sithum batrow](https://github.com/sbatrow) - A Developer of Project
+- [sithum batrow](https://github.com/sbatrow) - A Developer of Project
 - @tamilvip007 - Helper
 - @charindith - Helper
 - @mubashirrehman - Helper
