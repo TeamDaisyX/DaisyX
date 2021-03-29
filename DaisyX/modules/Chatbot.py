@@ -41,7 +41,7 @@ async def can_change_info(message):
         )
     except Exception:
         return False
-    
+"""    
 @tbot.on(events.NewMessage(pattern="/talkmode (.*)"))
 async def close_ws(event):
     
@@ -74,7 +74,7 @@ async def close_ws(event):
         await event.reply("`You Should Be Admin To Do This!`")
         return   
     
-    
+"""    
     
 @register(pattern="^/enlydia$")
 async def _(event):
