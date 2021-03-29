@@ -222,8 +222,8 @@ async def _(client,message):
         message.continue_propagation()
     if not message.text:
         message.continue_propagation()
-    
-    print("lv1",msg)
+    msg = message.text
+    print("lv1")
     if msg.startswith("/") or msg.startswith("@"):
         message.continue_propagation()
     print("hmm")
@@ -232,7 +232,7 @@ async def _(client,message):
     print("LV2",msg)
     await client.send_chat_action(message.chat.id, "typing")
     session = get_session(int(message.chat.id))
-    msg = message.text
+
     if msg:   
        # if not await check_message(event):
             #return
