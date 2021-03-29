@@ -29,9 +29,10 @@ from DaisyX.function.pluginhelpers import admins_only
 from json import JSONDecodeError
 import json
 from google_trans_new import google_translator
-
+translator = google_translator()
+def extract_emojis(s):
+    return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
 daisy_chats = []
-sin_chats = []
 # AI Chat (C) 2020-2021 by @InukaAsith
 
 @daisyx.on_message(filters.command("chatbot") & ~filters.edited & ~filters.bot)
@@ -60,16 +61,6 @@ async def hmm(_, message):
             return
         await message.reply_text("AI Chat Is Already Disabled.")
         return
-    elif status == "si" or status == "sinhala" or status == "sin":
-        if chat_id not in daisy_chats:
-            daisy_chats.append(message.chat.id)
-            sin_chats.append(message.chat.id)
-            text = "Chatbot Enabled Reply To Any Message" \
-                   + "Of Daisy To Get A Reply"
-            await message.reply_text(text)
-            return
-        await message.reply_text("ChatBot Is Already Enabled.")
-        return
     else:
         await message.reply_text("I only recognize `/chatbot on` and /chatbot `off only`")
 
@@ -82,16 +73,42 @@ async def hmm(client,message):
     return
   if message.reply_to_message.from_user.id != BOT_ID:
     return
-  if message.chat.id in sin_chats:
-    lan = "si"
-    print("si")
-  else:
-    lan = "en"
-  test = message.text
-  if test.startswith("/") or test.startswith("@"):
+  msg = message.text
+  if msg.startswith("/") or msg.startswith("@"):
     return
-  translator = google_translator()
-  test = emoji.demojize(test.strip())
+  emj = extract_emojis(msg)
+  msg = msg.replace(emj, "")
+  if (      
+      [(k) for k in u if k.startswith("@")]
+      and [(k) for k in u if k.startswith("#")]
+      and [(k) for k in u if k.startswith("/")]
+      and re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []
+):
+    
+    h = " ".join(filter(lambda x: x[0] != "@", u))
+    km = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", h)
+    tm = km.split()
+    jm = " ".join(filter(lambda x: x[0] != "#", tm))
+    hm = jm.split()
+    rm = " ".join(filter(lambda x: x[0] != "/", hm))
+  elif [(k) for k in u if k.startswith("@")]:
+    
+    rm = " ".join(filter(lambda x: x[0] != "@", u))
+  elif [(k) for k in u if k.startswith("#")]:
+    rm = " ".join(filter(lambda x: x[0] != "#", u))
+  elif [(k) for k in u if k.startswith("/")]:
+    rm = " ".join(filter(lambda x: x[0] != "/", u))
+  elif re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []:
+    rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
+  else:
+    rm = msg
+    #print (rm)
+    lan = translator.detect(rm)
+  test = rm
+  if not "en" in lan and not lan == "":
+    test = translator.translate(test, lang_tgt="en")
+        
+  #test = emoji.demojize(test.strip())
   
 # Kang with the credits bitches @InukaASiTH
 
@@ -114,29 +131,21 @@ async def hmm(client,message):
   response = requests.request("POST", url, data=payload, headers=headers)
   lodu = response.json()
   result = (lodu['message']['text'])
-  pro = translator.translate(result, lang_tgt=lan)
-  pro = pro.replace('Thergiakis Eftichios','@InukaAsith')
+  pro = pro.replace('Thergiakis Eftichios','Inuka Asith')
   pro = pro.replace('Jessica','Daisy')
   if "Out of all ninja turtle" in result:
    pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
-   try:
-      await daisyx.send_chat_action(message.chat.id, "typing")
-      await message.reply_text(pro)
-   except CFError as e:
-           print(e)
   elif "ann" in result:
    pro = "My name is Daisy"
-   try:
-      await daisyx.send_chat_action(message.chat.id, "typing")
-      await message.reply_text(pro)
-   except CFError as e:
-           print(e)
   else:
-    try:
-      await daisyx.send_chat_action(message.chat.id, "typing")
-      await message.reply_text(pro)
-    except CFError as e:
-           print(e)
+   pro = result
+  if not "en" in lan and not lan == "":
+    pro = translator.translate(pro, lang_tgt=lan)
+  try:
+    await daisyx.send_chat_action(message.chat.id, "typing")
+    await message.reply_text(pro)
+  except CFError as e:
+         print(e)
   
 
 @daisyx.on_message(filters.text & filters.private & filters.reply & ~filters.bot &
