@@ -16,7 +16,7 @@ from telethon import events
 from DaisyX.config import get_str_key
 from google_trans_new import google_translator
 from gtts import gTTS, gTTSError
-from DaisyX.services.sql.talk_mode_sql import add_talkmode, rmtalkmode, get_all_chat_id, is_talkmode_indb
+#from DaisyX.services.sql.talk_mode_sql import add_talkmode, rmtalkmode, get_all_chat_id, is_talkmode_indb
 translator = google_translator()
 from DaisyX.function.telethonbasics import is_admin
 def extract_emojis(s):
@@ -26,7 +26,7 @@ LYDIA_API_KEY = get_str_key("LYDIA_API_KEY", required=False)
 CoffeeHouseAPI = API(LYDIA_API_KEY)
 api_client = LydiaAI(CoffeeHouseAPI)
 en_chats = []
-
+ws_chats = []
 async def can_change_info(message):
     try:
         result = await tbot(
@@ -54,17 +54,17 @@ async def close_ws(event):
         return
     if await is_admin(event, event.message.sender_id):      
         if (input_str == 'on' or input_str == 'On' or input_str == 'ON' or input_str == 'enable'):
-          if is_talkmode_indb(str(event.chat_id)):
+          if event.chat_id in ws_chats:  
               await event.reply("This Chat is Has Already enabled talk mode.")
               return
-          add_talkmode(str(event.chat_id))
+          ws_chats.append(event.chat_id)
           await event.reply(f"**Added Chat {event.chat.title} With Id {event.chat_id} To Database. I'll talk in here**")
         elif (input_str == 'off' or input_str == 'Off' or input_str == 'OFF' or input_str == 'disable'):
 
-          if not is_talkmode_indb(str(event.chat_id)):
+          if event.chat_id in ws_chats:
               await event.reply("This Chat is Has Not Enabled Night Mode.")
               return
-          rmtalkmode(str(event.chat_id))
+          ws_chats.remove(event.chat_id)
           await event.reply(f"**Removed Chat {event.chat.title} With Id {event.chat_id} From Database. You can't hear my voice anymore**")
         else:
             await event.reply(
@@ -184,7 +184,6 @@ async def _(event):
     if msg.startswith("/") or msg.startswith("@"):
         return
     if msg:   
-        ws_chats = get_all_chat_id()
         if not await check_message(event):
             return
         if event.chat_id in en_chats:
