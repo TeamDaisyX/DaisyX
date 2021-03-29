@@ -11,6 +11,7 @@
   "repository": "https://github.com/TeamDaisyX/Daisy-x",
   "website": "daisyproject.studio",
   "success_url": "t.me/DaisyXUpdates",
+  "stack": "container",
   "buildpacks": [
    {
      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
