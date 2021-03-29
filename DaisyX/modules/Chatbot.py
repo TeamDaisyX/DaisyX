@@ -256,7 +256,7 @@ async def _(event):
                     if event.chat_id in ws_chats:                    
                         answer = pro
                         try:
-                            tts = gTTS(answer, tld="com", lang=lan)
+                            tts = gTTS(answer, tld="com", lang=lan[0])
                             tts.save("results.mp3")
                         except AssertionError:
                             return
