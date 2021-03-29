@@ -199,7 +199,8 @@ async def check_message(event):
 async def _(client,message):
     if message.reply_to_message.from_user.id != BOT_ID:
         message.continue_propagation()
-    msg = str(message.text)
+    msg = message.text
+    print("lv1",msg)
     if msg.startswith("/") or msg.startswith("@"):
         message.continue_propagation()
     global api_client
@@ -209,6 +210,7 @@ async def _(client,message):
         message.continue_propagation()
     if msg.startswith("/") or msg.startswith("@"):
         message.continue_propagation()
+    print("LV2",msg)
     if msg:   
        # if not await check_message(event):
             #return
