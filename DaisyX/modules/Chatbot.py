@@ -273,8 +273,7 @@ async def _(event):
                                 voice_note=True,
                                 reply_to=event.id,
                             )
-                        os.remove("results.mp3")
-                        os.remove(required_file_name)            
+                        os.remove("results.mp3")          
                     else:     
                         await event.reply(pro)
             except CFError as e:
