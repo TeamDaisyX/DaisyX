@@ -28,8 +28,10 @@ import asyncio, os
 from DaisyX.function.pluginhelpers import admins_only
 from json import JSONDecodeError
 import json
-daisy_chats = []
+from google_trans_new import google_translator
 
+daisy_chats = []
+sin_chats = []
 # AI Chat (C) 2020-2021 by @InukaAsith
 
 @daisyx.on_message(filters.command("chatbot") & ~filters.edited & ~filters.bot)
@@ -58,7 +60,16 @@ async def hmm(_, message):
             return
         await message.reply_text("AI Chat Is Already Disabled.")
         return
-    
+    elif status == "si" or status == "sinhala" or status == "sin":
+        if chat_id not in daisy_chats:
+            daisy_chats.append(message.chat.id)
+            sin_chats.append(message.chat.id)
+            text = "Chatbot Enabled Reply To Any Message" \
+                   + "Of Daisy To Get A Reply"
+            await message.reply_text(text)
+            return
+        await message.reply_text("ChatBot Is Already Enabled.")
+        return
     else:
         await message.reply_text("I only recognize `/chatbot on` and /chatbot `off only`")
 
@@ -71,11 +82,16 @@ async def hmm(client,message):
     return
   if message.reply_to_message.from_user.id != BOT_ID:
     return
+  if message.chat.id in sin_chats:
+    lan = "si"
+  else:
+    lan = "en"
   test = message.text
   if test.startswith("/") or test.startswith("@"):
     return
+  translator = google_translator()
   test = emoji.demojize(test.strip())
-
+  
 # Kang with the credits bitches @InukaASiTH
 
   try:
@@ -97,7 +113,7 @@ async def hmm(client,message):
   response = requests.request("POST", url, data=payload, headers=headers)
   lodu = response.json()
   result = (lodu['message']['text'])
-  pro = result
+  pro = translator.translate(result, lang_tgt=lan)
   pro = pro.replace('Thergiakis Eftichios','@InukaAsith')
   pro = pro.replace('Jessica','Daisy')
   if "Out of all ninja turtle" in result:
