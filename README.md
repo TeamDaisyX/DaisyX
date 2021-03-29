@@ -28,7 +28,7 @@
  - [MissJuliaRobot](https://github.com/MissJuliaRobot/MissJuliaRobot)
  - [DaisyX](https://github.com/teamdaisyx/daisy-x)
  - [Masha](https://github.com/Mr-Dark-Prince/MashaRoBot/)
-
+ - [LEGENDX](https://github.com/LEGENDXOP/LEGEND-X)
 
 The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie)
 This repo was just revamped to suit an Anime-centric & comedy loving community. All original credits go to SophieBot and their dedication, Without his efforts, this fork would not have been possible!
@@ -43,6 +43,7 @@ DaisyX-v2.0 (Base AioGram)
 
 ## Special Credits
 - [@Kaviya-Admin](https://github.com/kaviya-admin) - A Developer of Project
+- [@LEGENDX](https://github.com/LEGENDXOP) - A Developer of Project
 - [@Anjana_Ma](https://github.com/Anjana_Ma) - A Developer of Project
 - [Dark Prince](https://github.com/Mr-Dark-Prince) - A Co-Developer of Project
 - [Official_Bawwa](https://github.com/OfficialBawwa) - A Developer of Project
