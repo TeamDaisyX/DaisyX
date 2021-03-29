@@ -239,11 +239,11 @@ async def _(client,message):
         if message.chat.id in en_chats:
             try:
                 session_id = session.get("session_id")
-                text_rep = lydia.think_thought(session_id, msg)
+                text_rep = api_client.think_thought(session_id, msg)
             except:
-                 session = lydia.create_session()
+                 session = api_client.create_session()
                  session_id = session.id
-                 text_rep = lydia.think_thought(session_id, msg)
+                 text_rep = api_client.think_thought(session_id, msg)
                  update_session(message.chat.id, session_id)
             await message.reply(text_rep)
             await client.send_chat_action(message.chat.id, "cancel")
@@ -284,11 +284,11 @@ async def _(client,message):
                 msg = translator.translate(test, lang_tgt="en")
             try:
                 session_id = session.get("session_id")
-                rep = lydia.think_thought(session_id, msg)
+                rep = api_client.think_thought(session_id, msg)
             except:
-                 session = lydia.create_session()
+                 session = api_client.create_session()
                  session_id = session.id
-                 rep = lydia.think_thought(session_id, msg)
+                 rep = api_client.think_thought(session_id, msg)
                  update_session(message.chat.id, session_id)
             await message.reply(rep)
             pro = rep
