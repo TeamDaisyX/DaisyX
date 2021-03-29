@@ -311,7 +311,7 @@ async def _(client,message):
                     await pbot.send_voice(
                         message.chat.id,
                         "results.mp3",
-                        reply_to_message_id=message.id,
+                        reply_to_message_id=message.message_id,
                     )
                 os.remove("results.mp3")          
             else:     
