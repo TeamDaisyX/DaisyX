@@ -2,7 +2,7 @@ import os
 
 
 from pyrogram import filters
-from DaisyX.services.pyrogram import Client
+from DaisyX.services.pyrogram import pbot as Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from DaisyX.db.mongo_helpers.connections_mdb import add_connection, all_connections, if_active, delete_connection
