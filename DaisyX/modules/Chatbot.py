@@ -146,58 +146,76 @@ async def _(event):
     if msg:   
         if not await check_message(event):
             return
-        u = msg.split()
-        emj = extract_emojis(msg)
-        msg = msg.replace(emj, "")
-        if (      
-            [(k) for k in u if k.startswith("@")]
-            and [(k) for k in u if k.startswith("#")]
-            and [(k) for k in u if k.startswith("/")]
-            and re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []
-        ):
-
-            h = " ".join(filter(lambda x: x[0] != "@", u))
-            km = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", h)
-            tm = km.split()
-            jm = " ".join(filter(lambda x: x[0] != "#", tm))
-            hm = jm.split()
-            rm = " ".join(filter(lambda x: x[0] != "/", hm))
-        elif [(k) for k in u if k.startswith("@")]:
-
-            rm = " ".join(filter(lambda x: x[0] != "@", u))
-        elif [(k) for k in u if k.startswith("#")]:
-            rm = " ".join(filter(lambda x: x[0] != "#", u))
-        elif [(k) for k in u if k.startswith("/")]:
-            rm = " ".join(filter(lambda x: x[0] != "/", u))
-        elif re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []:
-            rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
+        if event.chat_id in en_chats:
+            sesh, exp = sql.get_ses(chat.id)
+            query = msg
+            try:
+                if int(exp) < time():
+                    ses = api_client.create_session()
+                    ses_id = str(ses.id)
+                    expires = str(ses.expires)
+                    sql.set_ses(chat.id, ses_id, expires)
+                    sesh, exp = sql.get_ses(chat.id)
+            except ValueError:
+                pass
+            try:          
+                    rep = api_client.think_thought(sesh, query)
+                    await event.reply(rep)
+            except CFError as e:
+                print(e)
         else:
-            rm = msg
-            #print (rm)
-            lan = translator.detect(rm)
-        msg = rm
-        test = msg
-        if not "en" in lan and not lan == "":
-            msg = translator.translate(test, lang_tgt="en")
-        sesh, exp = sql.get_ses(chat.id)
-        query = msg
-        try:
-            if int(exp) < time():
-                ses = api_client.create_session()
-                ses_id = str(ses.id)
-                expires = str(ses.expires)
-                sql.set_ses(chat.id, ses_id, expires)
-                sesh, exp = sql.get_ses(chat.id)
-        except ValueError:
-            pass
-        try:          
-                rep = api_client.think_thought(sesh, query)
-                pro = rep
-                if not "en" in lan and not lan == "":
-                    pro = translator.translate(rep, lang_tgt=lan[0])
-                await event.reply(pro)
-        except CFError as e:
-            print(e)
+            u = msg.split()
+            emj = extract_emojis(msg)
+            msg = msg.replace(emj, "")
+            if (      
+                [(k) for k in u if k.startswith("@")]
+                and [(k) for k in u if k.startswith("#")]
+                and [(k) for k in u if k.startswith("/")]
+                and re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []
+            ):
+
+                h = " ".join(filter(lambda x: x[0] != "@", u))
+                km = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", h)
+                tm = km.split()
+                jm = " ".join(filter(lambda x: x[0] != "#", tm))
+                hm = jm.split()
+                rm = " ".join(filter(lambda x: x[0] != "/", hm))
+            elif [(k) for k in u if k.startswith("@")]:
+
+                rm = " ".join(filter(lambda x: x[0] != "@", u))
+            elif [(k) for k in u if k.startswith("#")]:
+                rm = " ".join(filter(lambda x: x[0] != "#", u))
+            elif [(k) for k in u if k.startswith("/")]:
+                rm = " ".join(filter(lambda x: x[0] != "/", u))
+            elif re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []:
+                rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
+            else:
+                rm = msg
+                #print (rm)
+                lan = translator.detect(rm)
+            msg = rm
+            test = msg
+            if not "en" in lan and not lan == "":
+                msg = translator.translate(test, lang_tgt="en")
+            sesh, exp = sql.get_ses(chat.id)
+            query = msg
+            try:
+                if int(exp) < time():
+                    ses = api_client.create_session()
+                    ses_id = str(ses.id)
+                    expires = str(ses.expires)
+                    sql.set_ses(chat.id, ses_id, expires)
+                    sesh, exp = sql.get_ses(chat.id)
+            except ValueError:
+                pass
+            try:          
+                    rep = api_client.think_thought(sesh, query)
+                    pro = rep
+                    if not "en" in lan and not lan == "":
+                        pro = translator.translate(rep, lang_tgt=lan[0])
+                    await event.reply(pro)
+            except CFError as e:
+                print(e)
             
 __help__ = """
 <b> Chatbot </b>
