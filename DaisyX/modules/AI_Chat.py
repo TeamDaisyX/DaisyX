@@ -140,7 +140,7 @@ async def hmm(client,message):
   if "ann" in result:
    pro = "My name is Daisy"
   if not "en" in lan and not lan == "":
-    pro = translator.translate(pro, lang_tgt=lan)
+    pro = translator.translate(pro, lang_tgt=lan[0])
   try:
     await daisyx.send_chat_action(message.chat.id, "typing")
     await message.reply_text(pro)
