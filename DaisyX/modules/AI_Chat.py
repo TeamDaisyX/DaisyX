@@ -41,7 +41,7 @@ async def hmm(_, message):
     global daisy_chats
     if len(message.command) != 2:
         await message.reply_text("I only recognize `/chatbot on` and /chatbot `off only`")
-        return
+        message.continue_propagation()
     status = message.text.split(None, 1)[1] 
     chat_id = message.chat.id
     if status == "ON" or status == "on" or status == "On":
@@ -50,9 +50,9 @@ async def hmm(_, message):
             text = "Chatbot Enabled Reply To Any Message" \
                    + "Of Daisy To Get A Reply"
             await message.reply_text(text)
-            return
+            message.continue_propagation()
         await message.reply_text("ChatBot Is Already Enabled.")
-        return
+        message.continue_propagation()
 
     elif status == "OFF" or status == "off" or status == "Off":
         if chat_id in daisy_chats:
@@ -60,7 +60,7 @@ async def hmm(_, message):
             await message.reply_text("AI chat Disabled!")
             return
         await message.reply_text("AI Chat Is Already Disabled.")
-        return
+        message.continue_propagation()
     else:
         await message.reply_text("I only recognize `/chatbot on` and /chatbot `off only`")
 
@@ -75,7 +75,7 @@ async def hmm(client,message):
     return
   msg = message.text
   if msg.startswith("/") or msg.startswith("@"):
-    return
+    message.continue_propagation()
   u = msg.split()
   emj = extract_emojis(msg)
   msg = msg.replace(emj, "")
@@ -113,10 +113,9 @@ async def hmm(client,message):
   
 # Kang with the credits bitches @InukaASiTH
 
-  try:
-    test = test.replace('daisy', 'Jessica')
-  except:
-    return
+
+  test = test.replace('daisy', 'Jessica')
+  test = test.replace('Daisy', 'Jessica')
   r = ('\n    \"consent\": true,\n    \"ip\": \"::1\",\n    \"question\": \"{}\"\n').format(test)
   k = f"({r})"
   new_string = k.replace("(", "{")
@@ -149,104 +148,152 @@ async def hmm(client,message):
   
 
 @daisyx.on_message(filters.text & filters.private & filters.reply & ~filters.bot &
-        ~filters.via_bot & ~filters.forwarded)
 async def inuka(client,message):
-  test = message.text
-  if test.startswith("/") or test.startswith("@"):
-     return
-  test = emoji.demojize(test.strip())
-  if "daisy" in test or 'Daisy' in test:
-    try:
-      test = test.replace('daisy', 'Jessica')
-    except:
-      test = test.replace('Daisy', 'Jessica')
+  msg = message.text
+  if msg.startswith("/") or msg.startswith("@"):
+    message.continue_propagation()
+  u = msg.split()
+  emj = extract_emojis(msg)
+  msg = msg.replace(emj, "")
+  if (      
+      [(k) for k in u if k.startswith("@")]
+      and [(k) for k in u if k.startswith("#")]
+      and [(k) for k in u if k.startswith("/")]
+      and re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []
+):
+    
+    h = " ".join(filter(lambda x: x[0] != "@", u))
+    km = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", h)
+    tm = km.split()
+    jm = " ".join(filter(lambda x: x[0] != "#", tm))
+    hm = jm.split()
+    rm = " ".join(filter(lambda x: x[0] != "/", hm))
+  elif [(k) for k in u if k.startswith("@")]:
+    
+    rm = " ".join(filter(lambda x: x[0] != "@", u))
+  elif [(k) for k in u if k.startswith("#")]:
+    rm = " ".join(filter(lambda x: x[0] != "#", u))
+  elif [(k) for k in u if k.startswith("/")]:
+    rm = " ".join(filter(lambda x: x[0] != "/", u))
+  elif re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []:
+    rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
+  else:
+    rm = msg
+    #print (rm)
+    lan = translator.detect(rm)
+  test = rm
+  if not "en" in lan and not lan == "":
+    test = translator.translate(test, lang_tgt="en")
+        
+  #test = emoji.demojize(test.strip())
+  
+# Kang with the credits bitches @InukaASiTH
+
+
+  test = test.replace('daisy', 'Jessica')
+  test = test.replace('Daisy', 'Jessica')
   r = ('\n    \"consent\": true,\n    \"ip\": \"::1\",\n    \"question\": \"{}\"\n').format(test)
   k = f"({r})"
   new_string = k.replace("(", "{")
   lol = new_string.replace(")","}")
   payload = lol
   headers = {
-    'content-type': "application/json",
-    'x-forwarded-for': "<user's ip>",
-    'x-rapidapi-key': "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
-    'x-rapidapi-host': "iamai.p.rapidapi.com"
-    }
-
-  response = requests.request("POST", url, data=payload, headers=headers)
-  lodu = response.json()
-  result = (lodu['message']['text'])
-  pro = result
-  pro = pro.replace('Thergiakis Eftichios','@InukaAsith')
-  pro = pro.replace('Jessica','Daisy')
-  if "Out of all ninja" in result:
-   pro = "Sorry! I missed that. How can I help you ?"
-   try:
-      await daisyx.send_chat_action(message.chat.id, "typing")
-      await message.reply_text(pro)
-   except CFError as e:
-           print(e)
-  elif "ann" in result:
-   pro = "My name is Daisy"
-   try:
-      await daisyx.send_chat_action(message.chat.id, "typing")
-      await message.reply_text(pro)
-   except CFError as e:
-           print(e)
-  else:
-    try:
-      await daisyx.send_chat_action(message.chat.id, "typing")
-      await message.reply_text(result)
-    except CFError as e:
-           print(e)
-
-@daisyx.on_message(filters.regex("Daisy|daisy|DaisyX|daisyx|Daisyx") & ~filters.bot &
-        ~filters.via_bot & ~filters.forwarded & ~filters.reply & ~filters.channel)
-async def inuka(client,message):
-  test = str(message.text)
-  if test.startswith("/") or test.startswith("@"):
-    return
-  test = emoji.demojize(test.strip())
-  if "daisy" in test or 'Daisy' in test:
-    try:
-      test = test.replace('daisy', 'Jessica')
-    except:
-      test = test.replace('Daisy', 'Jessica')
-    r = ('\n    \"consent\": true,\n    \"ip\": \"::1\",\n    \"question\": \"{}\"\n').format(test)
-    k = f"({r})"
-    new_string = k.replace("(", "{")
-    lol = new_string.replace(")","}")
-    payload = lol
-    headers = {
       'content-type': "application/json",
       'x-forwarded-for': "<user's ip>",
       'x-rapidapi-key': "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
       'x-rapidapi-host': "iamai.p.rapidapi.com"
       }
+ 
+  response = requests.request("POST", url, data=payload, headers=headers)
+  lodu = response.json()
+  result = (lodu['message']['text'])
+  pro = result
+  pro = pro.replace('Thergiakis Eftichios','Inuka Asith')
+  pro = pro.replace('Jessica','Daisy')
+  if "Out of all ninja turtle" in result:
+   pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
+  if "ann" in result:
+   pro = "My name is Daisy"
+  if not "en" in lan and not lan == "":
+    pro = translator.translate(pro, lang_tgt=lan[0])
+  try:
+    await daisyx.send_chat_action(message.chat.id, "typing")
+    await message.reply_text(pro)
+  except CFError as e:
+         print(e)
 
-    response = requests.request("POST", url, data=payload, headers=headers)
-    lodu = response.json()
-    result = (lodu['message']['text'])
-    pro = result
-    pro = pro.replace('Thergiakis Eftichios','@InukaAsith')
-    pro = pro.replace('Jessica','Daisy')
-    if "Out of all ninja" in result:
-     pro = "Sorry! I missed that. How can I help you ?"
-     try:
-        await daisyx.send_chat_action(message.chat.id, "typing")
-        await message.reply_text(pro)
-     except CFError as e:
-             print(e)
-    elif "ann" in result:
-     pro = "My name is Daisy"
-     try:
-        await daisyx.send_chat_action(message.chat.id, "typing")
-        await message.reply_text(pro)
-     except CFError as e:
-             print(e)
-    else:
-      try:
-        await daisyx.send_chat_action(message.chat.id, "typing")
-        await message.reply_text(result)
-      except CFError as e:
-             print(e)
+@daisyx.on_message(filters.regex("Daisy|daisy|DaisyX|daisyx|Daisyx") & ~filters.bot &
+        ~filters.via_bot & ~filters.forwarded & ~filters.reply & ~filters.channel)
+async def inuka(client,message):
+  msg = message.text
+  if msg.startswith("/") or msg.startswith("@"):
+    message.continue_propagation()
+  u = msg.split()
+  emj = extract_emojis(msg)
+  msg = msg.replace(emj, "")
+  if (      
+      [(k) for k in u if k.startswith("@")]
+      and [(k) for k in u if k.startswith("#")]
+      and [(k) for k in u if k.startswith("/")]
+      and re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []
+):
+    
+    h = " ".join(filter(lambda x: x[0] != "@", u))
+    km = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", h)
+    tm = km.split()
+    jm = " ".join(filter(lambda x: x[0] != "#", tm))
+    hm = jm.split()
+    rm = " ".join(filter(lambda x: x[0] != "/", hm))
+  elif [(k) for k in u if k.startswith("@")]:
+    
+    rm = " ".join(filter(lambda x: x[0] != "@", u))
+  elif [(k) for k in u if k.startswith("#")]:
+    rm = " ".join(filter(lambda x: x[0] != "#", u))
+  elif [(k) for k in u if k.startswith("/")]:
+    rm = " ".join(filter(lambda x: x[0] != "/", u))
+  elif re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []:
+    rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
+  else:
+    rm = msg
+    #print (rm)
+    lan = translator.detect(rm)
+  test = rm
+  if not "en" in lan and not lan == "":
+    test = translator.translate(test, lang_tgt="en")
+        
+  #test = emoji.demojize(test.strip())
+  
+# Kang with the credits bitches @InukaASiTH
 
+
+  test = test.replace('daisy', 'Jessica')
+  test = test.replace('Daisy', 'Jessica')
+  r = ('\n    \"consent\": true,\n    \"ip\": \"::1\",\n    \"question\": \"{}\"\n').format(test)
+  k = f"({r})"
+  new_string = k.replace("(", "{")
+  lol = new_string.replace(")","}")
+  payload = lol
+  headers = {
+      'content-type': "application/json",
+      'x-forwarded-for': "<user's ip>",
+      'x-rapidapi-key': "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
+      'x-rapidapi-host': "iamai.p.rapidapi.com"
+      }
+ 
+  response = requests.request("POST", url, data=payload, headers=headers)
+  lodu = response.json()
+  result = (lodu['message']['text'])
+  pro = result
+  pro = pro.replace('Thergiakis Eftichios','Inuka Asith')
+  pro = pro.replace('Jessica','Daisy')
+  if "Out of all ninja turtle" in result:
+   pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
+  if "ann" in result:
+   pro = "My name is Daisy"
+  if not "en" in lan and not lan == "":
+    pro = translator.translate(pro, lang_tgt=lan[0])
+  try:
+    await daisyx.send_chat_action(message.chat.id, "typing")
+    await message.reply_text(pro)
+  except CFError as e:
+         print(e)
