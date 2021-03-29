@@ -86,6 +86,7 @@ async def hmm(client,message):
   if message.reply_to_message.from_user.id != BOT_ID:
     message.continue_propagation()
   msg = message.text
+  chat_id = message.chat.id
   if msg.startswith("/") or msg.startswith("@"):
     message.continue_propagation()
   if chat_id in en_chats:
