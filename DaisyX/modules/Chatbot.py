@@ -316,8 +316,6 @@ async def _(client,message):
                 os.remove("results.mp3")          
             else:     
                 await message.reply(pro)
-            await client.send_chat_action(message.chat.id, "cancel")
-            message.continue_propagation()
 
 
 __help__ = """
