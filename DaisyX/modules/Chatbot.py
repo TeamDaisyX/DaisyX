@@ -290,7 +290,7 @@ async def _(client,message):
                  session_id = session.id
                  rep = api_client.think_thought(session_id, msg)
                  update_session(message.chat.id, session_id)
-            await message.reply(rep)
+            
             pro = rep
             if not "en" in lan and not lan == "":
                 pro = translator.translate(rep, lang_tgt=lan[0])
