@@ -1,8 +1,9 @@
-
+import re
+import emoji
 import os
 from DaisyX.services.telethon import tbot
 from time import time
-
+import asyncio, os
 import DaisyX.services.sql.chatbot_sql as sql
 from coffeehouse.api import API
 from coffeehouse.exception import CoffeeHouseError as CFError
@@ -13,7 +14,10 @@ from telethon.tl import functions
 from DaisyX.services.events import register
 from telethon import events
 from DaisyX.config import get_str_key
-
+from google_trans_new import google_translator
+translator = google_translator()
+def extract_emojis(s):
+    return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
 
 LYDIA_API_KEY = get_str_key("LYDIA_API_KEY", required=False)
 CoffeeHouseAPI = API(LYDIA_API_KEY)
@@ -108,9 +112,43 @@ async def _(event):
     is_chat = sql.is_chat(chat.id)
     if not is_chat:
         return
-    if msg:
+    if msg.startswith("/") or msg.startswith("@"):
+        return
+    if msg:   
         if not await check_message(event):
             return
+        u = msg.split()
+        emj = extract_emojis(msg)
+        msg = msg.replace(emj, "")
+        if (      
+            [(k) for k in u if k.startswith("@")]
+            and [(k) for k in u if k.startswith("#")]
+            and [(k) for k in u if k.startswith("/")]
+            and re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []
+        ):
+
+            h = " ".join(filter(lambda x: x[0] != "@", u))
+            km = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", h)
+            tm = km.split()
+            jm = " ".join(filter(lambda x: x[0] != "#", tm))
+            hm = jm.split()
+            rm = " ".join(filter(lambda x: x[0] != "/", hm))
+        elif [(k) for k in u if k.startswith("@")]:
+
+            rm = " ".join(filter(lambda x: x[0] != "@", u))
+        elif [(k) for k in u if k.startswith("#")]:
+            rm = " ".join(filter(lambda x: x[0] != "#", u))
+        elif [(k) for k in u if k.startswith("/")]:
+            rm = " ".join(filter(lambda x: x[0] != "/", u))
+        elif re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []:
+            rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
+        else:
+            rm = msg
+            #print (rm)
+            lan = translator.detect(rm)
+        msg = rm
+        if not "en" in lan and not lan == "":
+            msg = translator.translate(test, lang_tgt="en")
         sesh, exp = sql.get_ses(chat.id)
         query = msg
         try:
@@ -124,7 +162,9 @@ async def _(event):
             pass
         try:          
                 rep = api_client.think_thought(sesh, query)
-                await event.reply(rep)
+                if not "en" in lan and not lan == "":
+                    pro = translator.translate(rep, lang_tgt=lan[0])
+                await event.reply(pro)
         except CFError as e:
             print(e)
             
