@@ -19,9 +19,10 @@ from gtts import gTTS, gTTSError
 #from DaisyX.services.sql.talk_mode_sql import add_talkmode, rmtalkmode, get_all_chat_id, is_talkmode_indb
 translator = google_translator()
 from DaisyX.function.telethonbasics import is_admin
-
-
-
+from DaisyX import OWNER_ID, BOT_ID
+from DaisyX.services.pyrogram import pbot
+from pyrogram import filters
+import asyncio, os
 
 def extract_emojis(s):
     return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
