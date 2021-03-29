@@ -76,6 +76,7 @@ async def hmm(client,message):
   msg = message.text
   if msg.startswith("/") or msg.startswith("@"):
     return
+  u = msg.split()
   emj = extract_emojis(msg)
   msg = msg.replace(emj, "")
   if (      
