@@ -120,76 +120,76 @@ async def hmm(client,message):
       await message.reply_text(pro)
     except CFError as e:
            print(e)
-    return
-  u = msg.split()
-  emj = extract_emojis(msg)
-  msg = msg.replace(emj, "")
-  if (      
-      [(k) for k in u if k.startswith("@")]
-      and [(k) for k in u if k.startswith("#")]
-      and [(k) for k in u if k.startswith("/")]
-      and re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []
-):
-    
-    h = " ".join(filter(lambda x: x[0] != "@", u))
-    km = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", h)
-    tm = km.split()
-    jm = " ".join(filter(lambda x: x[0] != "#", tm))
-    hm = jm.split()
-    rm = " ".join(filter(lambda x: x[0] != "/", hm))
-  elif [(k) for k in u if k.startswith("@")]:
-    
-    rm = " ".join(filter(lambda x: x[0] != "@", u))
-  elif [(k) for k in u if k.startswith("#")]:
-    rm = " ".join(filter(lambda x: x[0] != "#", u))
-  elif [(k) for k in u if k.startswith("/")]:
-    rm = " ".join(filter(lambda x: x[0] != "/", u))
-  elif re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []:
-    rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
   else:
-    rm = msg
-    #print (rm)
-    lan = translator.detect(rm)
-  test = rm
-  if not "en" in lan and not lan == "":
-    test = translator.translate(test, lang_tgt="en")
+    u = msg.split()
+    emj = extract_emojis(msg)
+    msg = msg.replace(emj, "")
+    if (      
+        [(k) for k in u if k.startswith("@")]
+        and [(k) for k in u if k.startswith("#")]
+        and [(k) for k in u if k.startswith("/")]
+        and re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []
+  ):
+    
+      h = " ".join(filter(lambda x: x[0] != "@", u))
+      km = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", h)
+      tm = km.split()
+      jm = " ".join(filter(lambda x: x[0] != "#", tm))
+      hm = jm.split()
+      rm = " ".join(filter(lambda x: x[0] != "/", hm))
+    elif [(k) for k in u if k.startswith("@")]:
+    
+      rm = " ".join(filter(lambda x: x[0] != "@", u))
+    elif [(k) for k in u if k.startswith("#")]:
+      rm = " ".join(filter(lambda x: x[0] != "#", u))
+    elif [(k) for k in u if k.startswith("/")]:
+      rm = " ".join(filter(lambda x: x[0] != "/", u))
+    elif re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []:
+      rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
+    else:
+      rm = msg
+      #print (rm)
+      lan = translator.detect(rm)
+    test = rm
+    if not "en" in lan and not lan == "":
+      test = translator.translate(test, lang_tgt="en")
         
   #test = emoji.demojize(test.strip())
   
 # Kang with the credits bitches @InukaASiTH
 
 
-  test = test.replace('daisy', 'Jessica')
-  test = test.replace('Daisy', 'Jessica')
-  r = ('\n    \"consent\": true,\n    \"ip\": \"::1\",\n    \"question\": \"{}\"\n').format(test)
-  k = f"({r})"
-  new_string = k.replace("(", "{")
-  lol = new_string.replace(")","}")
-  payload = lol
-  headers = {
-      'content-type': "application/json",
-      'x-forwarded-for': "<user's ip>",
-      'x-rapidapi-key': "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
-      'x-rapidapi-host': "iamai.p.rapidapi.com"
-      }
+    test = test.replace('daisy', 'Jessica')
+    test = test.replace('Daisy', 'Jessica')
+    r = ('\n    \"consent\": true,\n    \"ip\": \"::1\",\n    \"question\": \"{}\"\n').format(test)
+    k = f"({r})"
+    new_string = k.replace("(", "{")
+    lol = new_string.replace(")","}")
+    payload = lol
+    headers = {
+        'content-type': "application/json",
+        'x-forwarded-for': "<user's ip>",
+        'x-rapidapi-key': "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
+        'x-rapidapi-host': "iamai.p.rapidapi.com"
+        }
  
-  response = requests.request("POST", url, data=payload, headers=headers)
-  lodu = response.json()
-  result = (lodu['message']['text'])
-  pro = result
-  pro = pro.replace('Thergiakis Eftichios','Inuka Asith')
-  pro = pro.replace('Jessica','Daisy')
-  if "Out of all ninja turtle" in result:
-   pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
-  if "ann" in result:
-   pro = "My name is Daisy"
-  if not "en" in lan and not lan == "":
-    pro = translator.translate(pro, lang_tgt=lan[0])
-  try:
-    await daisyx.send_chat_action(message.chat.id, "typing")
-    await message.reply_text(pro)
-  except CFError as e:
-         print(e)
+    response = requests.request("POST", url, data=payload, headers=headers)
+    lodu = response.json()
+    result = (lodu['message']['text'])
+    pro = result
+    pro = pro.replace('Thergiakis Eftichios','Inuka Asith')
+    pro = pro.replace('Jessica','Daisy')
+    if "Out of all ninja turtle" in result:
+     pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
+    if "ann" in result:
+     pro = "My name is Daisy"
+    if not "en" in lan and not lan == "":
+      pro = translator.translate(pro, lang_tgt=lan[0])
+    try:
+      await daisyx.send_chat_action(message.chat.id, "typing")
+      await message.reply_text(pro)
+    except CFError as e:
+           print(e)
   
 
 @daisyx.on_message(filters.text & filters.private & filters.reply & ~filters.bot)
