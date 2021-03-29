@@ -17,7 +17,7 @@
 
 #    Kang with the credits
 #    Special credits to @AmarnathCdj
-
+import re
 import emoji
 import requests
 url = "https://iamai.p.rapidapi.com/ask"
