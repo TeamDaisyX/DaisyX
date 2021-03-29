@@ -22,7 +22,7 @@ def extract_emojis(s):
 LYDIA_API_KEY = get_str_key("LYDIA_API_KEY", required=False)
 CoffeeHouseAPI = API(LYDIA_API_KEY)
 api_client = LydiaAI(CoffeeHouseAPI)
-
+en_chats = []
 
 async def can_change_info(message):
     try:
@@ -38,6 +38,31 @@ async def can_change_info(message):
         )
     except Exception:
         return False
+    
+@register(pattern="^/enlydia$")
+async def _(event):
+    if event.is_group:
+        if not await can_change_info(message=event):
+            return
+    else:
+        return    
+    global api_client
+    chat = event.chat
+    
+    send = await event.get_sender()
+    user = await tbot.get_entity(send)
+    is_chat = sql.is_chat(chat.id)
+    if not is_chat:
+        ses = api_client.create_session()
+        ses_id = str(ses.id)
+        expires = str(ses.expires)
+        sql.set_ses(chat.id, ses_id, expires)
+        if not event.chat_id in en_chats:            
+            en_chats.append(event.chat_id)
+        await event.reply("English AI successfully enabled for this chat!")
+        return
+    await event.reply("AI is already enabled for this chat!")
+    return ""
 
 
 
@@ -58,6 +83,8 @@ async def _(event):
         ses_id = str(ses.id)
         expires = str(ses.expires)
         sql.set_ses(chat.id, ses_id, expires)
+        if event.chat_id in en_chats:
+            en_chats.remove(event.chat_id)
         await event.reply("AI successfully enabled for this chat!")
         return
     await event.reply("AI is already enabled for this chat!")
@@ -79,6 +106,8 @@ async def _(event):
     if not is_chat:
         await event.reply("AI isn't enabled here in the first place!")
         return ""
+    if event.chat_id in en_chats:
+        en_chats.remove(event.chat_id)
     sql.rem_chat(chat.id)
     await event.reply("AI disabled successfully!")
 
