@@ -147,7 +147,7 @@ async def hmm(client,message):
   except CFError as e:
          print(e)
   
-"""
+
 @daisyx.on_message(filters.text & filters.private & filters.reply & ~filters.bot &
         ~filters.via_bot & ~filters.forwarded)
 async def inuka(client,message):
@@ -249,3 +249,4 @@ async def inuka(client,message):
         await message.reply_text(result)
       except CFError as e:
              print(e)
+"""
