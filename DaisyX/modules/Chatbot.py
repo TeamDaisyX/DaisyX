@@ -226,9 +226,9 @@ __help__ = """
  - /chatbot <i>ON/OFF</i>: Enables and disables AI Chat mode (EXCLUSIVE)
 * DaisyAI can detect and reply upto 200 languages by now *
  - /chatbot EN : Enables English only chatbot
+ 
 <b> Lydia </b>
 <i> PRESENTING DAISY'S LYDIA, EXCLUSIVE CHAT FEATURE DETECT UPTO 200 LANGUAGES & REPLY USING LYDIA AI</i>
-
  - /addlydia: Activates lydia on your group
 * Daisy AI can detect and reply upto 200 languages by now *
  - /enlydia : Enables English only chat AI
@@ -237,7 +237,8 @@ __help__ = """
 <b> Assistant </b>
  - /ask <i>question</i>: Ask question from daisy
  - /ask <i> reply to voice note</i>: Get voice reply
-<i>Special credits to Julia project (Voice ai) and FridayUserbot</i>
+ 
+<i> Lydia AI can be unstable sometimes </i>
 """
 
 __mod_name__ = "AI Assistant"           
