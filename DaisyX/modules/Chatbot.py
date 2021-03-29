@@ -66,6 +66,34 @@ async def can_change_info(message):
         )
     except Exception:
         return False
+
+from DaisyX.services.mongo import mongodb as db_x
+
+nsfw = db_x["CHAT_BOT"]
+
+
+def add_chat(chat_id):
+    nsfw.insert_one({"chat_id": chat_id})
+
+
+def rm_chat(chat_id):
+    nsfw.delete_one({"chat_id": chat_id})
+
+
+def get_all_chatbot_chats():
+    lol = list(nsfw.find({}))
+    return lol
+
+
+def is_chat_in_db(chat_id):
+    k = nsfw.find_one({"chat_id": chat_id})
+    if k:
+        return True
+    else:
+        return False    
+    
+    
+    
     
 @tbot.on(events.NewMessage(pattern="/talkmode (.*)"))
 async def close_ws(event):
@@ -130,51 +158,27 @@ async def _(event):
     return ""
 
 
-
-@register(pattern="^/addlydia$")
-async def _(event):
-    if event.is_group:
-        if not await can_change_info(message=event):
-            return
-    else:
-        return    
-    global api_client
-    chat = event.chat
-    send = await event.get_sender()
-    user = await tbot.get_entity(send)
-    is_chat = sql.is_chat(chat.id)
-    if not is_chat:
-        ses = api_client.create_session()
-        ses_id = str(ses.id)
-        expires = str(ses.expires)
-        sql.set_ses(chat.id, ses_id, expires)
-        if event.chat_id in en_chats:
-            en_chats.remove(event.chat_id)
-        await event.reply("AI successfully enabled for this chat!")
+@pbot.on_message(filters.command("addlydia") & ~filters.edited & ~filters.bot)
+async def _(client,message):
+    if is_chat_in_db(message.chat.id):
+        await message.reply("AI already enabled!")
         return
-    await event.reply("AI is already enabled for this chat!")
-    return ""
+    if message.chat.id in en_chats:
+        en_chats.remove(message.chat.id)
+    add_chat(message.chat.id)
+    await message.reply("AI enabled successfully!")
 
 
 
-@register(pattern="^/rmlydia$")
-async def _(event):
-    if event.is_group:
-        if not await can_change_info(message=event):
-            return
-    else:
+@pbot.on_message(filters.command("rmlydia") & ~filters.edited & ~filters.bot)
+async def _(client,message):
+    if not is_chat_in_db(message.chat.id):
+        await message.reply("AI isn't enabled here in the first place!")
         return
-    chat = event.chat
-    send = await event.get_sender()
-    user = await tbot.get_entity(send)
-    is_chat = sql.is_chat(chat.id)
-    if not is_chat:
-        await event.reply("AI isn't enabled here in the first place!")
-        return ""
-    if event.chat_id in en_chats:
-        en_chats.remove(event.chat_id)
-    sql.rem_chat(chat.id)
-    await event.reply("AI disabled successfully!")
+    if message.chat.id in en_chats:
+        en_chats.remove(message.chat.id)
+    rm_chat(message.chat.id)
+    await message.reply("AI disabled successfully!")
 
 
 @tbot.on(events.NewMessage(pattern=None))
@@ -205,10 +209,10 @@ async def _(client,message):
         message.continue_propagation()
     print("hmm")
     global api_client
-    chat = message.chat
-    is_chat = sql.is_chat(chat.id)
-    print("Success")
-    if not is_chat:
+    lol = get_all_chatbot_chats()
+    if len(lol) == 0:
+        message.continue_propagation()
+    if not is_chat_in_db(message.chat.id):
         message.continue_propagation()
     print("LV2",msg)
     if msg:   
