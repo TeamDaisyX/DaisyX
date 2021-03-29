@@ -67,7 +67,7 @@ async def hmm(_, message):
 
 
 @daisyx.on_message(filters.text & filters.reply & ~filters.bot &
-        ~filters.via_bot & ~filters.forwarded  & ~filters.command("whois") & ~filters.command("spwinfo") ,group=2)
+        ~filters.via_bot & ~filters.forwarded ,group=2)
 async def hmm(client,message):
   if message.chat.id not in daisy_chats:
     return
@@ -147,7 +147,7 @@ async def hmm(client,message):
   except CFError as e:
          print(e)
   
-
+"""
 @daisyx.on_message(filters.text & filters.private & filters.reply & ~filters.bot &
         ~filters.via_bot & ~filters.forwarded)
 async def inuka(client,message):
@@ -198,9 +198,9 @@ async def inuka(client,message):
       await message.reply_text(result)
     except CFError as e:
            print(e)
-
+"""
 @daisyx.on_message(filters.regex("Daisy|daisy|DaisyX|daisyx|Daisyx") & ~filters.bot &
-        ~filters.via_bot & ~filters.forwarded & ~filters.reply & ~filters.channel  & ~filters.command("whois") & ~filters.command("spwinfo") ,group=1)
+        ~filters.via_bot & ~filters.forwarded & ~filters.reply & ~filters.channel)
 async def inuka(client,message):
   test = str(message.text)
   if test.startswith("/") or test.startswith("@"):
