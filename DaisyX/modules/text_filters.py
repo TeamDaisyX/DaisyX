@@ -49,7 +49,7 @@ async def get_filterss(_, message):
         await message.reply_text(msg)
 
 
-@app.on_message(filters.command("del") & ~filters.edited & ~filters.private)
+@app.on_message(filters.command("remfilter") & ~filters.edited & ~filters.private)
 async def del_filter(_, message):
     if len(message.command) < 2:
         await message.reply_text("**Usage**\n__/stop <textfilter name> \nIf filter /delfilter <filtername>__")
@@ -87,9 +87,8 @@ async def filters_re(_, message):
                             await message.reply_text(data)
                         else:
                             await message.reply_sticker(data)
-                        return
+                        message.continue_propagation()
     except Exception as e:
-        print("Error in filters_re function [IGNORE]")
         pass
 
   
