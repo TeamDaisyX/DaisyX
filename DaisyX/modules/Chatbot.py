@@ -279,7 +279,7 @@ async def _(client,message):
                     pro = rep
                     if not "en" in lan and not lan == "":
                         pro = translator.translate(rep, lang_tgt=lan[0])
-                    if message.chat_id in ws_chats:                    
+                    if message.chat.id in ws_chats:                    
                         answer = pro
                         try:
                             tts = gTTS(answer, tld="com", lang=lan[0])
