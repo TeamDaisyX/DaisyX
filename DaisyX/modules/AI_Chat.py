@@ -132,14 +132,13 @@ async def hmm(client,message):
   response = requests.request("POST", url, data=payload, headers=headers)
   lodu = response.json()
   result = (lodu['message']['text'])
+  pro = result
   pro = pro.replace('Thergiakis Eftichios','Inuka Asith')
   pro = pro.replace('Jessica','Daisy')
   if "Out of all ninja turtle" in result:
    pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
-  elif "ann" in result:
+  if "ann" in result:
    pro = "My name is Daisy"
-  else:
-   pro = result
   if not "en" in lan and not lan == "":
     pro = translator.translate(pro, lang_tgt=lan)
   try:
