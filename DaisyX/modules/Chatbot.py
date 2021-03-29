@@ -162,6 +162,7 @@ async def _(event):
             pass
         try:          
                 rep = api_client.think_thought(sesh, query)
+                pro = rep
                 if not "en" in lan and not lan == "":
                     pro = translator.translate(rep, lang_tgt=lan[0])
                 await event.reply(pro)
