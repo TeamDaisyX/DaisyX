@@ -25,7 +25,7 @@ SAVE_USER = "no"
 
 @pbot.on_message(filters.command("filter") & ~filters.edited & ~filters.bot)
 async def addfilter(client, message):
-      
+    print('OK Im in')
     userid = message.from_user.id
     chat_type = message.chat.type
     args = message.text.html.split(None, 1)
@@ -47,12 +47,15 @@ async def addfilter(client, message):
     elif (chat_type == "group") or (chat_type == "supergroup"):
         grp_id = message.chat.id
         title = message.chat.title
+        print('Im inn2')
 
     else:
+        print("hmm")
         return
 
     st = await client.get_chat_member(grp_id, userid)
     if not ((st.status == "administrator")):
+        print('admin check')
         return
         
 
