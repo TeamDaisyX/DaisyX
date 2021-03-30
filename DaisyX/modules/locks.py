@@ -13,6 +13,49 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from DaisyX.services.telethon import tbot
+from telethon.errors import (
+    ChatAdminRequiredError,
+    ImageProcessFailedError,
+    PhotoCropSizeSmallError,
+)
+
+from telethon.tl.functions.channels import EditAdminRequest, EditPhotoRequest
+
+from telethon.tl.functions.messages import UpdatePinnedMessageRequest
+from telethon.tl.types import (
+    ChannelParticipantsAdmins,
+    ChatAdminRights,
+    ChatBannedRights,
+    MessageEntityMentionName,
+    MessageMediaPhoto,
+)
+
+from telethon import *
+from telethon.tl import *
+from telethon.errors import *
+
+import os
+from time import sleep
+from telethon import events
+from telethon.errors import FloodWaitError, ChatNotModifiedError
+from telethon.errors import UserAdminInvalidError
+from telethon.tl import functions
+from telethon.tl import types
+from telethon.tl.functions.channels import EditBannedRequest
+from telethon.tl.types import *
+
+from DaisyX import *
+from DaisyX.services.events import register
+
+from telethon.tl.functions.messages import EditChatDefaultBannedRightsRequest
+
+from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError
+
+
+
+
+"""
 import itertools
 
 from aiogram.types.chat_permissions import ChatPermissions
@@ -104,6 +147,154 @@ async def lock_parser(chat_id, rev=False):
                 status = not current_lock[lock]
                 lock = keyword[0]
             yield lock, status
+"""            
+
+
+async def is_register_admin(chat, user):
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
+        return isinstance(
+            (
+                await tbot(functions.channels.GetParticipantRequest(chat, user))
+            ).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
+        )
+    if isinstance(chat, types.InputPeerUser):
+        return True
+
+async def can_change_info(message):
+    result = await tbot(
+        functions.channels.GetParticipantRequest(
+            channel=message.chat_id,
+            user_id=message.sender_id,
+        )
+    )
+    p = result.participant
+    return isinstance(p, types.ChannelParticipantCreator) or (
+        isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.change_info
+    )
+
+
+@register(pattern="^/lock ?(.*)")
+async def locks(event):
+    if not event.is_group:
+        return
+    if event.is_group:
+        if not await can_change_info(message=event):
+            return
+    input_str = event.pattern_match.group(1).lower()
+    msg = None
+    media = None
+    sticker = None
+    gif = None
+    gamee = None
+    ainline = None
+    gpoll = None
+    adduser = None
+    cpin = None
+    emlink = None
+    changeinfo = None
+    if input_str == "msg":
+        msg = True
+        what = "messages"
+    elif input_str == "media":
+        media = True
+        what = "media"
+    elif input_str == "sticker":
+        sticker = True
+        what = "stickers"
+    elif input_str == "gif":
+        gif = True
+        what = "GIFs"
+    elif input_str == "game":
+        gamee = True
+        what = "games"
+    elif input_str == "inline":
+        ainline = True
+        what = "inline bots"
+    elif input_str == "poll":
+        gpoll = True
+        what = "polls"
+    elif input_str == "invite":
+        adduser = True
+        what = "invites"
+    elif input_str == "pin":
+        cpin = True
+        what = "pins"
+    elif input_str == "url":
+        emlink = True
+        what = "url links"
+    elif input_str == "info":
+        changeinfo = True
+        what = "chat info"
+    elif input_str == "all":
+        msg = True
+        media = True
+        sticker = True
+        gif = True
+        gamee = True
+        ainline = True
+        emlink = True
+        gpoll = True
+        adduser = True
+        cpin = True
+        changeinfo = True
+        what = "everything"
+    else:
+        if not input_str:
+            await event.reply("I can't lock nothing !!")
+            return
+        await event.reply(f"Invalid lock type: {input_str}")
+        return
+
+    lock_rights = ChatBannedRights(
+        until_date=None,
+        send_messages=msg,
+        send_media=media,
+        send_stickers=sticker,
+        send_gifs=gif,
+        embed_links=emlink,
+        send_games=gamee,
+        send_inline=ainline,
+        send_polls=gpoll,
+        invite_users=adduser,
+        pin_messages=cpin,
+        change_info=changeinfo,
+    )
+    try:
+        await tbot(
+            EditChatDefaultBannedRightsRequest(event.chat_id, banned_rights=lock_rights)
+        )
+        await event.reply(f"Locked Successfully !")
+    except Exception:
+        await event.reply("Failed to lock.")
+        return
+
+
+@register(pattern="^/locktypes$")
+async def ltypes(event):
+    if not event.is_group:
+        return
+    if event.is_group:
+        if not await can_ban_users(message=event):
+            return
+    await event.reply(
+        "**These are the valid lock types:**\n\nmsg\nmedia\nurl\nsticker\ngif\ngame\ninline\npoll\ninvite\npin\ninfo\nall"
+    )
+
+            
+            
+@register(pattern="^/locks$")
+async def clocks(event):
+    if not event.is_group:
+        return
+    if event.is_group:
+        if not await can_ban_users(message=event):
+            return
+    try:
+        c = event.chat.default_banned_rights
+        await event.reply(str(c))
+    except BaseException:
+        return
 
 
 __mod_name__ = "Locks"
