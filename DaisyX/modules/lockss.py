@@ -29,7 +29,7 @@ from DaisyX.services.pyrogram import pbot
 # initialise
 #app_db = Approve()
 
-@pbot.on_message(filters.command("locks") & ~filters.edited & ~filters.bot & ~filters.private)
+@pbot.on_message(filters.command("locktypes") & ~filters.edited & ~filters.bot & ~filters.private)
 async def lock_types(_, m: Message):
     await m.reply_text(
         (
@@ -175,7 +175,7 @@ async def lock_perm(client,message):
     return
 
 
-@Alita.on_message(command("lockks") & restrict_filter)
+@pbot.on_message(filters.command("locks") & ~filters.edited & ~filters.bot & ~filters.private)
 async def view_locks(_, m: Message):
 
     (
