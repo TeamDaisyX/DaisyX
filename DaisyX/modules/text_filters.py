@@ -13,7 +13,7 @@ from DaisyX.db.mongo_helpers.filterdb import (
         )
 from pyrogram import filters
 
-@app.on_message(filters.command("add") & ~filters.edited & ~filters.private)
+@app.on_message(filters.command("filter") & ~filters.edited & ~filters.private)
 async def save_filters(_, message):
     if len(message.command) < 2 or not message.reply_to_message:
         await message.reply_text("Usage:\nReply to a text or sticker with /filter <textfilter name> to save it. \n\n NOTE: **TRY OUR NEW FILTER SYSTEM WITH /addfilter**")
@@ -37,7 +37,7 @@ async def save_filters(_, message):
         await message.reply_text(f"__**Saved filter {name}.**__")
 
 
-@app.on_message(filters.command("textfilters") & ~filters.edited & ~filters.private)
+@app.on_message(filters.command("filters") & ~filters.edited & ~filters.private)
 async def get_filterss(_, message):
     _filters = await get_filters_names(message.chat.id)
     if not _filters:
@@ -49,7 +49,7 @@ async def get_filterss(_, message):
         await message.reply_text(msg)
 
 
-@app.on_message(filters.command("remfilter") & ~filters.edited & ~filters.private)
+@app.on_message(filters.command("stop") & ~filters.edited & ~filters.private)
 async def del_filter(_, message):
     if len(message.command) < 2:
         await message.reply_text("**Usage**\n__/stop <textfilter name> \nIf filter /delfilter <filtername>__")
