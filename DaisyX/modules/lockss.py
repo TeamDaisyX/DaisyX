@@ -146,7 +146,7 @@ async def lock_perm(client,message):
         perm = "pin"
 
     else:
-        await message.reply_text(message, "Invalid Lock T)
+        await message.reply_text(message, "Invalid Lock Type")
         return
 
     try:
@@ -168,8 +168,8 @@ async def lock_perm(client,message):
         )
 
         #await prevent_approved(message)  # Don't lock permissions for approved users!
-        await message.reply_text(message, f"Locked {perm}"),
-        )
+        await message.reply_text(message, f"Locked {perm}")
+        
     except ChatAdminRequired:
         await message.reply_text(message, "You don't have enough permission")
     return
@@ -371,7 +371,7 @@ async def unlock_perm(c: client, m: message):
             ),
         )
         #await prevent_approved(m)  # Don't lock permissions for approved users!
-        await m.reply_text(m, f"Unlocked {perm})
+        await m.reply_text(m, f"Unlocked {perm}")
 
     except ChatAdminRequired:
         await m.reply_text(m, "Admin needed")
