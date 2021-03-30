@@ -149,6 +149,35 @@ async def lock_parser(chat_id, rev=False):
             yield lock, status
 """            
 
+BANNED_RIGHTS = ChatBannedRights(
+    until_date=None,
+    view_messages=True,
+    send_messages=True,
+    send_media=True,
+    send_stickers=True,
+    send_gifs=True,
+    send_games=True,
+    send_inline=True,
+    embed_links=True,
+)
+
+UNBAN_RIGHTS = ChatBannedRights(
+    until_date=None,
+    send_messages=None,
+    send_media=None,
+    send_stickers=None,
+    send_gifs=None,
+    send_games=None,
+    send_inline=None,
+    embed_links=None,
+)
+
+KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
+
+MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
+
+UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
+
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -173,6 +202,17 @@ async def can_change_info(message):
         isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.change_info
     )
 
+async def can_ban_users(message):
+    result = await tbot(
+        functions.channels.GetParticipantRequest(
+            channel=message.chat_id,
+            user_id=message.sender_id,
+        )
+    )
+    p = result.participant
+    return isinstance(p, types.ChannelParticipantCreator) or (
+        isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.ban_users
+    )
 
 @register(pattern="^/lock ?(.*)")
 async def locks(event):
