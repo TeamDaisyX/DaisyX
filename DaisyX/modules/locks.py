@@ -22,7 +22,7 @@ from DaisyX.decorator import register
 from .utils.connections import chat_connection
 from .utils.language import get_strings_dec
 
-"""
+
 @register(cmds=["locks", "locktypes"], user_admin=True)
 @chat_connection(only_groups=True)
 @get_strings_dec('locks')
@@ -34,7 +34,7 @@ async def lock_types(message, chat, strings):
     async for lock, status in lock_parser(chat_id):
         text += f"- {lock} = {status} \n"
     await message.reply(text)
-"""
+
 
 @register(cmds="lock", user_can_restrict_members=True, bot_can_restrict_members=True)
 @chat_connection(only_groups=True)
