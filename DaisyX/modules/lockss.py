@@ -96,7 +96,7 @@ async def lock_perm(client,message):
         try:
             await client.set_chat_permissions(chat_id, ChatPermissions())
             #await prevent_approved(message)  # Don't lock permissions for approved users!
-            await message.reply_text("🔒 " + (message,"Locked All"))
+            await message.reply_text(message,"Locked All")
         except ChatAdminRequired:
             await message.reply_text(message, "Chat admin required")
         return
