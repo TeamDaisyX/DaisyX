@@ -174,7 +174,7 @@ async def lock_perm(client,message):
         await message.reply_text(message, "You don't have enough permission")
     return
 
-
+"""
 @pbot.on_message(filters.command("locks") & ~filters.edited & ~filters.bot & ~filters.private)
 async def view_locks(_, m: Message):
 
@@ -215,7 +215,7 @@ async def view_locks(_, m: Message):
 
     if v_perm is not None:
         try:
-            permission_view_str = (m, f"""Locks 
+            permission_view_str = (m, f""Locks 
                 Message={vmsg}\n
                 Media={vmedia}\n
                 stickers={vstickers}\n
@@ -227,7 +227,7 @@ async def view_locks(_, m: Message):
                 info={vinfo}\n
                 invite={vinvite}
                 pin={vpin}
-                """
+                ""
             )
             await chkmsg.edit_text(permission_view_str)
 
@@ -240,7 +240,7 @@ async def view_locks(_, m: Message):
 
 
 @pbot.on_message(filters.command("unlockk") & ~filters.edited & ~filters.bot)
-async def unlock_perm(c: client, m: message):
+async def unlock_perm(c,m):
 
     (
         umsg,
@@ -377,7 +377,7 @@ async def unlock_perm(c: client, m: message):
         await m.reply_text(m, "Admin needed")
     return
 
-"""
+
 async def prevent_approved(m: Message):
     approved_users = app_db.list_approved(m.chat.id)
     ul = []
