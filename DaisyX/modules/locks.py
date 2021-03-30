@@ -272,6 +272,7 @@ async def locks(event):
 
 @register(pattern="^/locktypes$")
 async def ltypes(event):
+    print("hi")
     if not event.is_group:
         return
     if event.is_group:
