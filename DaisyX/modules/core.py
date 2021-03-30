@@ -74,8 +74,8 @@ async def get(event):
 __help__ = """
  *You can make a file 
   name. *
- ✪ /dox tag a message <file name> example /dox example.py
- ✪ /open tag a file <÷>
+ ✪ /dox tag a message <i>file name</i> example /dox example.py
+ ✪ /open tag a file 
 """
 
 __mod_name__ = "Core "
