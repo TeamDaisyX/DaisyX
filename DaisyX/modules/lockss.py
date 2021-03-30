@@ -75,7 +75,7 @@ async def lock_perm(client,message):
     chat_id = message.chat.id
 
     if not lock_type:
-        await message.reply_text(message, "Wrong lock type")
+        await message.reply_text("Wrong lock type")
         return
 
     get_perm = message.chat.permissions
@@ -96,9 +96,9 @@ async def lock_perm(client,message):
         try:
             await client.set_chat_permissions(chat_id, ChatPermissions())
             #await prevent_approved(message)  # Don't lock permissions for approved users!
-            await message.reply_text(message,"Locked All")
+            await message.reply_text("Locked All")
         except ChatAdminRequired:
-            await message.reply_text(message, "Chat admin required")
+            await message.reply_text("Chat admin required")
         return
 
     if lock_type == "msg":
@@ -168,10 +168,10 @@ async def lock_perm(client,message):
         )
 
         #await prevent_approved(message)  # Don't lock permissions for approved users!
-        await message.reply_text(message, f"Locked {perm}")
+        await message.reply_text(f"Locked {perm}")
         
     except ChatAdminRequired:
-        await message.reply_text(message, "You don't have enough permission")
+        await message.reply_text("You don't have enough permission")
     return
 
 """
