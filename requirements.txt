@@ -55,7 +55,7 @@ html5lib
 tgCrypto>=1.2.2
 
 #Old DB Processes
-psycopg2
+psycopg2-binary==2.8.6
 
 #YTDL
 youtube_dl
