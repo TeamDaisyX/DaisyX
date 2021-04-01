@@ -5,11 +5,14 @@
   <a href="https://github.com/TeamDaisyX/DaisyX-v2/graphs/commit-activity" alt="Maintenance"> <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square" /> </a>
 </p>
 <h4 align="center">A Powerful, Smart And Simple Group Manager <br> ... Written with AioGram , Pyrogram and Telethon...</h4>
+
 > ⭐️ Thanks to everyone who starred Daisy, That is the greatest pleasure we have !
+
 [![CodeFactor](https://www.codefactor.io/repository/github/TeamDaisyX/DaisyX-v2.0/badge)](https://www.codefactor.io/repository/github/TeamDaisyX/DaisyX-v2.0)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Website Status](https://img.shields.io/website-up-down-green-red/http/daisyproject.studio.svg?label=website)](http://daisyproject.studio)
 [![Total Size](https://github-size-badge.herokuapp.com/teamdaisyX/daisyx-v2.0.svg)](https://github.com/teamdaisyx/daisyx-v2.0)
+
 <p align="center"><a href="https://t.me/DaisySupport_Official"><img src="https://telegra.ph/file/23448c98735bd81df47e7.jpg" width="400"></a></p> 
 
 <p align="center">
