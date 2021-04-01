@@ -33,7 +33,8 @@
  - [FridayUserbot](https://github.com/DevsExpo/FridayUserbot)
  - [MissJuliaRobot](https://github.com/MissJuliaRobot/MissJuliaRobot)
  - [DaisyX](https://github.com/teamdaisyx/daisy-x)
- - [Masha](https://github.com/Mr-Dark-Prince/MashaRoBot/)
+ - [Auto-Filter-Bot-V2](https://github.com/TroJanzHEX/Auto-Filter-Bot-V2/)
+ - [Image-Editor](https://github.com/TroJanzHEX/Image-Editor/)
  - [LEGENDX](https://github.com/LEGENDXOP/LEGEND-X)
 
 The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie)
@@ -48,17 +49,29 @@ DaisyX-v2.0 (Base AioGram)
 
 
 ## Special Credits
-- [Kaviya-Admin](https://github.com/kaviya-admin) - A Developer of Project
-- [LEGENDX](https://github.com/LEGENDXOP) - A Developer of Project
-- [Anjana_Ma](https://github.com/Anjana_Ma) - A Developer of Project
-- [Dark Prince](https://github.com/Mr-Dark-Prince) - A Co-Developer of Project
-- [Official_Bawwa](https://github.com/OfficialBawwa) - A Developer of Project
-- [Inuka Asith](https://github.com/inukaasith) - A Developer of the project
-- [annihilatorrrr](https://github.com/annihilatorrrr) - A Co-Developer of Project
-- [sithum batrow](https://github.com/sbatrow) - A Developer of Project
-- @tamilvip007 - Helper
-- @charindith - Helper
-- @mubashirrehman - Helper
+- [TroJanzHEX]((https://github.com/TroJanzHEX)
+- [Amarnath c](https://github.com/Amarnathcdj)
+- [Thehamkercat](https://github.com/thehamkercat)
+- [StarkGang](https://github.com/StarkGang)
+- [chsaiujwal](https://github.com/chsaiujwal)
+- [LEGENDX](https://github.com/LEGENDXOP) 
+- [MissJuliaRobot](https://github.com/MissJuliaRobot) 
+- [HitsukiNetwork](https://github.com/HitsukiNetwork) 
+- [AnimeKaizoku](https://github.com/AnimeKaizoku) 
+- [Dan](https://github.com/delivrance) 
+- [Lonami](https://github.com/Lonami) 
+- [AioGram Project group](https://github.com/aiogram) 
+
+
+## Contributors
+- [Anjana_Ma](https://github.com/Anjana_Ma) 
+- [Dark Prince](https://github.com/Mr-Dark-Prince) 
+- [Official_Bawwa](https://github.com/OfficialBawwa) 
+- [Inuka Asith](https://github.com/inukaasith) 
+- [annihilatorrrr](https://github.com/annihilatorrrr) 
+- [sithum batrow](https://github.com/sbatrow) 
+- [LEGENDX](https://github.com/LEGENDXOP) 
+
 - For you..
 
 > And as always thanks to AioGram devs, Dan for pyrogram, lonami for telethon and Durov for telegram
