@@ -44,17 +44,6 @@
  - [Utah](https://github.com/minatouzuki/utah)
  - [LEGENDX](https://github.com/LEGENDXOP/LEGEND-X)
 
-The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie)
-This repo was just revamped to suit an Anime-centric & comedy loving community. All original credits go to SophieBot and their dedication, Without his efforts, this fork would not have been possible!
-
-All other credits mentioned on top of scripts
-
-Anything missing kindly let us know at [Daisy Support](https://t.me/DaisySupport_Official) or simply submit a pull request on the readme.
-
-## Daisy X the telegram Bot Project
-DaisyX-v2.0 (Base AioGram)
-
-
 ## Special Credits
 - [SophieBot Devs](https://gitlab.com/SophieBot)
 - [TroJanzHEX](https://github.com/TroJanzHEX)
@@ -69,6 +58,16 @@ DaisyX-v2.0 (Base AioGram)
 - [Dan](https://github.com/delivrance) 
 - [Lonami](https://github.com/Lonami) 
 - [AioGram Project group](https://github.com/aiogram) 
+
+The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie)
+This repo was just revamped to suit an Anime-centric & comedy loving community. All original credits go to SophieBot and their dedication, Without his efforts, this fork would not have been possible!
+
+All other credits mentioned on top of scripts
+
+Anything missing kindly let us know at [Daisy Support](https://t.me/DaisySupport_Official) or simply submit a pull request on the readme.
+
+# Daisy X the telegram Bot Project
+DaisyX-v2.0 (Base AioGram)
 
 
 ## Contributors
