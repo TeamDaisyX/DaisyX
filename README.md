@@ -12,21 +12,10 @@
 <p align="center">
     <a href="https://app.codacy.com/manual/teamdaisyx/daisyx-v2.0/dashboard"> <img src="https://img.shields.io/codacy/grade/4d58f2a402b54aed8a7d95f7add45a81?color=brightgreen&logo=codacy&logoColor=green&style=for-the-badge" alt="Codacy" /></a>
     <a href="https://github.com/teamdaisyx/daisyx-v2.0"> <img src="https://img.shields.io/github/repo-size/teamdaisyx/daisyx-v2.0?color=orange&logo=github&logoColor=green&style=for-the-badge" /></a>
-    <a href="https://github.com/teamdaisyx/daisyx-v2.0/commits/prince"> <img src="https://img.shields.io/github/last-commit/teamdaisyx/daisyx-v2.0?color=brown&logo=github&logoColor=green&style=for-the-badge" /></a>
+    <a href="https://github.com/teamdaisyx/daisyx-v2.0/commits/inukaasith"> <img src="https://img.shields.io/github/last-commit/teamdaisyx/daisyx-v2.0?color=brown&logo=github&logoColor=green&style=for-the-badge" /></a>
     <a href="https://github.com/teamdaisyx/daisyx-v2.0/issues"> <img src="https://img.shields.io/github/issues/teamdaisyx/daisyx-v2.0?color=blueviolet&logo=github&logoColor=green&style=for-the-badge" /></a>
     <a href="https://github.com/teamdaisyx/daisyx-v2.0/network/members"> <img src="https://img.shields.io/github/forks/teamdaisyx/daisyx-v2.0?color=red&logo=github&logoColor=green&style=for-the-badge" /></a>  
     <a href="https://pypi.org/project/Telethon/"> <img src="https://img.shields.io/pypi/v/telethon?color=yellow&label=telethon&logo=python&logoColor=green&style=for-the-badge" /></a>
-</p>
-
-<p align="center"><a href="https://t.me/DaisySupport_Official"><img src="https://telegra.ph/file/23448c98735bd81df47e7.jpg" width="400"></a></p> 
-
-<p align="center">
-    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/commits/main"><img src="https://img.shields.io/github/last-commit/TeamDaisyX/daisyx-v2.0/main?label=Last%20Commit&style=flat-square&logo=github&color=F10070" alt="Commit" /></a>
-    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/stargazers"><img src="https://img.shields.io/github/stars/TeamDaisyX/daisyx-v2.0?label=Stars&style=flat-square&logo=github&color=F10070" alt="Stars" /></a>
-    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/network/members"><img src="https://img.shields.io/github/forks/TeamDaisyX/daisyx-v2.0?label=Fork&style=flat-square&logo=github&color=F10070" alt="Fork" /></a>
-    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/watchers"><img src="https://img.shields.io/github/watchers/TeamDaisyX/daisyx-v2.0?label=Watch&style=flat-square&logo=github&color=F10070" alt="Watch" /></a>
-    <a href="https://github.com/TeamDaisyX/daisyx-v2.0/graphs/contributors"><img src="https://img.shields.io/github/contributors-anon/TeamDaisyX/daisyx-v2.0?label=Contributors&style=flat-square&logo=github&color=F10070" alt="Contributors" /></a>  
-    <a href="https://www.codacy.com/gh/TeamDaisyX/daisyx-v2.0/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TeamDaisyX/daisyx-v2.0&amp;utmcampaign=Badge_Grade"><img src="https://img.shields.io/codacy/grade/a3a19d2b551641039ec7edc3aa7b8c5d?style=flat-square&logo=codacy&color=F10070" alt="codacy badge"/></a> 
 </p>
 
 ### The first AioGram based modified groupmanagement bot fully optimized for heroku deploys
