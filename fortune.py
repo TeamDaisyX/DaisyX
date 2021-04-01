@@ -1,8 +1,7 @@
-import random
-import sys
 import codecs
+import random
 import re
-
+import sys
 from optparse import OptionParser
 
 # ---------------------------------------------------------------------------

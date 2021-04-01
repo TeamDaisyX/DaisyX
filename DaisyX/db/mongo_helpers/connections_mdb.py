@@ -1,21 +1,18 @@
-import os
 import pymongo
+
 from DaisyX.config import get_str_key
 
 MONGO2 = get_str_key("FILTERS_MONGO", None)
 MONGO = get_str_key("MONGO_URI", required=True)
 if MONGO2 == None:
-  MONGO2 = MONGO
+    MONGO2 = MONGO
 myclient = pymongo.MongoClient(MONGO2)
-mydb = myclient['Daisy']
-mycol = mydb['CONNECTION']   
+mydb = myclient["Daisy"]
+mycol = mydb["CONNECTION"]
 
 
 async def add_connection(group_id, user_id):
-    query = mycol.find_one(
-        { "_id": user_id },
-        { "_id": 0, "active_group": 0 }
-    )
+    query = mycol.find_one({"_id": user_id}, {"_id": 0, "active_group": 0})
     if query is not None:
         group_ids = []
         for x in query["group_details"]:
@@ -24,45 +21,40 @@ async def add_connection(group_id, user_id):
         if group_id in group_ids:
             return False
 
-    group_details = {
-        "group_id" : group_id
-    }
+    group_details = {"group_id": group_id}
 
     data = {
-        '_id': user_id,
-        'group_details' : [group_details],
-        'active_group' : group_id,
+        "_id": user_id,
+        "group_details": [group_details],
+        "active_group": group_id,
     }
-    
-    if mycol.count_documents( {"_id": user_id} ) == 0:
+
+    if mycol.count_documents({"_id": user_id}) == 0:
         try:
             mycol.insert_one(data)
             return True
         except:
-            print('Some error occured!')
+            print("Some error occured!")
 
     else:
         try:
             mycol.update_one(
-                {'_id': user_id},
+                {"_id": user_id},
                 {
                     "$push": {"group_details": group_details},
-                    "$set": {"active_group" : group_id}
-                }
+                    "$set": {"active_group": group_id},
+                },
             )
             return True
         except:
-            print('Some error occured!')
+            print("Some error occured!")
 
-        
+
 async def active_connection(user_id):
 
-    query = mycol.find_one(
-        { "_id": user_id },
-        { "_id": 0, "group_details": 0 }
-    )
+    query = mycol.find_one({"_id": user_id}, {"_id": 0, "group_details": 0})
     if query:
-        group_id = query['active_group']
+        group_id = query["active_group"]
         if group_id != None:
             return int(group_id)
         else:
@@ -72,10 +64,7 @@ async def active_connection(user_id):
 
 
 async def all_connections(user_id):
-    query = mycol.find_one(
-        { "_id": user_id },
-        { "_id": 0, "active_group": 0 }
-    )
+    query = mycol.find_one({"_id": user_id}, {"_id": 0, "active_group": 0})
     if query is not None:
         group_ids = []
         for x in query["group_details"]:
@@ -86,12 +75,9 @@ async def all_connections(user_id):
 
 
 async def if_active(user_id, group_id):
-    query = mycol.find_one(
-        { "_id": user_id },
-        { "_id": 0, "group_details": 0 }
-    )
+    query = mycol.find_one({"_id": user_id}, {"_id": 0, "group_details": 0})
     if query is not None:
-        if query['active_group'] == group_id:
+        if query["active_group"] == group_id:
             return True
         else:
             return False
@@ -100,10 +86,7 @@ async def if_active(user_id, group_id):
 
 
 async def make_active(user_id, group_id):
-    update = mycol.update_one(
-        {'_id': user_id},
-        {"$set": {"active_group" : group_id}}
-    )
+    update = mycol.update_one({"_id": user_id}, {"$set": {"active_group": group_id}})
     if update.modified_count == 0:
         return False
     else:
@@ -111,10 +94,7 @@ async def make_active(user_id, group_id):
 
 
 async def make_inactive(user_id):
-    update = mycol.update_one(
-        {'_id': user_id},
-        {"$set": {"active_group" : None}}
-    )
+    update = mycol.update_one({"_id": user_id}, {"$set": {"active_group": None}})
     if update.modified_count == 0:
         return False
     else:
@@ -125,29 +105,23 @@ async def delete_connection(user_id, group_id):
 
     try:
         update = mycol.update_one(
-            {"_id": user_id},
-            {"$pull" : { "group_details" : {"group_id":group_id} } }
+            {"_id": user_id}, {"$pull": {"group_details": {"group_id": group_id}}}
         )
         if update.modified_count == 0:
             return False
         else:
-            query = mycol.find_one(
-                { "_id": user_id },
-                { "_id": 0 }
-            )
+            query = mycol.find_one({"_id": user_id}, {"_id": 0})
             if len(query["group_details"]) >= 1:
-                if query['active_group'] == group_id:
-                    prvs_group_id = query["group_details"][len(query["group_details"]) - 1]["group_id"]
+                if query["active_group"] == group_id:
+                    prvs_group_id = query["group_details"][
+                        len(query["group_details"]) - 1
+                    ]["group_id"]
 
                     mycol.update_one(
-                        {'_id': user_id},
-                        {"$set": {"active_group" : prvs_group_id}}
+                        {"_id": user_id}, {"$set": {"active_group": prvs_group_id}}
                     )
             else:
-                mycol.update_one(
-                    {'_id': user_id},
-                    {"$set": {"active_group" : None}}
-                )                    
+                mycol.update_one({"_id": user_id}, {"$set": {"active_group": None}})
             return True
     except Exception as e:
         print(e)

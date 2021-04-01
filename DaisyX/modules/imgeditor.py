@@ -1,41 +1,46 @@
 # By @TroJanzHEX
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram import filters
-from DaisyX.services.pyrogram import pbot as Client
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+)
+
 # By @TroJanzHEX
 from DaisyX.Addons.ImageEditor.edit_1 import (  # pylint:disable=import-error
-    bright,
-    mix,
     black_white,
-    g_blur,
-    normal_blur,
     box_blur,
+    bright,
+    g_blur,
+    mix,
+    normal_blur,
 )
 from DaisyX.Addons.ImageEditor.edit_2 import (  # pylint:disable=import-error
+    cartoon,
     circle_with_bg,
     circle_without_bg,
-    sticker,
-    edge_curved,
     contrast,
-    sepia_mode,
+    edge_curved,
     pencil,
-    cartoon,
+    sepia_mode,
+    sticker,
 )
 from DaisyX.Addons.ImageEditor.edit_3 import (  # pylint:disable=import-error
-    green_border,
-    blue_border,
     black_border,
+    blue_border,
+    green_border,
     red_border,
 )
 from DaisyX.Addons.ImageEditor.edit_4 import (  # pylint:disable=import-error
+    inverted,
+    removebg_plain,
+    removebg_sticker,
+    removebg_white,
     rotate_90,
     rotate_180,
     rotate_270,
-    inverted,
     round_sticker,
-    removebg_white,
-    removebg_plain,
-    removebg_sticker,
 )
 from DaisyX.Addons.ImageEditor.edit_5 import (  # pylint:disable=import-error
     normalglitch_1,
@@ -49,17 +54,14 @@ from DaisyX.Addons.ImageEditor.edit_5 import (  # pylint:disable=import-error
     scanlineglitch_4,
     scanlineglitch_5,
 )
-
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from DaisyX.services.pyrogram import pbot as Client
+
 lel = 00000000
 # pylint:disable=import-error
 @Client.on_message(filters.command(["edit", "editor"]))
 async def photo(client: Client, message: Message):
     if not message.reply_to_message.photo:
-        client.send_message(
-            message.chat.id,
-            "Reply to an image man!ㅤㅤ")
+        client.send_message(message.chat.id, "Reply to an image man!ㅤㅤ")
         return
     global lel
     lel = message.from_user.id
@@ -82,7 +84,9 @@ async def photo(client: Client, message: Message):
                     [
                         InlineKeyboardButton(text="🎉 STICKER", callback_data="stick"),
                         InlineKeyboardButton(text="↩️ ROTATE", callback_data="rotate"),
-                        InlineKeyboardButton(text="🔦 CONTRAST", callback_data="contrast"),
+                        InlineKeyboardButton(
+                            text="🔦 CONTRAST", callback_data="contrast"
+                        ),
                     ],
                     [
                         InlineKeyboardButton(text="🌇 SEPIA", callback_data="sepia"),
@@ -114,11 +118,10 @@ async def photo(client: Client, message: Message):
                 return
 
 
-
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
     user_id = query.from_user.id
-    if lel == user_id:       
+    if lel == user_id:
         if query.data == "removebg":
             await query.message.edit_text(
                 "**Select required mode**ㅤㅤㅤㅤ",
@@ -132,7 +135,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                                 text="WITHOUT BG", callback_data="rmbgplain"
                             ),
                         ],
-                        [InlineKeyboardButton(text="STICKER", callback_data="rmbgsticker")],
+                        [
+                            InlineKeyboardButton(
+                                text="STICKER", callback_data="rmbgsticker"
+                            )
+                        ],
                     ]
                 ),
             )
@@ -191,13 +198,23 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton(text="1", callback_data="normalglitch1"),
-                            InlineKeyboardButton(text="2", callback_data="normalglitch2"),
-                            InlineKeyboardButton(text="3", callback_data="normalglitch3"),
+                            InlineKeyboardButton(
+                                text="1", callback_data="normalglitch1"
+                            ),
+                            InlineKeyboardButton(
+                                text="2", callback_data="normalglitch2"
+                            ),
+                            InlineKeyboardButton(
+                                text="3", callback_data="normalglitch3"
+                            ),
                         ],
                         [
-                            InlineKeyboardButton(text="4", callback_data="normalglitch4"),
-                            InlineKeyboardButton(text="5", callback_data="normalglitch5"),
+                            InlineKeyboardButton(
+                                text="4", callback_data="normalglitch4"
+                            ),
+                            InlineKeyboardButton(
+                                text="5", callback_data="normalglitch5"
+                            ),
                         ],
                     ]
                 ),
@@ -208,13 +225,23 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton(text="1", callback_data="scanlineglitch1"),
-                            InlineKeyboardButton(text="2", callback_data="scanlineglitch2"),
-                            InlineKeyboardButton(text="3", callback_data="scanlineglitch3"),
+                            InlineKeyboardButton(
+                                text="1", callback_data="scanlineglitch1"
+                            ),
+                            InlineKeyboardButton(
+                                text="2", callback_data="scanlineglitch2"
+                            ),
+                            InlineKeyboardButton(
+                                text="3", callback_data="scanlineglitch3"
+                            ),
                         ],
                         [
-                            InlineKeyboardButton(text="4", callback_data="scanlineglitch4"),
-                            InlineKeyboardButton(text="5", callback_data="scanlineglitch5"),
+                            InlineKeyboardButton(
+                                text="4", callback_data="scanlineglitch4"
+                            ),
+                            InlineKeyboardButton(
+                                text="5", callback_data="scanlineglitch5"
+                            ),
                         ],
                     ]
                 ),
@@ -255,24 +282,27 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     [
                         [
                             InlineKeyboardButton(text="🔴 RED 🔴", callback_data="red"),
-                            InlineKeyboardButton(text="🟢 Green 🟢", callback_data="green"),
+                            InlineKeyboardButton(
+                                text="🟢 Green 🟢", callback_data="green"
+                            ),
                         ],
                         [
-                            InlineKeyboardButton(text="⚫ Black ⚫", callback_data="black"),
+                            InlineKeyboardButton(
+                                text="⚫ Black ⚫", callback_data="black"
+                            ),
                             InlineKeyboardButton(text="🔵 Blue 🔵", callback_data="blue"),
                         ],
                     ]
                 ),
             )
 
-
         elif query.data == "bright":
             await query.message.delete()
             await bright(client, query.message)
-        
+
         elif query.data == "close_e":
             await query.message.delete()
-            
+
         elif query.data == "mix":
             await query.message.delete()
             await mix(client, query.message)

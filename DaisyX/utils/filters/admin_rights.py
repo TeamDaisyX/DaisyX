@@ -64,12 +64,14 @@ class UserRestricting(Filter):
 
     async def check(self, event):
         user_id = await self.get_target_id(event)
-        message = event.message if hasattr(event, 'message') else event
+        message = event.message if hasattr(event, "message") else event
         # If pm skip checks
-        if message.chat.type == 'private':
+        if message.chat.type == "private":
             return True
 
-        check = await check_admin_rights(message, message.chat.id, user_id, self.required_permissions.keys())
+        check = await check_admin_rights(
+            message, message.chat.id, user_id, self.required_permissions.keys()
+        )
         if check is not True:
             # check = missing permission in this scope
             await self.no_rights_msg(event, check)
@@ -81,22 +83,30 @@ class UserRestricting(Filter):
         return message.from_user.id
 
     async def no_rights_msg(self, message, required_permissions):
-        strings = await get_strings(message.message.chat.id if hasattr(message, 'message')
-                                    else message.chat.id, 'global')
-        task = message.answer if hasattr(message, 'message') else message.reply
-        if not isinstance(required_permissions, bool):  # Check if check_admin_rights func returned missing perm
-            required_permissions = ' '.join(required_permissions.strip('can_').split('_'))
+        strings = await get_strings(
+            message.message.chat.id if hasattr(message, "message") else message.chat.id,
+            "global",
+        )
+        task = message.answer if hasattr(message, "message") else message.reply
+        if not isinstance(
+            required_permissions, bool
+        ):  # Check if check_admin_rights func returned missing perm
+            required_permissions = " ".join(
+                required_permissions.strip("can_").split("_")
+            )
             try:
-                await task(strings['user_no_right'].format(permission=required_permissions))
+                await task(
+                    strings["user_no_right"].format(permission=required_permissions)
+                )
             except BadRequest as error:
-                if error.args == 'Reply message not found':
-                    return await message.answer(strings['user_no_right'])
+                if error.args == "Reply message not found":
+                    return await message.answer(strings["user_no_right"])
         else:
             try:
-                await task(strings['user_no_right:not_admin'])
+                await task(strings["user_no_right:not_admin"])
             except BadRequest as error:
-                if error.args == 'Reply message not found':
-                    return await message.answer(strings['user_no_right:not_admin'])
+                if error.args == "Reply message not found":
+                    return await message.answer(strings["user_no_right:not_admin"])
 
 
 class BotHasPermissions(UserRestricting):
@@ -118,20 +128,24 @@ class BotHasPermissions(UserRestricting):
 
     async def no_rights_msg(self, message, required_permissions):
         message = message.message if isinstance(message, CallbackQuery) else message
-        strings = await get_strings(message.chat.id, 'global')
+        strings = await get_strings(message.chat.id, "global")
         if not isinstance(required_permissions, bool):
-            required_permissions = ' '.join(required_permissions.strip('can_').split('_'))
+            required_permissions = " ".join(
+                required_permissions.strip("can_").split("_")
+            )
             try:
-                await message.reply(strings['bot_no_right'].format(permission=required_permissions))
+                await message.reply(
+                    strings["bot_no_right"].format(permission=required_permissions)
+                )
             except BadRequest as error:
-                if error.args == 'Reply message not found':
-                    return await message.answer(strings['bot_no_right'])
+                if error.args == "Reply message not found":
+                    return await message.answer(strings["bot_no_right"])
         else:
             try:
-                await message.reply(strings['bot_no_right:not_admin'])
+                await message.reply(strings["bot_no_right:not_admin"])
             except BadRequest as error:
-                if error.args == 'Reply message not found':
-                    return await message.answer(strings['bot_no_right:not_admin'])
+                if error.args == "Reply message not found":
+                    return await message.answer(strings["bot_no_right:not_admin"])
 
 
 dp.filters_factory.bind(UserRestricting)

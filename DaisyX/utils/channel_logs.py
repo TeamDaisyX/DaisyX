@@ -21,7 +21,7 @@ from DaisyX.utils.logger import log
 
 
 async def channel_log(msg, info_log=True):
-    chat_id = get_int_key('LOGS_CHANNEL_ID')
+    chat_id = get_int_key("LOGS_CHANNEL_ID")
     if info_log:
         log.info(msg)
 

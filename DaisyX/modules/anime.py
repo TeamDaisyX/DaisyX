@@ -13,36 +13,43 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import requests
-import jikanpy
 import html
-import bs4
 
+import bs4
+import jikanpy
+import requests
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 from DaisyX.decorator import register
+
 from .utils.anime import (
-    shorten, t, airing_query, manga_query,
-    character_query, anime_query, fav_query
+    airing_query,
+    anime_query,
+    character_query,
+    manga_query,
+    shorten,
+    t,
 )
 from .utils.disable import disableable_dec
 
-url = 'https://graphql.anilist.co'
+url = "https://graphql.anilist.co"
 
 
-@register(cmds='airing')
-@disableable_dec('airing')
+@register(cmds="airing")
+@disableable_dec("airing")
 async def anime_airing(message):
-    search_str = message.text.split(' ', 1)
+    search_str = message.text.split(" ", 1)
     if len(search_str) == 1:
-        await message.reply('Provide anime name!')
+        await message.reply("Provide anime name!")
         return
 
-    variables = {'search': search_str[1]}
+    variables = {"search": search_str[1]}
     response = requests.post(
-        url, json={'query': airing_query, 'variables': variables}).json()['data']['Media']
+        url, json={"query": airing_query, "variables": variables}
+    ).json()["data"]["Media"]
     ms_g = f"<b>Name</b>: <b>{response['title']['romaji']}</b>(<code>{response['title']['native']}</code>)\n<b>ID</b>: <code>{response['id']}</code>"
-    if response['nextAiringEpisode']:
-        airing_time = response['nextAiringEpisode']['timeUntilAiring'] * 1000
+    if response["nextAiringEpisode"]:
+        airing_time = response["nextAiringEpisode"]["timeUntilAiring"] * 1000
         airing_time_final = t(airing_time)
         ms_g += f"\n<b>Episode</b>: <code>{response['nextAiringEpisode']['episode']}</code>\n<b>Airing In</b>: <code>{airing_time_final}</code>"
     else:
@@ -50,44 +57,54 @@ async def anime_airing(message):
     await message.reply(ms_g)
 
 
-@register(cmds='anime')
-@disableable_dec('anime')
+@register(cmds="anime")
+@disableable_dec("anime")
 async def anime_search(message):
-    search = message.text.split(' ', 1)
+    search = message.text.split(" ", 1)
     if len(search) == 1:
-        await message.reply('Provide anime name!')
+        await message.reply("Provide anime name!")
         return
     else:
         search = search[1]
-    variables = {'search': search}
-    json = requests.post(url, json={'query': anime_query, 'variables': variables}).json()[
-        'data'].get('Media', None)
+    variables = {"search": search}
+    json = (
+        requests.post(url, json={"query": anime_query, "variables": variables})
+        .json()["data"]
+        .get("Media", None)
+    )
     if json:
         msg = f"<b>{json['title']['romaji']}</b>(<code>{json['title']['native']}</code>)\n<b>Type</b>: {json['format']}\n<b>Status</b>: {json['status']}\n<b>Episodes</b>: {json.get('episodes', 'N/A')}\n<b>Duration</b>: {json.get('duration', 'N/A')} Per Ep.\n<b>Score</b>: {json['averageScore']}\n<b>Genres</b>: <code>"
-        for x in json['genres']:
+        for x in json["genres"]:
             msg += f"{x}, "
-        msg = msg[:-2] + '</code>\n'
+        msg = msg[:-2] + "</code>\n"
         msg += "<b>Studios</b>: <code>"
-        for x in json['studios']['nodes']:
+        for x in json["studios"]["nodes"]:
             msg += f"{x['name']}, "
-        msg = msg[:-2] + '</code>\n'
-        info = json.get('siteUrl')
-        trailer = json.get('trailer', None)
+        msg = msg[:-2] + "</code>\n"
+        info = json.get("siteUrl")
+        trailer = json.get("trailer", None)
         if trailer:
-            trailer_id = trailer.get('id', None)
-            site = trailer.get('site', None)
+            trailer_id = trailer.get("id", None)
+            site = trailer.get("site", None)
             if site == "youtube":
-                trailer = 'https://youtu.be/' + trailer_id
-        description = json.get(
-            'description', 'N/A').replace('<i>', '').replace('</i>', '').replace('<br>', '')
+                trailer = "https://youtu.be/" + trailer_id
+        description = (
+            json.get("description", "N/A")
+            .replace("<i>", "")
+            .replace("</i>", "")
+            .replace("<br>", "")
+        )
         msg += shorten(description, info)
-        image = info.replace('anilist.co/anime/', 'img.anili.st/media/')
+        image = info.replace("anilist.co/anime/", "img.anili.st/media/")
         if trailer:
-            buttons = InlineKeyboardMarkup().add(InlineKeyboardButton(text="More Info", url=info),
-                                                 InlineKeyboardButton(text="Trailer 🎬", url=trailer))
+            buttons = InlineKeyboardMarkup().add(
+                InlineKeyboardButton(text="More Info", url=info),
+                InlineKeyboardButton(text="Trailer 🎬", url=trailer),
+            )
         else:
             buttons = InlineKeyboardMarkup().add(
-                InlineKeyboardButton(text="More Info", url=info))
+                InlineKeyboardButton(text="More Info", url=info)
+            )
 
         if image:
             try:
@@ -99,47 +116,57 @@ async def anime_search(message):
             await message.reply(msg)
 
 
-@register(cmds='character')
-@disableable_dec('character')
+@register(cmds="character")
+@disableable_dec("character")
 async def character_search(message):
-    search = message.text.split(' ', 1)
+    search = message.text.split(" ", 1)
     if len(search) == 1:
-        await message.reply('Provide character name!')
+        await message.reply("Provide character name!")
         return
     search = search[1]
-    variables = {'query': search}
-    json = requests.post(url, json={'query': character_query, 'variables': variables}).json()[
-        'data'].get('Character', None)
+    variables = {"query": search}
+    json = (
+        requests.post(url, json={"query": character_query, "variables": variables})
+        .json()["data"]
+        .get("Character", None)
+    )
     if json:
         ms_g = f"<b>{json.get('name').get('full')}</b>(<code>{json.get('name').get('native')}</code>)\n"
-        description = (f"{json['description']}").replace('__', '')
-        site_url = json.get('siteUrl')
+        description = (f"{json['description']}").replace("__", "")
+        site_url = json.get("siteUrl")
         ms_g += shorten(description, site_url)
-        image = json.get('image', None)
+        image = json.get("image", None)
         if image:
-            image = image.get('large')
+            image = image.get("large")
             await message.reply_photo(image, caption=ms_g)
         else:
             await message.reply(ms_g)
 
 
-@register(cmds='manga')
-@disableable_dec('manga')
+@register(cmds="manga")
+@disableable_dec("manga")
 async def manga_search(message):
-    search = message.text.split(' ', 1)
+    search = message.text.split(" ", 1)
     if len(search) == 1:
-        await message.reply('Provide manga name!')
+        await message.reply("Provide manga name!")
         return
     search = search[1]
-    variables = {'search': search}
-    json = requests.post(url, json={'query': manga_query, 'variables': variables}).json()[
-        'data'].get('Media', None)
-    ms_g = ''
+    variables = {"search": search}
+    json = (
+        requests.post(url, json={"query": manga_query, "variables": variables})
+        .json()["data"]
+        .get("Media", None)
+    )
+    ms_g = ""
     if json:
-        title, title_native = json['title'].get(
-            'romaji', False), json['title'].get('native', False)
-        start_date, status, score = json['startDate'].get('year', False), json.get(
-            'status', False), json.get('averageScore', False)
+        title, title_native = json["title"].get("romaji", False), json["title"].get(
+            "native", False
+        )
+        start_date, status, score = (
+            json["startDate"].get("year", False),
+            json.get("status", False),
+            json.get("averageScore", False),
+        )
         if title:
             ms_g += f"<b>{title}</b>"
             if title_native:
@@ -150,14 +177,17 @@ async def manga_search(message):
             ms_g += f"\n<b>Status</b> - <code>{status}</code>"
         if score:
             ms_g += f"\n<b>Score</b> - <code>{score}</code>"
-        ms_g += '\n<b>Genres</b> - '
-        for x in json.get('genres', []):
+        ms_g += "\n<b>Genres</b> - "
+        for x in json.get("genres", []):
             ms_g += f"{x}, "
         ms_g = ms_g[:-2]
 
         image = json.get("bannerImage", False)
-        ms_g += (f"\n<i>{json.get('description', None)}</i>").replace('<br>',
-                                                                      '').replace("</br>", "")
+        ms_g += (
+            (f"\n<i>{json.get('description', None)}</i>")
+            .replace("<br>", "")
+            .replace("</br>", "")
+        )
         if image:
             try:
                 await message.reply_photo(image, caption=ms_g)
@@ -168,13 +198,13 @@ async def manga_search(message):
             await message.reply(ms_g)
 
 
-@register(cmds='upcoming')
-@disableable_dec('upcoming')
+@register(cmds="upcoming")
+@disableable_dec("upcoming")
 async def upcoming(message):
     jikan = jikanpy.jikan.Jikan()
-    upcoming = jikan.top('anime', page=1, subtype="upcoming")
+    upcoming = jikan.top("anime", page=1, subtype="upcoming")
 
-    upcoming_list = [entry['title'] for entry in upcoming['top']]
+    upcoming_list = [entry["title"] for entry in upcoming["top"]]
     upcoming_message = ""
 
     for entry_num in range(len(upcoming_list)):
@@ -186,7 +216,7 @@ async def upcoming(message):
 
 
 async def site_search(message, site: str):
-    args = message.text.split(' ', 1)
+    args = message.text.split(" ", 1)
     more_results = True
 
     try:
@@ -199,12 +229,12 @@ async def site_search(message, site: str):
         search_url = f"https://animekaizoku.com/?s={search_query}"
         html_text = requests.get(search_url).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("h2", {'class': "post-title"})
+        search_result = soup.find_all("h2", {"class": "post-title"})
 
         if search_result:
             result = f"<b>Search results for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKaizoku</code>: \n"
             for entry in search_result:
-                post_link = entry.a['href']
+                post_link = entry.a["href"]
                 post_name = html.escape(entry.text)
                 result += f"• <a href='{post_link}'>{post_name}</a>\n"
         else:
@@ -215,7 +245,7 @@ async def site_search(message, site: str):
         search_url = f"https://animekayo.com/?s={search_query}"
         html_text = requests.get(search_url).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("h2", {'class': "title"})
+        search_result = soup.find_all("h2", {"class": "title"})
 
         result = f"<b>Search results for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>AnimeKayo</code>: \n"
         for entry in search_result:
@@ -225,7 +255,7 @@ async def site_search(message, site: str):
                 more_results = False
                 break
 
-            post_link = entry.a['href']
+            post_link = entry.a["href"]
             post_name = html.escape(entry.text.strip())
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
@@ -233,7 +263,7 @@ async def site_search(message, site: str):
         search_url = f"https://gogoanime.so//search.html?keyword={search_query}"
         html_text = requests.get(search_url).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
-        search_result = soup.find_all("h2", {'class': "title"})
+        search_result = soup.find_all("h2", {"class": "title"})
 
         result = f"<b>Search results for</b> <code>{html.escape(search_query)}</code> <b>on</b> <code>gogoanime</code>: \n"
         for entry in search_result:
@@ -243,12 +273,13 @@ async def site_search(message, site: str):
                 more_results = False
                 break
 
-            post_link = entry.a['href']
+            post_link = entry.a["href"]
             post_name = html.escape(entry.text.strip())
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
     buttons = InlineKeyboardMarkup().add(
-        InlineKeyboardButton(text="See all results", url=search_url))
+        InlineKeyboardButton(text="See all results", url=search_url)
+    )
 
     if more_results:
         await message.reply(result, reply_markup=buttons, disable_web_page_preview=True)
@@ -256,24 +287,25 @@ async def site_search(message, site: str):
         await message.reply(result)
 
 
-@register(cmds='kaizoku')
-@disableable_dec('kaizoku')
+@register(cmds="kaizoku")
+@disableable_dec("kaizoku")
 async def kaizoku(message):
     await site_search(message, "kaizoku")
 
 
-@register(cmds='kayo')
-@disableable_dec('kayo')
+@register(cmds="kayo")
+@disableable_dec("kayo")
 async def kayo(message):
     await site_search(message, "kayo")
 
 
-@register(cmds='ganime')
-@disableable_dec('ganime')
+@register(cmds="ganime")
+@disableable_dec("ganime")
 async def kayo(message):
     await site_search(message, "ganime")
 
-#added ganime search based on gogoanime.so
+
+# added ganime search based on gogoanime.so
 
 __mod_name__ = "Anime"
 

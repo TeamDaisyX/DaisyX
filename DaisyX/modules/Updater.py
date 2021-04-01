@@ -12,24 +12,25 @@
 # I KNOW YOU ARE GOOD YOU KEEP MY CREDITS 😘
 
 
-from DaisyX.services.events import register
-from os import remove, execle, path, environ
 import asyncio
 import sys
+from os import environ, execle, path, remove
+
+import heroku3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
-import heroku3
-from DaisyX import OWNER_ID
-from DaisyX.services.telethon import tbot as update
-from DaisyX.config import get_str_key
 
+from DaisyX import OWNER_ID
+from DaisyX.config import get_str_key
+from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot as update
 
 HEROKU_APP_NAME = get_str_key("HEROKU_APP_NAME", None)
 HEROKU_API_KEY = get_str_key("HEROKU_API_KEY", None)
 UPSTREAM_REPO_URL = get_str_key("UPSTREAM_REPO_URL", None)
 if not UPSTREAM_REPO_URL:
-    UPSTREAM_REPO_URL= "https://github.com/TeamDaisyX/DaisyX-v2.0"
-    
+    UPSTREAM_REPO_URL = "https://github.com/TeamDaisyX/DaisyX-v2.0"
+
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
 )
@@ -148,7 +149,7 @@ async def upstream(ups):
         await lol.edit("`Force-Syncing to latest main bot code, please wait...`")
     else:
         await lol.edit("`Still Running ....`")
-    if conf == 'deploy':
+    if conf == "deploy":
         if HEROKU_API_KEY is not None:
             heroku = heroku3.from_key(HEROKU_API_KEY)
             heroku_app = None
@@ -195,7 +196,7 @@ async def upstream(ups):
             ups_rem.pull(ac_br)
         except GitCommandError:
             repo.git.reset("--hard", "FETCH_HEAD")
-        reqs_upgrade = await updateme_requirements()
+        await updateme_requirements()
         await lol.edit("`Successfully Updated!\n" "restarting......`")
         args = [sys.executable, "-m", "DaisyX"]
         execle(sys.executable, *args, environ)

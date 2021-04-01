@@ -1,18 +1,12 @@
-from google_trans_new import google_translator
-from DaisyX.services.telethon import tbot
 import json
+
 import requests
-from DaisyX.services.events import register
-from telethon import *
-from telethon.tl import functions
-import os
-import urllib.request
-from typing import List
-from typing import Optional
+from google_trans_new import google_translator
 from PyDictionary import PyDictionary
-from telethon.tl import types
+from telethon import *
 from telethon.tl.types import *
 
+from DaisyX.services.events import register
 
 API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
 URL = "http://services.gingersoftware.com/Ginger/correct/json/GingerTheText"
@@ -111,7 +105,6 @@ async def _(event):
     await event.reply(got)
 
 
-
 __help__ = """
  - /tr <i>language code</i> or /tr <i>language code</i> , <i>text</i>: Type in reply to a message or (/tr <i>language code</i> , <i>text</i>) to get it's translation in the destination language
  - /define <i>text</i>: Type the word or expression you want to search\nFor example /define lesbian
@@ -121,4 +114,4 @@ __help__ = """
  - /antonyms <i>word</i>: Find the antonyms of a word
 """
 
-__mod_name__= "Lang-Tools"
+__mod_name__ = "Lang-Tools"

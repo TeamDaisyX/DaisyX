@@ -1,8 +1,9 @@
 # By @TroJanzHEX
-from PIL import Image, ImageEnhance, ImageFilter
-import shutil
-import cv2
 import os
+import shutil
+
+import cv2
+from PIL import Image, ImageEnhance, ImageFilter
 
 
 async def bright(client, message):

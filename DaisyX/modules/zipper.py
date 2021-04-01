@@ -6,8 +6,8 @@ from telethon import types
 from telethon.tl import functions
 
 from DaisyX import TEMP_DOWNLOAD_DIRECTORY
-from DaisyX.services.telethon import tbot as client
 from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot as client
 
 
 async def is_register_admin(chat, user):
@@ -207,8 +207,3 @@ def get_lst_of_files(input_directory, output_lst):
             return get_lst_of_files(current_file_name, output_lst)
         output_lst.append(current_file_name)
     return output_lst
-
-
-
-
-

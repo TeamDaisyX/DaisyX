@@ -17,6 +17,7 @@ from aiogram.utils.exceptions import BadRequest
 
 from DaisyX import bot
 from DaisyX.decorator import register
+
 from .utils.connections import chat_connection
 from .utils.language import get_strings_dec
 from .utils.message import get_arg
@@ -24,37 +25,37 @@ from .utils.message import get_arg
 
 @register(cmds="unpin", user_can_pin_messages=True, bot_can_pin_messages=True)
 @chat_connection(admin=True)
-@get_strings_dec('pins')
+@get_strings_dec("pins")
 async def unpin_message(message, chat, strings):
     # support unpinning all
-    if get_arg(message) in {'all'}:
-        return await bot.unpin_all_chat_messages(chat['chat_id'])
+    if get_arg(message) in {"all"}:
+        return await bot.unpin_all_chat_messages(chat["chat_id"])
 
     try:
-        await bot.unpin_chat_message(chat['chat_id'])
+        await bot.unpin_chat_message(chat["chat_id"])
     except BadRequest:
-        await message.reply(strings['chat_not_modified_unpin'])
+        await message.reply(strings["chat_not_modified_unpin"])
         return
 
 
 @register(cmds="pin", user_can_pin_messages=True, bot_can_pin_messages=True)
-@get_strings_dec('pins')
+@get_strings_dec("pins")
 async def pin_message(message, strings):
-    if 'reply_to_message' not in message:
-        await message.reply(strings['no_reply_msg'])
+    if "reply_to_message" not in message:
+        await message.reply(strings["no_reply_msg"])
         return
     msg = message.reply_to_message.message_id
     arg = get_arg(message).lower()
 
     dnd = True
-    loud = ['loud', 'notify']
+    loud = ["loud", "notify"]
     if arg in loud:
         dnd = False
 
     try:
         await bot.pin_chat_message(message.chat.id, msg, disable_notification=dnd)
     except BadRequest:
-        await message.reply(strings['chat_not_modified_pin'])
+        await message.reply(strings["chat_not_modified_pin"])
 
 
 __mod_name__ = "Pinning"

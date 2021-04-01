@@ -15,9 +15,9 @@ import requests
 import wget
 from bs4 import BeautifulSoup
 from pyrogram import filters
-from DaisyX.services.pyrogram import pbot
 
-from DaisyX.function.pluginhelpers import progress,admins_only
+from DaisyX.function.pluginhelpers import admins_only, progress
+from DaisyX.services.pyrogram import pbot
 
 
 @pbot.on_message(filters.command("mod") & ~filters.edited & ~filters.bot)
@@ -38,11 +38,11 @@ async def mudapk(client, message):
     sucker = mydivs[0]
     pH9 = sucker.find("a").contents[0]
     file_name = pH9
-    
+
     pH = sucker.findAll("img")
     imme = wget.download(pH[0]["src"])
     Pablo = Pop[0].a["href"]
-    
+
     ro = requests.get(Pablo)
     soup = BeautifulSoup(ro.content, "html5lib")
 
@@ -54,13 +54,12 @@ async def mudapk(client, message):
 
     rr = requests.get(lemk)
     soup = BeautifulSoup(rr.content, "html5lib")
-    
+
     script = soup.find("script", type="text/javascript")
 
     leek = re.search(r'href=[\'"]?([^\'" >]+)', script.text).group()
     dl_link = leek[5:]
 
-    
     r = requests.get(dl_link)
     await pablo.edit("Downloading Mod App")
     open(f"{file_name}.apk", "wb").write(r.content)
@@ -82,7 +81,8 @@ async def mudapk(client, message):
     os.remove(imme)
     await pablo.delete()
 
-#__mod_name__ = "Mod Apps"
-#__help__ = """
-#- /mod [app name] : Download and upload mod apps
-#"""
+
+# __mod_name__ = "Mod Apps"
+# __help__ = """
+# - /mod [app name] : Download and upload mod apps
+# """

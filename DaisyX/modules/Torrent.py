@@ -1,5 +1,4 @@
 import requests
-from pymongo import MongoClient
 from telethon import *
 from telethon import events
 from telethon.tl import functions, types
@@ -57,10 +56,15 @@ async def _(event):
         buttons=[
             [
                 Button.inline(
-                    "📤 Get Torrents from Sumanjay's API", data=f"torrent-{sender}|{search}|{index}|{chatid}|{msgid}"
+                    "📤 Get Torrents from Sumanjay's API",
+                    data=f"torrent-{sender}|{search}|{index}|{chatid}|{msgid}",
                 )
             ],
-            [Button.inline("❌ Cancel Search", data=f"torrentstop-{sender}|{chatid}|{msgid}")],
+            [
+                Button.inline(
+                    "❌ Cancel Search", data=f"torrentstop-{sender}|{chatid}|{msgid}"
+                )
+            ],
         ],
     )
 
@@ -386,6 +390,8 @@ async def paginate_nexttorrent(event):
             ],
         ],
     )
+
+
 __help__ = """
  - /torrent <i>text</i>: Search for torrent links
 

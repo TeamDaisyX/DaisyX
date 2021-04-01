@@ -16,39 +16,46 @@ import re
 import urllib
 from re import findall
 from urllib.parse import quote
-import json
+
 import requests
 from pornhub_api import PornhubApi
 from search_engine_parser import GoogleSearch
 from telethon import Button, custom, events
 from youtube_search import YoutubeSearch
-from random import choice
-from re import findall
+
 from DaisyX.services.telethon import tbot as tgbot
-
-
 
 
 @tgbot.on(events.InlineQuery)
 async def inline_handler(event):
     builder = event.builder
-    result = None
     query = event.text
     if not query:
         results = builder.article(
-                title="Hello, I'm Daisy! Touch for help!",
-                text=f"Wonder What All You Can Do With Me? Click Below To Know More.",
-                buttons=custom.Button.inline("Explore!", data="explore")
-            )
+            title="Hello, I'm Daisy! Touch for help!",
+            text=f"Wonder What All You Can Do With Me? Click Below To Know More.",
+            buttons=custom.Button.inline("Explore!", data="explore"),
+        )
         await event.answer([results])
         return
 
+
 @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"explore")))
-async def explore(event):     
+async def explore(event):
     tbot_username = "DaisyXBot"
-    LEGENDX = [[Button.switch_inline("Youtube", query='yt', same_peer=True), Button.switch_inline("Google", query='google', same_peer=True)]]
-    LEGENDX += [[Button.switch_inline("Deezer", query='deezer', same_peer=True), Button.switch_inline("Xkcd", query='xkcd', same_peer=True)]]
-    LEGENDX += [[Button.switch_inline("Pornhub", query='ph', same_peer=True)]]
+    LEGENDX = [
+        [
+            Button.switch_inline("Youtube", query="yt", same_peer=True),
+            Button.switch_inline("Google", query="google", same_peer=True),
+        ]
+    ]
+    LEGENDX += [
+        [
+            Button.switch_inline("Deezer", query="deezer", same_peer=True),
+            Button.switch_inline("Xkcd", query="xkcd", same_peer=True),
+        ]
+    ]
+    LEGENDX += [[Button.switch_inline("Pornhub", query="ph", same_peer=True)]]
     oof_stark = f"""**Inline bot service powered by @DaisyXBot**
 **I'm fully functional in groups. Also I have some cool stuff in inline too**
 **- Search Youtube Video's / Download In Any Chat Itself!**
@@ -68,7 +75,8 @@ async def explore(event):
 **Example :** `@{tbot_username} ph nohorny`
 **Note :** `Many More Coming! SoonTM`
     	"""
-    await event.edit(oof_stark, buttons=LEGENDX)    
+    await event.edit(oof_stark, buttons=LEGENDX)
+
 
 @tgbot.on(events.InlineQuery(pattern=r"torrent (.*)"))
 async def inline_id_handler(event: events.InlineQuery.Event):
@@ -170,7 +178,7 @@ async def inline_id_handler(event: events.InlineQuery.Event):
         stark_chnnl = moon["channel"]
         total_stark = moon["duration"]
         stark_views = moon["views"]
-        lol_desc = moon["long_desc"]
+        moon["long_desc"]
         kekme = f"https://img.youtube.com/vi/{hmm}/hqdefault.jpg"
         okayz = f"**Title :** `{stark_name}` \n**Link :** `{kek}` \n**Channel :** `{stark_chnnl}` \n**Views :** `{stark_views}` \n**Duration :** `{total_stark}`"
         hmmkek = f"Video Name : {stark_name} \nChannel : {stark_chnnl} \nDuration : {total_stark} \nViews : {stark_views}"
@@ -182,9 +190,9 @@ async def inline_id_handler(event: events.InlineQuery.Event):
                 text=okayz,
                 include_media=True,
                 buttons=[
-                [Button.switch_inline("Search Again", query="yt ", same_peer=True)],
-                ]
-              )
+                    [Button.switch_inline("Search Again", query="yt ", same_peer=True)],
+                ],
+            )
         )
     await event.answer(results)
 
@@ -347,7 +355,7 @@ async def inline_id_handler(event):
     dato = requests.get(url=link).json()
     # data_s = json.loads(data_s)
     for match in dato.get("data"):
-        ro = str(match.get("id"))
+        str(match.get("id"))
         hmm_m = f"Title : {match['title']} \nLink : {match['link']} \nDuration : {match['duration']} seconds \nBy : {match['artist']['name']}"
         results.append(
             await event.builder.document(
@@ -369,8 +377,8 @@ async def inline_id_handler(event):
             await event.answer(results)
         except TypeError:
             pass
-          
-          
+
+
 """                      
 @tgbot.on(events.InlineQuery(pattern=r"anime ?(.*)"))
 async def anime(event):

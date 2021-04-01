@@ -1,50 +1,35 @@
 import asyncio
-import math
-import time
-from pyrogram import filters
-import wget
-import requests
-import shutil
-import os
-import glob
-import wget
-from youtubesearchpython import SearchVideos
-from youtube_dl import YoutubeDL
-from youtube_dl.utils import (
-    ContentTooShortError,
-    DownloadError,
-    ExtractorError,
-    GeoRestrictedError,
-    MaxDownloadsReached,
-    PostProcessingError,
-    UnavailableVideoError,
-    XAttrMetadataError,
-)
-
-from DaisyX.function.pluginhelpers import get_readable_time, delete_or_pass, progress,get_text , humanbytes, time_formatter
-from DaisyX.services.pyrogram import pbot
-from pyrogram.types import Message
-import aiohttp
-import youtube_dl
 import io
-from DaisyX.config import get_str_key
+import os
+import time
+
 import lyricsgenius
+import requests
+import wget
+from pyrogram import filters
+from pyrogram.types import Message
 from tswift import Song
-from json import JSONDecodeError
-import json
+from youtube_dl import YoutubeDL
+from youtubesearchpython import SearchVideos
+
+from DaisyX.config import get_str_key
+from DaisyX.function.pluginhelpers import get_text, progress
+from DaisyX.services.pyrogram import pbot
+
 GENIUS = get_str_key("GENIUS_API_TOKEN", None)
 
+
 @pbot.on_message(filters.command(["vsong", "video"]))
-async def ytmusic(client,message: Message):
+async def ytmusic(client, message: Message):
     urlissed = get_text(message)
 
-    pablo =  await client.send_message(
-            message.chat.id,
-            f"`Getting {urlissed} From Youtube Servers. Please Wait.`")
+    pablo = await client.send_message(
+        message.chat.id, f"`Getting {urlissed} From Youtube Servers. Please Wait.`"
+    )
     if not urlissed:
         await pablo.edit("Invalid Command Syntax, Please Check Help Menu To Know More!")
         return
-    
+
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
     mi = search.result()
     mio = mi["search_result"]
@@ -57,19 +42,17 @@ async def ytmusic(client,message: Message):
     url = mo
     sedlyf = wget.download(kekme)
     opts = {
-            "format": "best",
-            "addmetadata": True,
-            "key": "FFmpegMetadata",
-            "prefer_ffmpeg": True,
-            "geo_bypass": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}
-            ],
-            "outtmpl": "%(id)s.mp4",
-            "logtostderr": False,
-            "quiet": True,
-        }
+        "format": "best",
+        "addmetadata": True,
+        "key": "FFmpegMetadata",
+        "prefer_ffmpeg": True,
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [{"key": "FFmpegVideoConvertor", "preferedformat": "mp4"}],
+        "outtmpl": "%(id)s.mp4",
+        "logtostderr": False,
+        "quiet": True,
+    }
     try:
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(url, download=True)
@@ -79,57 +62,70 @@ async def ytmusic(client,message: Message):
     c_time = time.time()
     file_stark = f"{ytdl_data['id']}.mp4"
     capy = f"**Video Name ➠** `{thum}` \n**Requested For :** `{urlissed}` \n**Channel :** `{thums}` \n**Link :** `{mo}`"
-    await client.send_video(message.chat.id, video = open(file_stark, "rb"), duration = int(ytdl_data["duration"]), file_name = str(ytdl_data["title"]), thumb = sedlyf, caption = capy, supports_streaming = True , progress=progress, progress_args=(pablo, c_time, f'`Uploading {urlissed} Song From YouTube Music!`', file_stark))
+    await client.send_video(
+        message.chat.id,
+        video=open(file_stark, "rb"),
+        duration=int(ytdl_data["duration"]),
+        file_name=str(ytdl_data["title"]),
+        thumb=sedlyf,
+        caption=capy,
+        supports_streaming=True,
+        progress=progress,
+        progress_args=(
+            pablo,
+            c_time,
+            f"`Uploading {urlissed} Song From YouTube Music!`",
+            file_stark,
+        ),
+    )
     await pablo.delete()
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-
-
-
-
-@pbot.on_message(filters.command(["music","song"]))
-async def ytmusic(client, message: Message):        
+@pbot.on_message(filters.command(["music", "song"]))
+async def ytmusic(client, message: Message):
     urlissed = get_text(message)
     if not urlissed:
         await client.send_message(
-            message.chat.id,"Invalid Command Syntax, Please Check Help Menu To Know More!")
+            message.chat.id,
+            "Invalid Command Syntax, Please Check Help Menu To Know More!",
+        )
         return
     pablo = await client.send_message(
-            message.chat.id,f"`Getting {urlissed} From Youtube Servers. Please Wait.`")
+        message.chat.id, f"`Getting {urlissed} From Youtube Servers. Please Wait.`"
+    )
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
     mi = search.result()
     mio = mi["search_result"]
     mo = mio[0]["link"]
-    dur = mio[0]["duration"]
+    mio[0]["duration"]
     thum = mio[0]["title"]
     fridayz = mio[0]["id"]
     thums = mio[0]["channel"]
     kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
     await asyncio.sleep(0.6)
-    url = mo
     sedlyf = wget.download(kekme)
     opts = {
-            "format": "bestaudio",
-            "addmetadata": True,
-            "key": "FFmpegMetadata",
-            "writethumbnail": True,
-            "prefer_ffmpeg": True,
-            "geo_bypass": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "720",
-                }
-            ],
-            "outtmpl": "%(id)s.mp3",
-            "quiet": True,
-            "logtostderr": False,
-        }
+        "format": "bestaudio",
+        "addmetadata": True,
+        "key": "FFmpegMetadata",
+        "writethumbnail": True,
+        "prefer_ffmpeg": True,
+        "geo_bypass": True,
+        "nocheckcertificate": True,
+        "postprocessors": [
+            {
+                "key": "FFmpegExtractAudio",
+                "preferredcodec": "mp3",
+                "preferredquality": "720",
+            }
+        ],
+        "outtmpl": "%(id)s.mp3",
+        "quiet": True,
+        "logtostderr": False,
+    }
     try:
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(mo, download=True)
@@ -139,17 +135,31 @@ async def ytmusic(client, message: Message):
     c_time = time.time()
     capy = f"**Song Name :** `{thum}` \n**Requested For :** `{urlissed}` \n**Channel :** `{thums}` \n**Link :** `{mo}`"
     file_stark = f"{ytdl_data['id']}.mp3"
-    await client.send_audio(message.chat.id, audio = open(file_stark, "rb"), duration = int(ytdl_data["duration"]), title = str(ytdl_data["title"]), performer=str(ytdl_data["uploader"]), thumb = sedlyf, caption = capy, progress=progress, progress_args=(pablo, c_time, f'`Uploading {urlissed} Song From YouTube Music!`', file_stark))
+    await client.send_audio(
+        message.chat.id,
+        audio=open(file_stark, "rb"),
+        duration=int(ytdl_data["duration"]),
+        title=str(ytdl_data["title"]),
+        performer=str(ytdl_data["uploader"]),
+        thumb=sedlyf,
+        caption=capy,
+        progress=progress,
+        progress_args=(
+            pablo,
+            c_time,
+            f"`Uploading {urlissed} Song From YouTube Music!`",
+            file_stark,
+        ),
+    )
     await pablo.delete()
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
             os.remove(files)
-    
+
+
 @pbot.on_message(filters.command(["deezer", "dsong"]))
 async def deezer(client, message: Message):
-    pablo =  await client.send_message(
-            message.chat.id,
-            "Searching the song")
+    pablo = await client.send_message(message.chat.id, "Searching the song")
     sgname = get_text(message)
     if not sgname:
         await pablo.edit("Invalid Command Syntax, Please Check Help Menu To Know More!")
@@ -157,7 +167,7 @@ async def deezer(client, message: Message):
     link = f"https://api.deezer.com/search?q={sgname}&limit=1"
     dato = requests.get(url=link).json()
     match = dato.get("data")
-    urlhp = (match[0])
+    urlhp = match[0]
     urlp = urlhp.get("link")
     thums = urlhp["album"]["cover_big"]
     thum_f = wget.download(thums)
@@ -170,27 +180,34 @@ async def deezer(client, message: Message):
     doc = requests.get(mus)
     await client.send_chat_action(message.chat.id, "upload_audio")
     await pablo.edit("`Downloading Song From Deezer!`")
-    with open(sname, 'wb') as f:
-      f.write(doc.content)
+    with open(sname, "wb") as f:
+        f.write(doc.content)
     c_time = time.time()
     await pablo.edit(f"`Downloaded {sname}! Now Uploading Song...`")
-    await client.send_audio(message.chat.id, audio = open(sname, "rb"), duration = int(urlhp.get('duration')), title = str(urlhp.get("title")), performer=str(polu.get("name")), thumb = thum_f, progress=progress, progress_args=(pablo, c_time, f'`Uploading {sname} Song From Deezer!`', sname))
+    await client.send_audio(
+        message.chat.id,
+        audio=open(sname, "rb"),
+        duration=int(urlhp.get("duration")),
+        title=str(urlhp.get("title")),
+        performer=str(polu.get("name")),
+        thumb=thum_f,
+        progress=progress,
+        progress_args=(pablo, c_time, f"`Uploading {sname} Song From Deezer!`", sname),
+    )
     await client.send_chat_action(message.chat.id, "cancel")
     await pablo.delete()
 
 
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(':'))))
+    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
+
 
 # Lel, Didn't Get Time To Make New One So Used Plugin Made br @mrconfused and @sandy1709 dont edit credits
 
 
-
-
-
 @pbot.on_message(filters.command(["lyric", "lyrics"]))
-async def _(client,message):
+async def _(client, message):
     lel = await message.reply("Searching For Lyrics.....")
     query = message.text
     if not query:
@@ -220,11 +237,11 @@ async def _(client,message):
             )
             await lel.delete()
     else:
-        await lel.edit(reply) #edit or reply
+        await lel.edit(reply)  # edit or reply
 
 
 @pbot.on_message(filters.command(["glyric", "glyrics"]))
-async def lyrics(client,message):
+async def lyrics(client, message):
 
     if r"-" in message.text:
         pass
@@ -277,9 +294,9 @@ async def lyrics(client,message):
         await lel.edit(
             f"**Search query**: \n`{artist} - {song}`\n\n```{songs.lyrics}```"
         )
-    return    
-    
-    
+    return
+
+
 _mod_name_ = "Music"
 
 _help_ = """

@@ -1,5 +1,6 @@
-from DaisyX.services.mongo2 import db
 from typing import Dict, List, Union
+
+from DaisyX.services.mongo2 import db
 
 filtersdb = db.filters
 
@@ -10,7 +11,7 @@ filtersdb = db.filters
 async def _get_filters(chat_id: int) -> Dict[str, int]:
     _filters = await filtersdb.find_one({"chat_id": chat_id})
     if _filters:
-        _filters = _filters['filters']
+        _filters = _filters["filters"]
     else:
         _filters = {}
     return _filters
@@ -38,13 +39,7 @@ async def save_filter(chat_id: int, name: str, _filter: dict):
     _filters[name] = _filter
 
     await filtersdb.update_one(
-        {"chat_id": chat_id},
-        {
-            "$set": {
-                "filters": _filters
-            }
-        },
-        upsert=True
+        {"chat_id": chat_id}, {"$set": {"filters": _filters}}, upsert=True
     )
 
 
@@ -54,14 +49,7 @@ async def delete_filter(chat_id: int, name: str) -> bool:
     if name in filtersd:
         del filtersd[name]
         await filtersdb.update_one(
-            {"chat_id": chat_id},
-            {
-                "$set": {
-                    "filters": filtersd
-                }
-            },
-            upsert=True
+            {"chat_id": chat_id}, {"$set": {"filters": filtersd}}, upsert=True
         )
         return True
     return False
-

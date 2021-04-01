@@ -14,21 +14,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
+import sys
 
 from DaisyX.utils.logger import log
-import sys
 
 LOADED_MODULES = []
 MOD_HELP = {}
 
+
 def list_all_modules() -> list:
-    modules_directory = 'DaisyX/modules'
+    modules_directory = "DaisyX/modules"
 
     all_modules = []
     for module_name in os.listdir(modules_directory):
-        path = modules_directory + '/' + module_name
+        path = modules_directory + "/" + module_name
 
-        if '__init__' in path or '__pycache__' in path:
+        if "__init__" in path or "__pycache__" in path:
             continue
 
         if path in all_modules:
@@ -36,12 +37,12 @@ def list_all_modules() -> list:
             sys.exit(5)
 
         # One file module type
-        if path.endswith('.py'):
+        if path.endswith(".py"):
             # TODO: removesuffix
-            all_modules.append(module_name.split('.py')[0])
+            all_modules.append(module_name.split(".py")[0])
 
         # Module directory
-        if os.path.isdir(path) and os.path.exists(path + '/__init__.py'):
+        if os.path.isdir(path) and os.path.exists(path + "/__init__.py"):
             all_modules.append(module_name)
 
     return all_modules

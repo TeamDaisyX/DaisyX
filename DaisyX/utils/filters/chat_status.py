@@ -20,7 +20,7 @@ from DaisyX import dp
 
 
 class OnlyPM(BoundFilter):
-    key = 'only_pm'
+    key = "only_pm"
 
     def __init__(self, only_pm):
         self.only_pm = only_pm
@@ -31,7 +31,7 @@ class OnlyPM(BoundFilter):
 
 
 class OnlyGroups(BoundFilter):
-    key = 'only_groups'
+    key = "only_groups"
 
     def __init__(self, only_groups):
         self.only_groups = only_groups

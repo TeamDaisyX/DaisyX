@@ -1,48 +1,40 @@
-#This file is copied from @Missjuliarobot
-#Full credits to original author
+# This file is copied from @Missjuliarobot
+# Full credits to original author
 
-from random import randint
-from PIL import ImageEnhance, ImageOps
-from random import uniform
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
 import asyncio
 import io
+import json
 import os
 import random
 import re
 import string
-import nltk
-from PIL import Image
-from zalgo_text import zalgo
-from DaisyX.services.events import register
-import json
 import subprocess
 import textwrap
 import urllib.request
-from random import randrange
-from typing import List
-from typing import Optional
+from random import randint, randrange, uniform
+
 import emoji
+import nltk
 from cowpy import cow
 from fontTools.ttLib import TTFont
-from PIL import ImageDraw
-from PIL import ImageFont
-
+from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from telethon import *
 from telethon.tl import functions
 from telethon.tl.types import *
+from zalgo_text import zalgo
+
 from DaisyX import *
+from DaisyX.services.events import register
 from DaisyX.services.telethon import tbot
 from DaisyX.services.telethonuserbot import ubot
+
 nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
 
 WIDE_MAP = {i: i + 0xFEE0 for i in range(0x21, 0x7F)}
 WIDE_MAP[0x20] = 0x3000
-
-
-
 
 
 @register(pattern="^/owu$")
@@ -337,7 +329,7 @@ async def carbon_api(e):
         "cmd": "Page.setDownloadBehavior",
         "params": {"behavior": "allow", "downloadPath": download_path},
     }
-    command_result = driver.execute("send_command", params)
+    driver.execute("send_command", params)
     driver.find_element_by_xpath("//button[contains(text(),'Export')]").click()
     await gg.edit("`Processing..\n75%`")
     while not os.path.isfile("./carbon.png"):
@@ -449,7 +441,6 @@ async def check_media(reply_message):
 @register(pattern="^/type (.*)")
 async def typewriter(typew):
 
-
     message = typew.pattern_match.group(1)
     if message:
         pass
@@ -536,6 +527,7 @@ async def get_font_file(client, channel_id):
     font_file_message = random.choice(font_file_message_s)
     # download and return the file path
     return await client.download_media(font_file_message)
+
 
 @register(pattern=r"^/(\w+)say (.*)")
 async def univsaye(cowmsg):
@@ -732,7 +724,7 @@ async def process(msg, user, client, reply, replied=None):
         # Creating a big canvas to gather all the elements
         replname = "" if not replied.sender.last_name else replied.sender.last_name
         reptot = replied.sender.first_name + " " + replname
-        replywidth = font2.getsize(reptot)[0]
+        font2.getsize(reptot)[0]
         if reply.sticker:
             sticker = await reply.download_media()
             stimg = Image.open(sticker)
@@ -834,7 +826,6 @@ async def process(msg, user, client, reply, replied=None):
     # Writing all separating emojis and regular texts
     x = pfpbg.width + 30
     bold, mono, italic, link = await get_entity(reply)
-    mdlength = 0
     index = 0
     emojicount = 0
     textfallback = ImageFont.truetype("resources/Quivira.otf", 33, encoding="utf-16")
@@ -1018,7 +1009,6 @@ async def _(event):
     if event.fwd_from:
         return
 
-
     reply = await event.get_reply_message()
     msg = reply.message
     repliedreply = await reply.get_reply_message()
@@ -1097,7 +1087,7 @@ async def _(event):
 async def fortunate(event):
     if event.fwd_from:
         return
- 
+
     jit = subprocess.check_output(["python", "fortune.py"])
     pit = jit.decode()
     await event.reply(pit)
@@ -1308,8 +1298,8 @@ async def msg(event):
 
 @register(pattern="^/toss$")
 async def msg(event):
-        await event.reply(random.choice(TOSS))
-                           
+    await event.reply(random.choice(TOSS))
+
 
 @register(pattern="^/abuse$")
 async def msg(event):

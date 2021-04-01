@@ -1,48 +1,41 @@
-from telethon import events
-from datetime import datetime
 import os
-from telethon import events
-from telethon.tl import functions, types
+
 from telethon.tl.types import *
-from DaisyX.services.telethon import tbot as borg
+
 from DaisyX.function.pluginhelpers import runcmd
+
 
 async def convert_to_image(event, borg):
     lmao = await event.get_reply_message()
     if not (
-            lmao.gif
-            or lmao.audio
-            or lmao.voice
-            or lmao.video
-            or lmao.video_note
-            or lmao.photo
-            or lmao.sticker
-            or lmao.media
+        lmao.gif
+        or lmao.audio
+        or lmao.voice
+        or lmao.video
+        or lmao.video_note
+        or lmao.photo
+        or lmao.sticker
+        or lmao.media
     ):
-        await borg.send_message(
-            event.chat_id,"`Format Not Supported.`")
+        await borg.send_message(event.chat_id, "`Format Not Supported.`")
         return
     else:
         try:
-            c_time = time.time()
+            time.time()
             downloaded_file_name = await borg.download_media(
-                lmao.media,
-                sedpath,
-                "`Downloading...`")
-                
-            
+                lmao.media, sedpath, "`Downloading...`"
+            )
+
         except Exception as e:  # pylint:disable=C0103,W0703
-            await borg.send_message(
-            event.chat_id,str(e))
+            await borg.send_message(event.chat_id, str(e))
         else:
             lel = await borg.send_message(
-            event.chat_id,
-                "Downloaded to `{}` successfully.".format(downloaded_file_name)
+                event.chat_id,
+                "Downloaded to `{}` successfully.".format(downloaded_file_name),
             )
             await lel.delete
     if not os.path.exists(downloaded_file_name):
-        lel = await borg.send_message(
-            event.chat_id,"Download Unsucessfull :(")
+        lel = await borg.send_message(event.chat_id, "Download Unsucessfull :(")
         await lel.delete
         return
     if lmao and lmao.photo:
@@ -85,8 +78,9 @@ async def convert_to_image(event, borg):
         lmao_final = jpg_file
     return lmao_final
 
+
 async def take_screen_shot(
-        video_file: str, duration: int, path: str = ""
+    video_file: str, duration: int, path: str = ""
 ) -> Optional[str]:
     """ take a screenshot """
     logger.info(
@@ -103,14 +97,13 @@ async def take_screen_shot(
     return thumb_image_path if os.path.exists(thumb_image_path) else None
 
 
-
 async def get_all_admin_chats(event):
     lul_stark = []
     all_chats = [
         d.entity
-            for d in await event.client.get_dialogs()
-            if (d.is_group or d.is_channel)
-        ]
+        for d in await event.client.get_dialogs()
+        if (d.is_group or d.is_channel)
+    ]
     try:
         for i in all_chats:
             if i.creator or i.admin_rights:
@@ -119,7 +112,7 @@ async def get_all_admin_chats(event):
         pass
     return lul_stark
 
-                  
+
 async def is_admin(event, user):
     try:
         sed = await event.client.get_permissions(event.chat_id, user)
@@ -130,6 +123,7 @@ async def is_admin(event, user):
     except:
         is_mod = False
     return is_mod
+
 
 async def progress(current, total, event, start, type_of_ps, file_name=None):
     """Generic progress_callback for both
@@ -156,6 +150,7 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
             )
         else:
             await event.edit("{}\n{}".format(type_of_ps, tmp))
+
 
 def humanbytes(size):
     """Input size in bytes,
@@ -188,4 +183,3 @@ def time_formatter(milliseconds: int) -> str:
         + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
     )
     return tmp[:-2]
-

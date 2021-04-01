@@ -1,31 +1,20 @@
-
-from math import ceil
-import textwrap
-from pyrogram import Client
-from pyrogram.types import InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent, Message, User, Chat
-from pyrogram.errors import FloodWait, MessageNotModified
 import asyncio
-import shlex
-import subprocess
-import json
 import math
-import requests
-import re
-import os
-import markdown
-import subprocess
-from typing import List, Optional, Tuple,Callable, Coroutine, Dict, Union
-import time
-from datetime import datetime
+import shlex
 import sys
+import time
 import traceback
 from functools import wraps
-from DaisyX import OWNER_ID , SUPPORT_CHAT
-from pyrogram.types import ChatPermissions
+from typing import Callable, Coroutine, Dict, List, Tuple, Union
+
+from PIL import Image
+from pyrogram import Client
+from pyrogram.errors import FloodWait, MessageNotModified
+from pyrogram.types import Chat, Message, User
+
+from DaisyX import OWNER_ID, SUPPORT_CHAT
 from DaisyX.services.pyrogram import pbot
 
-
-from PIL import Image, ImageDraw, ImageFont
 
 def get_user(message: Message, text: str) -> [int, str, None]:
     if text is None:
@@ -44,8 +33,8 @@ def get_user(message: Message, text: str) -> [int, str, None]:
         if len(asplit) == 2:
             reason_ = asplit[1]
     return user_s, reason_
-  
-  
+
+
 def get_readable_time(seconds: int) -> int:
     count = 0
     ping_time = ""
@@ -72,17 +61,19 @@ def get_readable_time(seconds: int) -> int:
     ping_time += ":".join(time_list)
 
     return ping_time
+
+
 def time_formatter(milliseconds: int) -> str:
     seconds, milliseconds = divmod(int(milliseconds), 1000)
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     tmp = (
-            ((str(days) + " day(s), ") if days else "")
-            + ((str(hours) + " hour(s), ") if hours else "")
-            + ((str(minutes) + " minute(s), ") if minutes else "")
-            + ((str(seconds) + " second(s), ") if seconds else "")
-            + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
+        ((str(days) + " day(s), ") if days else "")
+        + ((str(hours) + " hour(s), ") if hours else "")
+        + ((str(minutes) + " minute(s), ") if minutes else "")
+        + ((str(seconds) + " second(s), ") if seconds else "")
+        + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
     )
     return tmp[:-2]
 
@@ -91,7 +82,8 @@ async def delete_or_pass(message):
     if message.from_user.id == 1141839926:
         return message
     return await message.delete()
-  
+
+
 def humanbytes(size):
     if not size:
         return ""
@@ -101,8 +93,8 @@ def humanbytes(size):
     while size > power:
         size /= power
         raised_to_pow += 1
-    return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"  
-  
+    return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+
 
 async def progress(current, total, message, start, type_of_ps, file_name=None):
     now = time.time()
@@ -127,62 +119,63 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
             try:
                 await message.edit(
                     "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
-                    
                 )
             except FloodWait as e:
                 await asyncio.sleep(e.x)
-            except MessageNotModified:    
+            except MessageNotModified:
                 pass
         else:
             try:
                 await message.edit("{}\n{}".format(type_of_ps, tmp))
             except FloodWait as e:
                 await asyncio.sleep(e.x)
-            except MessageNotModified:    
+            except MessageNotModified:
                 pass
-            
+
+
 def get_text(message: Message) -> [None, str]:
     text_to_return = message.text
     if message.text is None:
         return None
-    if ' ' in text_to_return:
+    if " " in text_to_return:
         try:
             return message.text.split(None, 1)[1]
         except IndexError:
             return None
     else:
-        return None  
-      
-      
+        return None
+
+
 async def iter_chats(client):
     chats = []
     async for dialog in client.iter_dialogs():
         if dialog.chat.type in ["supergroup", "channel"]:
             chats.append(dialog.chat.id)
     return chats
-      
+
 
 async def fetch_audio(client, message):
-    c_time = time.time()
+    time.time()
     if not message.reply_to_message:
         await message.reply("`Reply To A Video / Audio.`")
         return
     warner_stark = message.reply_to_message
-    if warner_stark.audio is None  and warner_stark.video is None:
+    if warner_stark.audio is None and warner_stark.video is None:
         await message.reply("`Format Not Supported`")
         return
     if warner_stark.video:
-        lel=await message.reply("`Video Detected, Converting To Audio !`")
+        lel = await message.reply("`Video Detected, Converting To Audio !`")
         warner_bros = await message.reply_to_message.download()
         stark_cmd = f"ffmpeg -i {warner_bros} -map 0:a friday.mp3"
         await runcmd(stark_cmd)
         final_warner = "friday.mp3"
     elif warner_stark.audio:
-        lel = await edit_or_reply(message,"`Download Started !`")
+        lel = await edit_or_reply(message, "`Download Started !`")
         final_warner = await message.reply_to_message.download()
-    await lel.edit("`Almost Done!`")    
+    await lel.edit("`Almost Done!`")
     await lel.delete()
-    return final_warner    
+    return final_warner
+
 
 async def edit_or_reply(message, text, parse_mode="md"):
     if message.from_user.id:
@@ -193,6 +186,7 @@ async def edit_or_reply(message, text, parse_mode="md"):
             )
         return await message.reply_text(text, parse_mode=parse_mode)
     return await message.edit(text, parse_mode=parse_mode)
+
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     """ run command in terminal """
@@ -257,6 +251,8 @@ def get_text(message: Message) -> [None, str]:
             return None
     else:
         return None
+
+
 # Admin check
 
 admins: Dict[str, List[User]] = {}
@@ -313,30 +309,31 @@ def capture_err(func):
         except Exception as err:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             errors = traceback.format_exception(
-                etype=exc_type, value=exc_obj, tb=exc_tb,
+                etype=exc_type,
+                value=exc_obj,
+                tb=exc_tb,
             )
             error_feedback = split_limits(
-                '**ERROR** | `{}` | `{}`\n\n```{}```\n\n```{}```\n'.format(
+                "**ERROR** | `{}` | `{}`\n\n```{}```\n\n```{}```\n".format(
                     0 if not message.from_user else message.from_user.id,
                     0 if not message.chat else message.chat.id,
                     message.text or message.caption,
-                    ''.join(errors),
+                    "".join(errors),
                 ),
             )
             for x in error_feedback:
-                await pbot.send_message(
-                    SUPPORT_CHAT,
-                    x
-                )
+                await pbot.send_message(SUPPORT_CHAT, x)
             raise err
+
     return capture
 
 
 # Special credits to TheHamkerCat
 
+
 async def member_permissions(chat_id, user_id):
     perms = []
-    member = (await pbot.get_chat_member(chat_id, user_id))
+    member = await pbot.get_chat_member(chat_id, user_id)
     if member.can_post_messages:
         perms.append("can_post_messages")
     if member.can_edit_messages:
@@ -354,4 +351,3 @@ async def member_permissions(chat_id, user_id):
     if member.can_pin_messages:
         perms.append("can_pin_messages")
     return perms
-

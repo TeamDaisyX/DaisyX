@@ -1,7 +1,8 @@
 # By @TroJanzHEX
-from PIL import Image, ImageOps
-import shutil
 import os
+import shutil
+
+from PIL import Image, ImageOps
 
 
 async def black_border(client, message):

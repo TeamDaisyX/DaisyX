@@ -1,23 +1,14 @@
-from DaisyX import OWNER_ID
-from DaisyX.services.telethon import tbot
-from DaisyX import OPERATORS  as DEV_USERS
-from DaisyX.services.events import register
 import os
-import asyncio
-import os
-import time
-from datetime import datetime
-from datetime import datetime
-import asyncio
 
-import os
-import time
-from datetime import datetime as dt
+from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot
+
 # from LEGEND import LEGENDX, telethn as client
 
 TEMP_DOWNLOAD_DIRECTORY = "./"
 path = "./"
 opn = []
+
 
 @register(pattern="/open")
 async def _(event):
@@ -46,15 +37,11 @@ async def _(event):
             return await event.reply("Reply to a readable file")
     else:
         return await event.reply("Reply to a readable file")
+
+
 client = tbot
-import time
-from io import BytesIO
-from pathlib import Path
-from DaisyX.services.telethon import tbot as borg
-from telethon import functions, types
-from telethon.errors import PhotoInvalidDimensionsError
-from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.functions.messages import SendMediaRequest
+
+
 @register(pattern="^/dox ?(.*)")
 async def get(event):
     name = event.text[5:]
@@ -70,6 +57,7 @@ async def get(event):
         os.remove(name)
     else:
         await event.reply("reply to text message as `.ttf <file name>`")
+
 
 __help__ = """
  *You can make a file 

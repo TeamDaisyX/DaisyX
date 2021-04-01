@@ -1,13 +1,12 @@
-import os
 import time
-from telethon import types
-from telethon.tl import functions
-from telethon import events
 
-#Importing from the serices
-from DaisyX.services.telethon import tbot
-from DaisyX.services.sql import afk_sql as sql
+from telethon import events, types
+
 from DaisyX.services.events import register
+from DaisyX.services.sql import afk_sql as sql
+
+# Importing from the serices
+from DaisyX.services.telethon import tbot
 
 
 @register(pattern=r"(.*?)")
@@ -35,18 +34,20 @@ async def _(event):
             firstname = sender.first_name
             text = "**{} is no longer AFK !**".format(firstname)
             await event.reply(text, parse_mode="markdown")
+
+
 @tbot.on(events.NewMessage(pattern=None))
 async def _(event):
     if event.is_private:
-       return
+        return
     sender = event.sender_id
-    msg = str(event.text)
+    str(event.text)
     global let
     global userid
     userid = None
     let = None
     if event.reply_to_msg_id:
-        reply = await event.get_reply_message()
+        await event.get_reply_message()
         userid = event.sender_id
     else:
         try:

@@ -31,14 +31,18 @@ async def set_value(key, value, ttl):
 
 
 class cached:
-
-    def __init__(self, ttl: Optional[Union[int, float]] = None, key: Optional[str] = None, no_self: bool = False):
+    def __init__(
+        self,
+        ttl: Optional[Union[int, float]] = None,
+        key: Optional[str] = None,
+        no_self: bool = False,
+    ):
         self.ttl = ttl
         self.key = key
         self.no_self = no_self
 
     def __call__(self, *args, **kwargs):
-        if not hasattr(self, 'func'):
+        if not hasattr(self, "func"):
             self.func = args[0]
             # wrap
             functools.update_wrapper(self, self.func)
@@ -57,13 +61,15 @@ class cached:
         if result is None:
             result = _NotSet()
         asyncio.ensure_future(set_value(key, result, ttl=self.ttl))
-        log.debug(f'Cached: writing new data for key - {key}')
+        log.debug(f"Cached: writing new data for key - {key}")
         return result if type(result) is not _NotSet else result.real_value
 
     def __build_key(self, *args: dict, **kwargs: dict) -> str:
         ordered_kwargs = sorted(kwargs.items())
 
-        new_key = self.key if self.key else (self.func.__module__ or "") + self.func.__name__
+        new_key = (
+            self.key if self.key else (self.func.__module__ or "") + self.func.__name__
+        )
         new_key += str(args[1:] if self.no_self else args)
 
         if ordered_kwargs:
@@ -94,4 +100,4 @@ class _NotSet:
     real_value = None
 
     def __repr__(self) -> str:
-        return 'NotSet'
+        return "NotSet"

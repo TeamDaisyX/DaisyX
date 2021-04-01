@@ -14,13 +14,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import time
+
 import httpx
 import rapidjson as json
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from bs4 import BeautifulSoup
 
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from DaisyX import decorator
 from DaisyX.decorator import register
+
 from .utils.android import GetDevice
 from .utils.disable import disableable_dec
 from .utils.message import get_arg, get_cmd
@@ -43,7 +45,7 @@ async def whatis(message):
         name = data["name"]
         device = data["device"]
         brand = data["brand"]
-        model = data["model"]
+        data["model"]
     else:
         m = "coudn't find your device, check device & try!"
         await message.reply(m)
@@ -165,7 +167,7 @@ async def phh_magisk(message):
     text = "<b>Phh's latest Magisk release(s):</b>\n"
     for i in range(len(usr)):
         try:
-            name = usr["assets"][i]["name"]
+            usr["assets"][i]["name"]
             url = usr["assets"][i]["browser_download_url"]
             tag = usr["tag_name"]
             size_bytes = usr["assets"][i]["size"]

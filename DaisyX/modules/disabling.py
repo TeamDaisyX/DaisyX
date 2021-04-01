@@ -13,10 +13,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from aiogram.types.inline_keyboard import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types.inline_keyboard import InlineKeyboardButton, InlineKeyboardMarkup
 
-from DaisyX.decorator import register, COMMANDS_ALIASES
+from DaisyX.decorator import COMMANDS_ALIASES, register
 from DaisyX.services.mongo import db
+
 from .utils.connections import chat_connection
 from .utils.disable import DISABLABLE_COMMANDS, disableable_dec
 from .utils.language import get_strings_dec
@@ -24,10 +25,10 @@ from .utils.message import get_arg, need_args_dec
 
 
 @register(cmds="disableable")
-@disableable_dec('disableable')
+@disableable_dec("disableable")
 @get_strings_dec("disable")
 async def list_disablable(message, strings):
-    text = strings['disablable']
+    text = strings["disablable"]
     for command in DISABLABLE_COMMANDS:
         text += f"* <code>/{command}</code>\n"
     await message.reply(text)
@@ -37,13 +38,15 @@ async def list_disablable(message, strings):
 @chat_connection(only_groups=True)
 @get_strings_dec("disable")
 async def list_disabled(message, chat, strings):
-    text = strings['disabled_list'].format(chat_name=chat['chat_title'])
+    text = strings["disabled_list"].format(chat_name=chat["chat_title"])
 
-    if not (disabled := await db.disabled.find_one({'chat_id': chat['chat_id']})):
-        await message.reply(strings['no_disabled_cmds'].format(chat_name=chat['chat_title']))
+    if not (disabled := await db.disabled.find_one({"chat_id": chat["chat_id"]})):
+        await message.reply(
+            strings["no_disabled_cmds"].format(chat_name=chat["chat_title"])
+        )
         return
 
-    commands = disabled['cmds']
+    commands = disabled["cmds"]
     for command in commands:
         text += f"* <code>/{command}</code>\n"
     await message.reply(text)
@@ -55,7 +58,7 @@ async def list_disabled(message, chat, strings):
 @get_strings_dec("disable")
 async def disable_command(message, chat, strings):
     cmd = get_arg(message).lower()
-    if cmd[0] == '/' or cmd[0] == '!':
+    if cmd[0] == "/" or cmd[0] == "!":
         cmd = cmd[1:]
 
     # Check on commands aliases
@@ -68,20 +71,19 @@ async def disable_command(message, chat, strings):
         await message.reply(strings["wot_to_disable"])
         return
 
-    if await db.disabled.find_one({'chat_id': chat['chat_id'], 'cmds': {'$in': [cmd]}}):
-        await message.reply(strings['already_disabled'])
+    if await db.disabled.find_one({"chat_id": chat["chat_id"], "cmds": {"$in": [cmd]}}):
+        await message.reply(strings["already_disabled"])
         return
 
     await db.disabled.update_one(
-        {'chat_id': chat['chat_id']},
-        {"$addToSet": {'cmds': {'$each': [cmd]}}},
-        upsert=True
+        {"chat_id": chat["chat_id"]},
+        {"$addToSet": {"cmds": {"$each": [cmd]}}},
+        upsert=True,
     )
 
-    await message.reply(strings["disabled"].format(
-        cmd=cmd,
-        chat_name=chat['chat_title']
-    ))
+    await message.reply(
+        strings["disabled"].format(cmd=cmd, chat_name=chat["chat_title"])
+    )
 
 
 @register(cmds="enable")
@@ -89,9 +91,9 @@ async def disable_command(message, chat, strings):
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("disable")
 async def enable_command(message, chat, strings):
-    chat_id = chat['chat_id']
+    chat_id = chat["chat_id"]
     cmd = get_arg(message).lower()
-    if cmd[0] == '/' or cmd[0] == '!':
+    if cmd[0] == "/" or cmd[0] == "!":
         cmd = cmd[1:]
 
     # Check on commands aliases
@@ -104,18 +106,17 @@ async def enable_command(message, chat, strings):
         await message.reply(strings["wot_to_enable"])
         return
 
-    if not await db.disabled.find_one({'chat_id': chat['chat_id'], 'cmds': {'$in': [cmd]}}):
+    if not await db.disabled.find_one(
+        {"chat_id": chat["chat_id"], "cmds": {"$in": [cmd]}}
+    ):
         await message.reply(strings["already_enabled"])
         return
 
-    await db.disabled.update_one(
-        {'chat_id': chat_id},
-        {'$pull': {'cmds': cmd}}
-    )
+    await db.disabled.update_one({"chat_id": chat_id}, {"$pull": {"cmds": cmd}})
 
-    await message.reply(strings["enabled"].format(
-        cmd=cmd, chat_name=chat['chat_title']
-    ))
+    await message.reply(
+        strings["enabled"].format(cmd=cmd, chat_name=chat["chat_title"])
+    )
 
 
 @register(cmds="enableall", is_admin=True)
@@ -123,35 +124,42 @@ async def enable_command(message, chat, strings):
 @get_strings_dec("disable")
 async def enable_all(message, chat, strings):
     # Ensure that something is disabled
-    if not await db.disabled.find_one({'chat_id': chat['chat_id']}):
-        await message.reply(strings['not_disabled_anything'].format(chat_title=chat['chat_title']))
+    if not await db.disabled.find_one({"chat_id": chat["chat_id"]}):
+        await message.reply(
+            strings["not_disabled_anything"].format(chat_title=chat["chat_title"])
+        )
         return
 
-    text = strings['enable_all_text'].format(chat_name=chat['chat_title'])
+    text = strings["enable_all_text"].format(chat_name=chat["chat_title"])
     buttons = InlineKeyboardMarkup()
-    buttons.add(InlineKeyboardButton(
-        strings['enable_all_btn_yes'], callback_data='enable_all_notes_cb'))
-    buttons.add(InlineKeyboardButton(
-        strings['enable_all_btn_no'], callback_data='cancel'))
+    buttons.add(
+        InlineKeyboardButton(
+            strings["enable_all_btn_yes"], callback_data="enable_all_notes_cb"
+        )
+    )
+    buttons.add(
+        InlineKeyboardButton(strings["enable_all_btn_no"], callback_data="cancel")
+    )
     await message.reply(text, reply_markup=buttons)
 
 
-@register(regexp='enable_all_notes_cb', f='cb', is_admin=True)
+@register(regexp="enable_all_notes_cb", f="cb", is_admin=True)
 @chat_connection(admin=True)
-@get_strings_dec('disable')
+@get_strings_dec("disable")
 async def enable_all_notes_cb(event, chat, strings):
-    data = await db.disabled.find_one({'chat_id': chat['chat_id']})
-    await db.disabled.delete_one({'_id': data['_id']})
+    data = await db.disabled.find_one({"chat_id": chat["chat_id"]})
+    await db.disabled.delete_one({"_id": data["_id"]})
 
-    text = strings['enable_all_done'].format(
-        num=len(data['cmds']), chat_name=chat['chat_title'])
+    text = strings["enable_all_done"].format(
+        num=len(data["cmds"]), chat_name=chat["chat_title"]
+    )
     await event.message.edit_text(text)
 
 
 async def __export__(chat_id):
-    disabled = await db.disabled.find_one({'chat_id': chat_id})
+    disabled = await db.disabled.find_one({"chat_id": chat_id})
 
-    return {'disabling': disabled['cmds'] if disabled else []}
+    return {"disabling": disabled["cmds"] if disabled else []}
 
 
 async def __import__(chat_id, data):
@@ -163,9 +171,7 @@ async def __import__(chat_id, data):
         new.append(cmd)
 
     await db.disabled.update_one(
-        {'chat_id': chat_id},
-        {'$set': {'cmds': new}},
-        upsert=True
+        {"chat_id": chat_id}, {"$set": {"cmds": new}}, upsert=True
     )
 
 

@@ -1,17 +1,15 @@
-import glob
 import inspect
-import logging
 import re
-import sys
 from pathlib import Path
 
-from DaisyX.services.mongo import mongodb as db
 from telethon import events
 
-from DaisyX.services.telethon import  tbot
+from DaisyX.services.mongo import mongodb as db
+from DaisyX.services.telethon import tbot
 
 gbanned = db.gban
 CMD_LIST = {}
+
 
 def register(**args):
     pattern = args.get("pattern")
@@ -72,8 +70,8 @@ def register(**args):
         return wrapper
 
     return decorator
-  
-  
+
+
 def chataction(**args):
     """ Registers chat actions. """
 
@@ -116,4 +114,3 @@ def callbackquery(**args):
         return func
 
     return decorator
-

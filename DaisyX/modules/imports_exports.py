@@ -26,6 +26,7 @@ from babel.dates import format_timedelta
 from DaisyX import OPERATORS, bot
 from DaisyX.decorator import register
 from DaisyX.services.redis import redis
+
 from . import LOADED_MODULES
 from .utils.connections import chat_connection
 from .utils.language import get_strings_dec
@@ -38,105 +39,112 @@ class ImportFileWait(StatesGroup):
     waiting = State()
 
 
-@register(cmds='export', user_admin=True)
+@register(cmds="export", user_admin=True)
 @chat_connection(admin=True, only_groups=True)
-@get_strings_dec('imports_exports')
+@get_strings_dec("imports_exports")
 async def export_chat_data(message, chat, strings):
-    chat_id = chat['chat_id']
-    key = 'export_lock:' + str(chat_id)
+    chat_id = chat["chat_id"]
+    key = "export_lock:" + str(chat_id)
     if redis.get(key) and message.from_user.id not in OPERATORS:
-        ttl = format_timedelta(timedelta(seconds=redis.ttl(
-            key)), strings['language_info']['babel'])
-        await message.reply(strings['exports_locked'] % ttl)
+        ttl = format_timedelta(
+            timedelta(seconds=redis.ttl(key)), strings["language_info"]["babel"]
+        )
+        await message.reply(strings["exports_locked"] % ttl)
         return
 
     redis.set(key, 1)
     redis.expire(key, 7200)
 
-    msg = await message.reply(strings['started_exporting'])
+    msg = await message.reply(strings["started_exporting"])
     data = {
-        'general': {
-            'chat_name': chat['chat_title'],
-            'chat_id': chat_id,
-            'date': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            'version': VERSION
+        "general": {
+            "chat_name": chat["chat_title"],
+            "chat_id": chat_id,
+            "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "version": VERSION,
         }
     }
 
-    for module in [m for m in LOADED_MODULES if hasattr(m, '__export__')]:
+    for module in [m for m in LOADED_MODULES if hasattr(m, "__export__")]:
         await asyncio.sleep(0)  # Switch to other events before continue
         if k := await module.__export__(chat_id):
             data.update(k)
 
-    jfile = InputFile(io.StringIO(rapidjson.dumps(
-        data, indent=2)), filename=f'{chat_id}_export.json')
-    text = strings['export_done'].format(chat_name=chat['chat_title'])
+    jfile = InputFile(
+        io.StringIO(rapidjson.dumps(data, indent=2)), filename=f"{chat_id}_export.json"
+    )
+    text = strings["export_done"].format(chat_name=chat["chat_title"])
     await message.answer_document(jfile, text, reply=message.message_id)
     await msg.delete()
 
 
-@register(cmds='import', user_admin=True)
-@get_strings_dec('imports_exports')
+@register(cmds="import", user_admin=True)
+@get_strings_dec("imports_exports")
 async def import_reply(message, strings):
-    if 'document' in message:
+    if "document" in message:
         document = message.document
     else:
-        if 'reply_to_message' not in message:
+        if "reply_to_message" not in message:
             await ImportFileWait.waiting.set()
-            await message.reply(strings['send_import_file'])
+            await message.reply(strings["send_import_file"])
             return
 
-        elif 'document' not in message.reply_to_message:
-            await message.reply(strings['rpl_to_file'])
+        elif "document" not in message.reply_to_message:
+            await message.reply(strings["rpl_to_file"])
             return
         document = message.reply_to_message.document
 
     await import_fun(message, document)
 
 
-@register(state=ImportFileWait.waiting, content_types=types.ContentTypes.DOCUMENT, allow_kwargs=True)
+@register(
+    state=ImportFileWait.waiting,
+    content_types=types.ContentTypes.DOCUMENT,
+    allow_kwargs=True,
+)
 async def import_state(message, state=None, **kwargs):
     await import_fun(message, message.document)
     await state.finish()
 
 
 @chat_connection(admin=True, only_groups=True)
-@get_strings_dec('imports_exports')
+@get_strings_dec("imports_exports")
 async def import_fun(message, document, chat, strings):
-    chat_id = chat['chat_id']
-    key = 'import_lock:' + str(chat_id)
+    chat_id = chat["chat_id"]
+    key = "import_lock:" + str(chat_id)
     if redis.get(key) and message.from_user.id not in OPERATORS:
-        ttl = format_timedelta(timedelta(seconds=redis.ttl(
-            key)), strings['language_info']['babel'])
-        await message.reply(strings['imports_locked'] % ttl)
+        ttl = format_timedelta(
+            timedelta(seconds=redis.ttl(key)), strings["language_info"]["babel"]
+        )
+        await message.reply(strings["imports_locked"] % ttl)
         return
 
     redis.set(key, 1)
     redis.expire(key, 7200)
 
-    msg = await message.reply(strings['started_importing'])
-    if document['file_size'] > 52428800:
-        await message.reply(strings['big_file'])
+    msg = await message.reply(strings["started_importing"])
+    if document["file_size"] > 52428800:
+        await message.reply(strings["big_file"])
         return
     data = await bot.download_file_by_id(document.file_id, io.BytesIO())
     try:
         data = rapidjson.load(data)
     except ValueError:
-        return await message.reply(strings['invalid_file'])
+        return await message.reply(strings["invalid_file"])
 
-    if 'general' not in data:
-        await message.reply(strings['bad_file'])
+    if "general" not in data:
+        await message.reply(strings["bad_file"])
         return
 
-    file_version = data['general']['version']
+    file_version = data["general"]["version"]
 
     if file_version > VERSION:
-        await message.reply(strings['file_version_so_new'])
+        await message.reply(strings["file_version_so_new"])
         return
 
     imported = []
-    for module in [m for m in LOADED_MODULES if hasattr(m, '__import__')]:
-        module_name = module.__name__.replace('DaisyX.modules.', '')
+    for module in [m for m in LOADED_MODULES if hasattr(m, "__import__")]:
+        module_name = module.__name__.replace("DaisyX.modules.", "")
         if module_name not in data:
             continue
         if not data[module_name]:
@@ -146,7 +154,7 @@ async def import_fun(message, document, chat, strings):
         await asyncio.sleep(0)  # Switch to other events before continue
         await module.__import__(chat_id, data[module_name])
 
-    await msg.edit_text(strings['import_done'])
+    await msg.edit_text(strings["import_done"])
 
 
 __mod_name__ = "Backups"

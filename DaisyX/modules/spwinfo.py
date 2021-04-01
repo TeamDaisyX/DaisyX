@@ -1,13 +1,11 @@
+from asyncio import sleep
 from datetime import datetime
 
+import aiohttp
 from pyrogram import filters
 from pyrogram.errors import PeerIdInvalid
-from pyrogram.types import Message, User
 
 from DaisyX.services.pyrogram import pbot
-import aiohttp
-from asyncio import sleep
-from DaisyX.services.pyrogram import pbot as kp
 
 
 class AioHttp:
@@ -28,6 +26,8 @@ class AioHttp:
         async with aiohttp.ClientSession() as session:
             async with session.get(link) as resp:
                 return await resp.read()
+
+
 @pbot.on_message(filters.command("spwinfo") & ~filters.edited & ~filters.bot)
 async def lookup(client, message):
     cmd = message.command
@@ -89,4 +89,3 @@ async def lookup(client, message):
     else:
         await message.reply_text("`Cannot reach SpamProtection API`")
         await sleep(3)
-        

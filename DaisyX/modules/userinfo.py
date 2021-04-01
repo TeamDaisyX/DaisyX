@@ -5,9 +5,6 @@ from pyrogram.errors import PeerIdInvalid
 from pyrogram.types import Message, User
 
 from DaisyX.services.pyrogram import pbot
-import aiohttp
-from asyncio import sleep
-from DaisyX.services.pyrogram import pbot as kp
 
 
 def ReplyCheck(message: Message):
@@ -89,9 +86,6 @@ async def whois(client, message):
         ),
         disable_web_page_preview=True,
     )
-
-
-
 
 
 __mod_name__ = "User Info"

@@ -1,32 +1,37 @@
-import re
-import emoji
 import os
-from DaisyX.services.telethon import tbot
+import re
 from time import time
-import asyncio, os
-import DaisyX.services.sql.chatbot_sql as sql
+
+import emoji
 from coffeehouse.api import API
 from coffeehouse.exception import CoffeeHouseError as CFError
 from coffeehouse.lydia import LydiaAI
-from DaisyX import OWNER_ID, BOT_ID
-from telethon import types
-from telethon.tl import functions
-from DaisyX.services.events import register
-from telethon import events
-from DaisyX.config import get_str_key
 from google_trans_new import google_translator
 from gtts import gTTS, gTTSError
-#from DaisyX.services.sql.talk_mode_sql import add_talkmode, rmtalkmode, get_all_chat_id, is_talkmode_indb
+from telethon import events, types
+from telethon.tl import functions
+
+import DaisyX.services.sql.chatbot_sql as sql
+from DaisyX import BOT_ID
+from DaisyX.config import get_str_key
+from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot
+
+# from DaisyX.services.sql.talk_mode_sql import add_talkmode, rmtalkmode, get_all_chat_id, is_talkmode_indb
 translator = google_translator()
-from DaisyX.function.telethonbasics import is_admin
+
+
 def extract_emojis(s):
     return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
+
 
 LYDIA_API_KEY = get_str_key("LYDIA_API_KEY", required=False)
 CoffeeHouseAPI = API(LYDIA_API_KEY)
 api_client = LydiaAI(CoffeeHouseAPI)
 en_chats = []
 ws_chats = []
+
+
 async def can_change_info(message):
     try:
         result = await tbot(
@@ -41,6 +46,8 @@ async def can_change_info(message):
         )
     except Exception:
         return False
+
+
 """    
 @tbot.on(events.NewMessage(pattern="/talkmode (.*)"))
 async def close_ws(event):
@@ -74,36 +81,36 @@ async def close_ws(event):
         await event.reply("`You Should Be Admin To Do This!`")
         return   
     
-"""    
-    
+"""
+
+
 @register(pattern="^/enlydia$")
 async def _(event):
     if event.is_group:
         if not await can_change_info(message=event):
             return
     else:
-        return    
+        return
     global api_client
     chat = event.chat
-    
+
     send = await event.get_sender()
-    user = await tbot.get_entity(send)
+    await tbot.get_entity(send)
     is_chat = sql.is_chat(chat.id)
     if not is_chat:
         ses = api_client.create_session()
         ses_id = str(ses.id)
         expires = str(ses.expires)
         sql.set_ses(chat.id, ses_id, expires)
-        if not event.chat_id in en_chats:            
+        if not event.chat_id in en_chats:
             en_chats.append(event.chat_id)
         await event.reply("English AI successfully enabled for this chat!")
         return
-    if not event.chat_id in en_chats:            
+    if not event.chat_id in en_chats:
         en_chats.append(event.chat_id)
         await event.reply("English only AI activated!")
     await event.reply("AI is already enabled for this chat!")
     return ""
-
 
 
 @register(pattern="^/addlydia$")
@@ -112,11 +119,11 @@ async def _(event):
         if not await can_change_info(message=event):
             return
     else:
-        return    
+        return
     global api_client
     chat = event.chat
     send = await event.get_sender()
-    user = await tbot.get_entity(send)
+    await tbot.get_entity(send)
     is_chat = sql.is_chat(chat.id)
     if not is_chat:
         ses = api_client.create_session()
@@ -131,7 +138,6 @@ async def _(event):
     return ""
 
 
-
 @register(pattern="^/rmlydia$")
 async def _(event):
     if event.is_group:
@@ -141,7 +147,7 @@ async def _(event):
         return
     chat = event.chat
     send = await event.get_sender()
-    user = await tbot.get_entity(send)
+    await tbot.get_entity(send)
     is_chat = sql.is_chat(chat.id)
     if not is_chat:
         await event.reply("AI isn't enabled here in the first place!")
@@ -183,7 +189,7 @@ async def _(event):
         return
     if msg.startswith("/") or msg.startswith("@"):
         return
-    if msg:   
+    if msg:
         if not await check_message(event):
             return
         if event.chat_id in en_chats:
@@ -198,16 +204,16 @@ async def _(event):
                     sesh, exp = sql.get_ses(chat.id)
             except ValueError:
                 pass
-            try:          
-                    rep = api_client.think_thought(sesh, query)
-                    await event.reply(rep)
+            try:
+                rep = api_client.think_thought(sesh, query)
+                await event.reply(rep)
             except CFError as e:
                 print(e)
         else:
             u = msg.split()
             emj = extract_emojis(msg)
             msg = msg.replace(emj, "")
-            if (      
+            if (
                 [(k) for k in u if k.startswith("@")]
                 and [(k) for k in u if k.startswith("#")]
                 and [(k) for k in u if k.startswith("/")]
@@ -231,7 +237,7 @@ async def _(event):
                 rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
             else:
                 rm = msg
-                #print (rm)
+                # print (rm)
                 lan = translator.detect(rm)
             msg = rm
             test = msg
@@ -248,37 +254,38 @@ async def _(event):
                     sesh, exp = sql.get_ses(chat.id)
             except ValueError:
                 pass
-            try:          
-                    rep = api_client.think_thought(sesh, query)
-                    pro = rep
-                    if not "en" in lan and not lan == "":
-                        pro = translator.translate(rep, lang_tgt=lan[0])
-                    if event.chat_id in ws_chats:                    
-                        answer = pro
-                        try:
-                            tts = gTTS(answer, tld="com", lang=lan[0])
-                            tts.save("results.mp3")
-                        except AssertionError:
-                            return
-                        except ValueError:
-                            return
-                        except RuntimeError:
-                            return
-                        except gTTSError:
-                            return
-                        with open("results.mp3", "r"):
-                            await tbot.send_file(
-                                event.chat_id,
-                                "results.mp3",
-                                voice_note=True,
-                                reply_to=event.id,
-                            )
-                        os.remove("results.mp3")          
-                    else:     
-                        await event.reply(pro)
+            try:
+                rep = api_client.think_thought(sesh, query)
+                pro = rep
+                if not "en" in lan and not lan == "":
+                    pro = translator.translate(rep, lang_tgt=lan[0])
+                if event.chat_id in ws_chats:
+                    answer = pro
+                    try:
+                        tts = gTTS(answer, tld="com", lang=lan[0])
+                        tts.save("results.mp3")
+                    except AssertionError:
+                        return
+                    except ValueError:
+                        return
+                    except RuntimeError:
+                        return
+                    except gTTSError:
+                        return
+                    with open("results.mp3", "r"):
+                        await tbot.send_file(
+                            event.chat_id,
+                            "results.mp3",
+                            voice_note=True,
+                            reply_to=event.id,
+                        )
+                    os.remove("results.mp3")
+                else:
+                    await event.reply(pro)
             except CFError as e:
                 print(e)
-            
+
+
 __help__ = """
 <b> Chatbot </b>
 <i> PRESENTING DAISY AI 3.0. THE ONLY AI SYSTEM WHICH CAN DETECT & REPLY UPTO 200 LANGUAGES </i>
@@ -300,4 +307,4 @@ __help__ = """
 <i> Lydia AI can be unstable sometimes </i>
 """
 
-__mod_name__ = "AI Assistant"           
+__mod_name__ = "AI Assistant"

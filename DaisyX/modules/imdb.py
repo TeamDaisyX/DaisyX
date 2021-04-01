@@ -14,19 +14,17 @@
 #    along with this program.  If not, see < https://www.gnu.org/licenses/agpl-3.0.en.html/ >.
 
 
-
-import os
-from DaisyX.services.telethon import tbot
 import re
 
 import bs4
 import requests
 from telethon import types
 from telethon.tl import functions
+
 from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot
 
 langi = "en"
-
 
 
 async def is_register_admin(chat, user):
@@ -56,7 +54,7 @@ async def imdb(e):
         page = requests.get(
             "https://www.imdb.com/find?ref_=nv_sr_fn&q=" + final_name + "&s=all"
         )
-        lnk = str(page.status_code)
+        str(page.status_code)
         soup = bs4.BeautifulSoup(page.content, "lxml")
         odds = soup.findAll("tr", "odd")
         mov_title = odds[0].findNext("td").findNext("td").text

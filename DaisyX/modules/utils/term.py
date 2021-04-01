@@ -28,7 +28,7 @@ async def chat_term(message, command):
         await tbot.send_file(
             message.chat.id,
             "output.txt",
-            reply_to=message['message_id'],
+            reply_to=message["message_id"],
             caption="`Output too large, sending as file`",
         )
         subprocess.run(["rm", "output.txt"], stdout=subprocess.PIPE)
@@ -37,9 +37,7 @@ async def chat_term(message, command):
 
 async def term(command):
     process = await asyncio.create_subprocess_shell(
-        command,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE
+        command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
     stdout, stderr = await process.communicate()
     result = str(stdout.decode().strip()) + str(stderr.decode().strip())

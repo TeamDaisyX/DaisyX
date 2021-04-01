@@ -31,7 +31,7 @@ def get_arg(message):
     try:
         return message.get_args().split()[0]
     except IndexError:
-        return ''
+        return ""
 
 
 def get_args(message):
@@ -43,28 +43,28 @@ def get_args(message):
 
 
 def get_args_str(message):
-    return ' '.join(get_args(message))
+    return " ".join(get_args(message))
 
 
 def get_cmd(message):
-    cmd = message.get_command().lower()[1:].split('@')[0]
+    cmd = message.get_command().lower()[1:].split("@")[0]
     return cmd
 
 
 def convert_time(time_val):
-    if not any(time_val.endswith(unit) for unit in ('m', 'h', 'd')):
+    if not any(time_val.endswith(unit) for unit in ("m", "h", "d")):
         raise TypeError
 
     time_num = int(time_val[:-1])
     unit = time_val[-1]
     kwargs = {}
 
-    if unit == 'm':
-        kwargs['minutes'] = time_num
-    elif unit == 'h':
-        kwargs['hours'] = time_num
-    elif unit == 'd':
-        kwargs['days'] = time_num
+    if unit == "m":
+        kwargs["minutes"] = time_num
+    elif unit == "h":
+        kwargs["hours"] = time_num
+    elif unit == "d":
+        kwargs["days"] = time_num
     else:
         raise InvalidTimeUnit()
 
@@ -74,7 +74,7 @@ def convert_time(time_val):
 
 
 def convert_timedelta(time):
-    return {'days': time.days, 'seconds': time.seconds}
+    return {"days": time.days, "seconds": time.seconds}
 
 
 def need_args_dec(num=1):

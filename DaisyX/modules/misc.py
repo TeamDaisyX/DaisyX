@@ -11,26 +11,31 @@
 # GNU Affero General Public License for more details.
 
 import re
-import wikipedia
 from contextlib import suppress
 from datetime import datetime
-from requests import get
+
+import wikipedia
 
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-from aiogram.types import Message, ChatType, InlineKeyboardButton, InlineKeyboardMarkup
-from aiogram.utils.exceptions import BadRequest, MessageNotModified, MessageToDeleteNotFound
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from aiogram.utils.exceptions import (
+    BadRequest,
+    MessageNotModified,
+    MessageToDeleteNotFound,
+)
 
 from DaisyX.decorator import register
+
 from .utils.disable import disableable_dec
 from .utils.httpx import http
 from .utils.language import get_strings_dec
+from .utils.message import get_args_str
 from .utils.notes import get_parsed_note_list, send_note, t_unparse_note_item
 from .utils.user_details import is_user_admin
-from .utils.message import get_args_str
 
 
-@register(cmds='buttonshelp', no_args=True, only_pm=True)
+@register(cmds="buttonshelp", no_args=True, only_pm=True)
 async def buttons_help(message):
     await message.reply(
         """
@@ -73,7 +78,7 @@ You use this button with adding following syntax to your message which support f
     )
 
 
-@register(cmds='variableshelp', no_args=True, only_pm=True)
+@register(cmds="variableshelp", no_args=True, only_pm=True)
 async def buttons_help(message):
     await message.reply(
         """
@@ -94,8 +99,8 @@ Variables are special words which will be replaced by actual info
     )
 
 
-@register(cmds='wiki')
-@disableable_dec('wiki')
+@register(cmds="wiki")
+@disableable_dec("wiki")
 async def wiki(message):
     args = get_args_str(message)
     wikipedia.set_lang("en")
@@ -113,9 +118,9 @@ async def wiki(message):
         text = ""
         for x in range(batas):
             if x == 0:
-                text += refer[x]+"\n"
+                text += refer[x] + "\n"
             else:
-                text += "- `"+refer[x]+"`\n"
+                text += "- `" + refer[x] + "`\n"
         await message.reply(text)
         return
     except IndexError:
@@ -123,60 +128,76 @@ async def wiki(message):
         return
     title = pagewiki.title
     summary = pagewiki.summary
-    button = InlineKeyboardMarkup().add(InlineKeyboardButton(
-        "🔧 More Info...", url=wikipedia.page(args).url))
-    await message.reply(("The result of {} is:\n\n<b>{}</b>\n{}").format(args, title, summary), reply_markup=button)
+    button = InlineKeyboardMarkup().add(
+        InlineKeyboardButton("🔧 More Info...", url=wikipedia.page(args).url)
+    )
+    await message.reply(
+        ("The result of {} is:\n\n<b>{}</b>\n{}").format(args, title, summary),
+        reply_markup=button,
+    )
 
 
-@register(cmds='github')
-@disableable_dec('github')
+@register(cmds="github")
+@disableable_dec("github")
 async def github(message):
-    text = message.text[len('/github '):]
-    response = await http.get(f'https://api.github.com/users/{text}')
+    text = message.text[len("/github ") :]
+    response = await http.get(f"https://api.github.com/users/{text}")
     usr = response.json()
 
-    if usr.get('login'):
+    if usr.get("login"):
         text = f"<b>Username:</b> <a href='https://github.com/{usr['login']}'>{usr['login']}</a>"
 
         whitelist = [
-            'name', 'id', 'type', 'location', 'blog', 'bio', 'followers',
-            'following', 'hireable', 'public_gists', 'public_repos', 'email',
-            'company', 'updated_at', 'created_at'
+            "name",
+            "id",
+            "type",
+            "location",
+            "blog",
+            "bio",
+            "followers",
+            "following",
+            "hireable",
+            "public_gists",
+            "public_repos",
+            "email",
+            "company",
+            "updated_at",
+            "created_at",
         ]
 
         difnames = {
-            'id': 'Account ID',
-            'type': 'Account type',
-            'created_at': 'Account created at',
-            'updated_at': 'Last updated',
-            'public_repos': 'Public Repos',
-            'public_gists': 'Public Gists'
+            "id": "Account ID",
+            "type": "Account type",
+            "created_at": "Account created at",
+            "updated_at": "Last updated",
+            "public_repos": "Public Repos",
+            "public_gists": "Public Gists",
         }
 
-        goaway = [None, 0, 'null', '']
+        goaway = [None, 0, "null", ""]
 
         for x, y in usr.items():
             if x in whitelist:
                 x = difnames.get(x, x.title())
 
-                if x in ('Account created at', 'Last updated'):
+                if x in ("Account created at", "Last updated"):
                     y = datetime.strptime(y, "%Y-%m-%dT%H:%M:%SZ")
 
                 if y not in goaway:
-                    if x == 'Blog':
+                    if x == "Blog":
                         x = "Website"
                         y = f"<a href='{y}'>Here!</a>"
-                        text += ("\n<b>{}:</b> {}".format(x, y))
+                        text += "\n<b>{}:</b> {}".format(x, y)
                     else:
-                        text += ("\n<b>{}:</b> <code>{}</code>".format(x, y))
+                        text += "\n<b>{}:</b> <code>{}</code>".format(x, y)
         reply_text = text
     else:
         reply_text = "User not found. Make sure you entered valid username!"
     await message.reply(reply_text, disable_web_page_preview=True)
 
 
-@register(cmds='ip')
-@disableable_dec('ip')
+@register(cmds="ip")
+@disableable_dec("ip")
 async def ip(message):
     try:
         ip = message.text.split(maxsplit=1)[1]
@@ -188,14 +209,21 @@ async def ip(message):
     if response.status_code == 200:
         lookup_json = response.json()
     else:
-        await message.reply(f"An error occurred when looking for <b>{ip}</b>: <b>{response.status_code}</b>")
+        await message.reply(
+            f"An error occurred when looking for <b>{ip}</b>: <b>{response.status_code}</b>"
+        )
         return
 
     fixed_lookup = {}
 
     for key, value in lookup_json.items():
-        special = {"lat": "Latitude", "lon": "Longitude",
-                   "isp": "ISP", "as": "AS", "asname": "AS name"}
+        special = {
+            "lat": "Latitude",
+            "lon": "Longitude",
+            "isp": "ISP",
+            "as": "AS",
+            "asname": "AS name",
+        }
         if key in special:
             fixed_lookup[special[key]] = str(value)
             continue
@@ -216,67 +244,68 @@ async def ip(message):
     await message.reply(text)
 
 
-@register(cmds='cancel', state='*', allow_kwargs=True)
+@register(cmds="cancel", state="*", allow_kwargs=True)
 async def cancel_handle(message, state, **kwargs):
     await state.finish()
-    await message.reply('Cancelled.')
+    await message.reply("Cancelled.")
 
 
 async def delmsg_filter_handle(message, chat, data):
-    if await is_user_admin(data['chat_id'], message.from_user.id):
+    if await is_user_admin(data["chat_id"], message.from_user.id):
         return
     with suppress(MessageToDeleteNotFound):
         await message.delete()
 
 
 async def replymsg_filter_handler(message, chat, data):
-    text, kwargs = await t_unparse_note_item(message, data['reply_text'], chat['chat_id'])
-    kwargs['reply_to'] = message.message_id
+    text, kwargs = await t_unparse_note_item(
+        message, data["reply_text"], chat["chat_id"]
+    )
+    kwargs["reply_to"] = message.message_id
     with suppress(BadRequest):
-        await send_note(chat['chat_id'], text, **kwargs)
+        await send_note(chat["chat_id"], text, **kwargs)
 
 
-@get_strings_dec('misc')
+@get_strings_dec("misc")
 async def replymsg_setup_start(message, strings):
     with suppress(MessageNotModified):
-        await message.edit_text(strings['send_text'])
+        await message.edit_text(strings["send_text"])
 
 
 async def replymsg_setup_finish(message, data):
-    reply_text = await get_parsed_note_list(message, allow_reply_message=False, split_args=-1)
-    return {'reply_text': reply_text}
+    reply_text = await get_parsed_note_list(
+        message, allow_reply_message=False, split_args=-1
+    )
+    return {"reply_text": reply_text}
 
 
-@get_strings_dec('misc')
+@get_strings_dec("misc")
 async def customise_reason_start(message: Message, strings: dict):
-    await message.reply(strings['send_customised_reason'])
+    await message.reply(strings["send_customised_reason"])
 
 
-@get_strings_dec('misc')
+@get_strings_dec("misc")
 async def customise_reason_finish(message: Message, _: dict, strings: dict):
     if message.text is None:
-        await message.reply(strings['expected_text'])
+        await message.reply(strings["expected_text"])
         return False
-    elif message.text in {'None'}:
-        return {'reason': None}
-    return {'reason': message.text}
+    elif message.text in {"None"}:
+        return {"reason": None}
+    return {"reason": message.text}
 
 
 __filters__ = {
-    'delete_message': {
-        'title': {'module': 'misc', 'string': 'delmsg_filter_title'},
-        'handle': delmsg_filter_handle,
-        'del_btn_name': lambda msg, data: f"Del message: {data['handler']}"
+    "delete_message": {
+        "title": {"module": "misc", "string": "delmsg_filter_title"},
+        "handle": delmsg_filter_handle,
+        "del_btn_name": lambda msg, data: f"Del message: {data['handler']}",
     },
-    'reply_message': {
-        'title': {'module': 'misc', 'string': 'replymsg_filter_title'},
-        'handle': replymsg_filter_handler,
-        'setup': {
-            'start': replymsg_setup_start,
-            'finish': replymsg_setup_finish
-        },
-        'del_btn_name': lambda msg, data: f"Reply to {data['handler']}: \"{data['reply_text'].get('text', 'None')}\" "
-    }
+    "reply_message": {
+        "title": {"module": "misc", "string": "replymsg_filter_title"},
+        "handle": replymsg_filter_handler,
+        "setup": {"start": replymsg_setup_start, "finish": replymsg_setup_finish},
+        "del_btn_name": lambda msg, data: f"Reply to {data['handler']}: \"{data['reply_text'].get('text', 'None')}\" ",
+    },
 }
 
 

@@ -1,7 +1,7 @@
 # By @TroJanzHEX
 import asyncio
-import shutil
 import os
+import shutil
 
 
 async def normalglitch_1(client, message):

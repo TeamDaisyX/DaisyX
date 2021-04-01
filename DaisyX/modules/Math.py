@@ -12,22 +12,19 @@
 # GNU Affero General Public License for more details.
 
 
-
+import io
 import json
 import math
-import requests
-import io
 import sys
 import traceback
-from telethon import types
-from telethon.tl import functions
+
+import requests
+
 from DaisyX.decorator import register
 from DaisyX.services.events import register as daisy
-from telethon import events
+
 from .utils.disable import disableable_dec
-from .utils.message import get_arg
 from .utils.message import get_args_str
-from telethon import events
 
 
 @daisy(pattern="^/math (.*)")
@@ -65,14 +62,13 @@ async def _(car):
     await event.edit(final_output)
 
 
-
 async def aexec(code, event):
     exec(f"async def __aexec(event): " + "".join(f"\n {l}" for l in code.split("\n")))
     return await locals()["__aexec"](event)
 
 
-@register(cmds=['factor', 'factorize'])
-@disableable_dec('factor')
+@register(cmds=["factor", "factorize"])
+@disableable_dec("factor")
 async def _(message):
     args = get_args_str(message)
     response = requests.get(f"https://newton.now.sh/api/v2/factor/{args}")
@@ -81,18 +77,20 @@ async def _(message):
     j = obj["result"]
     await message.reply(j)
 
-@register(cmds='derive')
-@disableable_dec('derive')   
+
+@register(cmds="derive")
+@disableable_dec("derive")
 async def _(message):
     args = get_args_str(message)
     response = requests.get(f"https://newton.now.sh/api/v2/derive/{args}")
     c = response.text
     obj = json.loads(c)
     j = obj["result"]
-    await message.reply(j)    
+    await message.reply(j)
 
-@register(cmds='integrate')
-@disableable_dec('integrate') 
+
+@register(cmds="integrate")
+@disableable_dec("integrate")
 async def _(message):
     args = get_args_str(message)
     response = requests.get(f"https://newton.now.sh/api/v2/integrate/{args}")
@@ -100,84 +98,96 @@ async def _(message):
     obj = json.loads(c)
     j = obj["result"]
     await message.reply(j)
-    
-@register(cmds='zeroes')
-@disableable_dec('zeroes')
+
+
+@register(cmds="zeroes")
+@disableable_dec("zeroes")
 async def _(message):
     args = get_args_str(message)
     response = requests.get(f"https://newton.now.sh/api/v2/zeroes/{args}")
     c = response.text
     obj = json.loads(c)
     j = obj["result"]
-    await message.reply(j)   
-    
-@register(cmds='tangent')
-@disableable_dec('tangent')  
+    await message.reply(j)
+
+
+@register(cmds="tangent")
+@disableable_dec("tangent")
 async def _(message):
     args = get_args_str(message)
     response = requests.get(f"https://newton.now.sh/api/v2/tangent/{args}")
     c = response.text
     obj = json.loads(c)
     j = obj["result"]
-    await message.reply(j)   
-    
-@register(cmds='area')
-@disableable_dec('area')    
+    await message.reply(j)
+
+
+@register(cmds="area")
+@disableable_dec("area")
 async def _(message):
     args = get_args_str(message)
     response = requests.get(f"https://newton.now.sh/api/v2/area/{args}")
     c = response.text
     obj = json.loads(c)
     j = obj["result"]
-    await message.reply(j)      
-    
-@register(cmds='cos')
-@disableable_dec('cos')
+    await message.reply(j)
+
+
+@register(cmds="cos")
+@disableable_dec("cos")
 async def _(message):
-    args = get_args_str(message) 
+    args = get_args_str(message)
     await message.reply(str(math.cos(int(args))))
-    
-@register(cmds='sin')
-@disableable_dec('sin')  
+
+
+@register(cmds="sin")
+@disableable_dec("sin")
 async def _(message):
-    args = get_args_str(message) 
-    await message.reply(str(math.sin(int(args))))    
-    
-@register(cmds='tan')
-@disableable_dec('tan')   
+    args = get_args_str(message)
+    await message.reply(str(math.sin(int(args))))
+
+
+@register(cmds="tan")
+@disableable_dec("tan")
 async def _(message):
-    args = get_args_str(message) 
-    await message.reply(str(math.tan(int(args))))        
-    
-@register(cmds='arccos')
-@disableable_dec('arccos') 
+    args = get_args_str(message)
+    await message.reply(str(math.tan(int(args))))
+
+
+@register(cmds="arccos")
+@disableable_dec("arccos")
 async def _(message):
-    args = get_args_str(message) 
-    await message.reply(str(math.acos(int(args))))       
-      
-@register(cmds='arcsin')
-@disableable_dec('arcsin')    
+    args = get_args_str(message)
+    await message.reply(str(math.acos(int(args))))
+
+
+@register(cmds="arcsin")
+@disableable_dec("arcsin")
 async def _(message):
-    args = get_args_str(message) 
-    await message.reply(str(math.asin(int(args))))        
-    
-@register(cmds='arctan')
-@disableable_dec('arctan')   
+    args = get_args_str(message)
+    await message.reply(str(math.asin(int(args))))
+
+
+@register(cmds="arctan")
+@disableable_dec("arctan")
 async def _(message):
-    args = get_args_str(message) 
-    await message.reply(str(math.atan(int(args))))    
-    
-@register(cmds='abs')
-@disableable_dec('abs')    
+    args = get_args_str(message)
+    await message.reply(str(math.atan(int(args))))
+
+
+@register(cmds="abs")
+@disableable_dec("abs")
 async def _(message):
-    args = get_args_str(message) 
-    await message.reply(str(math.fabs(int(args))))        
-    
-@register(cmds='log')
-@disableable_dec('log')    
+    args = get_args_str(message)
+    await message.reply(str(math.fabs(int(args))))
+
+
+@register(cmds="log")
+@disableable_dec("log")
 async def _(message):
-    args = get_args_str(message) 
-    await message.reply(str(math.log(int(args))))        
+    args = get_args_str(message)
+    await message.reply(str(math.log(int(args))))
+
 
 __help__ = """
 Solves complex math problems using https://newton.now.sh and python math module

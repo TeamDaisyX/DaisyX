@@ -7,15 +7,15 @@ from datetime import datetime
 
 from PIL import Image
 from telegraph import Telegraph, exceptions, upload_file
-from DaisyX.services.telethon import tbot as borg
 from telethon import events
 
+from DaisyX.services.telethon import tbot as borg
 
 telegraph = Telegraph()
 r = telegraph.create_account(short_name="DaisyX")
 auth_url = r["auth_url"]
 
-#Will change later
+# Will change later
 TMP_DOWNLOAD_DIRECTORY = "./"
 
 BOTLOG = False
@@ -87,9 +87,7 @@ async def _(event):
                 link_preview=True,
             )
     else:
-        await event.reply(
-            "Reply to a message to get a permanent telegra.ph link. "
-        )
+        await event.reply("Reply to a message to get a permanent telegra.ph link. ")
 
 
 def resize_image(image):

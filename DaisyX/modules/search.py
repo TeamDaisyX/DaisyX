@@ -1,32 +1,28 @@
-from bs4 import BeautifulSoup
-import urllib
 import glob
 import io
 import os
 import re
-import aiohttp
+import urllib
 import urllib.request
-from urllib.parse import urlencode
 
 import bs4
-import html2text
 import requests
 from bing_image_downloader import downloader
+from bs4 import BeautifulSoup
 from PIL import Image
-from telethon import *
-from telethon.tl import functions
-from telethon.tl import types
-from telethon.tl.types import *
-
-from DaisyX.services.telethon import tbot
-from DaisyX.services.events import register
+from pyrogram import filters
 
 # This plugin is ported from https://github.com/thehamkercat/WilliamButcherBot
 from search_engine_parser import GoogleSearch
-from pyrogram import filters
-from DaisyX.services.pyrogram import pbot as app
+
 from DaisyX.modules.utils.fetch import fetch
+from DaisyX.services.events import register
+from DaisyX.services.pyrogram import pbot as app
+from DaisyX.services.telethon import tbot
+
 ARQ = "https://thearq.tech/"
+
+
 @app.on_message(filters.command("ud") & ~filters.edited)
 async def urbandict(_, message):
     if len(message.command) < 2:
@@ -38,7 +34,7 @@ async def urbandict(_, message):
         reply_text = f"""**Definition:** __{results["list"][0]["definition"]}__
 **Example:** __{results["list"][0]["example"]}__"""
     except IndexError:
-        reply_text = ("Sorry could not find any matching results!")
+        reply_text = "Sorry could not find any matching results!"
     ignore_chars = "[]"
     reply = reply_text
     for chars in ignore_chars:
@@ -47,6 +43,7 @@ async def urbandict(_, message):
         reply = reply[:4096]
     await message.reply_text(reply)
 
+
 # google
 
 
@@ -54,7 +51,7 @@ async def urbandict(_, message):
 async def google(_, message):
     try:
         if len(message.command) < 2:
-            await message.reply_text('/google Needs An Argument')
+            await message.reply_text("/google Needs An Argument")
             return
         text = message.text.split(None, 1)[1]
         gresults = await GoogleSearch().async_search(text, 1)
@@ -151,8 +148,7 @@ async def ytsearch(_, message):
         await m.edit(text, disable_web_page_preview=True)
     except Exception as e:
         await message.reply_text(str(e))
-        
-        
+
 
 @register(pattern="^/img (.*)")
 async def img_sampler(event):
@@ -307,7 +303,7 @@ async def apk(e):
         page = requests.get(
             "https://play.google.com/store/search?q=" + final_name + "&c=apps"
         )
-        lnk = str(page.status_code)
+        str(page.status_code)
         soup = bs4.BeautifulSoup(page.content, "lxml", from_encoding="utf-8")
         results = soup.findAll("div", "ZmHEEd")
         app_name = (
@@ -364,7 +360,6 @@ async def apk(e):
         await e.reply("No result found in search. Please enter **Valid app name**")
     except Exception as err:
         await e.reply("Exception Occured:- " + str(err))
-
 
 
 __help__ = """

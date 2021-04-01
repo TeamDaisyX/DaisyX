@@ -15,14 +15,14 @@
 import urllib.request
 
 from bs4 import BeautifulSoup
-
-
 from telethon import events
-from DaisyX.services.telethon import tbot
 from telethon.tl import functions, types
-from telethon.tl.types import *
+
+from DaisyX.services.telethon import tbot
+
+
 async def is_register_admin(chat, user):
-    
+
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
         return isinstance(
@@ -64,5 +64,3 @@ async def _(event):
         f"<b><u>Match information gathered successful</b></u>\n\n\n<code>{Sed}</code>",
         parse_mode="HTML",
     )
-
-

@@ -5,19 +5,18 @@ import subprocess
 import requests
 from gtts import gTTS, gTTSError
 from requests import get
-from telethon import events
 from telethon.tl import functions, types
 from telethon.tl.types import *
 
-
-from DaisyX.services.telethon import tbot
-from DaisyX.services.events import register
 from DaisyX.config import get_str_key
+from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot
 
 IBM_WATSON_CRED_PASSWORD = get_str_key("IBM_WATSON_CRED_PASSWORD", None)
 IBM_WATSON_CRED_URL = get_str_key("IBM_WATSON_CRED_URL", None)
 WOLFRAM_ID = get_str_key("WOLFRAM_ID", None)
 TEMP_DOWNLOAD_DIRECTORY = "./"
+
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -167,4 +166,3 @@ async def howdoi(event):
     jit = subprocess.check_output(["howdoi", f"{str}"])
     pit = jit.decode()
     await event.reply(pit)
-    

@@ -14,22 +14,19 @@
 #    along with this program.  If not, see < https://www.gnu.org/licenses/agpl-3.0.en.html/ >.
 
 
-
-import os
-
 import datetime
 from typing import List
 
 import requests
-
-from DaisyX.services.events import register
-from DaisyX.services.telethon import tbot
 from telethon import types
 from telethon.tl import functions
-from DaisyX.config import get_str_key
 
+from DaisyX.config import get_str_key
+from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot
 
 TIME_API_KEY = get_str_key("TIME_API_KEY", required=False)
+
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -127,8 +124,6 @@ async def _(event):
         return
 
     await send_message.edit(result, parse_mode="html")
-
-
 
 
 __mod_name__ = "Date Time"

@@ -18,15 +18,14 @@ from pymongo import UpdateOne
 from DaisyX.services.mongo import mongodb
 from DaisyX.utils.logger import log
 
-changelog = \
-    """
+changelog = """
     Daisy database v8
     Warns: Change serialization method of warnmodes (time based)
     """
 log.info(changelog)
 log.info("Fetching all documents needed to update (in 'warnmode' collection)!")
 
-data = mongodb['warnmode'].find({'time': {"$exists": True}})
+data = mongodb["warnmode"].find({"time": {"$exists": True}})
 count = data.count()
 changed, deleted = 0, 0
 updated_list = []
@@ -51,9 +50,9 @@ def _convert_time(__t: dict) -> str:
 
 
 for i in data:
-    time = i['time']
+    time = i["time"]
     if new_t := _convert_time(time):
-        updated_list.append(UpdateOne({"_id": i['_id']}, {"$set": {'time': new_t}}))
+        updated_list.append(UpdateOne({"_id": i["_id"]}, {"$set": {"time": new_t}}))
         changed += 1
     else:
         # deleted += 1
@@ -62,5 +61,5 @@ for i in data:
 
 if updated_list:
     log.info("Updating database...")
-    mongodb['warnmode'].bulk_write(updated_list, ordered=False)
+    mongodb["warnmode"].bulk_write(updated_list, ordered=False)
     log.info(f"Updated {changed} documents!")

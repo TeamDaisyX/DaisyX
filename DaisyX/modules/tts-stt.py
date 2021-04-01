@@ -14,26 +14,23 @@
 #    along with this program.  If not, see < https://www.gnu.org/licenses/agpl-3.0.en.html/ >.
 
 
-from DaisyX.services.telethon import tbot
 import os
-import urllib.request
 from datetime import datetime
-from typing import List
-from typing import Optional
+
 import requests
+from gtts import gTTS, gTTSError
 from telethon import *
-from telethon import events
-from telethon.tl import functions
-from telethon.tl import types
+from telethon.tl import functions, types
 from telethon.tl.types import *
-from gtts import gTTS
-from gtts import gTTSError
-from DaisyX.services.events import register
+
 from DaisyX.config import get_str_key
+from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot
 
 IBM_WATSON_CRED_PASSWORD = get_str_key("IBM_WATSON_CRED_PASSWORD", required=False)
 IBM_WATSON_CRED_PASSWORD = get_str_key("IBM_WATSON_CRED_URL", required=False)
 TEMP_DOWNLOAD_DIRECTORY = "./"
+
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -97,9 +94,7 @@ async def _(event):
         os.remove("k.mp3")
 
 
-
 # ------ THANKS TO LONAMI ------#
-
 
 
 @register(pattern="^/stt$")
@@ -166,10 +161,10 @@ async def _(event):
     else:
         await event.reply("Reply to a voice message, to get the text out of it.")
 
+
 __mod_name__ = "Text to Speech"
 
 __help__ = """
  - /tts: Reply to any message to get text to speech output
  - /stt: Type in reply to a voice message(english only) to extract text from it.
 """
-

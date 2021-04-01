@@ -1,48 +1,45 @@
-import os
 import ast
 
-from DaisyX.services.pyrogram import pbot as trojanz
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-
-from DaisyX.db.mongo_helpers.filters_mdb import del_all, find_filter
-
-from DaisyX.db.mongo_helpers.connections_mdb import(
-    all_connections,
+from DaisyX.db.mongo_helpers.connections_mdb import (
     active_connection,
-    if_active,
+    all_connections,
     delete_connection,
+    if_active,
     make_active,
-    make_inactive
+    make_inactive,
 )
+from DaisyX.db.mongo_helpers.filters_mdb import del_all, find_filter
+from DaisyX.services.pyrogram import pbot as trojanz
 
 
 @trojanz.on_callback_query()
 async def cb_handler(client, query):
 
-
     if query.data == "close_data":
         await query.message.delete()
-        
 
     elif query.data == "delallconfirm":
         userid = query.from_user.id
         chat_type = query.message.chat.type
 
         if chat_type == "private":
-            grpid  = await active_connection(str(userid))
+            grpid = await active_connection(str(userid))
             if grpid is not None:
                 grp_id = grpid
                 try:
                     chat = await client.get_chat(grpid)
                     title = chat.title
                 except:
-                    await query.message.edit_text("Make sure I'm present in your group!!", quote=True)
+                    await query.message.edit_text(
+                        "Make sure I'm present in your group!!", quote=True
+                    )
                     return
             else:
                 await query.message.edit_text(
                     "I'm not connected to any groups!\nCheck /connections or connect to any groups",
-                    quote=True
+                    quote=True,
                 )
                 return
 
@@ -54,15 +51,18 @@ async def cb_handler(client, query):
             return
 
         st = await client.get_chat_member(grp_id, userid)
-        if (st.status == "creator"):    
+        if st.status == "creator":
             await del_all(query.message, grp_id, title)
         else:
-            await query.answer("You need to be Group Owner or an Auth User to do that!",show_alert=True)
-    
+            await query.answer(
+                "You need to be Group Owner or an Auth User to do that!",
+                show_alert=True,
+            )
+
     elif query.data == "delallcancel":
         userid = query.from_user.id
         chat_type = query.message.chat.type
-        
+
         if chat_type == "private":
             await query.message.reply_to_message.delete()
             await query.message.delete()
@@ -70,15 +70,14 @@ async def cb_handler(client, query):
         elif (chat_type == "group") or (chat_type == "supergroup"):
             grp_id = query.message.chat.id
             st = await client.get_chat_member(grp_id, userid)
-            if (st.status == "creator"):
+            if st.status == "creator":
                 await query.message.delete()
                 try:
                     await query.message.reply_to_message.delete()
                 except:
                     pass
             else:
-                await query.answer("Thats not for you!!",show_alert=True)
-
+                await query.answer("Thats not for you!!", show_alert=True)
 
     elif "groupcb" in query.data:
         await query.answer()
@@ -95,16 +94,24 @@ async def cb_handler(client, query):
             stat = "DISCONNECT"
             cb = "disconnect"
 
-        keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton(f"{stat}", callback_data=f"{cb}:{group_id}:{title}"),
-                InlineKeyboardButton("DELETE", callback_data=f"deletecb:{group_id}")],
-            [InlineKeyboardButton("BACK", callback_data="backcb")]
-        ])
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        f"{stat}", callback_data=f"{cb}:{group_id}:{title}"
+                    ),
+                    InlineKeyboardButton(
+                        "DELETE", callback_data=f"deletecb:{group_id}"
+                    ),
+                ],
+                [InlineKeyboardButton("BACK", callback_data="backcb")],
+            ]
+        )
 
         await query.message.edit_text(
             f"Group Name : **{title}**\nGroup ID : `{group_id}`",
             reply_markup=keyboard,
-            parse_mode="md"
+            parse_mode="md",
         )
         return
 
@@ -118,16 +125,10 @@ async def cb_handler(client, query):
         mkact = await make_active(str(user_id), str(group_id))
 
         if mkact:
-            await query.message.edit_text(
-                f"Connected to **{title}**",
-                parse_mode="md"
-            )
+            await query.message.edit_text(f"Connected to **{title}**", parse_mode="md")
             return
         else:
-            await query.message.edit_text(
-                f"Some error occured!!",
-                parse_mode="md"
-            )
+            await query.message.edit_text(f"Some error occured!!", parse_mode="md")
             return
 
     elif "disconnect" in query.data:
@@ -140,15 +141,11 @@ async def cb_handler(client, query):
 
         if mkinact:
             await query.message.edit_text(
-                f"Disconnected from **{title}**",
-                parse_mode="md"
+                f"Disconnected from **{title}**", parse_mode="md"
             )
             return
         else:
-            await query.message.edit_text(
-                f"Some error occured!!",
-                parse_mode="md"
-            )
+            await query.message.edit_text(f"Some error occured!!", parse_mode="md")
             return
     elif "deletecb" in query.data:
         await query.answer()
@@ -159,17 +156,12 @@ async def cb_handler(client, query):
         delcon = await delete_connection(str(user_id), str(group_id))
 
         if delcon:
-            await query.message.edit_text(
-                "Successfully deleted connection"
-            )
+            await query.message.edit_text("Successfully deleted connection")
             return
         else:
-            await query.message.edit_text(
-                f"Some error occured!!",
-                parse_mode="md"
-            )
+            await query.message.edit_text(f"Some error occured!!", parse_mode="md")
             return
-    
+
     elif query.data == "backcb":
         await query.answer()
 
@@ -194,7 +186,8 @@ async def cb_handler(client, query):
                 buttons.append(
                     [
                         InlineKeyboardButton(
-                            text=f"{title}{act}", callback_data=f"groupcb:{groupid}:{title}:{act}"
+                            text=f"{title}{act}",
+                            callback_data=f"groupcb:{groupid}:{title}:{act}",
                         )
                     ]
                 )
@@ -203,7 +196,7 @@ async def cb_handler(client, query):
         if buttons:
             await query.message.edit_text(
                 "Your connected group details ;\n\n",
-                reply_markup=InlineKeyboardMarkup(buttons)
+                reply_markup=InlineKeyboardMarkup(buttons),
             )
 
     elif "alertmessage" in query.data:
@@ -215,4 +208,4 @@ async def cb_handler(client, query):
             alerts = ast.literal_eval(alerts)
             alert = alerts[int(i)]
             alert = alert.replace("\\n", "\n").replace("\\t", "\t")
-            await query.answer(alert,show_alert=True)
+            await query.answer(alert, show_alert=True)

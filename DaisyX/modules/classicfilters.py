@@ -1,26 +1,24 @@
-
-import os
-from DaisyX.services.events import register
-from telethon.tl import functions
-from DaisyX.services.telethon import tbot
 import asyncio
+import os
 import re
 
-from telethon import utils, Button
-from telethon.tl import types
-from telethon import events
+from telethon import Button, events, utils
+from telethon.tl import functions, types
+
+from DaisyX.services.events import register
 from DaisyX.services.sql.filters_sql import (
     add_filter,
     get_all_filters,
-    remove_filter,
     remove_all_filters,
+    remove_filter,
 )
+from DaisyX.services.telethon import tbot
 
 DELETE_TIMEOUT = 0
 TYPE_TEXT = 0
 TYPE_PHOTO = 1
 TYPE_DOCUMENT = 2
-last_triggered_filters = {}  
+last_triggered_filters = {}
 
 
 async def can_change_info(message):
@@ -97,18 +95,22 @@ async def on_snip(event):
                     filter = filter.strip()
                     button = options.strip()
                     if "•" in button:
-                       mbutton = button.split("•")
-                       lbutton = []   
-                       for i in mbutton:
-                           params = re.findall(r"\'(.*?)\'", i) or re.findall(r'\"(.*?)\"', i)
-                           lbutton.append(params)
-                       longbutton = []
-                       for c in lbutton:
-                           butto = [Button.url(*c)]
-                           longbutton.append(butto)    
+                        mbutton = button.split("•")
+                        lbutton = []
+                        for i in mbutton:
+                            params = re.findall(r"\'(.*?)\'", i) or re.findall(
+                                r"\"(.*?)\"", i
+                            )
+                            lbutton.append(params)
+                        longbutton = []
+                        for c in lbutton:
+                            butto = [Button.url(*c)]
+                            longbutton.append(butto)
                     else:
-                           params = re.findall(r"\'(.*?)\'", button) or re.findall(r'\"(.*?)\"', button)
-                           butto = [Button.url(*params)]                        
+                        params = re.findall(r"\'(.*?)\'", button) or re.findall(
+                            r"\"(.*?)\"", button
+                        )
+                        butto = [Button.url(*params)]
                 except BaseException:
                     filter = filter.strip()
                     butto = None
@@ -178,7 +180,9 @@ async def on_snip_save(event):
             snip.get("fr"),
         )
 
-        await event.reply(f"Classic Filter {name} saved successfully. you can get it with {name}\nNote: Try our new filter system /addfilter ")
+        await event.reply(
+            f"Classic Filter {name} saved successfully. you can get it with {name}\nNote: Try our new filter system /addfilter "
+        )
 
     else:
 
@@ -199,6 +203,7 @@ async def on_snip_delete(event):
     remove_filter(event.chat_id, name)
 
     await event.reply(f"Filter **{name}** deleted successfully")
+
 
 @register(pattern="^/cfilters$")
 async def on_snip_list(event):
@@ -239,6 +244,7 @@ async def on_snip_list(event):
 
         await event.reply(OUT_STR)
 
+
 @register(pattern="^/stopallcfilters$")
 async def on_all_snip_delete(event):
     if event.is_group:
@@ -253,5 +259,3 @@ async def on_all_snip_delete(event):
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
-
-

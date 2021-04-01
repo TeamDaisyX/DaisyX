@@ -14,8 +14,6 @@
 #    along with this program.  If not, see < https://www.gnu.org/licenses/agpl-3.0.en.html/ >.
 
 
-
-from DaisyX.services.telethon import tbot
 import io
 import os
 from datetime import datetime
@@ -24,10 +22,14 @@ import requests
 from telethon import types
 from telethon.tl import functions
 
-from DaisyX.services.events import register
 from DaisyX.config import get_str_key
+from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot
+
 REM_BG_API_KEY = get_str_key("REM_BG_API_KEY", required=False)
 TEMP_DOWNLOAD_DIRECTORY = "./"
+
+
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
         return isinstance(
@@ -38,9 +40,6 @@ async def is_register_admin(chat, user):
         )
     if isinstance(chat, types.InputPeerUser):
         return True
-
-
-
 
 
 @register(pattern="^/rmbg")
@@ -113,4 +112,3 @@ def ReTrieveFile(input_file_name):
         stream=True,
     )
     return r
-

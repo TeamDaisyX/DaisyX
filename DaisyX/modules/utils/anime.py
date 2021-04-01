@@ -14,11 +14,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-def shorten(description, info='anilist.co'):
+def shorten(description, info="anilist.co"):
     ms_g = ""
     if len(description) > 700:
-        description = description[0:500] + '...'
-        ms_g += f"\n<b>Description</b>: <i>{description}</i> <a href='{info}'>Read More</a>"
+        description = description[0:500] + "..."
+        ms_g += (
+            f"\n<b>Description</b>: <i>{description}</i> <a href='{info}'>Read More</a>"
+        )
     else:
         ms_g += f"\n<b>Description</b>: <i>{description}</i>"
     return (
@@ -36,15 +38,17 @@ def t(milliseconds: int) -> str:
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
-    tmp = ((str(days) + " Days, ") if days else "") + \
-        ((str(hours) + " Hours, ") if hours else "") + \
-        ((str(minutes) + " Minutes, ") if minutes else "") + \
-        ((str(seconds) + " Seconds, ") if seconds else "") + \
-        ((str(milliseconds) + " ms, ") if milliseconds else "")
+    tmp = (
+        ((str(days) + " Days, ") if days else "")
+        + ((str(hours) + " Hours, ") if hours else "")
+        + ((str(minutes) + " Minutes, ") if minutes else "")
+        + ((str(seconds) + " Seconds, ") if seconds else "")
+        + ((str(milliseconds) + " ms, ") if milliseconds else "")
+    )
     return tmp[:-2]
 
 
-airing_query = '''
+airing_query = """
     query ($id: Int,$search: String) {
       Media (id: $id, type: ANIME,search: $search) {
         id
@@ -62,7 +66,7 @@ airing_query = '''
         }
       }
     }
-    '''
+    """
 
 fav_query = """
 query ($id: Int) {
@@ -77,7 +81,7 @@ query ($id: Int) {
 }
 """
 
-anime_query = '''
+anime_query = """
    query ($id: Int,$search: String) {
       Media (id: $id, type: ANIME,search: $search) {
         id
@@ -113,7 +117,7 @@ anime_query = '''
           bannerImage
       }
     }
-'''
+"""
 character_query = """
     query ($query: String) {
         Character (search: $query) {

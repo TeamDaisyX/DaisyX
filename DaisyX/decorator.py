@@ -26,7 +26,7 @@ from DaisyX.modules.error import parse_update
 from DaisyX.utils.filters import ALL_FILTERS
 from DaisyX.utils.logger import log
 
-DEBUG_MODE = get_bool_key('DEBUG_MODE')
+DEBUG_MODE = get_bool_key("DEBUG_MODE")
 ALLOW_F_COMMANDS = get_bool_key("ALLOW_FORWARDS_COMMANDS")
 ALLOW_COMMANDS_FROM_EXC = get_bool_key("ALLOW_COMMANDS_WITH_!")
 CMD_NOT_MONO = get_bool_key("DISALLOW_MONO_CMDS")
@@ -49,17 +49,17 @@ def register(*args, cmds=None, f=None, allow_edited=True, allow_kwargs=False, **
     register_kwargs = {}
 
     if cmds and not f:
-        regex = r'\A^{}('.format('[!/]' if ALLOW_COMMANDS_FROM_EXC else '/')
+        regex = r"\A^{}(".format("[!/]" if ALLOW_COMMANDS_FROM_EXC else "/")
 
-        if 'not_forwarded' not in kwargs and ALLOW_F_COMMANDS is False:
-            kwargs['not_forwarded'] = True
+        if "not_forwarded" not in kwargs and ALLOW_F_COMMANDS is False:
+            kwargs["not_forwarded"] = True
 
-        if 'cmd_not_mono' not in kwargs and CMD_NOT_MONO:
-            kwargs['cmd_not_mono'] = True
+        if "cmd_not_mono" not in kwargs and CMD_NOT_MONO:
+            kwargs["cmd_not_mono"] = True
 
         for idx, cmd in enumerate(cmds):
             if cmd in REGISTRED_COMMANDS:
-                log.warn(f'Duplication of /{cmd} command')
+                log.warn(f"Duplication of /{cmd} command")
             REGISTRED_COMMANDS.append(cmd)
             regex += cmd
 
@@ -70,27 +70,27 @@ def register(*args, cmds=None, f=None, allow_edited=True, allow_kwargs=False, **
                     COMMANDS_ALIASES[cmds[0]].append(cmds[idx + 1])
                 regex += "|"
 
-        if 'disable_args' in kwargs:
-            del kwargs['disable_args']
+        if "disable_args" in kwargs:
+            del kwargs["disable_args"]
             regex += f")($|@{BOT_USERNAME}$)"
         else:
             regex += f")(|@{BOT_USERNAME})(:? |$)"
 
-        register_kwargs['regexp'] = regex
+        register_kwargs["regexp"] = regex
 
-    elif f == 'text':
-        register_kwargs['content_types'] = types.ContentTypes.TEXT
+    elif f == "text":
+        register_kwargs["content_types"] = types.ContentTypes.TEXT
 
-    elif f == 'welcome':
-        register_kwargs['content_types'] = types.ContentTypes.NEW_CHAT_MEMBERS
+    elif f == "welcome":
+        register_kwargs["content_types"] = types.ContentTypes.NEW_CHAT_MEMBERS
 
-    elif f == 'leave':
-        register_kwargs['content_types'] = types.ContentTypes.LEFT_CHAT_MEMBER
+    elif f == "leave":
+        register_kwargs["content_types"] = types.ContentTypes.LEFT_CHAT_MEMBER
 
-    elif f == 'service':
-        register_kwargs['content_types'] = types.ContentTypes.NEW_CHAT_MEMBERS
-    elif f == 'any':
-        register_kwargs['content_types'] = types.ContentTypes.ANY
+    elif f == "service":
+        register_kwargs["content_types"] = types.ContentTypes.NEW_CHAT_MEMBERS
+    elif f == "any":
+        register_kwargs["content_types"] = types.ContentTypes.ANY
 
     log.debug(f"Registred new handler: <d><n>{str(register_kwargs)}</></>")
 
@@ -101,7 +101,7 @@ def register(*args, cmds=None, f=None, allow_edited=True, allow_kwargs=False, **
             message = def_args[0]
 
             if cmds:
-                message.conf['cmds'] = cmds
+                message.conf["cmds"] = cmds
 
             if allow_kwargs is False:
                 def_kwargs = dict()
@@ -115,12 +115,14 @@ def register(*args, cmds=None, f=None, allow_edited=True, allow_kwargs=False, **
                 # log.debug('Event: \n' + str(message))
                 start = time.time()
                 await func(*def_args, **def_kwargs)
-                log.debug('[*] {} Time: {} sec.'.format(func.__name__, time.time() - start))
+                log.debug(
+                    "[*] {} Time: {} sec.".format(func.__name__, time.time() - start)
+                )
             else:
                 await func(*def_args, **def_kwargs)
             raise SkipHandler()
 
-        if f == 'cb':
+        if f == "cb":
             dp.register_callback_query_handler(new_func, *args, **register_kwargs)
         else:
             dp.register_message_handler(new_func, *args, **register_kwargs)

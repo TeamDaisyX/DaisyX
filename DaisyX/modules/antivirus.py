@@ -15,14 +15,15 @@
 
 
 import os
-from DaisyX.services.telethon import tbot
-from telethon import events
-from telethon.tl import functions
-from telethon.tl import types
-from telethon.tl.types import MessageMediaDocument, DocumentAttributeFilename
-from DaisyX.services.events import register
+
 import cloudmersive_virus_api_client
+from telethon.tl import functions, types
+from telethon.tl.types import DocumentAttributeFilename, MessageMediaDocument
+
 from DaisyX.config import get_str_key
+from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot
+
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -105,8 +106,8 @@ async def virusscan(event):
         await gg.edit("Some error occurred.")
         return
 
-    
-__mod_name__ ="Virus Scan"
+
+__mod_name__ = "Virus Scan"
 __help__ = """
  - /scanit: Scan a file for virus (MAX SIZE = 3MB)
  """
