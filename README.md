@@ -8,6 +8,7 @@
 
 > ⭐️ Thanks to everyone who starred Daisy, That is the greatest pleasure we have !
 
+
 [![CodeFactor](https://www.codefactor.io/repository/github/TeamDaisyX/DaisyX-v2.0/badge)](https://www.codefactor.io/repository/github/TeamDaisyX/DaisyX-v2.0)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Website Status](https://img.shields.io/website-up-down-green-red/http/daisyproject.studio.svg?label=website)](http://daisyproject.studio)
