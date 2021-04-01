@@ -49,7 +49,7 @@ DaisyX-v2.0 (Base AioGram)
 
 
 ## Special Credits
-- [TroJanzHEX]((https://github.com/TroJanzHEX)
+- [TroJanzHEX](https://github.com/TroJanzHEX)
 - [Amarnath c](https://github.com/Amarnathcdj)
 - [Thehamkercat](https://github.com/thehamkercat)
 - [StarkGang](https://github.com/StarkGang)
@@ -71,8 +71,6 @@ DaisyX-v2.0 (Base AioGram)
 - [annihilatorrrr](https://github.com/annihilatorrrr) 
 - [sithum batrow](https://github.com/sbatrow) 
 - [LEGENDX](https://github.com/LEGENDXOP) 
-
-- For you..
-
+- 
 > And as always thanks to AioGram devs, Dan for pyrogram, lonami for telethon and Durov for telegram
 > Special thanks to you for using bot
