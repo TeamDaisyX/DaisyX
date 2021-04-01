@@ -1,12 +1,11 @@
 
 <h1 align="center"><b>❤️ DaisyX 2.0  ❤️</b></h1>
+
+<h4 align="center">A Powerful, Smart And Simple Group Manager <br> ... Written with AioGram , Pyrogram and Telethon...</h4>
 <p align='center'>
   <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=flat-square&logo=python&color=blue" /> </a>
   <a href="https://github.com/TeamDaisyX/DaisyX-v2/graphs/commit-activity" alt="Maintenance"> <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square" /> </a>
 </p>
-<h4 align="center">A Powerful, Smart And Simple Group Manager <br> ... Written with AioGram , Pyrogram and Telethon...</h4>
-
-> ⭐️ Thanks to everyone who starred Daisy, That is the greatest pleasure we have !
 
 <p align="center"><a href="https://t.me/DaisySupport_Official"><img src="https://telegra.ph/file/23448c98735bd81df47e7.jpg" width="400"></a></p>
 <p align="center">
@@ -17,6 +16,8 @@
     <a href="https://github.com/teamdaisyx/daisyx-v2.0/network/members"> <img src="https://img.shields.io/github/forks/teamdaisyx/daisyx-v2.0?color=red&logo=github&logoColor=green&style=for-the-badge" /></a>  
     <a href="https://pypi.org/project/Telethon/"> <img src="https://img.shields.io/pypi/v/telethon?color=yellow&label=telethon&logo=python&logoColor=green&style=for-the-badge" /></a>
 </p>
+
+> ⭐️ Thanks to everyone who starred Daisy, That is the greatest pleasure we have !
 
 ### The first AioGram based modified groupmanagement bot fully optimized for heroku deploys
 ## https://daisyproject.studio
@@ -60,5 +61,5 @@ DaisyX-v2.0 (Base AioGram)
 - @mubashirrehman - Helper
 - For you..
 
-And as always thanks to AioGram devs, Dan for pyrogram, lonami for telethon and Durov for telegram
-Special thanks to you for using bot
+> And as always thanks to AioGram devs, Dan for pyrogram, lonami for telethon and Durov for telegram
+> Special thanks to you for using bot
