@@ -5,7 +5,7 @@
 <h1 align="center"><b> DaisyX 2.0  </b></h1>
 <h4 align="center">A Powerful, Smart And Simple Group Manager <br> ... Written with AioGram , Pyrogram and Telethon...</h4>
 
-<p align="center"><a href="https://t.me/DaisySupport_Official"><img src="hhttps://telegra.ph/file/23448c98735bd81df47e7.jpg" width="400"></a></p> 
+<p align="center"><a href="https://t.me/DaisySupport_Official"><img src="https://telegra.ph/file/23448c98735bd81df47e7.jpg" width="400"></a></p> 
 
 <p align="center">
     <a href="https://github.com/TeamDaisyX/daisyx-v2.0/commits/main"><img src="https://img.shields.io/github/last-commit/TeamDaisyX/daisyx-v2.0/main?label=Last%20Commit&style=flat-square&logo=github&color=F10070" alt="Commit" /></a>
