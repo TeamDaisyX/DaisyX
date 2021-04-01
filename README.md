@@ -23,10 +23,16 @@
 ## https://daisyproject.studio
 ## Avaiilable on Telegram as [@DaisyXBot](https://t.me/daisyxbot)
 
+## 🏃‍♂️ Easy Deploy 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamDaisyX/DaisyX-v2.0.git)
 
 [Generate String Session](https://replit.com/@SpEcHiDe/GenerateStringSession)  << Select telethon
-## Credits
+
+## ❤️ Support
+<a href="https://t.me/DaisySupport_Official"><img src="https://img.shields.io/badge/Join-Telegram%20Channel-red.svg?logo=Telegram"></a>
+<a href="https://t.me/DaisyXupdates"><img src="https://img.shields.io/badge/Join-Telegram%20Group-blue.svg?logo=telegram"></a>
+
+##😍 Credits
 
  - [Hitsuki](https://github.com/HitsukiNetwork/Hitsukix)
  - [SophieBot](https://gitlab.com/SophieBot/sophie)
@@ -74,5 +80,5 @@ DaisyX-v2.0 (Base AioGram)
 - [sithum batrow](https://github.com/sbatrow) 
 - [LEGENDX](https://github.com/LEGENDXOP) 
 
-> And credits goes to all who supported, all who helped and API & environmental equirement package devs and all projects helped in making this project
+> And credits goes to all who supported, all who helped and API & environmental equirement package devs and all projects helped in making this project.
 > Special thanks to you for using bot
