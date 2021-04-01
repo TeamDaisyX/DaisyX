@@ -29,12 +29,13 @@
 ## Credits
 
  - [Hitsuki](https://github.com/HitsukiNetwork/Hitsukix)
- - [Utah](https://github.com/minatouzuki/utah)
+ - [SophieBot](https://gitlab.com/SophieBot/sophie)
  - [FridayUserbot](https://github.com/DevsExpo/FridayUserbot)
  - [MissJuliaRobot](https://github.com/MissJuliaRobot/MissJuliaRobot)
  - [DaisyX](https://github.com/teamdaisyx/daisy-x)
  - [Auto-Filter-Bot-V2](https://github.com/TroJanzHEX/Auto-Filter-Bot-V2/)
  - [Image-Editor](https://github.com/TroJanzHEX/Image-Editor/)
+ - [Utah](https://github.com/minatouzuki/utah)
  - [LEGENDX](https://github.com/LEGENDXOP/LEGEND-X)
 
 The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie)
@@ -49,6 +50,7 @@ DaisyX-v2.0 (Base AioGram)
 
 
 ## Special Credits
+- [SophieBot Devs](https://gitlab.com/SophieBot)
 - [TroJanzHEX](https://github.com/TroJanzHEX)
 - [Amarnath c](https://github.com/Amarnathcdj)
 - [Thehamkercat](https://github.com/thehamkercat)
@@ -71,6 +73,6 @@ DaisyX-v2.0 (Base AioGram)
 - [annihilatorrrr](https://github.com/annihilatorrrr) 
 - [sithum batrow](https://github.com/sbatrow) 
 - [LEGENDX](https://github.com/LEGENDXOP) 
-- 
+
 > And as always thanks to AioGram devs, Dan for pyrogram, lonami for telethon and Durov for telegram
 > Special thanks to you for using bot
