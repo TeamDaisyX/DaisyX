@@ -29,7 +29,7 @@ async def tagall(client, message):
         j = f"<b>{sh}</b> \n{i}"
         await client.send_message(message.chat.id, j, parse_mode="html")
 
-        
+
 __mod_name__ = "Tagall"
 __help__ = """
 - /tagall : Tag everyone in a chat
