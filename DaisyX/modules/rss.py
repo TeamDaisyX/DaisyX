@@ -6,27 +6,23 @@
 #
 # All rights reserved.
 
-from pyrogram import filters
-
-from DaisyX.function.pluginhelpers import admins_only,edit_or_reply, get_text
-from DaisyX.services.pyrogram import pbot 
 import feedparser
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-
 from db.mongo_helpers.rss_db import (
     add_rss,
-    is_get_chat_rss,
-    del_rss,
-    get_chat_rss,
-    update_rss,
     basic_check,
+    del_rss,
+    delete_all,
     get_all,
+    get_chat_rss,
+    is_get_chat_rss,
     overall_check,
-    delete_all
+    update_rss,
 )
+from pyrogram import filters
 
-
-
+from DaisyX.function.pluginhelpers import admins_only, edit_or_reply, get_text
+from DaisyX.services.pyrogram import pbot
 
 
 @pbot.on_message(filters.command("addrss") & ~filters.edited & ~filters.bot)
@@ -41,7 +37,9 @@ async def addrss(client, message):
         rss_d = feedparser.parse(lenk)
         rss_d.entries[0].title
     except:
-        await pablo.edit("ERROR: The link does not seem to be a RSS feed or is not supported")
+        await pablo.edit(
+            "ERROR: The link does not seem to be a RSS feed or is not supported"
+        )
         return
     lol = await is_get_chat_rss(message.chat.id, lenk)
     if lol:
@@ -58,6 +56,7 @@ async def addrss(client, message):
     await add_rss(message.chat.id, lenk, rss_d.entries[0].link)
     await pablo.edit("Successfully Added Link To RSS Watch")
 
+
 @pbot.on_message(filters.command("testrss") & ~filters.edited & ~filters.bot)
 @admins_only
 async def testrss(client, message):
@@ -66,7 +65,7 @@ async def testrss(client, message):
     if not damn:
         URL = "https://www.reddit.com/r/funny/new/.rss"
         rss_d = feedparser.parse(URL)
-        Content = (rss_d.entries[0]['title'] + "\n\n" + rss_d.entries[0]['link'])
+        Content = rss_d.entries[0]["title"] + "\n\n" + rss_d.entries[0]["link"]
         await client.send_message(message.chat.id, Content)
         await pablo.edit("This Chat Has No RSS So Sent Reddit RSS")
     else:
@@ -83,7 +82,8 @@ async def testrss(client, message):
                 pass
             await client.send_message(message.chat.id, content)
         await pablo.delete()
-        
+
+
 @pbot.on_message(filters.command("listrss") & ~filters.edited & ~filters.bot)
 @admins_only
 async def listrss(client, message):
@@ -102,7 +102,6 @@ async def listrss(client, message):
     await pablo.delete()
 
 
-
 @pbot.on_message(filters.command("delrss") & ~filters.edited & ~filters.bot)
 @admins_only
 async def delrss(client, message):
@@ -118,6 +117,7 @@ async def delrss(client, message):
     await del_rss(message.chat.id, lenk)
     await pablo.edit(f"Successfully Removed `{lenk}` From Chat RSS")
 
+
 @pbot.on_message(filters.command("delallrss") & ~filters.edited & ~filters.bot)
 @admins_only
 async def delrss(client, message):
@@ -128,6 +128,7 @@ async def delrss(client, message):
     await delete_all()
     await pablo.edit("Successfully Deleted All RSS From The Chat")
 
+
 async def check_rss():
     if not await overall_check():
         return
@@ -137,19 +138,18 @@ async def check_rss():
         old = one.get("latest_rss")
         rss_d = feedparser.parse(link)
         if rss_d.entries[0].link != old:
-             message = one.get("chat_id")
-             content = ""
-             content += f"**{rss_d.entries[0].title}**"
-             content += f"\n\nLink : {rss_d.entries[0].link}"
-             try:
+            message = one.get("chat_id")
+            content = ""
+            content += f"**{rss_d.entries[0].title}**"
+            content += f"\n\nLink : {rss_d.entries[0].link}"
+            try:
                 content += f"\n{rss_d.entries[0].description}"
-             except:
+            except:
                 pass
-             await update_rss(message, link, rss_d.entries[0].link)
-             await Friday.send_message(message, content)
-             
+            await update_rss(message, link, rss_d.entries[0].link)
+            await Friday.send_message(message, content)
 
 
 scheduler = AsyncIOScheduler()
-scheduler.add_job(check_rss, 'interval', minutes=10)
+scheduler.add_job(check_rss, "interval", minutes=10)
 scheduler.start()
