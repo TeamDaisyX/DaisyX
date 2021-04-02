@@ -155,7 +155,7 @@ scheduler.add_job(check_rss, "interval", minutes=10)
 scheduler.start()
 
 __mod_name__ = "RSS Feed"
-__help__="""
+__help__ = """
 - /addrss : Add Rss to the chat
 - /testrss : Test RSS Of The Chat
 - /listrss : List all RSS Of The Chat
