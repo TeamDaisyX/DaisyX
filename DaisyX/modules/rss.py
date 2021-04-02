@@ -8,7 +8,7 @@
 
 import feedparser
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from db.mongo_helpers.rss_db import (
+from DaisyX.db.mongo_helpers.rss_db import (
     add_rss,
     basic_check,
     del_rss,
