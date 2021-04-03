@@ -8,7 +8,7 @@ async def add_chat(chat_id, session_id):
     if stark:
         return False
     else:
-        await lydia.insert_one({"chat_id": chat_id, "session_id": session_id})
+        await lydia.insert_one({"chat_id": chat_id})
         return True
 
 
@@ -33,3 +33,4 @@ async def get_session(chat_id):
     if not stark:
         return False
     else:
+        return stark
