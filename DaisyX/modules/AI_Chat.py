@@ -26,8 +26,14 @@ from google_trans_new import google_translator
 from pyrogram import filters
 
 from DaisyX import BOT_ID
-from DaisyX.function.pluginhelpers import admins_only
+from DaisyX.function.pluginhelpers import admins_only,edit_or_reply
 from DaisyX.services.pyrogram import pbot as daisyx
+from DaisyX.db.mongo_helpers.aichat import (
+    remove_chat,
+    add_chat,
+    get_all_chats,
+    get_session
+)
 
 translator = google_translator()
 
@@ -53,25 +59,21 @@ async def hmm(_, message):
     status = message.text.split(None, 1)[1]
     chat_id = message.chat.id
     if status == "ON" or status == "on" or status == "On":
-        if chat_id not in daisy_chats:
-            if chat_id in en_chats:
-                en_chats.remove(chat_id)
-            daisy_chats.append(message.chat.id)
-            text = "Chatbot Enabled Reply To Any Message" + "Of Daisy To Get A Reply"
-            await message.reply_text(text)
-            message.continue_propagation()
-        await message.reply_text("ChatBot Is Already Enabled.")
-        message.continue_propagation()
+        lel = await edit_or_reply(message, "`Processing...`")
+        lol = await add_chat(int(message.chat.id))
+        if not lol:
+            await lel.edit("Daisy AI Already Activated In This Chat")
+            return
+        await lel.edit(f"Lydia AI Successfully Added For Users In The Chat {message.chat.id}")
 
     elif status == "OFF" or status == "off" or status == "Off":
-        if chat_id in daisy_chats:
-            if chat_id in en_chats:
-                en_chats.remove(chat_id)
-            daisy_chats.remove(chat_id)
-            await message.reply_text("AI chat Disabled!")
+        lel = await edit_or_reply(message, "`Processing...`")
+        Escobar = await remove_chat(int(message.chat.id))
+        if not Escobar:
+            await lel.edit("Daisy AI Was Not Activated In This Chat")
             return
-        await message.reply_text("AI Chat Is Already Disabled.")
-        message.continue_propagation()
+        await lel.edit(f"Daisy AI Successfully Deactivated For Users In The Chat {message.chat.id}")
+        
     elif status == "EN" or status == "en" or status == "english":
         if not chat_id in en_chats:
             en_chats.append(chat_id)
@@ -90,7 +92,7 @@ async def hmm(_, message):
     group=2,
 )
 async def hmm(client, message):
-    if message.chat.id not in daisy_chats:
+    if not await get_session(int(message.chat.id)):
         message.continue_propagation()
     if message.reply_to_message.from_user.id != BOT_ID:
         message.continue_propagation()
