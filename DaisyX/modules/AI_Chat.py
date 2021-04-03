@@ -26,14 +26,9 @@ from google_trans_new import google_translator
 from pyrogram import filters
 
 from DaisyX import BOT_ID
-from DaisyX.function.pluginhelpers import admins_only,edit_or_reply
+from DaisyX.db.mongo_helpers.aichat import add_chat, get_session, remove_chat
+from DaisyX.function.pluginhelpers import admins_only, edit_or_reply
 from DaisyX.services.pyrogram import pbot as daisyx
-from DaisyX.db.mongo_helpers.aichat import (
-    remove_chat,
-    add_chat,
-    get_all_chats,
-    get_session
-)
 
 translator = google_translator()
 
@@ -64,7 +59,9 @@ async def hmm(_, message):
         if not lol:
             await lel.edit("Daisy AI Already Activated In This Chat")
             return
-        await lel.edit(f"Lydia AI Successfully Added For Users In The Chat {message.chat.id}")
+        await lel.edit(
+            f"Lydia AI Successfully Added For Users In The Chat {message.chat.id}"
+        )
 
     elif status == "OFF" or status == "off" or status == "Off":
         lel = await edit_or_reply(message, "`Processing...`")
@@ -72,8 +69,10 @@ async def hmm(_, message):
         if not Escobar:
             await lel.edit("Daisy AI Was Not Activated In This Chat")
             return
-        await lel.edit(f"Daisy AI Successfully Deactivated For Users In The Chat {message.chat.id}")
-        
+        await lel.edit(
+            f"Daisy AI Successfully Deactivated For Users In The Chat {message.chat.id}"
+        )
+
     elif status == "EN" or status == "en" or status == "english":
         if not chat_id in en_chats:
             en_chats.append(chat_id)
