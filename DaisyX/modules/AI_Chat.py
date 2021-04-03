@@ -102,18 +102,23 @@ async def hmm(client, message):
         test = msg
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
-        querystring = {"bid":"178","key":"sX5A2PcYZbsN5EY6","uid":"mashape","msg":{test}}
+        querystring = {
+            "bid": "178",
+            "key": "sX5A2PcYZbsN5EY6",
+            "uid": "mashape",
+            "msg": {test},
+        }
         headers = {
-            'x-rapidapi-key': "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
-            'x-rapidapi-host': "acobot-brainshop-ai-v1.p.rapidapi.com"
-            }
+            "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+            "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
+        }
         response = requests.request("GET", url, headers=headers, params=querystring)
         result = response.text
-        result = result.replace('{"cnt":"',"") 
-        result = result.replace('"}',"")
-        result = result.replace("Aco","Daisy")
-        result = result.replace('<a href=\\','<a href =')
-        result = result.replace("<\/a>","</a>")
+        result = result.replace('{"cnt":"', "")
+        result = result.replace('"}', "")
+        result = result.replace("Aco", "Daisy")
+        result = result.replace("<a href=\\", "<a href =")
+        result = result.replace("<\/a>", "</a>")
         pro = result
         try:
             await daisyx.send_chat_action(message.chat.id, "typing")
@@ -159,18 +164,23 @@ async def hmm(client, message):
         # Kang with the credits bitches @InukaASiTH
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
-        querystring = {"bid":"178","key":"sX5A2PcYZbsN5EY6","uid":"mashape","msg":{test}}
+        querystring = {
+            "bid": "178",
+            "key": "sX5A2PcYZbsN5EY6",
+            "uid": "mashape",
+            "msg": {test},
+        }
         headers = {
-            'x-rapidapi-key': "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
-            'x-rapidapi-host': "acobot-brainshop-ai-v1.p.rapidapi.com"
-            }
+            "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+            "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
+        }
         response = requests.request("GET", url, headers=headers, params=querystring)
         result = response.text
-        result = result.replace('{"cnt":"',"") 
-        result = result.replace('"}',"")
-        result = result.replace("Aco","Daisy")
-        result = result.replace('<a href=\\','<a href =')
-        result = result.replace("<\/a>","</a>")
+        result = result.replace('{"cnt":"', "")
+        result = result.replace('"}', "")
+        result = result.replace("Aco", "Daisy")
+        result = result.replace("<a href=\\", "<a href =")
+        result = result.replace("<\/a>", "</a>")
         pro = result
         if not "en" in lan and not lan == "":
             pro = translator.translate(pro, lang_tgt=lan[0])
@@ -224,18 +234,23 @@ async def inuka(client, message):
     # Kang with the credits bitches @InukaASiTH
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
-    querystring = {"bid":"178","key":"sX5A2PcYZbsN5EY6","uid":"mashape","msg":{test}}
+    querystring = {
+        "bid": "178",
+        "key": "sX5A2PcYZbsN5EY6",
+        "uid": "mashape",
+        "msg": {test},
+    }
     headers = {
-        'x-rapidapi-key': "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
-        'x-rapidapi-host': "acobot-brainshop-ai-v1.p.rapidapi.com"
-        }
+        "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+        "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
+    }
     response = requests.request("GET", url, headers=headers, params=querystring)
     result = response.text
-    result = result.replace('{"cnt":"',"") 
-    result = result.replace('"}',"")
-    result = result.replace("Aco","Daisy")
-    result = result.replace('<a href=\\','<a href =')
-    result = result.replace("<\/a>","</a>")
+    result = result.replace('{"cnt":"', "")
+    result = result.replace('"}', "")
+    result = result.replace("Aco", "Daisy")
+    result = result.replace("<a href=\\", "<a href =")
+    result = result.replace("<\/a>", "</a>")
     pro = result
     if not "en" in lan and not lan == "":
         pro = translator.translate(pro, lang_tgt=lan[0])
@@ -296,18 +311,23 @@ async def inuka(client, message):
     # Kang with the credits bitches @InukaASiTH
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
-    querystring = {"bid":"178","key":"sX5A2PcYZbsN5EY6","uid":"mashape","msg":{test}}
+    querystring = {
+        "bid": "178",
+        "key": "sX5A2PcYZbsN5EY6",
+        "uid": "mashape",
+        "msg": {test},
+    }
     headers = {
-        'x-rapidapi-key': "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
-        'x-rapidapi-host': "acobot-brainshop-ai-v1.p.rapidapi.com"
-        }
+        "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+        "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
+    }
     response = requests.request("GET", url, headers=headers, params=querystring)
     result = response.text
-    result = result.replace('{"cnt":"',"") 
-    result = result.replace('"}',"")
-    result = result.replace("Aco","Daisy")
-    result = result.replace('<a href=\\','<a href =')
-    result = result.replace("<\/a>","</a>")
+    result = result.replace('{"cnt":"', "")
+    result = result.replace('"}', "")
+    result = result.replace("Aco", "Daisy")
+    result = result.replace("<a href=\\", "<a href =")
+    result = result.replace("<\/a>", "</a>")
     pro = result
     if not "en" in lan and not lan == "":
         pro = translator.translate(pro, lang_tgt=lan[0])
