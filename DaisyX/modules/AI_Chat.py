@@ -21,7 +21,7 @@ import re
 import emoji
 import requests
 
-url = "https://iamai.p.rapidapi.com/ask"
+url = "https://acobot-brainshop-ai-v1.p.rapidapi.com/get"
 from google_trans_new import google_translator
 from pyrogram import filters
 
@@ -100,32 +100,21 @@ async def hmm(client, message):
         message.continue_propagation()
     if chat_id in en_chats:
         test = msg
-        test = test.replace("daisy", "Jessica")
-        test = test.replace("Daisy", "Jessica")
-        r = ('\n    "consent": true,\n    "ip": "::1",\n    "question": "{}"\n').format(
-            test
-        )
-        k = f"({r})"
-        new_string = k.replace("(", "{")
-        lol = new_string.replace(")", "}")
-        payload = lol
+        test = test.replace("daisy", "Aco")
+        test = test.replace("Daisy", "Aco")
+        querystring = {"bid":"178","key":"sX5A2PcYZbsN5EY6","uid":"mashape","msg":{test}}
         headers = {
-            "content-type": "application/json",
-            "x-forwarded-for": "<user's ip>",
-            "x-rapidapi-key": "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
-            "x-rapidapi-host": "iamai.p.rapidapi.com",
-        }
-
-        response = requests.request("POST", url, data=payload, headers=headers)
-        lodu = response.json()
-        result = lodu["message"]["text"]
+            'x-rapidapi-key': "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+            'x-rapidapi-host': "acobot-brainshop-ai-v1.p.rapidapi.com"
+            }
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        result = response.text
+        result = result.replace('{"cnt":"',"") 
+        result = result.replace('"}',"")
+        result = result.replace("Aco","Daisy")
+        result = result.replace('<a href=\\','<a href =')
+        result = result.replace("<\/a>","</a>")
         pro = result
-        pro = pro.replace("Thergiakis Eftichios", "Inuka Asith")
-        pro = pro.replace("Jessica", "Daisy")
-        if "Out of all ninja turtle" in result:
-            pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
-        if "ann" in result:
-            pro = "My name is Daisy"
         try:
             await daisyx.send_chat_action(message.chat.id, "typing")
             await message.reply_text(pro)
@@ -168,33 +157,21 @@ async def hmm(client, message):
         # test = emoji.demojize(test.strip())
 
         # Kang with the credits bitches @InukaASiTH
-
-        test = test.replace("daisy", "Jessica")
-        test = test.replace("Daisy", "Jessica")
-        r = ('\n    "consent": true,\n    "ip": "::1",\n    "question": "{}"\n').format(
-            test
-        )
-        k = f"({r})"
-        new_string = k.replace("(", "{")
-        lol = new_string.replace(")", "}")
-        payload = lol
+        test = test.replace("daisy", "Aco")
+        test = test.replace("Daisy", "Aco")
+        querystring = {"bid":"178","key":"sX5A2PcYZbsN5EY6","uid":"mashape","msg":{test}}
         headers = {
-            "content-type": "application/json",
-            "x-forwarded-for": "<user's ip>",
-            "x-rapidapi-key": "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
-            "x-rapidapi-host": "iamai.p.rapidapi.com",
-        }
-
-        response = requests.request("POST", url, data=payload, headers=headers)
-        lodu = response.json()
-        result = lodu["message"]["text"]
+            'x-rapidapi-key': "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+            'x-rapidapi-host': "acobot-brainshop-ai-v1.p.rapidapi.com"
+            }
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        result = response.text
+        result = result.replace('{"cnt":"',"") 
+        result = result.replace('"}',"")
+        result = result.replace("Aco","Daisy")
+        result = result.replace('<a href=\\','<a href =')
+        result = result.replace("<\/a>","</a>")
         pro = result
-        pro = pro.replace("Thergiakis Eftichios", "Inuka Asith")
-        pro = pro.replace("Jessica", "Daisy")
-        if "Out of all ninja turtle" in result:
-            pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
-        if "ann" in result:
-            pro = "My name is Daisy"
         if not "en" in lan and not lan == "":
             pro = translator.translate(pro, lang_tgt=lan[0])
         try:
@@ -245,33 +222,21 @@ async def inuka(client, message):
     # test = emoji.demojize(test.strip())
 
     # Kang with the credits bitches @InukaASiTH
-
-    test = test.replace("daisy", "Jessica")
-    test = test.replace("Daisy", "Jessica")
-    r = ('\n    "consent": true,\n    "ip": "::1",\n    "question": "{}"\n').format(
-        test
-    )
-    k = f"({r})"
-    new_string = k.replace("(", "{")
-    lol = new_string.replace(")", "}")
-    payload = lol
+    test = test.replace("daisy", "Aco")
+    test = test.replace("Daisy", "Aco")
+    querystring = {"bid":"178","key":"sX5A2PcYZbsN5EY6","uid":"mashape","msg":{test}}
     headers = {
-        "content-type": "application/json",
-        "x-forwarded-for": "<user's ip>",
-        "x-rapidapi-key": "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
-        "x-rapidapi-host": "iamai.p.rapidapi.com",
-    }
-
-    response = requests.request("POST", url, data=payload, headers=headers)
-    lodu = response.json()
-    result = lodu["message"]["text"]
+        'x-rapidapi-key': "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+        'x-rapidapi-host': "acobot-brainshop-ai-v1.p.rapidapi.com"
+        }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    result = response.text
+    result = result.replace('{"cnt":"',"") 
+    result = result.replace('"}',"")
+    result = result.replace("Aco","Daisy")
+    result = result.replace('<a href=\\','<a href =')
+    result = result.replace("<\/a>","</a>")
     pro = result
-    pro = pro.replace("Thergiakis Eftichios", "Inuka Asith")
-    pro = pro.replace("Jessica", "Daisy")
-    if "Out of all ninja turtle" in result:
-        pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
-    if "ann" in result:
-        pro = "My name is Daisy"
     if not "en" in lan and not lan == "":
         pro = translator.translate(pro, lang_tgt=lan[0])
     try:
@@ -329,33 +294,21 @@ async def inuka(client, message):
     # test = emoji.demojize(test.strip())
 
     # Kang with the credits bitches @InukaASiTH
-
-    test = test.replace("daisy", "Jessica")
-    test = test.replace("Daisy", "Jessica")
-    r = ('\n    "consent": true,\n    "ip": "::1",\n    "question": "{}"\n').format(
-        test
-    )
-    k = f"({r})"
-    new_string = k.replace("(", "{")
-    lol = new_string.replace(")", "}")
-    payload = lol
+    test = test.replace("daisy", "Aco")
+    test = test.replace("Daisy", "Aco")
+    querystring = {"bid":"178","key":"sX5A2PcYZbsN5EY6","uid":"mashape","msg":{test}}
     headers = {
-        "content-type": "application/json",
-        "x-forwarded-for": "<user's ip>",
-        "x-rapidapi-key": "33b8b1a671msh1c579ad878d8881p173811jsn6e5d3337e4fc",
-        "x-rapidapi-host": "iamai.p.rapidapi.com",
-    }
-
-    response = requests.request("POST", url, data=payload, headers=headers)
-    lodu = response.json()
-    result = lodu["message"]["text"]
+        'x-rapidapi-key': "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+        'x-rapidapi-host': "acobot-brainshop-ai-v1.p.rapidapi.com"
+        }
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    result = response.text
+    result = result.replace('{"cnt":"',"") 
+    result = result.replace('"}',"")
+    result = result.replace("Aco","Daisy")
+    result = result.replace('<a href=\\','<a href =')
+    result = result.replace("<\/a>","</a>")
     pro = result
-    pro = pro.replace("Thergiakis Eftichios", "Inuka Asith")
-    pro = pro.replace("Jessica", "Daisy")
-    if "Out of all ninja turtle" in result:
-        pro = "Sorry! looks I missed that. I'm at your service ask anthing sir?"
-    if "ann" in result:
-        pro = "My name is Daisy"
     if not "en" in lan and not lan == "":
         pro = translator.translate(pro, lang_tgt=lan[0])
     try:
