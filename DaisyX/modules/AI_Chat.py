@@ -55,7 +55,7 @@ async def hmm(_, message):
     chat_id = message.chat.id
     if status == "ON" or status == "on" or status == "On":
         lel = await edit_or_reply(message, "`Processing...`")
-        lol = await add_chat(int(message.chat.id))
+        lol = add_chat(int(message.chat.id))
         if not lol:
             await lel.edit("Daisy AI Already Activated In This Chat")
             return
@@ -65,7 +65,7 @@ async def hmm(_, message):
 
     elif status == "OFF" or status == "off" or status == "Off":
         lel = await edit_or_reply(message, "`Processing...`")
-        Escobar = await remove_chat(int(message.chat.id))
+        Escobar = remove_chat(int(message.chat.id))
         if not Escobar:
             await lel.edit("Daisy AI Was Not Activated In This Chat")
             return
@@ -91,7 +91,7 @@ async def hmm(_, message):
     group=2,
 )
 async def hmm(client, message):
-    if not await get_session(int(message.chat.id)):
+    if not get_session(int(message.chat.id)):
         message.continue_propagation()
     if message.reply_to_message.from_user.id != BOT_ID:
         message.continue_propagation()
