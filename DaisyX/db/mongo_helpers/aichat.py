@@ -3,7 +3,7 @@ from DaisyX.services.mongo import mongodb as db_x
 lydia = db_x["CAHTBOT"]
 
 
-def add_chat(chat_id, session_id):
+def add_chat(chat_id):
     stark = lydia.find_one({"chat_id": chat_id})
     if stark:
         return False
