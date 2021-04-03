@@ -60,7 +60,7 @@ async def hmm(_, message):
             await lel.edit("Daisy AI Already Activated In This Chat")
             return
         await lel.edit(
-            f"Lydia AI Successfully Added For Users In The Chat {message.chat.id}"
+            f"Daisy AI Successfully Added For Users In The Chat {message.chat.id}"
         )
 
     elif status == "OFF" or status == "off" or status == "Off":
