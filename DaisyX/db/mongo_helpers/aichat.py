@@ -20,6 +20,7 @@ async def remove_chat(chat_id):
         await lydia.delete_one({"chat_id": chat_id})
         return True
 
+
 async def get_all_chats():
     r = [o async for o in lydia.find()]
     if r:
