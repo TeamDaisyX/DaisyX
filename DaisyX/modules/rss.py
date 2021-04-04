@@ -41,7 +41,7 @@ async def addrss(client, message):
             "ERROR: The link does not seem to be a RSS feed or is not supported"
         )
         return
-    lol = await is_get_chat_rss(message.chat.id, lenk)
+    lol = is_get_chat_rss(message.chat.id, lenk)
     if lol:
         await pablo.edit("This Link Already Added")
         return
@@ -53,7 +53,7 @@ async def addrss(client, message):
     except:
         pass
     await client.send_message(message.chat.id, content)
-    await add_rss(message.chat.id, lenk, rss_d.entries[0].link)
+    add_rss(message.chat.id, lenk, rss_d.entries[0].link)
     await pablo.edit("Successfully Added Link To RSS Watch")
 
 
@@ -61,7 +61,7 @@ async def addrss(client, message):
 @admins_only
 async def testrss(client, message):
     pablo = await edit_or_reply(message, "`Processing....`")
-    damn = await basic_check(message.chat.id)
+    damn =  basic_check(message.chat.id)
     if not damn:
         URL = "https://www.reddit.com/r/funny/new/.rss"
         rss_d = feedparser.parse(URL)
@@ -69,7 +69,7 @@ async def testrss(client, message):
         await client.send_message(message.chat.id, Content)
         await pablo.edit("This Chat Has No RSS So Sent Reddit RSS")
     else:
-        all = await get_chat_rss(message.chat.id)
+        all = get_chat_rss(message.chat.id)
         for x in all:
             link = x.get("rss_link")
             rss_d = feedparser.parse(link)
@@ -88,12 +88,12 @@ async def testrss(client, message):
 @admins_only
 async def listrss(client, message):
     pablo = await edit_or_reply(message, "`Processing....`")
-    damn = await basic_check(message.chat.id)
+    damn = basic_check(message.chat.id)
     if not damn:
         await pablo.edit("This Chat Has No RSS!")
         return
     links = ""
-    all = await get_chat_rss(message.chat.id)
+    all = =get_chat_rss(message.chat.id)
     for x in all:
         l = x.get("rss_link")
         links += f"{l}\n"
@@ -110,11 +110,11 @@ async def delrss(client, message):
     if not lenk:
         await pablo.edit("Invalid Command Syntax, Please Check Help Menu To Know More!")
         return
-    lol = await is_get_chat_rss(message.chat.id, lenk)
+    lol = is_get_chat_rss(message.chat.id, lenk)
     if not lol:
         await pablo.edit("This Link Was Never Added")
         return
-    await del_rss(message.chat.id, lenk)
+    del_rss(message.chat.id, lenk)
     await pablo.edit(f"Successfully Removed `{lenk}` From Chat RSS")
 
 
@@ -122,7 +122,7 @@ async def delrss(client, message):
 @admins_only
 async def delrss(client, message):
     pablo = await edit_or_reply(message, "`Processing....`")
-    if not await basic_check(message.chat.id):
+    if not basic_check(message.chat.id):
         await pablo.edit("This Chat Has No RSS To Delete")
         return
     await delete_all()
@@ -130,9 +130,9 @@ async def delrss(client, message):
 
 
 async def check_rss():
-    if not await overall_check():
+    if not overall_check():
         return
-    all = await get_all()
+    all = get_all()
     for one in all:
         link = one.get("rss_link")
         old = one.get("latest_rss")
@@ -146,8 +146,8 @@ async def check_rss():
                 content += f"\n{rss_d.entries[0].description}"
             except:
                 pass
-            await update_rss(message, link, rss_d.entries[0].link)
-            await Friday.send_message(message, content)
+             update_rss(message, link, rss_d.entries[0].link)
+            await client.send_message(message, content)
 
 
 scheduler = AsyncIOScheduler()
