@@ -1,14 +1,9 @@
-import json
-import os
-import random
-import textwrap
-import urllib
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl import functions, types
-from DaisyX.services.telethon import tbot
-from DaisyX.services.telethonuserbot import ubot as bot
+
 from DaisyX.services.events import register
+from DaisyX.services.telethonuserbot import ubot as bot
+
 
 @register(pattern="^/qbot$")
 async def _(event):
