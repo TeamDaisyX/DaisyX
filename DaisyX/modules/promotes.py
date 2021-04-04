@@ -120,9 +120,8 @@ Make it easy to promote and demote users with the admin module!
 - /settitle [entity] [title]: sets a custom title for an admin. If no [title] provided defaults to "Admin"
 - /setdescription [text]: set group description
 - /setgrouptitle [text] set group title
-- /setgpic: reply to an image to set as group photo
+- /setgrouppic: reply to an image to set as group photo
 - /setsticker: reply to a sticker pack to set as group stickers
-- /delgpic: deletes the current group photo
 - /purge: deletes all messages from the message you replied to
 - /del: deletes the message replied to
 - /lock [item(s)]: lock the usage of "item" for non-admins
