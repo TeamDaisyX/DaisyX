@@ -146,7 +146,7 @@ async def check_rss():
                 content += f"\n{rss_d.entries[0].description}"
             except:
                 pass
-             update_rss(message, link, rss_d.entries[0].link)
+            update_rss(message, link, rss_d.entries[0].link)
             await client.send_message(message, content)
 
 
