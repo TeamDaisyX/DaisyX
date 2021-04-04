@@ -108,8 +108,35 @@ Make it easy to promote and demote users with the admin module!
 - /demote (user): Demotes the user from admin.
 - /adminlist: Shows all admins of the chat.
 - /admincache: Update the admin cache, to take into account new admins/admin permissions.
-
+- /ban: bans a user
+- /unban: unbans a user
+- /mute: mute a user
+- /unmute: unmutes a user
+- /tban <entity> | <time interval>: temporarily bans a user for the time interval.
+- /tmute <entity> | <time interval>: temporarily mutes a user for the time interval.
+- /kick: kicks a user
+- /kickme: kicks yourself (non-admins)
+- /banme: bans yourself (non-admins)
+- /settitle <entity> <title>: sets a custom title for an admin. If no <title> provided defaults to "Admin"
+- /setdescription <text>: set group description
+- /setgrouptitle <text>: set group title
+- /setgpic: reply to an image to set as group photo
+- /setsticker: reply to a sticker pack to set as group stickers
+- /delgpic: deletes the current group photo
+- /purge: deletes all messages from the message you replied to
+- /del: deletes the message replied to
+- /lock <item(s)>: lock the usage of "item" for non-admins
+- /unlock <item(s)>: unlock "item". Everyone can use them again
+- /locks: gives the lock status of the chat
+- /locktypes: gets a list of all things that can be locked
+- /unbanall: Unbans all in the chat
+- /unmuteall: Unmutes all in the chat
+- /users: list all the users in the chat
+- /zombies: counts the number of deleted account in your group
+- /kickthefools: kicks all members inactive from 1 week
 Example:
 Sometimes, you promote or demote an admin manually, and Daisy doesn't realise it immediately. This is because to avoid spamming telegram servers, admin status is cached locally.
 This means that you sometimes have to wait a few minutes for admin rights to update. If you want to update them immediately, you can use the /admincache command; that'll force Daisy to check who the admins are again.
+
+<i> Special credits to Julia Project </i>
 """
