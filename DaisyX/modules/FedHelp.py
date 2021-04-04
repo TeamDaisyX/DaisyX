@@ -35,4 +35,3 @@ In both cases Daisy will help you.
  - /importfbans: Imports all fbanned uses from the export file into the current chat federation.
 **NOTE**: Federation ban doesn't ban the user from the fed chats instead kicks everytime they join the chat.
 """
-
