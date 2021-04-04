@@ -112,21 +112,21 @@ Make it easy to promote and demote users with the admin module!
 - /unban: unbans a user
 - /mute: mute a user
 - /unmute: unmutes a user
-- /tban <entity> | <time interval>: temporarily bans a user for the time interval.
-- /tmute <entity> | <time interval>: temporarily mutes a user for the time interval.
+- /tban [entity] : temporarily bans a user for the time interval.
+- /tmute [entity] : temporarily mutes a user for the time interval.
 - /kick: kicks a user
 - /kickme: kicks yourself (non-admins)
 - /banme: bans yourself (non-admins)
-- /settitle <entity> <title>: sets a custom title for an admin. If no <title> provided defaults to "Admin"
-- /setdescription <text>: set group description
-- /setgrouptitle <text>: set group title
+- /settitle [entity] [title]: sets a custom title for an admin. If no [title] provided defaults to "Admin"
+- /setdescription [text]: set group description
+- /setgrouptitle [text] set group title
 - /setgpic: reply to an image to set as group photo
 - /setsticker: reply to a sticker pack to set as group stickers
 - /delgpic: deletes the current group photo
 - /purge: deletes all messages from the message you replied to
 - /del: deletes the message replied to
-- /lock <item(s)>: lock the usage of "item" for non-admins
-- /unlock <item(s)>: unlock "item". Everyone can use them again
+- /lock [item(s)]: lock the usage of "item" for non-admins
+- /unlock [item(s)]: unlock "item". Everyone can use them again
 - /locks: gives the lock status of the chat
 - /locktypes: gets a list of all things that can be locked
 - /unbanall: Unbans all in the chat
