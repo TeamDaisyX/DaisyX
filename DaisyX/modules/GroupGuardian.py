@@ -137,13 +137,23 @@ async def ws(event):
         return
     sender = await event.get_sender()
     await event.client.download_media(event.photo, "nudes.jpg")
-    if nude.is_nude("./nudes.jpg"):
+    img = "./nudes.jpg"
+    f = {"file": (img, open(img, "rb"))}
+    r = requests.post("https://starkapi.herokuapp.com/nsfw/", files=f).json()
+    if r.get("success") is False:
+        is_nsfw = False
+    elif r.get("is_nsfw") is True:
+        is_nsfw = True
+    elif r.get("is_nsfw") is False:
+        is_nsfw = False
+    return is_nsfw
+    if is_nsfw == True:
         await event.delete()
         st = sender.first_name
         hh = sender.id
-        final = f"**NSFW DETECTED**\n\n{st}](tg://user?id={hh}) your message contain NSFW content.. So, Daisy deleted the message\n\n **Nsfw Sender - User / Bot :** {st}](tg://user?id={hh})  \n\n`⚔️Automatic Detections Powered By DaisyAI` \n**#GROUP_GUARDIAN** "
+        final = f"**NSFW DETECTED**\n\n[{st}](tg://user?id={hh}) your message contain NSFW content.. So, Daisy deleted the message\n\n **Nsfw Sender - User / Bot :** [{st}](tg://user?id={hh})  \n\n`⚔️Automatic Detections Powered By DaisyAI` \n**#GROUP_GUARDIAN** "
         dev = await event.respond(final)
-        await asyncio.sleep(10)
+        await asyncio.sleep(30)
         await dev.delete()
         os.remove("nudes.jpg")
 
