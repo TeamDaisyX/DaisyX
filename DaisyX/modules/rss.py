@@ -93,7 +93,7 @@ async def listrss(client, message):
         await pablo.edit("This Chat Has No RSS!")
         return
     links = ""
-    all = =get_chat_rss(message.chat.id)
+    all = get_chat_rss(message.chat.id)
     for x in all:
         l = x.get("rss_link")
         links += f"{l}\n"
