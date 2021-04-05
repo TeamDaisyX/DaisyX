@@ -65,10 +65,6 @@
       "description": "Don't change.",
       "value": "8080"
     },
-    "API_PORT": {
-      "description": "Your Bot Token Obtained From @BotFather.",
-      "value": ""
-    },
     "REDIS_URI": {
       "description": "Get from redislabs.com",
       "value": "",
