@@ -1,7 +1,7 @@
 from DaisyX.services.mongo import mongodb as db_x
 
 lydia = db_x["CAHTBOT"]
-talkmode = db_x["TALKMODE']
+talkmode = db_x["TALKMODE"]
 
 def add_chat(chat_id):
     stark = lydia.find_one({"chat_id": chat_id})
