@@ -10,8 +10,10 @@ import os
 
 import requests
 from pyrogram import filters
-from DaisyX.services.pyrogram import pbot
+
 from DaisyX.function.pluginhelpers import edit_or_reply, get_text
+from DaisyX.services.pyrogram import pbot
+
 
 @pbot.on_message(filters.command("paste") & ~filters.edited & ~filters.bot)
 async def paste(client, message):
@@ -23,11 +25,11 @@ async def paste(client, message):
             await pablo.edit("`Reply To File / Give Me Text To Paste!`")
             return
         if not message.reply_to_message.text:
-           file = await message.reply_to_message.download()
-           m_list = open(file, "r").read()
-           message_s = m_list
-           print(message_s)
-           os.remove(file)
+            file = await message.reply_to_message.download()
+            m_list = open(file, "r").read()
+            message_s = m_list
+            print(message_s)
+            os.remove(file)
         elif message.reply_to_message.text:
             message_s = message.reply_to_message.text
     key = (

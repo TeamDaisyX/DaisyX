@@ -128,7 +128,9 @@ async def welcome(message, chat, strings):
         await send_note(send_id, text, **kwargs)
 
 
-@register(cmds=["setwelcome", "savewelcome"], user_admin=True, user_can_change_info = True)
+@register(
+    cmds=["setwelcome", "savewelcome"], user_admin=True, user_can_change_info=True
+)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def set_welcome(message, chat, strings):
@@ -185,7 +187,7 @@ async def set_welcome(message, chat, strings):
         await message.reply(text % chat["chat_title"])
 
 
-@register(cmds="resetwelcome", user_admin=True, user_can_change_info = True)
+@register(cmds="resetwelcome", user_admin=True, user_can_change_info=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def reset_welcome(message, chat, strings):
@@ -246,7 +248,7 @@ async def clean_welcome(message, chat, strings):
         await message.reply(strings["bool_invalid_arg"])
 
 
-@register(cmds="cleanservice", user_admin=True, user_can_change_info = True)
+@register(cmds="cleanservice", user_admin=True, user_can_change_info=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def clean_service(message, chat, strings):
@@ -292,7 +294,7 @@ async def clean_service(message, chat, strings):
         await message.reply(strings["bool_invalid_arg"])
 
 
-@register(cmds="welcomemute", user_admin=True,user_can_change_info = True)
+@register(cmds="welcomemute", user_admin=True, user_can_change_info=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def welcome_mute(message, chat, strings):
@@ -364,7 +366,7 @@ class WelcomeSecurityConf(StatesGroup):
     send_time = State()
 
 
-@register(cmds="welcomesecurity", user_admin=True,user_can_change_info = True)
+@register(cmds="welcomesecurity", user_admin=True, user_can_change_info=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def welcome_security(message, chat, strings):
@@ -509,7 +511,11 @@ async def wlcm_sec_time_state(message: Message, chat: dict, strings: dict, state
         await state.finish()
 
 
-@register(cmds=["setsecuritynote", "sevesecuritynote"], user_admin=True, user_can_change_info = True)
+@register(
+    cmds=["setsecuritynote", "sevesecuritynote"],
+    user_admin=True,
+    user_can_change_info=True,
+)
 @need_args_dec()
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
@@ -548,7 +554,7 @@ async def set_security_note(message, chat, strings):
     await message.reply(text % chat["chat_title"])
 
 
-@register(cmds="delsecuritynote", user_admin=True, user_can_change_info = True)
+@register(cmds="delsecuritynote", user_admin=True, user_can_change_info=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def reset_security_note(message, chat, strings):

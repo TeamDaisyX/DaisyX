@@ -114,7 +114,7 @@ def clean_notes(func):
     return wrapped_1
 
 
-@register(cmds="save", user_admin=True, user_can_change_info = True)
+@register(cmds="save", user_admin=True, user_can_change_info=True)
 @need_args_dec()
 @chat_connection(admin=True)
 @get_strings_dec("notes")
@@ -371,7 +371,7 @@ async def search_in_note(message, chat, strings):
     return await message.reply(text)
 
 
-@register(cmds=["clear", "delnote"],user_admin=True, user_can_change_info = True)
+@register(cmds=["clear", "delnote"], user_admin=True, user_can_change_info=True)
 @chat_connection(admin=True)
 @need_args_dec()
 @get_strings_dec("notes")
@@ -419,7 +419,7 @@ async def clear_note(message, chat, strings):
         )
 
 
-@register(cmds="clearall",user_admin=True, user_can_change_info = True)
+@register(cmds="clearall", user_admin=True, user_can_change_info=True)
 @chat_connection(admin=True)
 @get_strings_dec("notes")
 async def clear_all_notes(message, chat, strings):
@@ -443,7 +443,7 @@ async def clear_all_notes(message, chat, strings):
     await message.reply(text, reply_markup=buttons)
 
 
-@register(regexp="clean_all_notes_cb", f="cb", is_admin=True,user_can_change_info = True)
+@register(regexp="clean_all_notes_cb", f="cb", is_admin=True, user_can_change_info=True)
 @chat_connection(admin=True)
 @get_strings_dec("notes")
 async def clear_all_notes_cb(event, chat, strings):
@@ -581,7 +581,7 @@ async def btn_note_start_state(message, strings):
     redis.delete(key)
 
 
-@register(cmds="privatenotes", is_admin=True, user_can_change_info = True)
+@register(cmds="privatenotes", is_admin=True, user_can_change_info=True)
 @chat_connection(admin=True)
 @get_strings_dec("notes")
 async def private_notes_cmd(message, chat, strings):
@@ -620,7 +620,7 @@ async def private_notes_cmd(message, chat, strings):
         )
 
 
-@register(cmds="cleannotes", is_admin=True, user_can_change_info = True)
+@register(cmds="cleannotes", is_admin=True, user_can_change_info=True)
 @chat_connection(admin=True)
 @get_strings_dec("notes")
 async def clean_notes(message, chat, strings):

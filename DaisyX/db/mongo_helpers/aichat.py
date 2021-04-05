@@ -3,6 +3,7 @@ from DaisyX.services.mongo import mongodb as db_x
 lydia = db_x["CAHTBOT"]
 talkmode = db_x["TALKMODE"]
 
+
 def add_chat(chat_id):
     stark = lydia.find_one({"chat_id": chat_id})
     if stark:
@@ -35,6 +36,7 @@ def get_session(chat_id):
         return False
     else:
         return stark
+
 
 def add_chat_t(chat_id):
     star = talkmode.find_one({"chat_id": chat_id})

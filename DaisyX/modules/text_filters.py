@@ -29,7 +29,9 @@ async def save_filters(_, message):
 
     elif len(await member_permissions(message.chat.id, message.from_user.id)) < 1:
         await message.reply_text("**You don't have enough permissions**")
-    elif not "can_change_info" in (await member_permissions(message.chat.id, message.from_user.id)):
+    elif not "can_change_info" in (
+        await member_permissions(message.chat.id, message.from_user.id)
+    ):
         await message.reply_text("**You don't have enough permissions**")
     else:
         name = message.text.split(None, 1)[1].strip()

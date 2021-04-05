@@ -117,7 +117,7 @@ async def check_msg(message):
                 await FILTERS_ACTIONS[action]["handle"](message, chat, filter)
 
 
-@register(cmds=["addfilter", "newfilter"], is_admin=True , user_can_change_info = True)
+@register(cmds=["addfilter", "newfilter"], is_admin=True, user_can_change_info=True)
 @need_args_dec()
 @chat_connection(only_groups=True, admin=True)
 @get_strings_dec("filters")
@@ -125,9 +125,9 @@ async def add_handler(message, chat, strings):
     # filters doesn't support anon admins
     if message.from_user.id == 1087968824:
         return await message.reply(strings["anon_detected"])
-    #if not await check_admin_rights(message, chat_id, message.from_user.id, ["can_change_info"]):
-        #return await message.reply("You can't change info of this group")
-        
+    # if not await check_admin_rights(message, chat_id, message.from_user.id, ["can_change_info"]):
+    # return await message.reply("You can't change info of this group")
+
     handler = get_args_str(message)
 
     if handler.startswith("re:"):
@@ -277,7 +277,7 @@ async def list_filters(message, chat, strings):
     await message.reply(text + filters_text)
 
 
-@register(cmds="delfilter", is_admin=True, user_can_change_info = True)
+@register(cmds="delfilter", is_admin=True, user_can_change_info=True)
 @need_args_dec()
 @chat_connection(only_groups=True, admin=True)
 @get_strings_dec("filters")
