@@ -147,7 +147,7 @@ async def check_rss(client,message):
             except:
                 pass
             update_rss(message, link, rss_d.entries[0].link)
-            await client.send_message(message, content)
+            await pbot.send_message(message, content)
 
 
 scheduler = AsyncIOScheduler()
