@@ -73,7 +73,8 @@ $ python(3) -m DaisyX
  - [DaisyX](https://github.com/teamdaisyx/daisy-x)
  - [Auto-Filter-Bot-V2](https://github.com/TroJanzHEX/Auto-Filter-Bot-V2/)
  - [Image-Editor](https://github.com/TroJanzHEX/Image-Editor/)
- - [Utah](https://github.com/minatouzuki/utah)
+ - [Utah](https://github.com/minatouzuki/utah).
+ - [WilliamButcherBot](https://github.com/thehamkercat/WilliamButcherBot)
  - [LEGENDX](https://github.com/LEGENDXOP/LEGEND-X)
 
 ## Special Credits
