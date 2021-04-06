@@ -1,5 +1,5 @@
 # Clients
-## Importing Pyrogram
+## Importing Aiogram
 ```python3
 from DaisyX import bot
 ```
