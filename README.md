@@ -41,11 +41,28 @@ $ cd DaisyX-v2.0
 $ bash deploy.sh
 # Install All Requirements 
 $ pip(3) install -r requirements.txt
-# Create local.env with variables as given below
+# Rename ./DaisyX/data/bot_conf.yaml.example to bot_conf.yaml and fill
 # Start Bot 
 $ python(3) -m DaisyX
 ```
 
+### Mandatory Vars 📒
+```
+[+] Make Sure You Add All These Mandatory Vars. 
+    [-] API_ID:   You can get this value from https://my.telegram.org
+    [-] API_HASH :   You can get this value from https://my.telegram.org
+    [-] STRINGSESSION : Your String Session, You can get this From Repl or BY running String_Gen File Locally
+    [-] MONGO_URI : Your Mongo DB DataBase Url. .
+    [-] TOKEN: Get from botfarther
+    [-] DATABASE_URL: from elephantsql.com
+    [-] OWNER_ID: ur id
+    [-] MONGO_PORT: 27017
+    [-] MONGO_DB': 'DaisyX'
+    [-] REDIS_URI: from redislabs.com (remove port)
+    [-] REDIS_PORT: At the end of uri
+    [-] REDIS_PASS: pass
+[+] The DaisyX won't run without setting the mandatory vars.
+```
 
 # 😍 Credits
 
