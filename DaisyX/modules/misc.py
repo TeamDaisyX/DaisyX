@@ -343,4 +343,7 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
 <b> Weather </b>
 - /weather: Gives weather forcast
 - /wheatherimg: Gives weather image
+
+<b> Phone info </b>
+- /phone [phone no]: Gathers no info
 """
