@@ -14,16 +14,15 @@
 #    along with this program.  If not, see < https://www.gnu.org/licenses/agpl-3.0.en.html >
 
 
-import os
-from DaisyX.services.telethon import tbot
-import re
-from telethon import events
+import html
+
+import tldextract
+from telethon import events, types
+from telethon.tl import functions
+
 import DaisyX.services.sql.urlblacklist_sql as urlsql
 from DaisyX.services.events import register
-from telethon import types
-from telethon.tl import functions
-import html
-import tldextract
+from DaisyX.services.telethon import tbot
 
 
 async def can_change_info(message):
@@ -49,7 +48,6 @@ async def is_register_admin(chat, user):
         )
     if isinstance(chat, types.InputPeerUser):
         return True
-
 
 
 @register(pattern="^/delurl")
