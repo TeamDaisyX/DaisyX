@@ -352,7 +352,9 @@ async def member_permissions(chat_id, user_id):
         perms.append("can_pin_messages")
     return perms
 
+
 # URL LOCK
+
 
 def get_url(message_1: Message) -> Union[str, None]:
     messages = [message_1]
@@ -378,4 +380,4 @@ def get_url(message_1: Message) -> Union[str, None]:
     if offset in (None,):
         return None
 
-    return text[offset:offset + length]
+    return text[offset : offset + length]
