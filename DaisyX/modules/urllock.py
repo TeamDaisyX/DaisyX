@@ -75,7 +75,7 @@ async def hmm(_, message):
 async def hi(client, message):
     if not len(await member_permissions(message.chat.id, message.from_user.id)) < 1:
         message.continue_propagation()
-    if not len(await member_permissions(message.chat.id, BOT_ID)) < 1:
+    if len(await member_permissions(message.chat.id, BOT_ID)) < 1:
         message.continue_propagation()
     if not "can_delete_messages" in (await member_permissions(message.chat.id, BOT_ID)):
         sedlyf = await message.reply_text(
