@@ -1,4 +1,4 @@
-# DaisyX Example plugins
+# DaisyX Example plugin format
 
 ## Basic: Simple Plugins
 ```python3
