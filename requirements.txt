@@ -51,6 +51,7 @@ sentry_sdk
 lxml
 html5lib
 feedparser
+tldextract
 
 #Pyrogram
 tgCrypto>=1.2.2
