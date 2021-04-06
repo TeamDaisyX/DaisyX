@@ -32,6 +32,21 @@
 <a href="https://t.me/DaisySupport_Official"><img src="https://img.shields.io/badge/Join-Telegram%20Channel-red.svg?logo=Telegram"></a>
 <a href="https://t.me/DaisyXupdates"><img src="https://img.shields.io/badge/Join-Telegram%20Group-blue.svg?logo=telegram"></a>
 
+### Self-hosting (For Devs) ⚔
+```sh
+# Install Git First (apt-instll git)
+# Upgrade sources
+$ bash deploy.sh
+$ git clone https://github.com/TeamDaisyX/DaisyX-v2.0
+$ cd DaisyX-v2.0
+# Install All Requirements 
+$ pip(3) install -r requirements.txt
+# Create local.env with variables as given below
+# Start Bot 
+$ python(3) -m DaisyX
+```
+
+
 # 😍 Credits
 
  - [Hitsuki](https://github.com/HitsukiNetwork/Hitsukix)
