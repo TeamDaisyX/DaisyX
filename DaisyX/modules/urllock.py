@@ -92,6 +92,6 @@ __mod_name__ = "URL Block"
 __help__ = """
 <b> Block links sent by users in your group </b>
 
-- /lockurl [on/off]: Enable/Disable URL Lock
+- /urllock [on/off]: Enable/Disable URL Lock
 
 """
