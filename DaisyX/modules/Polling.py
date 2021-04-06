@@ -405,7 +405,7 @@ Here is how you can do it:
  ▪️ [True/False](2) - public votes
  ▪️ [True/False](3) - multiple choice
 <b> Syntax </b> -
-/poll <poll-id> <i>question</i> | <i>True@optionnumber/False</i> [True/False] [True/False] [option1] [option2] ... upto [option10]
+/poll [poll-id] <i>question</i> | <i>True@optionnumber/False</i> [True/False] [True/False] [option1] [option2] ... upto [option10]
 <b> Examples </b> -
 /poll 12345 | am i cool? | False False False yes no`
 /poll 12345 | am i cool? | True@1 False False yes no`
