@@ -35,10 +35,10 @@
 ### Self-hosting (For Devs) ⚔
 ```sh
 # Install Git First (apt-instll git)
-# Upgrade sources
-$ bash deploy.sh
 $ git clone https://github.com/TeamDaisyX/DaisyX-v2.0
 $ cd DaisyX-v2.0
+# Upgrade sources
+$ bash deploy.sh
 # Install All Requirements 
 $ pip(3) install -r requirements.txt
 # Create local.env with variables as given below
