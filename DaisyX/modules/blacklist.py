@@ -14,15 +14,16 @@
 #    along with this program.  If not, see < https://www.gnu.org/licenses/agpl-3.0.en.html >
 
 
-import html
-
-import tldextract
-from telethon import events, types
-from telethon.tl import functions
-
+import os
+from DaisyX.services.telethon import tbot
+import re
+from telethon import events
 import DaisyX.services.sql.urlblacklist_sql as urlsql
 from DaisyX.services.events import register
-from DaisyX.services.telethon import tbot
+from telethon import types
+from telethon.tl import functions
+import html
+import tldextract
 
 
 async def can_change_info(message):
@@ -48,6 +49,56 @@ async def is_register_admin(chat, user):
         )
     if isinstance(chat, types.InputPeerUser):
         return True
+
+
+@register(pattern="^/addurl")
+async def _(event):
+    if event.fwd_from:
+        return
+    if event.is_private:
+        return
+    if event.is_group:
+        if await can_change_info(message=event):
+            pass
+        else:
+            return
+    chat = event.chat
+    urls = event.text.split(None, 1)
+    if len(urls) > 1:
+        urls = urls[1]
+        to_blacklist = list({uri.strip() for uri in urls.split("\n") if uri.strip()})
+        blacklisted = []
+
+        for uri in to_blacklist:
+            extract_url = tldextract.extract(uri)
+            if extract_url.domain and extract_url.suffix:
+                blacklisted.append(extract_url.domain + "." + extract_url.suffix)
+                urlsql.blacklist_url(
+                    chat.id, extract_url.domain + "." + extract_url.suffix
+                )
+
+        if len(to_blacklist) == 1:
+            extract_url = tldextract.extract(to_blacklist[0])
+            if extract_url.domain and extract_url.suffix:
+                await event.reply(
+                    "Added <code>{}</code> domain to the blacklist!".format(
+                        html.escape(extract_url.domain + "." + extract_url.suffix)
+                    ),
+                    parse_mode="html",
+                )
+            else:
+                await event.reply("You are trying to blacklist an invalid url")
+        else:
+            await event.reply(
+                "Added <code>{}</code> domains to the blacklist.".format(
+                    len(blacklisted)
+                ),
+                parse_mode="html",
+            )
+    else:
+        await event.reply("Tell me which urls you would like to add to the blacklist.")
+
+
 
 
 @register(pattern="^/delurl")
@@ -166,3 +217,6 @@ __help__ = """
  - /addurl bit.ly: This would delete any message containing url "bit.ly"
 """
 __mod_name__ = "Blacklist"
+
+
+
