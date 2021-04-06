@@ -101,5 +101,5 @@ async def _(event):
 
 __mod_name__ = "AFK"
 __help__ = """
- - /afk <reason>: mark yourself as AFK(Away From Keyboard)
+ - /afk [reason]: mark yourself as AFK(Away From Keyboard)
 """
