@@ -10,4 +10,10 @@ from .utils.message import get_args_str
 async def _(message):
     j = "Hello there"
     await message.reply(j)
+    
+__mod_name__ = "Hi"
+__help__ = """
+<b>Hi</b>
+- /hi: Say Hello There
+"""
 ```
