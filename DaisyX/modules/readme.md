@@ -1,4 +1,6 @@
-## DaisyX Example plugin
+# DaisyX Example plugins
+
+## Basic
 ```python3
 
 from DaisyX.decorator import register
@@ -10,6 +12,42 @@ from .utils.message import get_args_str
 async def _(message):
     j = "Hello there"
     await message.reply(j)
+    
+__mod_name__ = "Hi"
+__help__ = """
+<b>Hi</b>
+- /hi: Say Hello There
+"""
+```
+
+## Advanced: Pyrogram
+```python3
+from DaisyX.function.pluginhelpers import admins_only
+from DaisyX.services.pyrogram import pbot
+
+@pbot.on_message(filters.command("hi") & ~filters.edited & ~filters.bot)
+@admins_only
+async def hmm(client, message):
+    j = "Hello there"
+    await message.reply(j)
+    
+__mod_name__ = "Hi"
+__help__ = """
+<b>Hi</b>
+- /hi: Say Hello There
+"""
+```
+
+## Advanced: Telethon
+```python3
+
+from DaisyX.services.telethon import tbot
+from DaisyX.services.events import register
+
+@register(pattern="^/hi$")
+async def hmm(event):
+    j = "Hello there"
+    await event.reply(j)
     
 __mod_name__ = "Hi"
 __help__ = """
