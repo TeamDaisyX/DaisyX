@@ -12,7 +12,7 @@ opn = []
 
 @register(pattern="/open")
 async def _(event):
-    xx = await event.reply("Processing...")
+    xx = await event.reply("`Processing...`")
     if event.reply_to_msg_id:
         a = await event.get_reply_message()
         if a.media:
@@ -34,9 +34,9 @@ async def _(event):
             os.remove(b)
             await xx.delete()
         else:
-            return await event.reply("Reply to a readable file")
+            return await event.reply("`Reply to a readable file`")
     else:
-        return await event.reply("Reply to a readable file")
+        return await event.reply("`Reply to a readable file`")
 
 
 client = tbot
@@ -46,7 +46,7 @@ client = tbot
 async def get(event):
     name = event.text[5:]
     if name is None:
-        await event.reply("reply to text message as `.ttf <file name>`")
+        await event.reply("**Reply to a message as** `/dox` **filename**\n\n**Eg:-** `/dox hello.py`")
         return
     m = await event.get_reply_message()
     if m.text:
@@ -56,7 +56,7 @@ async def get(event):
         await event.client.send_file(event.chat_id, name, force_document=True)
         os.remove(name)
     else:
-        await event.reply("reply to text message as `.ttf <file name>`")
+        await event.reply("**Reply to a message as** `/dox` **filename**\n\n**Eg:-** `/dox hello.py`")
 
 
 __help__ = """
