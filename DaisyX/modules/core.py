@@ -46,7 +46,9 @@ client = tbot
 async def get(event):
     name = event.text[5:]
     if name is None:
-        await event.reply("**Reply to a message as** `/dox` **filename**\n\n**Eg:-** `/dox hello.py`")
+        await event.reply(
+            "**Reply to a message as** `/dox` **filename**\n\n**Eg:-** `/dox hello.py`"
+        )
         return
     m = await event.get_reply_message()
     if m.text:
@@ -56,7 +58,9 @@ async def get(event):
         await event.client.send_file(event.chat_id, name, force_document=True)
         os.remove(name)
     else:
-        await event.reply("**Reply to a message as** `/dox` **filename**\n\n**Eg:-** `/dox hello.py`")
+        await event.reply(
+            "**Reply to a message as** `/dox` **filename**\n\n**Eg:-** `/dox hello.py`"
+        )
 
 
 __help__ = """
