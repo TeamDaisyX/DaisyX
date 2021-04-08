@@ -14,15 +14,15 @@
 #    along with this program.  If not, see < https://www.gnu.org/licenses/agpl-3.0.en.html >
 
 
-from telethon.tl.types import ChatBannedRights
-from DaisyX.services.events import register
-from DaisyX.services.telethon import tbot
-from DaisyX.services.mongo import mongodb as db
-import os
-from telethon import *
-import dateparser
 from datetime import timedelta
-import os, asyncio
+
+import dateparser
+from telethon import *
+from telethon.tl.types import ChatBannedRights
+
+from DaisyX.services.events import register
+from DaisyX.services.mongo import mongodb as db
+from DaisyX.services.telethon import tbot
 
 nightmod = db.nightmode
 
@@ -216,104 +216,102 @@ async def _(event):
 
 @tbot.on(events.NewMessage(pattern=None))
 async def _(event):
- try: 
-    if event.is_private:
-        return  
-    chats = nightmod.find({})
-    for c in chats:
-        # print(c)
-        id = c["id"]
-        valid = c["valid"]
-        zone = c["zone"]
-        ctime = c["ctime"]
-        otime = c["otime"]
-        present = dateparser.parse(
-            f"now", settings={"TIMEZONE": f"{zone}", "DATE_ORDER": "YMD"}
-        )
-        if present > ctime and valid:
-            await tbot.send_message(
-                id,
-                f"**Nightbot:** It's time closing the chat now ...",
-            )
-            await tbot(
-                functions.messages.EditChatDefaultBannedRightsRequest(
-                    peer=id, banned_rights=closechat
-                )
-            )
-            newtime = ctime + timedelta(days=1)            
-            to_check = get_info(id=id)   
-            if not to_check:
-               return 
-            print (newtime)
-            print (to_check)
-            nightmod.update_one(
-                {
-                    "_id": to_check["_id"],
-                    "id": to_check["id"],
-                    "valid": to_check["valid"],     
-                    "zone": to_check["zone"],
-                    "ctime": to_check["ctime"],
-                    "otime": to_check["otime"],
-                },
-                {"$set": {"ctime": newtime}},
-            )
-            break
+    try:
+        if event.is_private:
             return
-        continue
- except Exception as e:
-   print (e)
-  
+        chats = nightmod.find({})
+        for c in chats:
+            # print(c)
+            id = c["id"]
+            valid = c["valid"]
+            zone = c["zone"]
+            ctime = c["ctime"]
+            c["otime"]
+            present = dateparser.parse(
+                f"now", settings={"TIMEZONE": f"{zone}", "DATE_ORDER": "YMD"}
+            )
+            if present > ctime and valid:
+                await tbot.send_message(
+                    id,
+                    f"**Nightbot:** It's time closing the chat now ...",
+                )
+                await tbot(
+                    functions.messages.EditChatDefaultBannedRightsRequest(
+                        peer=id, banned_rights=closechat
+                    )
+                )
+                newtime = ctime + timedelta(days=1)
+                to_check = get_info(id=id)
+                if not to_check:
+                    return
+                print(newtime)
+                print(to_check)
+                nightmod.update_one(
+                    {
+                        "_id": to_check["_id"],
+                        "id": to_check["id"],
+                        "valid": to_check["valid"],
+                        "zone": to_check["zone"],
+                        "ctime": to_check["ctime"],
+                        "otime": to_check["otime"],
+                    },
+                    {"$set": {"ctime": newtime}},
+                )
+                break
+                return
+            continue
+    except Exception as e:
+        print(e)
 
 
 @tbot.on(events.NewMessage(pattern=None))
 async def _(event):
- try:
-    if event.is_private:
-        return
-    chats = nightmod.find({})
-    for c in chats:
-        # print(c)
-        id = c["id"]
-        valid = c["valid"]
-        zone = c["zone"]       
-        ctime = c["ctime"]
-        otime = c["otime"]
-        present = dateparser.parse(
-            f"now", settings={"TIMEZONE": f"{zone}", "DATE_ORDER": "YMD"}
-        )        
-        if present > otime and valid:
-            await tbot.send_message(
-                id,
-                f"**Nightbot:** It's time opening the chat now ...",
-            )
-            await tbot(
-                functions.messages.EditChatDefaultBannedRightsRequest(
-                    peer=id, banned_rights=openchat
-                )
-            )
-            newtime = otime + timedelta(days=1)     
-            to_check = get_info(id=id)   
-            if not to_check:
-               return 
-            print (newtime)
-            print (to_check)
-            nightmod.update_one(
-                {
-                    "_id": to_check["_id"],
-                    "id": to_check["id"],
-                    "valid": to_check["valid"],
-                    "zone": to_check["zone"],
-                    "ctime": to_check["ctime"],
-                    "otime": to_check["otime"],
-                },
-                {"$set": {"otime": newtime}},
-            )
-            break
+    try:
+        if event.is_private:
             return
-        continue
- except Exception as e:
-   print (e)
-
+        chats = nightmod.find({})
+        for c in chats:
+            # print(c)
+            id = c["id"]
+            valid = c["valid"]
+            zone = c["zone"]
+            c["ctime"]
+            otime = c["otime"]
+            present = dateparser.parse(
+                f"now", settings={"TIMEZONE": f"{zone}", "DATE_ORDER": "YMD"}
+            )
+            if present > otime and valid:
+                await tbot.send_message(
+                    id,
+                    f"**Nightbot:** It's time opening the chat now ...",
+                )
+                await tbot(
+                    functions.messages.EditChatDefaultBannedRightsRequest(
+                        peer=id, banned_rights=openchat
+                    )
+                )
+                newtime = otime + timedelta(days=1)
+                to_check = get_info(id=id)
+                if not to_check:
+                    return
+                print(newtime)
+                print(to_check)
+                nightmod.update_one(
+                    {
+                        "_id": to_check["_id"],
+                        "id": to_check["id"],
+                        "valid": to_check["valid"],
+                        "zone": to_check["zone"],
+                        "ctime": to_check["ctime"],
+                        "otime": to_check["otime"],
+                    },
+                    {"$set": {"otime": newtime}},
+                )
+                break
+                return
+            continue
+    except Exception as e:
+        print(e)
 
 
 __help__ = """
@@ -323,4 +321,4 @@ Close your group at night
 Syntax: /setnightmode America/New_York | 12:00:00 PM | 07:00:00 AM
 """
 
-__mod_name__="Night Mode"
+__mod_name__ = "Night Mode"
