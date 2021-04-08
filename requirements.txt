@@ -52,6 +52,7 @@ lxml
 html5lib
 feedparser
 tldextract
+dateparser
 
 #Pyrogram
 tgCrypto>=1.2.2
