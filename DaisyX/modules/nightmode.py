@@ -79,8 +79,6 @@ async def profanity(event):
         return
     if event.is_private:
         return
-    if MONGO_DB_URI is None:
-        return
     if not await can_change_info(message=event):
         return
     input = event.pattern_match.group(1)
@@ -135,8 +133,6 @@ async def _(event):
         if event.fwd_from:
             return
         if event.is_private:
-            return
-        if MONGO_DB_URI is None:
             return
         if not await can_change_info(message=event):
             return
