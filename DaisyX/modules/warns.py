@@ -26,6 +26,7 @@ from bson.objectid import ObjectId
 from DaisyX import BOT_ID, bot
 from DaisyX.decorator import register
 from DaisyX.services.mongo import db
+from DaisyX.services.telethon import tbot
 
 from .misc import customise_reason_finish, customise_reason_start
 from .utils.connections import chat_connection
@@ -45,6 +46,19 @@ from .utils.user_details import (
 @get_user_and_text_dec()
 async def warn_cmd(message, chat, user, text):
     await warn_func(message, chat, user, text)
+
+
+@register(cmds="dwarn", user_can_restrict_members=True, bot_can_restrict_members=True)
+@chat_connection(admin=True, only_groups=True)
+@get_user_and_text_dec()
+async def warn_cmd(message, chat, user, text):
+    if not message.reply_to_message:
+        await message.reply(strings["reply_to_msg"])
+        return
+    await warn_func(message, chat, user, text)
+    msgs = [message.message_id, message.reply_to_message.message_id]
+    await tbot.delete_messages(message.chat.id, msgs)
+    await message.delete()
 
 
 @get_strings_dec("warns")
@@ -375,7 +389,7 @@ You can keep your members from getting out of control using this feature!
 <b>General (Admins):</b>
 - /warn (?user) (?reason): Use this command to warn the user! you can mention or reply to the offended user and add reason if needed
 - /delwarns or /resetwarns: This command is used to delete all the warns user got so far in the chat
-
+- /dwarn [reply]: Delete the replied message and warn him
 <b>Warnlimt (Admins):</b>
 - /warnlimit (new limit): Sets a warnlimit
 Not all chats want to give same maximum warns to the user, right? This command will help you to modify default maximum warns. Default is 3
