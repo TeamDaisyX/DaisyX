@@ -128,6 +128,6 @@ async def _(event):
 
 __mod_name__ = "Date Time"
 __help__ = """
- - /datetime <timezone>: Get the present date and time information
+ - /datetime [timezone]: Get the present date and time information
 **You can check out this [link](https://timezonedb.com/time-zones) for the available timezones**
 """
