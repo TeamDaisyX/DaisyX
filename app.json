@@ -155,11 +155,6 @@
       "value": "False",
       "required": false
     },
-    "DEBUG_MODE": {
-      "description": "DEBUG_MODE (Turn this off if you use sentry)",
-      "value": "True",
-      "required": false
-    },
     "LOAD_MODULES": {
       "description": "Don't edit",
       "value": "True",
