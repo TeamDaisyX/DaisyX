@@ -18,7 +18,7 @@ from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pytz import utc
 
-from DaisyX.config import get_int_key, get_str_key
+from DaisyX.config import get_str_key
 from DaisyX.utils.logger import log
 
 DEFAULT = "default"
@@ -27,7 +27,7 @@ jobstores = {
     DEFAULT: RedisJobStore(
         host=get_str_key("REDIS_URI"),
         port=get_str_key("REDIS_PORT"),
-        password=get_str_key("REDIS_PASS")
+        password=get_str_key("REDIS_PASS"),
     )
 }
 executors = {DEFAULT: AsyncIOExecutor()}
