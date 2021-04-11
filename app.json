@@ -31,7 +31,7 @@
       "required": true
     },
     "SENTRY_API_KEY": {
-      "description": "Get this value from sentry.io/account/settings/authtokens",
+      "description": "Hmm leave it. Only for PRO's",
       "value": "",
       "required": false
     },
