@@ -71,7 +71,7 @@ $ python(3) -m DaisyX
  - [FridayUserbot](https://github.com/DevsExpo/FridayUserbot)
  - [MissJuliaRobot](https://github.com/MissJuliaRobot/MissJuliaRobot)
  - [DaisyX](https://github.com/teamdaisyx/daisy-x)
- - [Auto-Filter-Bot-V2](https://github.com/TroJanzHEX/Auto-Filter-Bot-V2/)
+ - [ADV-Auto-Filter-Bot-V2](https://github.com/AlbertEinsteinTG/Adv-Auto-Filter-Bot-V2)
  - [Image-Editor](https://github.com/TroJanzHEX/Image-Editor/)
  - [Utah](https://github.com/minatouzuki/utah).
  - [WilliamButcherBot](https://github.com/thehamkercat/WilliamButcherBot)
@@ -80,6 +80,7 @@ $ python(3) -m DaisyX
 ## Special Credits
 - [SophieBot Devs](https://gitlab.com/SophieBot)
 - [TroJanzHEX](https://github.com/TroJanzHEX)
+- [AlbertEinsteinTG](https://github.com/AlbertEinsteinTG)
 - [Amarnath c](https://github.com/Amarnathcdj)
 - [Thehamkercat](https://github.com/thehamkercat)
 - [StarkGang](https://github.com/StarkGang)
