@@ -1,3 +1,6 @@
+# Ported From William Butcher Bot :- https://github.com/thehamkercat/WilliamButcherBot/edit/dev/wbb/modules/webss.py .
+# All Credit to WilliamButcherBot.
+
 from typing import Dict, Union
 
 from pyrogram import filters
