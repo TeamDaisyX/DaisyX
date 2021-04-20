@@ -111,8 +111,8 @@ DaisyX-v2.0 (Base AioGram)
 - [Inuka Asith](https://github.com/inukaasith) 
 - [annihilatorrrr](https://github.com/annihilatorrrr) 
 - [sithum batrow](https://github.com/sbatrow) 
-- [LEGENDX](https://github.com/LEGENDXOP) 
-- ### • ROSELOVERX  »»  <a href="https://github.com/Amarnathcdj" alt="RoseLoverX"> <img src="https://img.shields.io/badge/RoseLoverX-82CAFA?logo=github" /></a>
+### • LEGENDX     »»  <a href="https://github.com/legendXOp" alt="LegendXOp"> <img src="https://img.shields.io/badge/LegendX-92CAFA?logo=github" /></a>
+### • ROSELOVERX  »»  <a href="https://github.com/Amarnathcdj" alt="RoseLoverX"> <img src="https://img.shields.io/badge/RoseLoverX-82CAFA?logo=github" /></a>
 
 
 > And credits goes to all who supported, all who helped and API & environmental equirement package devs and all projects helped in making this project.
