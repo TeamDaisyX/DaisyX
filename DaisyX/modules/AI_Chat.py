@@ -57,7 +57,7 @@ async def hmm(_, message):
         lel = await edit_or_reply(message, "`Processing...`")
         lol = add_chat(int(message.chat.id))
         if not lol:
-            await lel.edit("Daisy AI Already Activated In This Chat")
+            await lel.edit("Hermione AI Already Activated In This Chat")
             return
         await lel.edit(
             f"Daisy AI Successfully Added For Users In The Chat {message.chat.id}"
@@ -104,13 +104,13 @@ async def hmm(client, message):
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
         querystring = {
-            "bid": "178",
-            "key": "sX5A2PcYZbsN5EY6",
+            "bid": "155752",
+            "key": "MMtvNMsssIColXkn",
             "uid": "mashape",
             "msg": {test},
         }
         headers = {
-            "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+            "x-rapidapi-key": "f6b33d432bmshf2c41919349f22ep121831jsn3708f7a98e09",
             "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
         }
         response = requests.request("GET", url, headers=headers, params=querystring)
@@ -166,13 +166,13 @@ async def hmm(client, message):
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
         querystring = {
-            "bid": "178",
-            "key": "sX5A2PcYZbsN5EY6",
+            "bid": "155752",
+            "key": "MMtvNMsssIColXkn",
             "uid": "mashape",
             "msg": {test},
         }
         headers = {
-            "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+            "x-rapidapi-key": "f6b33d432bmshf2c41919349f22ep121831jsn3708f7a98e09",
             "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
         }
         response = requests.request("GET", url, headers=headers, params=querystring)
@@ -236,13 +236,13 @@ async def inuka(client, message):
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
     querystring = {
-        "bid": "178",
-        "key": "sX5A2PcYZbsN5EY6",
+        "bid": "155752",
+        "key": "MMtvNMsssIColXkn",
         "uid": "mashape",
         "msg": {test},
     }
     headers = {
-        "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+        "x-rapidapi-key": "f6b33d432bmshf2c41919349f22ep121831jsn3708f7a98e09",
         "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
     }
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -313,13 +313,13 @@ async def inuka(client, message):
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
     querystring = {
-        "bid": "178",
-        "key": "sX5A2PcYZbsN5EY6",
+        "bid": "155752",
+        "key": "MMtvNMsssIColXkn",
         "uid": "mashape",
         "msg": {test},
     }
     headers = {
-        "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
+        "x-rapidapi-key": "f6b33d432bmshf2c41919349f22ep121831jsn3708f7a98e09",
         "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
     }
     response = requests.request("GET", url, headers=headers, params=querystring)
