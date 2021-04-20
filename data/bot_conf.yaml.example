@@ -1,0 +1,47 @@
+# DaisyXBot example config
+
+
+# Basic
+TOKEN: ""
+
+# Get they in https://my.telegram.org/
+APP_ID: 000000
+APP_HASH: ""
+
+#Generate a telethon str session  with https://repl.it/@SpEcHiDe/GenerateStringSession (telethon one)
+STRING_SESSION: ""
+
+
+MONGO_URI: "mongodb+srv://dfsdfX:dfsfdX@cluster0.df4j.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+
+MONGO_URI2: ""
+MONGO_PORT: 27017
+MONGO_DB': 'DaisyX'
+
+API_PORT': 8080
+
+REDIS_URI: "redis-1324.c234.us-east-1-4.ec4.cloud.redislabs.com"
+REDIS_PORT: 15514
+REDIS_PASS: "sdfgg"
+TEMP_MAIL_KEY: ""
+OWNER_ID: 1141839926
+OPERATORS: [1141839926, 00000000]
+SUPPORT_CHAT: -000000000
+LYDIA_API_KEY: ""
+
+DATABASE_URL: ""
+VIRUS_API_KEY: ""
+TIME_API_KEY: ""
+REM_BG_API_KEY: ""
+
+# Advanced
+SW_API: ""
+IBM_WATSON_CRED_URL: ""
+IBM_WATSON_CRED_PASSWORD: ""
+OPENWEATHERMAP_ID: ""
+WOLFRAM_ID: ""
+DEBUG_MODE: False
+LOAD_MODULES: True
+LOGS_CHANNEL_ID: -000000000
+ALLOW_FORWARDS_COMMANDS: False
+ALLOW_COMMANDS_WITH_!: False
