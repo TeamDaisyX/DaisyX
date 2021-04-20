@@ -189,18 +189,18 @@ STRINGS:
     emoji_not_allowed: "I'm sorry, but admin roles can't have emojis 😞"
 
   pm_menu:
-    start_hi_group: 'Hey there! My name is Daisy'
-    start_hi: "Hey there! My name is <b>Daisy.</b>\nI can help manage your groups with useful features, feel free to add me to your groups!"
-    btn_source: "📜 Source code"
+    start_hi_group: 'Hey there! My name is Hermione Granger'
+    start_hi: "Hey there! My name is <b>Hermione.</b>\nI can help manage your groups with useful features, feel free to add me to your groups!"
+    btn_source: "❤instragam"
     btn_help: "❔ Help"
     btn_lang: "🇺🇸 Language"
-    btn_channel: "🙋‍♀️ Daisy News"
-    btn_group_help: "Click me for help!"
-    back: Back
+    btn_channel: "😎owner"
+    btn_group_help: "🧐Click me for help!"
+    back: 👋Back
 
     # /help
-    help_header: "Hi Boss! I'm <b>Daisy</b>. An anime themed super powerful group management bot with many handy tools. So why are you waiting. Let me to assist you"
-    click_btn: Click here
+    help_header: "Hi Boss! I'm <b>Hermione😘</b>. An anime themed super powerful group management bot with many handy tools. So why are you waiting. Let me to assist you"
+    click_btn: 😜Click here
 
   disable:
     #/disableable
@@ -626,7 +626,7 @@ STRINGS:
     # success_remove_rules_note: "Successfully removed rules note in <b>{}</b>."
   greetings:
     default_welcome: "Welcome {mention}! How are you?"
-    thank_for_add: "Thanks for adding me to your group! Take a look at /help and follow my news channel @DaisyXUpdates."
+    thank_for_add: "Thanks for adding me to your group! Take a look at /help and follow my school channel @HogwartsPlus."
     default_security_note: "Welcome {mention}! Please press button below to verify yourself as human!"
 
     bool_invalid_arg: Invalid argument, expected <code>on</code>/<code>off</code>.
