@@ -112,6 +112,8 @@ DaisyX-v2.0 (Base AioGram)
 - [annihilatorrrr](https://github.com/annihilatorrrr) 
 - [sithum batrow](https://github.com/sbatrow) 
 - [LEGENDX](https://github.com/LEGENDXOP) 
+- ### • ROSELOVERX  »»  <a href="https://github.com/Amarnathcdj" alt="RoseLoverX"> <img src="https://img.shields.io/badge/RoseLoverX-82CAFA?logo=github" /></a>
+
 
 > And credits goes to all who supported, all who helped and API & environmental equirement package devs and all projects helped in making this project.
 > Special thanks to you for using bot
