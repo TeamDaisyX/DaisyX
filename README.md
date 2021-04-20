@@ -105,7 +105,7 @@ DaisyX-v2.0 (Base AioGram)
 
 
 ## Contributors
-- [Anjana_Ma](https://github.com/Anjana_Ma) 
+### • ANJANA_MA »»  <a href="https://github.com/Anjana_ma" alt="Anjana"> <img src="https://img.shields.io/badge/Anjana-99GAFA?logo=github" /></a>
 - [Dark Prince](https://github.com/Mr-Dark-Prince) 
 - [Official_Bawwa](https://github.com/OfficialBawwa) 
 - [Inuka Asith](https://github.com/inukaasith) 
