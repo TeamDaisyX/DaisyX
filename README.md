@@ -109,7 +109,7 @@ DaisyX-v2.0 (Base AioGram)
 ### • DARK PRINCE »»  <a href="https://github.com/Mr-Dark-Prince" alt="DarkPrince"> <img src="https://img.shields.io/badge/DarkPrince-95B9C7?logo=github" /></a>
 ### • OFFICIAL_BAWWA    »»  <a href="https://github.com/Official_Bawwa" alt="Official_Bawwa"> <img src="https://img.shields.io/badge/Official_Bawwa-90302f?logo=github" /></a>
 ### • INUKA ASITH    »»  <a href="https://github.com/InukaAsith" alt="InukaAsith"> <img src="https://img.shields.io/badge/InukaAsith-107D8D?logo=github" /></a> 
-- [annihilatorrrr](https://github.com/annihilatorrrr) 
+### • Annihilatorrrr   »»  <a href="https://github.com/annihilatorrrr" alt="annihilatorrrr"> <img src="https://img.shields.io/badge/annihilatorrrr-E9E1E9?logo=github" /></a>
 ### • SBATROW BATROW »»  <a href="https://github.com/sbatrow" alt="Sbatrow"> <img src="https://img.shields.io/badge/Sbatrow-22CADA?logo=github" /></a>
 ### • LEGENDX     »»  <a href="https://github.com/legendXOp" alt="LegendXOp"> <img src="https://img.shields.io/badge/LegendX-92CALA?logo=github" /></a>
 ### • ROSELOVERX  »»  <a href="https://github.com/Amarnathcdj" alt="RoseLoverX"> <img src="https://img.shields.io/badge/RoseLoverX-82CAFA?logo=github" /></a>
