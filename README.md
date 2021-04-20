@@ -110,7 +110,7 @@ DaisyX-v2.0 (Base AioGram)
 - [Official_Bawwa](https://github.com/OfficialBawwa) 
 - [Inuka Asith](https://github.com/inukaasith) 
 - [annihilatorrrr](https://github.com/annihilatorrrr) 
-- [sithum batrow](https://github.com/sbatrow) 
+### • SBATROW BATROW »»  <a href="https://github.com/sbatrow" alt="Sbatrow"> <img src="https://img.shields.io/badge/Sbatrow-82CAKA?logo=github" /></a>
 ### • LEGENDX     »»  <a href="https://github.com/legendXOp" alt="LegendXOp"> <img src="https://img.shields.io/badge/LegendX-92CALA?logo=github" /></a>
 ### • ROSELOVERX  »»  <a href="https://github.com/Amarnathcdj" alt="RoseLoverX"> <img src="https://img.shields.io/badge/RoseLoverX-82CAFA?logo=github" /></a>
 
