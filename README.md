@@ -104,7 +104,7 @@ Anything missing kindly let us know at [Daisy Support](https://t.me/DaisySupport
 DaisyX-v2.0 (Base AioGram)
 
 
-## Contributors
+## Devs & Contributors
 
 ### • LUCIFER_MORNINGSTAR    »»  <a href="https://github.com/lucifeermorningstar" alt="lucifeermorningstar"> <img src="https://img.shields.io/badge/lucifeermorningstar-90302f?logo=github" /></a> (OWNER)
 ### • INUKA ASITH    »»  <a href="https://github.com/InukaAsith" alt="InukaAsith"> <img src="https://img.shields.io/badge/InukaAsith-107D8D?logo=github" /></a> (DEV)
@@ -116,7 +116,7 @@ DaisyX-v2.0 (Base AioGram)
 ### • SBATROW BATROW »»  <a href="https://github.com/sbatrow" alt="Sbatrow"> <img src="https://img.shields.io/badge/Sbatrow-22CADA?logo=github" /></a>
 ### • LEGENDX     »»  <a href="https://github.com/legendXOp" alt="LegendXOp"> <img src="https://img.shields.io/badge/LegendX-92CALA?logo=github" /></a>
 
-This project exists thanks to all the people who contribute. [
+This project exists thanks to all the people who contribute.
 <a href="https://github.com/TeamDaisyX/DaisyX-v2.0/graphs/contributors"><img src="https://opencollective.com/TeamDaisyX/contributors.svg?width=890&button=false" /></a>
 
 
