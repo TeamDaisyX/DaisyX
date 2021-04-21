@@ -117,7 +117,8 @@ DaisyX-v2.0 (Base AioGram)
 ### • LEGENDX     »»  <a href="https://github.com/legendXOp" alt="LegendXOp"> <img src="https://img.shields.io/badge/LegendX-92CALA?logo=github" /></a>
 
 This project exists thanks to all the people who contribute.
-<a href="https://github.com/TeamDaisyX/DaisyX-v2.0/graphs/contributors"><img src="https://opencollective.com/TeamDaisyX/contributors.svg?width=890&button=false" /></a>
+
+<a href="https://github.com/TeamDaisyX/DaisyX-v2.0/graphs/contributors"><img src="https://opencollective.com/teamdaisyxdaisy/contributors.svg?width=890&button=false" /></a>
 
 
 > And credits goes to all who supported, all who helped and API & environmental equirement package devs and all projects helped in making this project.
