@@ -112,7 +112,8 @@ Anything missing kindly let us know at [Daisy Support](https://t.me/DaisySupport
 #### • Annihilatorrrr   »»  <a href="https://github.com/annihilatorrrr" alt="annihilatorrrr"> <img src="https://img.shields.io/badge/annihilatorrrr-E9E1E9?logo=github" /></a>
 #### • LEGENDX     »»  <a href="https://github.com/legendXOp" alt="LegendXOp"> <img src="https://img.shields.io/badge/LegendX-92CALA?logo=github" /></a>
 
-### All who helped at a glance 
+
+## All who helped at a glance 
 
 > This project exists thanks to these awesome developers and their codes and contributions.
 
