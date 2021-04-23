@@ -93,15 +93,12 @@ $ python(3) -m DaisyX
 - [Lonami](https://github.com/Lonami) 
 - [AioGram Project group](https://github.com/aiogram) 
 
-The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie)
+The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie) and many other projects
 This repo was just revamped to suit an Anime-centric & comedy loving community. All original credits go to SophieBot and their dedication, Without his efforts, this fork would not have been possible!
 
 All other credits mentioned on top of scripts
 
 Anything missing kindly let us know at [Daisy Support](https://t.me/DaisySupport_Official) or simply submit a pull request on the readme.
-
-# Daisy X the telegram Bot Project
-DaisyX-v2.0 (Base AioGram)
 
 
 ## Devs & Contributors
@@ -113,10 +110,9 @@ DaisyX-v2.0 (Base AioGram)
 ### • DARK PRINCE »»  <a href="https://github.com/Mr-Dark-Prince" alt="DarkPrince"> <img src="https://img.shields.io/badge/DarkPrince-95B9C7?logo=github" /></a>
 ### • OFFICIAL_BAWWA    »»  <a href="https://github.com/Official_Bawwa" alt="Official_Bawwa"> <img src="https://img.shields.io/badge/Official_Bawwa-90302f?logo=github" /></a>
 ### • Annihilatorrrr   »»  <a href="https://github.com/annihilatorrrr" alt="annihilatorrrr"> <img src="https://img.shields.io/badge/annihilatorrrr-E9E1E9?logo=github" /></a>
-### • SBATROW BATROW »»  <a href="https://github.com/sbatrow" alt="Sbatrow"> <img src="https://img.shields.io/badge/Sbatrow-22CADA?logo=github" /></a>
 ### • LEGENDX     »»  <a href="https://github.com/legendXOp" alt="LegendXOp"> <img src="https://img.shields.io/badge/LegendX-92CALA?logo=github" /></a>
 
-This project exists thanks to all the people who contribute.
+> This project exists thanks to these awesome developers and their codes and contributions.
 
 <a href="https://github.com/TeamDaisyX/DaisyX-v2.0/graphs/contributors"><img src="https://opencollective.com/teamdaisyxdaisy/contributors.svg?width=890&button=false" /></a>
 
