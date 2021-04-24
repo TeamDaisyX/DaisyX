@@ -1,6 +1,7 @@
 {
-  "name": "DaisyX",
-  "description": "?",
+  "name": "MissValentina",
+  "logo": "https://telegra.ph/file/92304bd02a79038e2f16c.jpg",
+  "description": "This is Group Management Bot Based on Aiogram",
   "keywords": [
     "telegram",
     "Daisy",
@@ -8,9 +9,8 @@
     "telegram-DaisyX",
     "fuck-TG"
   ],
-  "repository": "https://github.com/TeamDaisyX/Daisy-x",
-  "website": "daisyproject.studio",
-  "success_url": "t.me/DaisyXUpdates",
+  "repository": "https://github.com/MissValentina/MissValentina",
+  "success_url": "t.me/missvalentinaupdates",
   "buildpacks": [
    {
      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
@@ -58,7 +58,7 @@
     },
     "UPSTREAM_REPO_URL": {
       "description": "Only for fork users else don't change",
-      "value": "https://github.com/TeamDaisyX/DaisyX-v2.0",
+      "value": "https://github.com/MissValentina/MissValentina-v2.0",
       "required": false  
     },
     "API_PORT": {
