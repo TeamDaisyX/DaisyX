@@ -1,42 +1,42 @@
 
-<h1 align="center"><b>❤️ DaisyX 2.0  ❤️</b></h1>
+<h1 align="center"><b>❤️ MissValentinaBot 2.0  ❤️</b></h1>
 
 <h4 align="center">A Powerful, Smart And Simple Group Manager <br> ... Written with AioGram , Pyrogram and Telethon...</h4>
 <p align='center'>
   <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=flat-square&logo=python&color=blue" /> </a>
-  <a href="https://github.com/TeamDaisyX/DaisyX-v2/graphs/commit-activity" alt="Maintenance"> <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square" /> </a>
+  <a href="https://github.com/MissValentinaBot/MissValentina-v2.0/graphs/commit-activity" alt="Maintenance"> <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square" /> </a>
 </p>
 
 <p align="center"><a href="https://t.me/DaisySupport_Official"><img src="https://telegra.ph/file/23448c98735bd81df47e7.jpg" width="400"></a></p>
 <p align="center">
-    <a href="https://app.codacy.com/manual/teamdaisyx/daisyx-v2.0/dashboard"> <img src="https://img.shields.io/codacy/grade/4d58f2a402b54aed8a7d95f7add45a81?color=brightgreen&logo=codacy&logoColor=green&style=for-the-badge" alt="Codacy" /></a>
-    <a href="https://github.com/teamdaisyx/daisyx-v2.0"> <img src="https://img.shields.io/github/repo-size/teamdaisyx/daisyx-v2.0?color=orange&logo=github&logoColor=green&style=for-the-badge" /></a>
-    <a href="https://github.com/teamdaisyx/daisyx-v2.0/commits/inukaasith"> <img src="https://img.shields.io/github/last-commit/teamdaisyx/daisyx-v2.0?color=brown&logo=github&logoColor=green&style=for-the-badge" /></a>
-    <a href="https://github.com/teamdaisyx/daisyx-v2.0/issues"> <img src="https://img.shields.io/github/issues/teamdaisyx/daisyx-v2.0?color=blueviolet&logo=github&logoColor=green&style=for-the-badge" /></a>
-    <a href="https://github.com/teamdaisyx/daisyx-v2.0/network/members"> <img src="https://img.shields.io/github/forks/teamdaisyx/daisyx-v2.0?color=red&logo=github&logoColor=green&style=for-the-badge" /></a>  
+    <a href="https://app.codacy.com/manual/MissValentinaBot/MissValentinaBot-v2.0/dashboard"> <img src="https://img.shields.io/codacy/grade/4d58f2a402b54aed8a7d95f7add45a81?color=brightgreen&logo=codacy&logoColor=green&style=for-the-badge" alt="Codacy" /></a>
+    <a href="https://github.com/MissValentinaBot/MissValentinaBot-v2.0"> <img src="https://img.shields.io/github/repo-size/teamdaisyx/daisyx-v2.0?color=orange&logo=github&logoColor=green&style=for-the-badge" /></a>
+    <a href="https://github.com/MissValentinaBot/MissValentinaBot-v2.0/commits/inukaasith"> <img src="https://img.shields.io/github/last-commit/teamdaisyx/daisyx-v2.0?color=brown&logo=github&logoColor=green&style=for-the-badge" /></a>
+    <a href="https://github.com/MissValentinaBot/MissValentinaBot-v2.0/issues"> <img src="https://img.shields.io/github/issues/teamdaisyx/daisyx-v2.0?color=blueviolet&logo=github&logoColor=green&style=for-the-badge" /></a>
+    <a href="https://github.com/MissValentinaBot/MissValentinaBot-v2.0/network/members"> <img src="https://img.shields.io/github/forks/teamdaisyx/daisyx-v2.0?color=red&logo=github&logoColor=green&style=for-the-badge" /></a>  
     <a href="https://pypi.org/project/Telethon/"> <img src="https://img.shields.io/pypi/v/telethon?color=yellow&label=telethon&logo=python&logoColor=green&style=for-the-badge" /></a>
 </p>
 
-> ⭐️ Thanks to everyone who starred Daisy, That is the greatest pleasure we have !
+> ⭐️ Thanks to everyone who starred MissValentina, That is the greatest pleasure we have !
 
 ### The first AioGram based modified groupmanagement bot fully optimized for heroku deploys
-### https://daisyproject.studio
-## Avaiilable on Telegram as [@DaisyXBot](https://t.me/daisyxbot)
+
+## Avaiilable on Telegram as [@MissValentinaV2Bot](https://t.me/MissValentinaV2Bot)
 
 # 🏃‍♂️ Easy Deploy 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamDaisyX/DaisyX-v2.0.git)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/MissValentinaBot/MissValentinaBot-v2.0.git)
 
 [Generate String Session](https://replit.com/@SpEcHiDe/GenerateStringSession)  << Select telethon
 
 # ❤️ Support
-<a href="https://t.me/DaisySupport_Official"><img src="https://img.shields.io/badge/Join-Telegram%20Channel-red.svg?logo=Telegram"></a>
-<a href="https://t.me/DaisyXupdates"><img src="https://img.shields.io/badge/Join-Telegram%20Group-blue.svg?logo=telegram"></a>
+<a href="https://t.me/MissValientinaSupportGroup"><img src="https://img.shields.io/badge/Join-Telegram%20Channel-red.svg?logo=Telegram"></a>
+<a href="https://t.me/missvalentinaupdates"><img src="https://img.shields.io/badge/Join-Telegram%20Group-blue.svg?logo=telegram"></a>
 
 ### Self-hosting (For Devs) ⚔
 ```sh
 # Install Git First (apt-instll git)
-$ git clone https://github.com/TeamDaisyX/DaisyX-v2.0
-$ cd DaisyX-v2.0
+$ git clone https://github.com/MissValentinaBot/MissValentinaBot-v2.0
+$ cd MissValentinaBot-v2.0
 # Upgrade sources
 $ bash deploy.sh
 # Install All Requirements 
@@ -100,8 +100,8 @@ All other credits mentioned on top of scripts
 
 Anything missing kindly let us know at [Daisy Support](https://t.me/DaisySupport_Official) or simply submit a pull request on the readme.
 
-# Daisy X the telegram Bot Project
-DaisyX-v2.0 (Base AioGram)
+# MissValentinaBot-v2.0 the telegram Bot Project
+MissValentinaBot-v2.0 (Base AioGram)
 
 
 ## Devs & Contributors
@@ -118,7 +118,7 @@ DaisyX-v2.0 (Base AioGram)
 
 This project exists thanks to all the people who contribute.
 
-<a href="https://github.com/TeamDaisyX/DaisyX-v2.0/graphs/contributors"><img src="https://opencollective.com/teamdaisyxdaisy/contributors.svg?width=890&button=false" /></a>
+<a href="https://github.com/MissValentina/MissValentina-v2.0/graphs/contributors"><img src="https://opencollective.com/MissValentinaBot/contributors.svg?width=890&button=false" /></a>
 
 
 > And credits goes to all who supported, all who helped and API & environmental equirement package devs and all projects helped in making this project.
