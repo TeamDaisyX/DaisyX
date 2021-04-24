@@ -24,6 +24,7 @@
 ## Avaiilable on Telegram as [@MissValentinaV2Bot](https://t.me/MissValentinaV2Bot)
 
 # 🏃‍♂️ Easy Deploy 
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/MissValentinaBot/MissValentinaBot-v2.0.git)
 
 [Generate String Session](https://replit.com/@SpEcHiDe/GenerateStringSession)  << Select telethon
