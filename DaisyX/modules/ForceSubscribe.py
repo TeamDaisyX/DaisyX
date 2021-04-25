@@ -125,7 +125,7 @@ def _check_member(client, message):
                     )
                 except ChatAdminRequired:
                     sent_message.edit(
-                        "❗ **Daisy is not admin here..**\n__Give me ban permissions and retry.. \n#Ending FSub...__"
+                        "❗ **MissValentina is not admin here..**\n__Give me ban permissions and retry.. \n#Ending FSub...__"
                     )
 
             except ChatAdminRequired:
@@ -195,7 +195,7 @@ def config(client, message):
 
 __help__ = """
 *ForceSubscribe:*
-✪ Daisy can mute members who are not subscribed your channel until they subscribe
+✪ MissValentina can mute members who are not subscribed your channel until they subscribe
 ✪ When enabled I will mute unsubscribed members and show them a unmute button. When they pressed the button I will unmute them
 *Setup*
 1) First of all add me in the group as admin with ban users permission and in the channel as admin.
