@@ -137,7 +137,7 @@ STRINGS:
     # /delwarns
     purged_warns: "{admin} reset <code>{num}</code> warns of {user} in <b>{chat_title}</b>!"
     usr_no_wrn: "{user} doesn't have any warns to reset."
-    rst_wrn_sofi: 'Daisy never had warns to reset.'
+    rst_wrn_sofi: 'MissValentina never had warns to reset.'
     not_digit: Warnlimits should be digits!
 
     # /warnmode
@@ -626,7 +626,7 @@ STRINGS:
     # success_remove_rules_note: "Successfully removed rules note in <b>{}</b>."
   greetings:
     default_welcome: "Welcome {mention}! How are you?"
-    thank_for_add: "Thanks for adding me to your group! Take a look at /help and follow my news channel @DaisyXUpdates."
+    thank_for_add: "Thanks for adding me to your group! Take a look at /help and follow my news channel @missvalentinaupdates."
     default_security_note: "Welcome {mention}! Please press button below to verify yourself as human!"
 
     bool_invalid_arg: Invalid argument, expected <code>on</code>/<code>off</code>.
