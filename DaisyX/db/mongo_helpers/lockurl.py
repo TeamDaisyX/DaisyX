@@ -1,6 +1,6 @@
 from DaisyX.services.mongo import mongodb as db_x
 
-lockurl = db_x["LOCKURL"]
+lockurl = db_x["Lockurlp"]
 
 
 def add_chat(chat_id):

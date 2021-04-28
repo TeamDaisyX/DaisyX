@@ -13,5 +13,5 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-DAISY_VERSION = "v2.3.0-H1.0"
+DAISY_VERSION = "v2.2.8-H4.0"
 DB_STRUCTURE_VER = 8

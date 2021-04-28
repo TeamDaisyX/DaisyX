@@ -1,13 +1,15 @@
-# Part of this file Ported From William Butcher Bot :- https://github.com/thehamkercat/WilliamButcherBot/edit/dev/wbb/modules/webss.py .
-# Credits to WilliamButcherBot.
+# Must Need to Do For Using This Plugin Given Below:-
+# Port DaisyX/pyroplugs/inlinehelper.py and DaisyX/pyroplugs/formatter.py for using this plugin.
+# Also Check Requirements in this repo Requirements Clearly Mentioned The Requirements needed for this plugin. If that requirements is not available at your repo then add it.
+# Also Need Some Additions At Config Yet Not Added. So Wait Few Time tell plugin don't ready completely to work.
 
 import io
 import re
 import sys
 import traceback
-
+import logging
 import time
-
+import string
 # Extra Plugins Provided By Team Daisy X
 # Ported From WilliamButcher Bot.
 # All Credit Goes to WilliamButcherBot
@@ -32,28 +34,13 @@ from pyrogram.types import (
 )
 from tswift import Song
 from youtubesearchpython import VideosSearch
-
-from DaisyX.function.inlinehelper import (
-    alive_function,
-    arq,
-    deezer_func,
-    google_search_func,
-    inline_help_func,
-    paste_func,
-    saavn_func,
-    shortify,
-    torrent_func,
-    translate_func,
-    urban_func,
-    wall_func,
-    webss,
-)
+from random import choice
+from DaisyX.function.inlinehelper import *
 from DaisyX.function.pluginhelpers import fetch, json_prettify
 from DaisyX.services.pyrogram import pbot as app
 from DaisyX.config import get_str_key
 from search_engine_parser import GoogleSearch
-import wikipedia
-from wikipedia.exceptions import DisambiguationError, PageError
+
 
 OPENWEATHERMAP_ID = get_str_key("OPENWEATHERMAP_ID", "")
 TIME_API_KEY = get_str_key("TIME_API_KEY", required=False)
@@ -108,7 +95,6 @@ __help__ = """
 - imdb [QUERY] - Search movies on imdb.
 - spaminfo [ID] - Get spam info of the user.
 - lyrics [QUERY] - Get lyrics of the song.
-- math [PROBLEM] - Solves math problem.
 - paste [TEXT] - Paste text on pastebin.
 - define [WORD] - Get definition from Dictionary.
 - synonyms [WORD] - Get synonyms from Dictionary.
@@ -122,6 +108,8 @@ __help__ = """
 - app [QUERY] - Search for apps in playstore.
 - gh [QUERY] - Search github.
 - so [QUERY] - Search stack overflow.
+- wiki [QUERY] - Search wikipedia.
+- ping - Check ping rate.
 """
 
 __MODULE__ = "Inline"
@@ -150,7 +138,6 @@ __HELP__ = """
 - **imdb [QUERY]** - __Search movies on imdb.__
 - **spaminfo [id]** - __Get spam info of the user.__
 - **lyrics [QUERY]** - __Get lyrics of given song.__
-- **math [PROBLEM]** - __Solves math problem.__
 - **paste [TEXT]** - __Paste text on pastebin.__
 - **define [WORD]** - __Get definition from Dictionary.__
 - **synonyms [WORD]** - __Get synonyms from Dictionary.__
@@ -164,6 +151,8 @@ __HELP__ = """
 - **app [QUERY]** - __Search for apps on playstore.
 - **gh [QUERY]** - __Search github.__
 - **so [QUERY]** - __Search stack overfolw.__
+- **wiki [QUERY]** - __Search wikipedia.__
+- **ping** - __Check ping rate.__
 """
 
 
@@ -205,7 +194,33 @@ async def inline_query_handler(client, query):
             tex = text.split(None, 1)[1]
             answerss = await shortify(tex)
             await client.answer_inline_query(query.id, results=answerss, cache_time=2)
+        elif text.split()[0] == "wiki":
+            if len(text.split()) < 2:
+                await client.answer_inline_query(
+                    query.id,
+                    results=answers,
+                    switch_pm_text='Wikipedia | wiki [QUERY]',
+                    switch_pm_parameter='inline',
+                )
+                return
+            tex = text.split(None, 1)[1].strip()
+            answerss = await wiki_func(answers, tex)
+            await client.answer_inline_query(
+                query.id,
+                results=answerss,
+                cache_time=2
+            )
 
+
+        elif text.split()[0] == "ping":
+            answerss = await ping_func(answers)
+            await client.answer_inline_query(
+                query.id,
+                results=answerss,
+                cache_time=2
+            )
+            return
+        
         elif text.split()[0] == "yt":
             answers = []
             search_query = text.split(None, 1)[1]
@@ -514,46 +529,6 @@ async def inline_query_handler(client, query):
                     description="Click here to see lyrics",
                     input_message_content=InputTextMessageContent(
                         reply, disable_web_page_preview=False
-                    ),
-                )
-            )
-            await client.answer_inline_query(query.id, cache_time=0, results=results)
-        elif text.split()[0] == "math":
-            lel = text.split(None, 1)[1]
-            results = []
-            cmd = lel
-            old_stderr = sys.stderr
-            old_stdout = sys.stdout
-            redirected_output = sys.stdout = io.StringIO()
-            redirected_error = sys.stderr = io.StringIO()
-            stdout, stderr, exc = None, None, None
-            san = f"print({cmd})"
-            try:
-                await aexec(san, client)
-            except Exception:
-                exc = traceback.format_exc()
-            stdout = redirected_output.getvalue()
-            stderr = redirected_error.getvalue()
-            sys.stdout = old_stdout
-            sys.stderr = old_stderr
-            evaluation = ""
-            if exc:
-                evaluation = exc
-            elif stderr:
-                evaluation = stderr
-            elif stdout:
-                evaluation = stdout
-            else:
-                evaluation = "Sorry Daisy can't find result for the given equation"
-            final_output = "**EQUATION**: `{}` \n\n **SOLUTION**: \n`{}` \n".format(
-                cmd, evaluation
-            )
-            results.append(
-                InlineQueryResultArticle(
-                    title="Math Problem Solved",
-                    description=f"Solution - {evaluation} \nClick to see more",
-                    input_message_content=InputTextMessageContent(
-                        final_output, disable_web_page_preview=False
                     ),
                 )
             )
@@ -991,16 +966,11 @@ async def inline_query_handler(client, query):
                 )
             )
             await client.answer_inline_query(query.id, cache_time=0, results=results)
-            
 
     except (IndexError, TypeError, KeyError, ValueError):
         return
 
 
-async def aexec(code, client):
-    exec(f"async def __aexec(client): " + "".join(f"\n {l}" for l in code.split("\n")))
-    return await locals()["__aexec"](client)
- 
 
 def generate_time(to_find: str, findtype: List[str]) -> str:
     data = requests.get(

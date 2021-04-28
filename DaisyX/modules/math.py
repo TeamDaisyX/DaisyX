@@ -27,6 +27,18 @@ from .utils.disable import disableable_dec
 from .utils.message import get_args_str
 
 
+@register(cmds=["math", "simplify"])
+@disableable_dec("math")
+async def _(message):
+    args = get_args_str(message)
+    response = requests.get(f"https://newton.now.sh/api/v2/simplify/{args}")
+    c = response.text
+    obj = json.loads(c)
+    j = obj["result"]
+    await message.reply(j)
+
+
+
 @register(cmds=["factor", "factorize"])
 @disableable_dec("factor")
 async def _(message):

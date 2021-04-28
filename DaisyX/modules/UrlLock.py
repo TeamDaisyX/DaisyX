@@ -88,10 +88,4 @@ async def hi(client, message):
         message.continue_propagation()
 
 
-__mod_name__ = "URL Block"
-__help__ = """
-<b> Block links sent by users in your group </b>
 
-- /urllock [on/off]: Enable/Disable URL Lock
-
-"""

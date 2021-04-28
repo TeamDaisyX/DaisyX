@@ -1,0 +1,189 @@
+import os, re
+from telethon import events
+from telethon.utils import pack_bot_file_id
+from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot
+from DaisyX.services.mongo import mongodb as db
+from DaisyX.services.sql.welcome_sql import (
+    add_goodbye_setting,
+    get_current_goodbye_settings,
+    rm_goodbye_setting,
+    update_previous_goodbye,
+)
+
+from telethon import *
+from telethon.tl import *
+from DaisyX import *
+import random
+from telethon.tl.functions.channels import EditBannedRequest
+
+from telethon.tl.types import ChatBannedRights
+
+
+
+
+
+
+async def can_change_info(message):
+    result = await tbot(
+        functions.channels.GetParticipantRequest(
+            channel=message.chat_id,
+            user_id=message.sender_id,
+        )
+    )
+    p = result.participant
+    return isinstance(p, types.ChannelParticipantCreator) or (
+        isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.change_info
+    )
+
+
+global longbutton
+global butto
+
+@tbot.on(events.ChatAction())  # pylint:disable=E0602
+async def _(event):
+    # print("yo")
+    cws = get_current_goodbye_settings(event.chat_id)
+    if cws:
+        # print("gotcha")
+        # print(event.stringify())
+        """user_added=False,
+        user_joined=False,
+        user_left=True,
+        user_kicked=True,"""
+        if event.user_kicked or event.user_left:
+            # print ("1")
+            if cws.should_clean_goodbye:
+                # print ("2")
+                try:
+                    await tbot.delete_messages(  # pylint:disable=E0602
+                        event.chat_id, cws.previous_goodbye
+                    )
+                except Exception as e:  # pylint:disable=C0103,W0703
+                    print(e)  # pylint:disable=E0602
+            # print ("3")
+            a_user = await event.get_user()
+            chat = await event.get_chat()
+            me = await tbot.get_me()
+
+            title = chat.title if chat.title else "this chat"
+            participants = await event.client.get_participants(chat)
+            count = len(participants)
+            mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
+            first = a_user.first_name
+            last = a_user.last_name
+            if last:
+                fullname = f"{first} {last}"
+            else:
+                fullname = first
+            username = (
+                f"@{me.username}" if me.username else f"[Me](tg://user?id={me.id})"
+            )
+            userid = a_user.id
+            current_saved_goodbye_message = cws.custom_goodbye_message
+            mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
+            # print(current_saved_goodbye_message)
+            current_message = await event.reply(
+                current_saved_goodbye_message.format(
+                    mention=mention,
+                    title=title,
+                    count=count,
+                    first=first,
+                    last=last,
+                    fullname=fullname,
+                    username=username,
+                    userid=userid,
+                ),
+                file=cws.media_file_id,
+            )
+            # print (current_message)
+            update_previous_goodbye(event.chat_id, current_message.id)
+
+@register(pattern="^/setgoodbye$")  # pylint:disable=E0602
+async def _(event):
+    if event.fwd_from:
+        return
+    if not await can_change_info(message=event):
+        return
+    msg = await event.get_reply_message()
+    if not msg:
+        await event.reply("Reply to a message please.")
+        return
+    if msg and msg.media:
+        tbot_api_file_id = pack_bot_file_id(msg.media)
+        add_goodbye_setting(event.chat_id, msg.text, False, 0, tbot_api_file_id)
+        await event.reply("Goodbye message saved. ")
+    else:
+        input_str = msg.text
+        add_goodbye_setting(event.chat_id, input_str, False, 0, None)
+        await event.reply("Goodbye message saved. ")
+
+
+@register(pattern="^/cleargoodbye$")  # pylint:disable=E0602
+async def _(event):
+    if event.fwd_from:
+        return
+    if not await can_change_info(message=event):
+        return
+    cws = get_current_goodbye_settings(event.chat_id)
+    rm_goodbye_setting(event.chat_id)
+    await event.reply(
+        "Goodbye message cleared. "
+        + "The previous goodbye message was `{}`".format(cws.custom_goodbye_message)
+    )
+
+
+@register(pattern="^/checkgoodbye$")  # pylint:disable=E0602
+async def _(event):
+    if event.fwd_from:
+        return
+    if not await can_change_info(message=event):
+        return
+    cws = get_current_goodbye_settings(event.chat_id)
+    if hasattr(cws, "custom_goodbye_message"):
+        await event.reply(
+            "This chat's goodbye message is\n\n`{}`".format(cws.custom_goodbye_message)
+        )
+    else:
+        await event.reply("No goodbye message found for this chat")
+
+
+@register(pattern="^/cleangoodbye(?: |$)(.*)")  # pylint:disable=E0602
+async def _(event):
+    if event.fwd_from:
+        return
+    if not await can_change_info(message=event):
+        return
+    input = event.pattern_match.group(1)
+    cws = get_current_goodbye_settings(event.chat_id)
+    if hasattr(cws, "custom_goodbye_message"):
+        pass
+    else:
+        if input in "on":
+            add_goodbye_setting(event.chat_id, "", True, 0, None)
+            await event.reply("I will clean old welcone messages from now.")
+            return
+        if input in "off":
+            add_goodbye_setting(event.chat_id, "", False, 0, None)
+            await event.reply("I will not clean old welcone messages from now.")
+            return
+        if not input == "on" and not input == "off":
+            await event.reply("I only understand by on or off")
+            return
+    mssg = cws.custom_goodbye_message
+    pvw = cws.previous_goodbye
+    mfid = cws.media_file_id
+    if cws.should_clean_goodbye is True:
+        await event.reply("I am already cleaning old welcone messages.")
+        return
+    if input in "on":
+        rm_goodbye_setting(event.chat_id)
+        add_goodbye_setting(event.chat_id, mssg, True, pvw, mfid)
+        await event.reply("I will clean old welcone messages from now.")
+    if input in "off":
+        rm_goodbye_setting(event.chat_id)
+        add_goodbye_setting(event.chat_id, mssg, False, pvw, mfid)
+        await event.reply("I will not clean old welcone messages from now.")
+    if not input == "on" and not input == "off":
+        await event.reply("I only understand by on or off")
+        return

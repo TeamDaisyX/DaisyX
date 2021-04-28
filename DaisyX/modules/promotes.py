@@ -98,16 +98,3 @@ async def demote(message, chat, user, strings):
     )
 
 
-__mod_name__ = "Admin"
-
-__help__ = """
-Make it easy to promote and demote users with the admin module!
-<b>Available commands:</b>
-- /promote (user) (?admin's title): Promotes the user to admin.
-- /demote (user): Demotes the user from admin.
-- /adminlist: Shows all admins of the chat.
-- /admincache: Update the admin cache, to take into account new admins/admin permissions.
-Example:
-Sometimes, you promote or demote an admin manually, and Daisy doesn't realise it immediately. This is because to avoid spamming telegram servers, admin status is cached locally.
-This means that you sometimes have to wait a few minutes for admin rights to update. If you want to update them immediately, you can use the /admincache command; that'll force Daisy to check who the admins are again.
-"""

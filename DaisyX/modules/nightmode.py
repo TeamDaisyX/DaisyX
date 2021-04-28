@@ -161,4 +161,6 @@ __help__ = """
 Close your group at 12.00 a.m. and open back at 6.00 a.m.(IST)
 <i> Only available for asian countries (India Standard time)</i>
 
+- /nightmode [ON/OFF]: Enable/Disable Night Mode.
+
 """

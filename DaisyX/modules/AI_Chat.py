@@ -120,14 +120,16 @@ async def hmm(_, message):
 
 
 @daisyx.on_message(
-    filters.text & filters.reply & ~filters.bot & ~filters.via_bot & ~filters.forwarded,
+    filters.text & filters.reply & ~filters.bot & ~filters.edited & ~filters.via_bot & ~filters.forwarded,
     group=2,
 )
 async def hmm(client, message):
     if not get_session(int(message.chat.id)):
-        message.continue_propagation()
+        return
+    if not message.reply_to_message:
+        return        
     if message.reply_to_message.from_user.id != BOT_ID:
-        message.continue_propagation()
+        return
     msg = message.text
     chat_id = message.chat.id
     if msg.startswith("/") or msg.startswith("@"):
@@ -188,7 +190,7 @@ async def hmm(client, message):
         else:
             rm = msg
             # print (rm)
-            lan = translator.detect(rm)
+        lan = translator.detect(rm)
         test = rm
         if not "en" in lan and not lan == "":
             test = translator.translate(test, lang_tgt="en")
@@ -225,7 +227,7 @@ async def hmm(client, message):
             print(e)
 
 
-@daisyx.on_message(filters.text & filters.private & filters.reply & ~filters.bot)
+@daisyx.on_message(filters.text & filters.private & ~filters.edited & filters.reply & ~filters.bot)
 async def inuka(client, message):
     msg = message.text
     if msg.startswith("/") or msg.startswith("@"):
@@ -258,7 +260,7 @@ async def inuka(client, message):
     else:
         rm = msg
         # print (rm)
-        lan = translator.detect(rm)
+    lan = translator.detect(rm)
     test = rm
     if not "en" in lan and not lan == "":
         test = translator.translate(test, lang_tgt="en")
@@ -302,6 +304,7 @@ async def inuka(client, message):
     & ~filters.forwarded
     & ~filters.reply
     & ~filters.channel
+    & ~filters.edited
 )
 async def inuka(client, message):
     msg = message.text
@@ -335,7 +338,7 @@ async def inuka(client, message):
     else:
         rm = msg
         # print (rm)
-        lan = translator.detect(rm)
+    lan = translator.detect(rm)
     test = rm
     if not "en" in lan and not lan == "":
         test = translator.translate(test, lang_tgt="en")
@@ -379,18 +382,11 @@ __help__ = """
 * DaisyAI can detect and reply upto 200 languages by now *
  - /chatbot EN : Enables English only chatbot
  
-<b> Lydia </b>
-<i> PRESENTING DAISY'S LYDIA, EXCLUSIVE CHAT FEATURE DETECT UPTO 200 LANGUAGES & REPLY USING LYDIA AI</i>
- - /addlydia: Activates lydia on your group
-* Daisy AI can detect and reply upto 200 languages by now *
- - /enlydia : Enables English only chat AI
- - /rmlydia : Deactivates lydia on your group (UNSTABLE)
  
 <b> Assistant </b>
  - /ask <i>question</i>: Ask question from daisy
  - /ask <i> reply to voice note</i>: Get voice reply
  
-<i> Lydia AI can be unstable sometimes </i>
 """
 
 __mod_name__ = "AI Assistant"

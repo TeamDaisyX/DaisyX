@@ -68,6 +68,7 @@ $ python(3) -m DaisyX
 
  - [Hitsuki](https://github.com/HitsukiNetwork/Hitsukix)
  - [SophieBot](https://gitlab.com/SophieBot/sophie)
+ - [Alita_Robot](https://github.com/Divkix/Alita_Robot/)
  - [FridayUserbot](https://github.com/DevsExpo/FridayUserbot)
  - [MissJuliaRobot](https://github.com/MissJuliaRobot/MissJuliaRobot)
  - [DaisyX](https://github.com/teamdaisyx/daisy-x)
@@ -80,6 +81,7 @@ $ python(3) -m DaisyX
 ## Special Credits
 - [SophieBot Devs](https://gitlab.com/SophieBot)
 - [TroJanzHEX](https://github.com/TroJanzHEX)
+- [infotechbro](https://github.com/infotechbro/)
 - [AlbertEinsteinTG](https://github.com/AlbertEinsteinTG)
 - [Amarnath c](https://github.com/Amarnathcdj)
 - [Thehamkercat](https://github.com/thehamkercat)
@@ -106,6 +108,7 @@ Anything missing kindly let us know at [Daisy Support](https://t.me/DaisySupport
 #### • LUCIFER_MORNINGSTAR    »»  <a href="https://github.com/lucifeermorningstar" alt="lucifeermorningstar"> <img src="https://img.shields.io/badge/lucifeermorningstar-90302f?logo=github" /></a> (OWNER)
 #### • INUKA ASITH    »»  <a href="https://github.com/InukaAsith" alt="InukaAsith"> <img src="https://img.shields.io/badge/InukaAsith-107D8D?logo=github" /></a> (DEV)
 #### • ROSELOVERX  »»  <a href="https://github.com/Amarnathcdj" alt="RoseLoverX"> <img src="https://img.shields.io/badge/RoseLoverX-82CAFA?logo=github" /></a> (DEV)
+#### • INFOTECHBRO  »»  <a href="https://github.com/infotechbro" alt="infotechbro"> <img src="https://img.shields.io/badge/infotechbro-82CAFA?logo=github" /></a> (DEV)
 #### • ANJANA_MA »»  <a href="https://github.com/Anjana_ma" alt="Anjana"> <img src="https://img.shields.io/badge/Anjana-30302f?logo=github" /></a>
 #### • DARK PRINCE »»  <a href="https://github.com/Mr-Dark-Prince" alt="DarkPrince"> <img src="https://img.shields.io/badge/DarkPrince-95B9C7?logo=github" /></a>
 #### • OFFICIAL_BAWWA    »»  <a href="https://github.com/Official_Bawwa" alt="Official_Bawwa"> <img src="https://img.shields.io/badge/Official_Bawwa-90302f?logo=github" /></a>
@@ -122,3 +125,4 @@ Anything missing kindly let us know at [Daisy Support](https://t.me/DaisySupport
 
 > And credits goes to all who supported, all who helped and API & environmental equirement package devs and all projects helped in making this project.
 > Special thanks to you for using bot
+

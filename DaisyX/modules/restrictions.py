@@ -493,4 +493,14 @@ General admin's rights is restrict users and control their rules with this modul
 <b>Examples:</b>
 <code>- Mute a user for two hours.
 -> /tmute @username 2h</code>
+
+
+<b>Chat Restrictions (Other)</b>
+
+<b>Global Mode:</b>
+- /globalmode [ON/OFF]: Force group members to speak English in chat.
+
+<b>Profanity:</b>
+- /profanity [ON/OFF]: Enable/Disable slag word cleaning.
+
 """

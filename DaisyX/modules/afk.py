@@ -98,8 +98,3 @@ async def _(event):
     userid = ""  # after execution
     let = ""  # after execution
 
-
-_mod_name_ = "AFK"
-_help_ = """
- - /afk [reason]: mark yourself as AFK(Away From Keyboard)
-"""

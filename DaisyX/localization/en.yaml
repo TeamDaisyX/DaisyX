@@ -196,7 +196,7 @@ STRINGS:
     btn_lang: "🇺🇸 Language"
     btn_channel: "🙋‍♀️ Daisy News"
     btn_group_help: "Click me for help!"
-    back: Back
+    back: "🏃‍♂️ Back"
 
     # /help
     help_header: "Hi Boss! I'm <b>Daisy</b>. An anime themed super powerful group management bot with many handy tools. So why are you waiting. Let me to assist you"

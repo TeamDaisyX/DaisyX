@@ -32,7 +32,8 @@ from telethon.tl.types import (
     InputStickerSetShortName,
     MessageMediaPhoto,
 )
-
+from pyrogram import filters
+from DaisyX.services.pyrogram import pbot
 from DaisyX import bot
 from DaisyX.decorator import register
 from DaisyX.services.events import register as Daisy
@@ -117,6 +118,7 @@ def find_instance(items, class_or_tuple):
         if isinstance(item, class_or_tuple):
             return item
     return None
+
 
 
 @Daisy(pattern="^/searchsticker (.*)")
@@ -412,6 +414,17 @@ async def get_sticker(message, strings):
     )
 
 
+@pbot.on_message(filters.command("sticker_id") & ~filters.edited)
+async def sticker_id(_, message):
+    if not message.reply_to_message:
+        await message.reply_text("Reply to a sticker.")
+        return
+    if not message.reply_to_message.sticker:
+        await message.reply_text("Reply to a sticker.")
+        return
+    file_id = message.reply_to_message.sticker.file_id
+    await message.reply_text(f"`{file_id}`")
+    
 __mod_name__ = "Stickers"
 
 __help__ = """
@@ -421,5 +434,6 @@ Stickers are the best way to show emotion.
 - /search: Search stickers for given query.
 - /packinfo: Reply to a sticker to get it's pack info
 - /getsticker: Uploads the .png of the sticker you've replied to
+- /sticker_id : Reply to Sticker for getting sticker Id. 
 - /kang <i>emoji for sticker</i>: Reply to Image / Sticker to Kang!
 """

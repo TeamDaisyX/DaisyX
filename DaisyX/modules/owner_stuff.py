@@ -21,7 +21,7 @@ import sys
 import rapidjson
 import requests
 
-from DaisyX import DAISY_VERSION, OPERATORS, OWNER_ID, bot, dp
+from DaisyX import DAISY_VERSION, OPERATORS, OWNER_ID, SUDO_USERS, bot, dp
 from DaisyX.decorator import COMMANDS_ALIASES, REGISTRED_COMMANDS, register
 from DaisyX.modules import LOADED_MODULES
 from DaisyX.services.mongo import db, mongodb
@@ -267,7 +267,7 @@ async def __stats__():
 
 @get_strings_dec("owner_stuff")
 async def __user_info__(message, user_id, strings):
-    if user_id == OWNER_ID:
+    if user_id in SUDO_USERS:
         return strings["father"]
     elif user_id in OPERATORS:
         return strings["sudo_crown"]

@@ -1154,9 +1154,4 @@ Saving attachments on welcome is same as saving notes with it, read the notes he
 <code>- Get the welcome message without any formatting
 -> /welcome raw</code>
 
-<b> Good Bye </b>
- - /setgoodbye [reply to a text]: Saves the message as a goodbye note in the chat.
- - /checkgoodbye: Check whether you have a goodbye note in the chat.
- - /cleargoodbye: Deletes the goodbye note for the current chat.
- - /cleangoodbye [on/off]: Clean previous goodbye message before farewelling a user.
 """
