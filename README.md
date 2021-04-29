@@ -35,7 +35,7 @@
 ### Self-hosting (For Devs) ⚔
 ```sh
 # Install Git First (apt-instll git)
-$ git clone https://github.com/TeamDaisyX/DaisyX-v2.0
+$ git clone https://github.com/TeamDaisyX/DaisyX
 $ cd DaisyX
 # Upgrade sources
 $ bash deploy.sh
