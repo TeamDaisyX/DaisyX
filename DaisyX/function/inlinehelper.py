@@ -1,13 +1,14 @@
 import json
 import sys
-from time import time
 from random import randint
-from pyrogram.raw.functions import Ping
+from time import time
+
 import aiohttp
 from googletrans import Translator
 from motor import version as mongover
 from pykeyboard import InlineKeyboard
 from pyrogram import __version__ as pyrover
+from pyrogram.raw.functions import Ping
 from pyrogram.types import (
     InlineKeyboardButton,
     InlineQueryResultArticle,
@@ -339,7 +340,8 @@ async def torrent_func(answers, text):
         except (KeyError, ValueError):
             pass
     return answers
-    
+
+
 async def wiki_func(answers, text):
     data = await arq.wiki(text)
     msg = f"""
@@ -349,14 +351,13 @@ async def wiki_func(answers, text):
 __{data['answer']}__"""
     answers.append(
         InlineQueryResultArticle(
-            title=data['title'],
-            description=data['answer'],
-            input_message_content=InputTextMessageContent(msg)
+            title=data["title"],
+            description=data["answer"],
+            input_message_content=InputTextMessageContent(msg),
         )
     )
     return answers
-    
-    
+
 
 async def ping_func(answers):
     t1 = time()
@@ -366,9 +367,7 @@ async def ping_func(answers):
     ping = f"{str(round((t2 - t1), 2))} Seconds"
     answers.append(
         InlineQueryResultArticle(
-            title=ping,
-            input_message_content=InputTextMessageContent(
-                f"__**{ping}**__")
+            title=ping, input_message_content=InputTextMessageContent(f"__**{ping}**__")
         )
     )
-    return answers    
+    return answers

@@ -190,7 +190,7 @@ async def edit_or_reply(message, text, parse_mode="md"):
 
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
-    """ run command in terminal """
+    """run command in terminal"""
     args = shlex.split(cmd)
     process = await asyncio.create_subprocess_exec(
         *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
@@ -381,6 +381,7 @@ async def current_chat_permissions(chat_id):
         perms.append("can_pin_messages")
 
     return perms
+
 
 # URL LOCK
 

@@ -532,7 +532,7 @@ async def get_font_file(client, channel_id):
 @register(pattern=r"^/(\w+)say (.*)")
 async def univsaye(cowmsg):
 
-    """ For .cowsay module, uniborg wrapper for cow which says things. """
+    """For .cowsay module, uniborg wrapper for cow which says things."""
     if not cowmsg.text[0].isalpha() and cowmsg.text[0] not in ("#", "@"):
         arg = cowmsg.pattern_match.group(1).lower()
         text = cowmsg.pattern_match.group(2)

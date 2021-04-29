@@ -75,7 +75,9 @@ async def hmm(client, message):
 """
 
 
-@daisyx.on_message(filters.command("chatbot") & ~filters.edited & ~filters.bot & ~filters.private)
+@daisyx.on_message(
+    filters.command("chatbot") & ~filters.edited & ~filters.bot & ~filters.private
+)
 @admins_only
 async def hmm(_, message):
     global daisy_chats
@@ -120,14 +122,19 @@ async def hmm(_, message):
 
 
 @daisyx.on_message(
-    filters.text & filters.reply & ~filters.bot & ~filters.edited & ~filters.via_bot & ~filters.forwarded,
+    filters.text
+    & filters.reply
+    & ~filters.bot
+    & ~filters.edited
+    & ~filters.via_bot
+    & ~filters.forwarded,
     group=2,
 )
 async def hmm(client, message):
     if not get_session(int(message.chat.id)):
         return
     if not message.reply_to_message:
-        return        
+        return
     if message.reply_to_message.from_user.id != BOT_ID:
         return
     msg = message.text
@@ -227,7 +234,9 @@ async def hmm(client, message):
             print(e)
 
 
-@daisyx.on_message(filters.text & filters.private & ~filters.edited & filters.reply & ~filters.bot)
+@daisyx.on_message(
+    filters.text & filters.private & ~filters.edited & filters.reply & ~filters.bot
+)
 async def inuka(client, message):
     msg = message.text
     if msg.startswith("/") or msg.startswith("@"):

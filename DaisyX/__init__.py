@@ -75,4 +75,4 @@ TEMP_DOWNLOAD_DIRECTORY = "./"
 
 
 # String Session
-STRING_SESSION = get_str_key("STRING_SESSION", required=True) 
+STRING_SESSION = get_str_key("STRING_SESSION", required=True)

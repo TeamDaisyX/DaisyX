@@ -12,16 +12,12 @@
 # GNU Affero General Public License for more details.
 
 
-import io
 import json
 import math
-import sys
-import traceback
 
 import requests
 
 from DaisyX.decorator import register
-from DaisyX.services.events import register as daisy
 
 from .utils.disable import disableable_dec
 from .utils.message import get_args_str
@@ -36,7 +32,6 @@ async def _(message):
     obj = json.loads(c)
     j = obj["result"]
     await message.reply(j)
-
 
 
 @register(cmds=["factor", "factorize"])

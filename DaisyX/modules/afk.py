@@ -97,4 +97,3 @@ async def _(event):
             await event.reply(res, parse_mode="markdown")
     userid = ""  # after execution
     let = ""  # after execution
-

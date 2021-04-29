@@ -1,35 +1,24 @@
 # Fully Written by infotechbro (github.com/infotechbro)
 
-from telethon.errors import (
-    ChatAdminRequiredError,
-    ImageProcessFailedError,
-    PhotoCropSizeSmallError,
-)
-from DaisyX import OWNER_ID
-from DaisyX.services.telethon import tbot as bot
-from telethon.tl.functions.channels import EditAdminRequest, EditPhotoRequest
-from telethon.tl.functions.messages import UpdatePinnedMessageRequest
+import os
+from time import sleep
+
+from telethon import *
+from telethon import events
+from telethon.errors import *
+from telethon.errors import FloodWaitError
+from telethon.tl import *
+from telethon.tl import functions, types
+from telethon.tl.functions.channels import EditAdminRequest, EditBannedRequest
+from telethon.tl.types import *
 from telethon.tl.types import (
-    ChannelParticipantsAdmins,
     ChatAdminRights,
     ChatBannedRights,
     MessageEntityMentionName,
-    MessageMediaPhoto,
 )
 
-from telethon import *
-from telethon.tl import *
-from telethon.errors import *
-import os
-from time import sleep
-from telethon import events
-from telethon.errors import FloodWaitError, ChatNotModifiedError
-from telethon.errors import UserAdminInvalidError
-from telethon.tl import functions
-from telethon.tl import types
-from telethon.tl.functions.channels import EditBannedRequest
-from telethon.tl.types import *
-
+from DaisyX import OWNER_ID
+from DaisyX.services.telethon import tbot as bot
 
 # =================== CONSTANT ===================
 PP_TOO_SMOL = "**The image is too small**"
@@ -68,6 +57,7 @@ UNBAN_RIGHTS = ChatBannedRights(
 KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
 MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
 UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
+
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -160,7 +150,7 @@ async def get_user_sender_id(user, event):
 
 
 async def get_user_from_event(event):
-    """ Get the user from argument or replied message. """
+    """Get the user from argument or replied message."""
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         user_obj = await bot.get_entity(previous_message.sender_id)
@@ -171,7 +161,9 @@ async def get_user_from_event(event):
             user = int(user)
 
         if not user:
-            await event.reply("**I don't know who you're talking about, you're going to need to specify a user...!**")
+            await event.reply(
+                "**I don't know who you're talking about, you're going to need to specify a user...!**"
+            )
             return
 
         if event.message.entities is not None:
@@ -203,8 +195,8 @@ async def lowpromote(promt):
         if promt.sender_id == OWNER_ID:
             pass
         else:
-          if not await can_promote_users(message=promt):
-            return
+            if not await can_promote_users(message=promt):
+                return
     else:
         return
 
@@ -213,7 +205,6 @@ async def lowpromote(promt):
         if await is_register_admin(promt.input_chat, user.id):
             await promt.reply("**Well! i cant promote user who is already an admin**")
             return
-        pass
     else:
         return
 
@@ -253,8 +244,8 @@ async def midpromote(promt):
         if promt.sender_id == OWNER_ID:
             pass
         else:
-          if not await can_promote_users(message=promt):
-            return
+            if not await can_promote_users(message=promt):
+                return
     else:
         return
 
@@ -263,7 +254,6 @@ async def midpromote(promt):
         if await is_register_admin(promt.input_chat, user.id):
             await promt.reply("**Well! i cant promote user who is already an admin**")
             return
-        pass
     else:
         return
 
@@ -295,7 +285,7 @@ async def midpromote(promt):
     except Exception:
         await promt.reply("Failed to promote.")
         return
-    
+
 
 @bot.on(events.NewMessage(pattern="/highpromote ?(.*)"))
 async def highpromote(promt):
@@ -303,8 +293,8 @@ async def highpromote(promt):
         if promt.sender_id == OWNER_ID:
             pass
         else:
-          if not await can_promote_users(message=promt):
-            return
+            if not await can_promote_users(message=promt):
+                return
     else:
         return
 
@@ -313,7 +303,6 @@ async def highpromote(promt):
         if await is_register_admin(promt.input_chat, user.id):
             await promt.reply("**Well! i cant promote user who is already an admin**")
             return
-        pass
     else:
         return
 
@@ -344,8 +333,9 @@ async def highpromote(promt):
     # we don't have Promote permission
     except Exception:
         await promt.reply("Failed to promote.")
-        return    
-    
+        return
+
+
 @bot.on(events.NewMessage(pattern="/lowdemote(?: |$)(.*)"))
 async def lowdemote(dmod):
     if dmod.is_group:
@@ -359,7 +349,6 @@ async def lowdemote(dmod):
         if not await is_register_admin(dmod.input_chat, user.id):
             await dmod.reply("**Hehe, i cant demote non-admin**")
             return
-        pass
     else:
         return
 
@@ -388,6 +377,7 @@ async def lowdemote(dmod):
         await dmod.reply("**Failed to demote.**")
         return
 
+
 @bot.on(events.NewMessage(pattern="/middemote(?: |$)(.*)"))
 async def middemote(dmod):
     if dmod.is_group:
@@ -401,7 +391,6 @@ async def middemote(dmod):
         if not await is_register_admin(dmod.input_chat, user.id):
             await dmod.reply("**Hehe, i cant demote non-admin**")
             return
-        pass
     else:
         return
 
@@ -431,7 +420,6 @@ async def middemote(dmod):
         return
 
 
-
 @bot.on(events.NewMessage(pattern="/users$"))
 async def get_users(show):
     if not show.is_group:
@@ -457,7 +445,6 @@ async def get_users(show):
         reply_to=show.id,
     )
     os.remove("userslist.txt")
-
 
 
 @bot.on(events.NewMessage(pattern="/kickthefools$"))
@@ -601,7 +588,7 @@ async def banme(bon):
         await bot(EditBannedRequest(bon.chat_id, sender, BANNED_RIGHTS))
         await bon.reply("Ok Banned !")
 
-    except Exception as e:
+    except Exception:
         await bon.reply("I don't think so!")
         return
 
@@ -613,11 +600,9 @@ async def kickme(bon):
     try:
         await bot.kick_participant(bon.chat_id, bon.sender_id)
         await bon.reply("Sure!")
-    except Exception as e:
+    except Exception:
         await bon.reply("Failed to kick !")
         return
-
-
 
 
 @bot.on(events.NewMessage(pattern=r"/setdescription ([\s\S]*)"))
@@ -672,6 +657,7 @@ async def set_group_sticker(gpic):
         print(e)
         await gpic.reply("Failed to set group sticker pack.")
 
+
 async def extract_time(message, time_val):
     if any(time_val.endswith(unit) for unit in ("m", "h", "d")):
         unit = time_val[-1]
@@ -687,7 +673,7 @@ async def extract_time(message, time_val):
         elif unit == "d":
             bantime = int(time.time() + int(time_num) * 24 * 60 * 60)
         else:
-            return 
+            return
         return bantime
     else:
         await message.reply(
@@ -695,4 +681,4 @@ async def extract_time(message, time_val):
                 time_val[-1]
             )
         )
-        return 
+        return

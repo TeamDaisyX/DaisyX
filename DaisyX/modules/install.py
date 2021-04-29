@@ -1,9 +1,12 @@
-# All Credit To William Butcher Bot. 
-# Ported This Plugin here By Devil from wbb. 
+# All Credit To William Butcher Bot.
+# Ported This Plugin here By Devil from wbb.
 import os
+
+from pyrogram import filters
+
 from DaisyX import OWNER_ID
 from DaisyX.services.pyrogram import pbot as app
-from pyrogram import filters
+
 
 @app.on_message(filters.command("install") & filters.user(OWNER_ID))
 async def install_module(_, message):
@@ -20,5 +23,7 @@ async def install_module(_, message):
     m = await message.reply_text("**Installing Module**")
     await message.reply_to_message.download(f"./DaisyX/modules/{document.file_name}")
     await m.edit("**Restarting**")
-    os.execvp(f"python{str(pyver.split(' ')[0])[:3]}", [
-              f"python{str(pyver.split(' ')[0])[:3]}", "-m", "DaisyX"])
+    os.execvp(
+        f"python{str(pyver.split(' ')[0])[:3]}",
+        [f"python{str(pyver.split(' ')[0])[:3]}", "-m", "DaisyX"],
+    )

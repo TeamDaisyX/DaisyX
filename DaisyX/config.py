@@ -42,7 +42,7 @@ if os.path.isfile(CONFIG_PATH):
     log.info(CONFIG_PATH)
     for item in (
         data := yaml.load(open("data/bot_conf.yaml", "r"), Loader=yaml.CLoader)
-    ) :
+    ):
         DEFAULTS[item.upper()] = data[item]
 else:
     log.info("Using env vars")

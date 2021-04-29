@@ -359,7 +359,7 @@ async def search_in_note(message, chat, strings):
     notes = db.notes.find(
         {"chat_id": chat["chat_id"], "text": {"$regex": request, "$options": "i"}}
     ).sort("names", 1)
-    for note in (check := await notes.to_list(length=300)) :
+    for note in (check := await notes.to_list(length=300)):
         text += "\n-"
         for note_name in note["names"]:
             text += f" <code>#{note_name}</code>"

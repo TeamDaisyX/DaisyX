@@ -1,10 +1,9 @@
-import asyncio
 from asyncio import sleep
 
 from telethon import events
 from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
-from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins
+from telethon.tl.types import ChannelParticipantsAdmins, ChatBannedRights
 
 from DaisyX import OWNER_ID
 from DaisyX.services.telethon import tbot as client
@@ -49,10 +48,9 @@ async def is_administrator(user_id: int, message):
     return admin
 
 
-
 @client.on(events.NewMessage(pattern=f"^[!/]zombies ?(.*)"))
 async def zombies(event):
-    """ For .zombies command, list all the zombies in a chat. """
+    """For .zombies command, list all the zombies in a chat."""
 
     con = event.pattern_match.group(1).lower()
     del_u = 0

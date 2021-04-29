@@ -3,20 +3,17 @@
 # Also Check Requirements in this repo Requirements Clearly Mentioned The Requirements needed for this plugin. If that requirements is not available at your repo then add it.
 # Also Need Some Additions At Config Yet Not Added. So Wait Few Time tell plugin don't ready completely to work.
 
-import io
+import datetime
 import re
-import sys
-import traceback
-import logging
 import time
-import string
+
 # Extra Plugins Provided By Team Daisy X
 # Ported From WilliamButcher Bot.
 # All Credit Goes to WilliamButcherBot
 import urllib.request
 from datetime import datetime
-import datetime
 from typing import List
+
 import aiohttp
 import requests
 from bs4 import BeautifulSoup
@@ -32,15 +29,14 @@ from pyrogram.types import (
     InlineQueryResultPhoto,
     InputTextMessageContent,
 )
+from search_engine_parser import GoogleSearch
 from tswift import Song
 from youtubesearchpython import VideosSearch
-from random import choice
+
+from DaisyX.config import get_str_key
 from DaisyX.function.inlinehelper import *
 from DaisyX.function.pluginhelpers import fetch, json_prettify
 from DaisyX.services.pyrogram import pbot as app
-from DaisyX.config import get_str_key
-from search_engine_parser import GoogleSearch
-
 
 OPENWEATHERMAP_ID = get_str_key("OPENWEATHERMAP_ID", "")
 TIME_API_KEY = get_str_key("TIME_API_KEY", required=False)
@@ -199,28 +195,19 @@ async def inline_query_handler(client, query):
                 await client.answer_inline_query(
                     query.id,
                     results=answers,
-                    switch_pm_text='Wikipedia | wiki [QUERY]',
-                    switch_pm_parameter='inline',
+                    switch_pm_text="Wikipedia | wiki [QUERY]",
+                    switch_pm_parameter="inline",
                 )
                 return
             tex = text.split(None, 1)[1].strip()
             answerss = await wiki_func(answers, tex)
-            await client.answer_inline_query(
-                query.id,
-                results=answerss,
-                cache_time=2
-            )
-
+            await client.answer_inline_query(query.id, results=answerss, cache_time=2)
 
         elif text.split()[0] == "ping":
             answerss = await ping_func(answers)
-            await client.answer_inline_query(
-                query.id,
-                results=answerss,
-                cache_time=2
-            )
+            await client.answer_inline_query(query.id, results=answerss, cache_time=2)
             return
-        
+
         elif text.split()[0] == "yt":
             answers = []
             search_query = text.split(None, 1)[1]
@@ -766,10 +753,10 @@ async def inline_query_handler(client, query):
                 )
             )
             await client.answer_inline_query(query.id, cache_time=0, results=results)
-            
+
         elif text.split()[0] == "weather":
             results = []
-            sample_url = ("https://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units=metric")
+            sample_url = "https://api.openweathermap.org/data/2.5/weather?q={}&APPID={}&units=metric"
             input_str = text.split(None, 1)[1]
             async with aiohttp.ClientSession() as session:
                 response_api_zero = await session.get(
@@ -781,8 +768,7 @@ async def inline_query_handler(client, query):
                 country_time_zone = int(response_api["timezone"])
                 sun_rise_time = int(response_api["sys"]["sunrise"]) + country_time_zone
                 sun_set_time = int(response_api["sys"]["sunset"]) + country_time_zone
-                lol = (
-                    """ 
+                lol = """ 
         WEATHER INFO GATHERED
         Location: {}
         Temperature ☀️: {}°С
@@ -793,20 +779,19 @@ async def inline_query_handler(client, query):
         Clouds ☁️: {}hpa
         Sunrise 🌤: {} {}
         Sunset 🌝: {} {}""".format(
-                        input_str,
-                        response_api["main"]["temp"],
-                        response_api["main"]["temp_min"],
-                        response_api["main"]["temp_max"],
-                        response_api["main"]["humidity"],
-                        response_api["wind"]["speed"],
-                        response_api["clouds"]["all"],
-                        # response_api["main"]["pressure"],
-                        time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(sun_rise_time)),
-                        country_code,
-                        time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(sun_set_time)),
-                        country_code,
-                    )
-                )            
+                    input_str,
+                    response_api["main"]["temp"],
+                    response_api["main"]["temp_min"],
+                    response_api["main"]["temp_max"],
+                    response_api["main"]["humidity"],
+                    response_api["wind"]["speed"],
+                    response_api["clouds"]["all"],
+                    # response_api["main"]["pressure"],
+                    time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(sun_rise_time)),
+                    country_code,
+                    time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime(sun_set_time)),
+                    country_code,
+                )
                 results.append(
                     InlineQueryResultArticle(
                         title=f"Weather Information",
@@ -816,8 +801,10 @@ async def inline_query_handler(client, query):
                         ),
                     )
                 )
-                await client.answer_inline_query(query.id, cache_time=0, results=results)      
-                
+                await client.answer_inline_query(
+                    query.id, cache_time=0, results=results
+                )
+
         elif text.split()[0] == "datetime":
             results = []
             gay = text.split(None, 1)[1]
@@ -827,11 +814,9 @@ async def inline_query_handler(client, query):
                 result = generate_time(query_timezone, ["countryCode"])
             else:
                 result = generate_time(query_timezone, ["zoneName", "countryName"])
-                
+
             if not result:
-                result = (
-                    f"Timezone info not available for <b>{lel}</b>"
-                )
+                result = f"Timezone info not available for <b>{lel}</b>"
 
             results.append(
                 InlineQueryResultArticle(
@@ -843,7 +828,7 @@ async def inline_query_handler(client, query):
                 )
             )
             await client.answer_inline_query(query.id, cache_time=0, results=results)
-            
+
         elif text.split()[0] == "app":
             rip = []
             app_name = text.split(None, 1)[1]
@@ -856,9 +841,14 @@ async def inline_query_handler(client, query):
             soup = BeautifulSoup(page.content, "lxml", from_encoding="utf-8")
             results = soup.findAll("div", "ZmHEEd")
             app_name = (
-                results[0].findNext("div", "Vpfmgd").findNext("div", "WsMG1c nnK0zc").text
+                results[0]
+                .findNext("div", "Vpfmgd")
+                .findNext("div", "WsMG1c nnK0zc")
+                .text
             )
-            app_dev = results[0].findNext("div", "Vpfmgd").findNext("div", "KoLSrc").text
+            app_dev = (
+                results[0].findNext("div", "Vpfmgd").findNext("div", "KoLSrc").text
+            )
             app_dev_link = (
                 "https://play.google.com"
                 + results[0].findNext("div", "Vpfmgd").findNext("a", "mnKHRc")["href"]
@@ -914,7 +904,7 @@ async def inline_query_handler(client, query):
                 )
             )
             await client.answer_inline_query(query.id, cache_time=0, results=rip)
-            
+
         elif text.split()[0] == "gh":
             results = []
             gett = text.split(None, 1)[1]
@@ -940,10 +930,10 @@ async def inline_query_handler(client, query):
                 )
             )
             await client.answer_inline_query(query.id, cache_time=0, results=results)
-            
+
         elif text.split()[0] == "so":
             results = []
-            gett = text.split(None, 1)[1] 
+            gett = text.split(None, 1)[1]
             text = gett + ' "site:stackoverflow.com"'
             gresults = await GoogleSearch().async_search(text, 1)
             result = ""
@@ -969,7 +959,6 @@ async def inline_query_handler(client, query):
 
     except (IndexError, TypeError, KeyError, ValueError):
         return
-
 
 
 def generate_time(to_find: str, findtype: List[str]) -> str:

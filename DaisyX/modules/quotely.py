@@ -3,12 +3,12 @@ import os
 import random
 import textwrap
 import urllib
-from telethon import events
+
 import emoji
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 from telethon.tl import functions, types
-from DaisyX.services.telethon import tbot as client
+
 from DaisyX.services.events import register
 
 COLORS = [

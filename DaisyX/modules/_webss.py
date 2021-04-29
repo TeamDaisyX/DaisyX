@@ -4,12 +4,8 @@
 
 from pyrogram import filters
 
-from DaisyX.function.pluginhelpers import admins_only, fetch
+from DaisyX.function.pluginhelpers import admins_only
 from DaisyX.services.pyrogram import pbot as app
-
-
-
-
 
 
 @app.on_message(filters.command("webss") & ~filters.private & ~filters.edited)
@@ -25,7 +21,7 @@ async def take_ss(_, message):
         await app.send_photo(
             message.chat.id,
             photo=f"https://webshot.amanoteam.com/print?q={url}",
-            )
+        )
     except TypeError:
         await m.edit("No Such Website.")
         return

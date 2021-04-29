@@ -82,7 +82,7 @@ async def convert_to_image(event, borg):
 async def take_screen_shot(
     video_file: str, duration: int, path: str = ""
 ) -> Optional[str]:
-    """ take a screenshot """
+    """take a screenshot"""
     logger.info(
         "[[[Extracting a frame from %s ||| Video duration => %s]]]",
         video_file,

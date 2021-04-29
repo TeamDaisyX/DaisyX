@@ -1,10 +1,10 @@
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl import functions, types
 
 from DaisyX.services.events import register as Daisy
 from DaisyX.services.telethon import tbot
 from DaisyX.services.telethonuserbot import ubot
-from telethon import events
-from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl import functions, types
+
 
 async def is_register_admin(chat, user):
 
@@ -28,19 +28,21 @@ async def is_register_admin(chat, user):
         )
     return None
 
+
 async def silently_send_message(conv, text):
     await conv.send_message(text)
     response = await conv.get_response()
     await conv.mark_read(message=response)
     return response
 
-@Daisy(pattern="^/namehistory ?(.*)")  
+
+@Daisy(pattern="^/namehistory ?(.*)")
 async def _(event):
 
     if event.fwd_from:
 
         return
-    
+
     if event.is_group:
         if await is_register_admin(event.input_chat, event.message.sender_id):
             pass
@@ -76,13 +78,13 @@ async def _(event):
 
         try:
 
-            #response = conv.wait_event(
-             #   events.NewMessage(incoming=True, from_users=1706537835)
-            #)
+            # response = conv.wait_event(
+            #   events.NewMessage(incoming=True, from_users=1706537835)
+            # )
 
             await silently_send_message(conv, f"/detect_id {uid}")
 
-            #response = await response
+            # response = await response
             responses = await silently_send_message(conv, f"/detect_id {uid}")
         except YouBlockedUserError:
 
@@ -90,4 +92,4 @@ async def _(event):
 
             return
         await lol.edit(f"{responses.text}")
-        #await lol.edit(f"{response.message.message}")    
+        # await lol.edit(f"{response.message.message}")

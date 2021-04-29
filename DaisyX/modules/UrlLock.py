@@ -13,7 +13,9 @@ from DaisyX.function.pluginhelpers import (
 from DaisyX.services.pyrogram import pbot
 
 
-@pbot.on_message(filters.command("urllock") & ~filters.edited & ~filters.bot & ~filters.private)
+@pbot.on_message(
+    filters.command("urllock") & ~filters.edited & ~filters.bot & ~filters.private
+)
 @admins_only
 async def hmm(_, message):
     global daisy_chats
@@ -86,6 +88,3 @@ async def hi(client, message):
             message.continue_propagation()
     else:
         message.continue_propagation()
-
-
-

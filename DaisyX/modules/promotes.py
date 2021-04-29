@@ -96,5 +96,3 @@ async def demote(message, chat, user, strings):
             user=await get_user_link(user["user_id"]), chat_name=chat["chat_title"]
         )
     )
-
-

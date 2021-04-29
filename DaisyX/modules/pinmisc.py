@@ -15,25 +15,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from DaisyX.function.pluginhelpers import member_permissions
+from re import compile as compile_re
+
 from pyrogram import filters
 from pyrogram.errors import ChatAdminRequired, RightForbidden, RPCError
-from pyrogram.filters import regex
-from pyrogram.types import (
-    CallbackQuery,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-)
-from DaisyX.services.pyrogram import pbot as app
-from DaisyX.services.mongo import mongodb as db
-from html import escape
-from re import compile as compile_re
-from time import time
-from typing import List
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from pyrogram.types import InlineKeyboardButton, Message
+from DaisyX.function.pluginhelpers import member_permissions
+from DaisyX.services.mongo import mongodb as db
+from DaisyX.services.pyrogram import pbot as app
+
 BTN_URL_REGEX = compile_re(r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))")
+
 
 async def parse_button(text: str):
     """Parse button from text."""
@@ -140,37 +133,37 @@ def __connect_first():
     _ = MongoDB("test")
 
 
-
 __connect_first()
+
 
 @app.on_message(filters.command("unpinall") & ~filters.private)
 async def unpinall_message(_, m: Message):
     try:
-      chat_id = m.chat.id
-      user_id = m.from_user.id
-      permissions = await member_permissions(chat_id, user_id)
-      if "can_change_info" not in permissions:
-          await m.reply_text("You Don't Have Enough Permissions.")
-          return
-      if "can_pin_messages" not in permissions:
-          await m.reply_text("You Don't Have Enough Permissions.")
-          return        
-      if "can_restrict_members" not in permissions:
-          await m.reply_text("You Don't Have Enough Permissions.")
-          return     
-      if "can_promote_members" not in permissions:
-          await m.reply_text("You Don't Have Enough Permissions.")
-          return            
-      try:
-          await _.unpin_all_chat_messages(m.chat.id)
-          await m.reply("I have unpinned all messages")
-      except ChatAdminRequired:
-          await m.reply("I'm not admin here")
-      except RightForbidden:
-          await m.reply("I don't have enough rights to unpin here")
-      except RPCError as ef:
-          await m.reply_text(ef)
-          return
+        chat_id = m.chat.id
+        user_id = m.from_user.id
+        permissions = await member_permissions(chat_id, user_id)
+        if "can_change_info" not in permissions:
+            await m.reply_text("You Don't Have Enough Permissions.")
+            return
+        if "can_pin_messages" not in permissions:
+            await m.reply_text("You Don't Have Enough Permissions.")
+            return
+        if "can_restrict_members" not in permissions:
+            await m.reply_text("You Don't Have Enough Permissions.")
+            return
+        if "can_promote_members" not in permissions:
+            await m.reply_text("You Don't Have Enough Permissions.")
+            return
+        try:
+            await _.unpin_all_chat_messages(m.chat.id)
+            await m.reply("I have unpinned all messages")
+        except ChatAdminRequired:
+            await m.reply("I'm not admin here")
+        except RightForbidden:
+            await m.reply("I don't have enough rights to unpin here")
+        except RPCError as ef:
+            await m.reply_text(ef)
+            return
 
     except Exception as e:
         print(e)
@@ -179,7 +172,6 @@ async def unpinall_message(_, m: Message):
 
 
 from threading import RLock
-
 
 INSERTION_LOCK = RLock()
 
@@ -283,9 +275,8 @@ class Pins:
 
 def __pre_req_pins_chats():
     collection = MongoDB(Pins.db_name)
-    Pins.repair_db(collection)        
-        
- 
+    Pins.repair_db(collection)
+
 
 @app.on_message(filters.command("antichannelpin") & ~filters.private)
 async def anti_channel_pin(_, m: Message):
@@ -298,16 +289,17 @@ async def anti_channel_pin(_, m: Message):
     if len(m.text.split()) == 2:
         if m.command[1] in ("yes", "on", "true"):
             pinsdb.antichannelpin_on()
-            msg = ("Antichannelpin turned on for this chat")
+            msg = "Antichannelpin turned on for this chat"
         elif m.command[1] in ("no", "off", "false"):
             pinsdb.antichannelpin_off()
-            msg = ("Antichannelpin turned off for this chat")
+            msg = "Antichannelpin turned off for this chat"
         else:
             await m.reply_text("Invalid syntax")
             return
 
     await m.reply_text(msg)
     return
+
 
 @app.on_message(filters.command("cleanlinked") & ~filters.private)
 async def clean_linked(_, m: Message):
@@ -333,6 +325,7 @@ async def clean_linked(_, m: Message):
     await m.reply(msg)
     return
 
+
 @app.on_message(filters.command("permapin") & ~filters.private)
 async def perma_pin(_, m: Message):
     if m.reply_to_message or len(m.text.split()) > 1:
@@ -351,7 +344,6 @@ async def perma_pin(_, m: Message):
     return
 
 
-
 @app.on_message(filters.linked_channel)
 async def antichanpin_cleanlinked(c, m: Message):
     try:
@@ -367,6 +359,6 @@ async def antichanpin_cleanlinked(c, m: Message):
             "Disabled antichannelpin as I don't have enough admin rights!",
         )
         pins_db.antichannelpin_off()
-    except Exception as ef:
+    except Exception:
         return
     return

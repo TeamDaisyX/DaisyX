@@ -1,19 +1,16 @@
-import glob
 import os
 from asyncio import sleep
 from datetime import datetime
 
-import html2text
-import requests
 from requests import get, post
 from telethon.tl import functions, types
 
-from DaisyX.services.telethon import tbot as client
 from DaisyX.services.events import register
+from DaisyX.services.telethon import tbot as client
 
 
 def progress(current, total):
-    """ Calculate and return the download progress with given arguments. """
+    """Calculate and return the download progress with given arguments."""
     print(
         "Downloaded {} of {}\nCompleted {}".format(
             current, total, (current / total) * 100
@@ -44,12 +41,9 @@ async def is_register_admin(chat, user):
         return None
 
 
-
-
-
 @register(pattern=r"^/getqr$")
 async def parseqr(qr_e):
-    """ For .getqr command, get QR Code content from the replied photo. """
+    """For .getqr command, get QR Code content from the replied photo."""
     if qr_e.fwd_from:
         return
     start = datetime.now()
@@ -72,7 +66,7 @@ async def parseqr(qr_e):
 
 @register(pattern=r"^/makeqr(?: |$)([\s\S]*)")
 async def make_qr(qrcode):
-    """ For .makeqr command, make a QR Code containing the given content. """
+    """For .makeqr command, make a QR Code containing the given content."""
     if qrcode.fwd_from:
         return
     start = datetime.now()

@@ -18,7 +18,6 @@
 from __future__ import unicode_literals
 
 import asyncio
-import math
 import os
 import time
 from random import randint
@@ -26,31 +25,16 @@ from urllib.parse import urlparse
 
 import aiofiles
 import aiohttp
-import requests
 import wget
 import youtube_dl
 from pyrogram import filters
-from DaisyX.services.pyrogram import pbot as Client
-from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Message
 from Python_ARQ import ARQ
-from youtube_search import YoutubeSearch
-from youtubesearchpython import SearchVideos
-
-import asyncio
-import io
-import os
-import time
-
-import requests
-import wget
-from pyrogram import filters
-from pyrogram.types import Message
 from youtube_dl import YoutubeDL
 from youtubesearchpython import SearchVideos
 
-
-from DaisyX.function.pluginhelpers import get_text, progress, get_user
+from DaisyX.function.pluginhelpers import get_text, progress
+from DaisyX.services.pyrogram import pbot as Client
 
 dl_limit = 0
 
@@ -65,7 +49,7 @@ async def ytmusic(client, message: Message):
         )
         return
     global dl_limit
-    if dl_limit >= 4 :
+    if dl_limit >= 4:
         await message.reply_text(
             "Daisy's server busy due to too many downloads, try again after sometime."
         )
@@ -105,12 +89,12 @@ async def ytmusic(client, message: Message):
         "logtostderr": False,
     }
     try:
-        
+
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(mo, download=True)
     except Exception as e:
         await pablo.edit(f"**Failed To Download** \n**Error :** `{str(e)}`")
-        dl_limit = dl_limit-1
+        dl_limit = dl_limit - 1
         return
     c_time = time.time()
     capy = f"**Song Name :** `{thum}` \n**Requested For :** `{urlissed}` \n**Channel :** `{thums}` \n**Link :** `{mo}`"
@@ -131,11 +115,12 @@ async def ytmusic(client, message: Message):
             file_stark,
         ),
     )
-    dl_limit = dl_limit-1
+    dl_limit = dl_limit - 1
     await pablo.delete()
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
             os.remove(files)
+
 
 ARQ_API = "http://35.240.133.234:8000"
 arq = ARQ(ARQ_API)
@@ -187,7 +172,7 @@ async def jssong(_, message):
     if len(message.command) < 2:
         await message.reply_text("/saavn requires an argument.")
         return
-    if dl_limit >= 3 :
+    if dl_limit >= 3:
         await message.reply_text(
             "Daisy's server busy due to too many downloads, try again after sometime."
         )
@@ -233,11 +218,11 @@ async def deezsong(_, message):
             "Another download is in progress, try again after sometime."
         )
         return
-    if dl_limit >= 3 :
+    if dl_limit >= 3:
         await message.reply_text(
             "Daisy's server busy due to too many downloads, try again after sometime."
         )
-        return 
+        return
     is_downloading = True
     text = message.text.split(None, 1)[1]
     query = text.replace(" ", "%20")
@@ -269,7 +254,7 @@ async def ytmusic(client, message: Message):
         )
         return
     global dl_limit
-    if dl_limit >= 4 :
+    if dl_limit >= 4:
         await message.reply_text(
             "Daisy s server busy due to too many downloads, try again after sometime."
         )
@@ -349,4 +334,3 @@ async def ytmusic(client, message: Message):
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
             os.remove(files)
-

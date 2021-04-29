@@ -1,5 +1,4 @@
-# Credit To @TheHamkerCat and his bot William Butcher Bot. 
-
+# Credit To @TheHamkerCat and his bot William Butcher Bot.
 
 
 """
@@ -22,12 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from DaisyX.services.pyrogram import pbot
-from DaisyX.function.pluginhelpers import member_permissions, current_chat_permissions
 from pyrogram import filters
-from pyrogram.types import ChatPermissions
 from pyrogram.errors.exceptions.bad_request_400 import ChatNotModified
+from pyrogram.types import ChatPermissions
 
+from DaisyX.function.pluginhelpers import current_chat_permissions, member_permissions
+from DaisyX.services.pyrogram import pbot
 
 incorrect_parameters = "Incorrect Parameters, Check Locks Section In Help."
 data = {
@@ -41,7 +40,7 @@ data = {
     "polls": "can_send_polls",
     "info": "can_change_info",
     "invite": "can_invite_users",
-    "pin": "can_pin_messages"
+    "pin": "can_pin_messages",
 }
 
 
@@ -62,6 +61,7 @@ async def tg_lock(message, permissions: list, perm: str, lock: bool):
         await message.reply_text("To unlock this, you have to unlock 'messages' first.")
         return
     await message.reply_text(("Locked." if lock else "Unlocked."))
+
 
 @pbot.on_message(filters.command(["locktypes", "chatlocks"]) & ~filters.private)
 async def wew(_, message):
@@ -85,7 +85,8 @@ async def wew(_, message):
      `/urllock [on|off]`
 """
     await message.reply(lol)
-    
+
+
 @pbot.on_message(filters.command(["lock", "unlock"]) & ~filters.private)
 async def locks_func(_, message):
     try:
@@ -108,7 +109,12 @@ async def locks_func(_, message):
 
         permissions = await current_chat_permissions(chat_id)
         if parameter in data:
-            await tg_lock(message, permissions, data[parameter], True if state == "lock" else False)
+            await tg_lock(
+                message,
+                permissions,
+                data[parameter],
+                True if state == "lock" else False,
+            )
             return
         elif parameter == "all" and state == "lock":
             await _.set_chat_permissions(chat_id, ChatPermissions())
