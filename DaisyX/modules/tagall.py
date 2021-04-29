@@ -6,7 +6,7 @@ from DaisyX.function.pluginhelpers import admins_only, get_text
 from DaisyX.services.pyrogram import pbot
 
 
-@pbot.on_message(filters.command("tagall") & ~filters.edited & ~filters.bot)
+@pbot.on_message(filters.command("tagall") & ~filters.edited & ~filters.bot & ~filters.private)
 @admins_only
 async def tagall(client, message):
     await message.reply("`Processing.....`")
