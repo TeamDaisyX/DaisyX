@@ -9,11 +9,11 @@
 
 <p align="center"><a href="https://t.me/DaisySupport_Official"><img src="https://telegra.ph/file/23448c98735bd81df47e7.jpg" width="400"></a></p>
 <p align="center">
-    <a href="https://app.codacy.com/manual/teamdaisyx/daisyx-v2.0/dashboard"> <img src="https://img.shields.io/codacy/grade/4d58f2a402b54aed8a7d95f7add45a81?color=brightgreen&logo=codacy&logoColor=green&style=for-the-badge" alt="Codacy" /></a>
-    <a href="https://github.com/teamdaisyx/daisyx-v2.0"> <img src="https://img.shields.io/github/repo-size/teamdaisyx/daisyx-v2.0?color=orange&logo=github&logoColor=green&style=for-the-badge" /></a>
-    <a href="https://github.com/teamdaisyx/daisyx-v2.0/commits/inukaasith"> <img src="https://img.shields.io/github/last-commit/teamdaisyx/daisyx-v2.0?color=brown&logo=github&logoColor=green&style=for-the-badge" /></a>
-    <a href="https://github.com/teamdaisyx/daisyx-v2.0/issues"> <img src="https://img.shields.io/github/issues/teamdaisyx/daisyx-v2.0?color=blueviolet&logo=github&logoColor=green&style=for-the-badge" /></a>
-    <a href="https://github.com/teamdaisyx/daisyx-v2.0/network/members"> <img src="https://img.shields.io/github/forks/teamdaisyx/daisyx-v2.0?color=red&logo=github&logoColor=green&style=for-the-badge" /></a>  
+    <a href="https://app.codacy.com/manual/teamdaisyx/daisyx/dashboard"> <img src="https://img.shields.io/codacy/grade/4d58f2a402b54aed8a7d95f7add45a81?color=brightgreen&logo=codacy&logoColor=green&style=for-the-badge" alt="Codacy" /></a>
+    <a href="https://github.com/teamdaisyx/daisyx"> <img src="https://img.shields.io/github/repo-size/teamdaisyx/daisyx?color=orange&logo=github&logoColor=green&style=for-the-badge" /></a>
+    <a href="https://github.com/teamdaisyx/daisyx/commits/inukaasith"> <img src="https://img.shields.io/github/last-commit/teamdaisyx/daisyx?color=brown&logo=github&logoColor=green&style=for-the-badge" /></a>
+    <a href="https://github.com/teamdaisyx/daisyx/issues"> <img src="https://img.shields.io/github/issues/teamdaisyx/daisyx?color=blueviolet&logo=github&logoColor=green&style=for-the-badge" /></a>
+    <a href="https://github.com/teamdaisyx/daisyx/network/members"> <img src="https://img.shields.io/github/forks/teamdaisyx/daisyx?color=red&logo=github&logoColor=green&style=for-the-badge" /></a>  
     <a href="https://pypi.org/project/Telethon/"> <img src="https://img.shields.io/pypi/v/telethon?color=yellow&label=telethon&logo=python&logoColor=green&style=for-the-badge" /></a>
 </p>
 
@@ -24,7 +24,7 @@
 ## Avaiilable on Telegram as [@DaisyXBot](https://t.me/daisyxbot)
 
 # 🏃‍♂️ Easy Deploy 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamDaisyX/DaisyX-v2.0.git)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamDaisyX/DaisyX.git)
 
 [Generate String Session](https://replit.com/@SpEcHiDe/GenerateStringSession)  << Select telethon
 
@@ -36,7 +36,7 @@
 ```sh
 # Install Git First (apt-instll git)
 $ git clone https://github.com/TeamDaisyX/DaisyX-v2.0
-$ cd DaisyX-v2.0
+$ cd DaisyX
 # Upgrade sources
 $ bash deploy.sh
 # Install All Requirements 
@@ -120,8 +120,7 @@ Anything missing kindly let us know at [Daisy Support](https://t.me/DaisySupport
 
 > This project exists thanks to these awesome developers and their codes and contributions.
 
-<a href="https://github.com/TeamDaisyX/DaisyX-v2.0/graphs/contributors"><img src="https://opencollective.com/teamdaisyxdaisy/contributors.svg?width=890&button=false" /></a>
-
+<a href="https://github.com/TeamDaisyX/DaisyX/graphs/contributors"><img src="https://opencollective.com/teamdaisyxdaisy/contributors.svg?width=890&button=false" /></a>
 
 > And credits goes to all who supported, all who helped and API & environmental equirement package devs and all projects helped in making this project.
 > Special thanks to you for using bot
