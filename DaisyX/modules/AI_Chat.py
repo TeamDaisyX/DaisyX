@@ -75,7 +75,7 @@ async def hmm(client, message):
 """
 
 
-@daisyx.on_message(filters.command("chatbot") & ~filters.edited & ~filters.bot)
+@daisyx.on_message(filters.command("chatbot") & ~filters.edited & ~filters.bot & ~filters.private)
 @admins_only
 async def hmm(_, message):
     global daisy_chats
