@@ -57,7 +57,7 @@ async def addrss(client, message):
     await pablo.edit("Successfully Added Link To RSS Watch")
 
 
-@pbot.on_message(filters.command("testrss") & ~filters.edited & ~filters.bot)
+@pbot.on_message(filters.command("testrss") & ~filters.edited & ~filters.bot & ~filters.private)
 @admins_only
 async def testrss(client, message):
     pablo = await edit_or_reply(message, "`Processing....`")
@@ -84,7 +84,7 @@ async def testrss(client, message):
         await pablo.delete()
 
 
-@pbot.on_message(filters.command("listrss") & ~filters.edited & ~filters.bot)
+@pbot.on_message(filters.command("listrss") & ~filters.edited & ~filters.bot & ~filters.private)
 @admins_only
 async def listrss(client, message):
     pablo = await edit_or_reply(message, "`Processing....`")
@@ -102,7 +102,7 @@ async def listrss(client, message):
     await pablo.delete()
 
 
-@pbot.on_message(filters.command("delrss") & ~filters.edited & ~filters.bot)
+@pbot.on_message(filters.command("delrss") & ~filters.edited & ~filters.bot & ~filters.private)
 @admins_only
 async def delrss(client, message):
     pablo = await edit_or_reply(message, "`Processing....`")
@@ -118,7 +118,7 @@ async def delrss(client, message):
     await pablo.edit(f"Successfully Removed `{lenk}` From Chat RSS")
 
 
-@pbot.on_message(filters.command("delallrss") & ~filters.edited & ~filters.bot)
+@pbot.on_message(filters.command("delallrss") & ~filters.edited & ~filters.bot & ~filters.private)
 @admins_only
 async def delrss(client, message):
     pablo = await edit_or_reply(message, "`Processing....`")
