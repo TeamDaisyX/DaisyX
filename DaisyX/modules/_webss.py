@@ -12,7 +12,7 @@ from DaisyX.services.pyrogram import pbot as app
 
 
 
-@app.on_message(filters.command("webss"))
+@app.on_message(filters.command("webss") & ~filters.private & ~filters.edited)
 @admins_only
 async def take_ss(_, message):
     if len(message.command) != 2:
