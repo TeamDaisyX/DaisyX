@@ -3,7 +3,7 @@ from pyrogram import filters
 from DaisyX.services.pyrogram import pbot
 from DaisyX.function.pluginhelpers import admins_only, get_text
 
-@pbot.on_message(filters.command("send") & ~filters.edited & ~filters.bot)
+@pbot.on_message(filters.command("send") & ~filters.edited & ~filters.bot & ~filters.private)
 @admins_only
 async def send(client, message):
     args = get_text(message)
