@@ -25,7 +25,7 @@
 # 🧙‍♀️ Deploy Guide
 Complete guide on deploying @DaisyXBot's clone on Heroku.
 
-<p align="left"><ba href="https://www.youtube.com/watch?v=yar61k_hEHQ"><img src="https://telegra.ph/file/8b29eb79eebc55e5e1fcb.jpg" width="300"></a></p> 
+<p align="left"><a href="https://www.youtube.com/watch?v=yar61k_hEHQ"><img src="https://telegra.ph/file/8b29eb79eebc55e5e1fcb.jpg" width="300"></a></p> 
 
 
 ☆ Video by [ANJANA MADUSHANKA](https://www.youtube.com/channel/UCApXYZNiMdW6UG48-syX7wQ) ☆
