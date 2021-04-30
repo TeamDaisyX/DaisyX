@@ -526,8 +526,8 @@ async def inline_query_handler(client, query):
                 await client.answer_inline_query(
                     query.id,
                     results=answers,
-                    switch_pm_text='Pokemon [text]',
-                    switch_pm_parameter='pokedex',
+                    switch_pm_text="Pokemon [text]",
+                    switch_pm_parameter="pokedex",
                 )
                 return
             pokedex = text.split(None, 1)[1].strip()
