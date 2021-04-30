@@ -66,12 +66,12 @@ class AioHttp:
 
 __mod_name__ = "Inline"
 __help__ = """
- <b> INLINE BOT SERVICE OF @DAISYXBOT </b> 
+ <b> INLINE BOT SERVICE OF @Emili_CTbot </b> 
  
 <i> I'm more efficient when added as group admin. By the way these commands can be used by anyone in a group via inline.</i>
 
 <b>Syntax</b>
-   @DaisyXBot [command] [query]
+   @Emili_CTbot [command] [query]
 
 <b> Commands Available</b>
 - alive - Check Bot's Stats.
@@ -86,7 +86,6 @@ __help__ = """
 - pic [Query] - Find pictures.
 - saavn [SONG_NAME] - Get Songs From Saavn.
 - deezer [SONG_NAME] - Get Songs From Deezer.
-- torrent [QUERY] - Torrent Search.
 - reddit [QUERY] - Get memes from reddit.
 - imdb [QUERY] - Search movies on imdb.
 - spaminfo [ID] - Get spam info of the user.
@@ -114,7 +113,7 @@ __HELP__ = """
 `I'm more efficient when added as group admin. By the way these commands can be used by anyone in a group via inline.`
 
    >> Syntax <<
-@DaisyXBot [command] [query]
+@Emili_CTbot [command] [query]
 
    >> Commands Available <<
 - **alive** - __Check Bot's Stats.__
@@ -129,7 +128,6 @@ __HELP__ = """
 - **pic [Query]** - __Find pictures.__
 - **saavn [SONG_NAME]** - __Get Songs From Saavn.__
 - **deezer [SONG_NAME]** - __Get Songs From Deezer.__
-- **torrent [QUERY]** - __Torrent Search.__
 - **reddit [QUERY]** - __Get memes from redit.__
 - **imdb [QUERY]** - __Search movies on imdb.__
 - **spaminfo [id]** - __Get spam info of the user.__
