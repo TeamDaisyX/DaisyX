@@ -26,7 +26,7 @@
 Complete guide on deploying @DaisyXBot's clone on Heroku.
 
 <p align="left"><ba href="https://www.youtube.com/watch?v=yar61k_hEHQ"><img src="https://telegra.ph/file/8b29eb79eebc55e5e1fcb.jpg" width="300"></a></p> 
-<a href="https://www.youtube.com/watch?v=yar61k_hEHQ"><img src="https://img.shields.io/badge/How%20To-Deploy-red.svg?logo=Youtube"></a>
+
 
 ☆ Video by [ANJANA MADUSHANKA](https://www.youtube.com/channel/UCApXYZNiMdW6UG48-syX7wQ) ☆
 
@@ -35,6 +35,8 @@ Complete guide on deploying @DaisyXBot's clone on Heroku.
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamDaisyX/DaisyX.git)
 
 [Generate String Session](https://replit.com/@SpEcHiDe/GenerateStringSession)  << Select telethon
+
+<a href="https://www.youtube.com/watch?v=yar61k_hEHQ"><img src="https://img.shields.io/badge/How%20To-Deploy-red.svg?logo=Youtube"></a>
 
 # ❤️ Support
 <a href="https://t.me/DaisySupport_Official"><img src="https://img.shields.io/badge/Join-Telegram%20Channel-red.svg?logo=Telegram"></a>
