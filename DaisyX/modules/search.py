@@ -354,7 +354,7 @@ async def apk(e):
             + app_link
             + "'>View in Play Store</a>"
         )
-        app_details += "\n\n===> @DaisySupport_Official <==="
+        app_details += "\n\n===> @OMG_info <==="
         await e.reply(app_details, link_preview=True, parse_mode="HTML")
     except IndexError:
         await e.reply("No result found in search. Please enter **Valid app name**")
@@ -364,6 +364,7 @@ async def apk(e):
 
 __help__ = """
  - /google <i>text</i>: Perform a google search
+ - /ud - search for urban dictionary
  - /so - Search For Something On Stack OverFlow
  - /gh - Search For Something On GitHub
  - /yts - Search For Something On YouTub
