@@ -9,6 +9,7 @@ import time
 
 # Extra Plugins Provided By Team Daisy X
 # Ported From WilliamButcher Bot.
+# Pokedex Inline Credit Red-Aura[Madepranav]
 # All Credit Goes to WilliamButcherBot
 import urllib.request
 from datetime import datetime
@@ -518,6 +519,18 @@ async def inline_query_handler(client, query):
                 )
             )
             await client.answer_inline_query(query.id, cache_time=0, results=results)
+        elif text.split()[0] == "pokedex":
+            if len(text.split()) < 2:
+                await client.answer_inline_query(
+                    query.id,
+                    results=answers,
+                    switch_pm_text="Pokemon [text]",
+                    switch_pm_parameter="pokedex",
+                )
+                return
+            pokedex = text.split(None, 1)[1].strip()
+            Pokedex = await pokedexinfo(answers, pokedex)
+            await client.answer_inline_query(query.id, results=Pokedex, cache_time=2)
         elif text.split()[0] == "paste":
             tex = text.split(None, 1)[1]
             answerss = await paste_func(answers, tex)

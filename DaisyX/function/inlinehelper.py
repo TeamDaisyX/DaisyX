@@ -371,3 +371,32 @@ async def ping_func(answers):
         )
     )
     return answers
+
+
+async def pokedexinfo(answers, pokemon):
+    Pokemon = f"https://some-random-api.ml/pokedex?pokemon={pokemon}"
+    result = await fetch(Pokemon)
+    buttons = InlineKeyboard(row_width=1)
+    buttons.add(
+        InlineKeyboardButton("Pokedex", switch_inline_query_current_chat="pokedex")
+    )
+    caption = f"""
+**Pokemon:** `{result['name']}`
+**Pokedex:** `{result['id']}`
+**Type:** `{result['type']}`
+**Abilities:** `{result['abilities']}`
+**Height:** `{result['height']}`
+**Weight:** `{result['weight']}`
+**Gender:** `{result['gender']}`
+**Stats:** `{result['stats']}`
+**Description:** `{result['description']}`"""
+    answers.append(
+        InlineQueryResultPhoto(
+            photo_url=f"https://img.pokemondb.net/artwork/large/{pokemon}.jpg",
+            title=result["name"],
+            description=result["description"],
+            caption=caption,
+            reply_markup=buttons,
+        )
+    )
+    return answers

@@ -28,7 +28,7 @@ from DaisyX.utils.logger import log
 
 DEBUG_MODE = get_bool_key("DEBUG_MODE")
 ALLOW_F_COMMANDS = get_bool_key("ALLOW_FORWARDS_COMMANDS")
-ALLOW_COMMANDS_FROM_EXC = get_bool_key("ALLOW_COMMANDS_WITH_!")
+ALLOW_COMMANDS_FROM_EXC = get_bool_key("ALLOW_EXCEL")
 CMD_NOT_MONO = get_bool_key("DISALLOW_MONO_CMDS")
 
 REGISTRED_COMMANDS = []
