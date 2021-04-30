@@ -107,8 +107,7 @@ async def lyrics(client, message):
 
 __mod_name__ = "Music"
 
-__help__ = """
-/video <i>query</i>: download video from youtube. 
+__help__ = """ 
 /deezer <i>query</i>: download from deezer. 
 /saavn <I>query</i>: download song from saavn. 
 /music <i>query</i>: download song from yt servers. (API BASED) 
