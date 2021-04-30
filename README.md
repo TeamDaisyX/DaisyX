@@ -19,9 +19,17 @@
 
 > ⭐️ Thanks to everyone who starred Daisy, That is the greatest pleasure we have !
 
-### The first AioGram based modified groupmanagement bot fully optimized for heroku deploys
 ### https://daisyproject.studio
 ## Avaiilable on Telegram as [@DaisyXBot](https://t.me/daisyxbot)
+
+# 🧙‍♀️ Deploy Guide
+Complete guide on deploying @DaisyXBot's clone on Heroku.
+
+<p align="left"><ba href="https://www.youtube.com/watch?v=yar61k_hEHQ"><img src="https://telegra.ph/file/8b29eb79eebc55e5e1fcb.jpg" width="300"></a></p> 
+<a href="https://www.youtube.com/watch?v=yar61k_hEHQ"><img src="https://img.shields.io/badge/How%20To-Deploy-red.svg?logo=Youtube"></a>
+
+☆ Video by [ANJANA MADUSHANKA](https://www.youtube.com/channel/UCApXYZNiMdW6UG48-syX7wQ) ☆
+
 
 # 🏃‍♂️ Easy Deploy 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamDaisyX/DaisyX.git)
