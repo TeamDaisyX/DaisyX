@@ -16,7 +16,7 @@
 
 #    Kang with the credits
 #    Special credits to @AmarnathCdj
-#    Edited by @ChankitSaini        
+#    Edited by @ChankitSaini
 import re
 
 import emoji
