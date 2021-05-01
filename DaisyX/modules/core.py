@@ -64,10 +64,9 @@ async def get(event):
 
 
 _help_ = """
- *You can make a file 
-  name. *
- ✪ /dox tag a message <i>file name</i> example /dox example.py
- ✪ /open tag a file 
+<b>You can make a file and open a file as text./b>
+ - /dox  : tag a message to create file <i>file name</i>. Example `/dox example.py`
+ - /open : tag a file to open it as text
 """
 
 _mod_name_ = "Core "
