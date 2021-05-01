@@ -106,6 +106,7 @@ __help__ = """
 - so [QUERY] - Search stack overflow.
 - wiki [QUERY] - Search wikipedia.
 - ping - Check ping rate.
+- pokedex [TEXT] - Pokemon Search.
 """
 
 __MODULE__ = "Inline"
@@ -148,6 +149,7 @@ __HELP__ = """
 - **so [QUERY]** - __Search stack overfolw.__
 - **wiki [QUERY]** - __Search wikipedia.__
 - **ping** - __Check ping rate.__
+- **pokedex** - __Pokemon Search.__
 """
 
 
@@ -904,7 +906,7 @@ async def inline_query_handler(client, query):
                 + app_link
                 + "'>View in Play Store</a>"
             )
-            app_details += "\n\n===> @DaisySupport_Official <==="
+            app_details += "\n\n===> @OMG_info <==="
             rip.append(
                 InlineQueryResultArticle(
                     title=f"Datails of {app_name}",
