@@ -4,7 +4,7 @@ import os
 
 from pyrogram import filters
 
-from DaisyX import OWNER_ID, devs
+from DaisyX import devs
 from DaisyX.services.pyrogram import pbot as app
 
 
