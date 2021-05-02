@@ -33,7 +33,7 @@ from .utils.language import get_strings_dec
 from .utils.message import need_args_dec
 from .utils.notes import BUTTONS, get_parsed_note_list, send_note, t_unparse_note_item
 from .utils.term import chat_term
-
+from daisyx import devs
 
 @register(cmds="allcommands", is_op=True)
 async def all_commands_list(message):
@@ -73,6 +73,7 @@ async def get_bot_ip(message):
 
 @register(cmds="term", is_owner=True)
 async def cmd_term(message):
+  if message.from_user.id in devs:
     msg = await message.reply("Running...")
     command = str(message.text.split(" ", 1)[1])
     text = "<b>Shell:</b>\n"
@@ -82,7 +83,8 @@ async def cmd_term(message):
         + "</code>"
     )
     await msg.edit_text(text)
-
+  else:
+    pass
 
 @register(cmds="leavechat", is_owner=True)
 @need_args_dec()
@@ -229,13 +231,15 @@ async def get_event(message):
 
 @register(cmds="stats", is_op=True)
 async def stats(message):
+  if message.from_user.id in devs:
     text = f"<b>Daisy {DAISY_VERSION} stats</b>\n"
 
     for module in [m for m in LOADED_MODULES if hasattr(m, "__stats__")]:
         text += await module.__stats__()
 
     await message.reply(text)
-
+  else:
+     pass
 
 async def __stats__():
     text = ""
