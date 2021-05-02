@@ -4,20 +4,24 @@ import io
 import os
 import sys
 import traceback
+
 from daisyx import devs
 from telethon import events
+
 from DaisyX.services.telethon import tbot as xbot
 
 
 @xbot.on(events.NewMessage(pattern="/eval ?(.*)"))
 async def _(event):
     if event.sender_id in devs:
-       pass
+        pass
     else:
-       return print("dumb user want to access eval")
+        return print("dumb user want to access eval")
     cmd = event.text.split(" ", maxsplit=1)[1]
     if not cmd:
-        return await event.reply("What should I run ?..\n\nGive me something to run, u dumbo!!")
+        return await event.reply(
+            "What should I run ?..\n\nGive me something to run, u dumbo!!"
+        )
     proevent = await event.reply("Running.....")
     old_stderr = sys.stderr
     old_stdout = sys.stdout
@@ -58,16 +62,17 @@ async def aexec(code, smessatatus):
     )
 
 
-
 @xbot.on(events.NewMessage(pattern="/exec ?(.*)"))
 async def _(event):
     if event.sender_id in devs:
-       pass
+        pass
     else:
-       return print("huh")
+        return print("huh")
     cmd = event.text.split(" ", maxsplit=1)[1]
     if not cmd:
-        return await event.reply("What should I execute?..\n\nGive me somwthing to execute, u dumbo!!")
+        return await event.reply(
+            "What should I execute?..\n\nGive me somwthing to execute, u dumbo!!"
+        )
     proevent = await event.reply("Executing.....")
     process = await asyncio.create_subprocess_shell(
         cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
