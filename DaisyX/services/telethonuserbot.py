@@ -16,6 +16,7 @@
 
 from telethon import TelegramClient
 from telethon.sessions import StringSession
+import sys 
 
 from DaisyX.config import get_int_key, get_str_key
 
