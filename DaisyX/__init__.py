@@ -14,14 +14,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
-import logging, os
-os.system("pip install daisyx")
-from daisyx import devs
+import logging
+import os
 
+os.system("pip install daisyx")
 import spamwatch
 from aiogram import Bot, Dispatcher, types
 from aiogram.bot.api import TELEGRAM_PRODUCTION, TelegramAPIServer
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
+from daisyx import devs
 
 from DaisyX.config import get_bool_key, get_int_key, get_list_key, get_str_key
 from DaisyX.utils.logger import log
