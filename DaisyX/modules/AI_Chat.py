@@ -16,6 +16,7 @@
 
 #    Kang with the credits
 #    Special credits to @AmarnathCdj
+#    Edited by @ChankitSaini
 import re
 
 import emoji
@@ -388,7 +389,7 @@ __help__ = """
 <b> Chatbot </b>
 <i> PRESENTING DAISY AI 3.0. THE ONLY AI SYSTEM WHICH CAN DETECT & REPLY UPTO 200 LANGUAGES </i>
  - /chatbot <i>ON/OFF</i>: Enables and disables AI Chat mode (EXCLUSIVE)
-* DaisyAI can detect and reply upto 200 languages by now *
+<b>DaisyAI can detect and reply upto 200 languages by now</b>
  - /chatbot EN : Enables English only chatbot
  
  

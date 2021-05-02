@@ -77,26 +77,26 @@ async def msg(event):
     wiki = a.get("wiki")
 
     caption = f"""<b><u>Information Gathered Successfully</b></u>
-<b>
-Country Name:- {name}
-Alternative Spellings:- {hu}
-Country Area:- {area} square kilometers
-Borders:- {borders}
-Calling Codes:- {call}
-Country's Capital:- {capital}
-Country's currency:- {currencies}
-Demonym:- {HmM}
-Country Type:- {EsCoBaR}
-ISO Names:- {iso}
-Languages:- {lMAO}
-Native Name:- {nonive}
-population:- {waste}
-Region:- {reg}
-Sub Region:- {sub}
-Time Zones:- {tom}
-Top Level Domain:- {lanester}
-wikipedia:- {wiki}</b>
-Gathered By Daisy X.</b>
+<b>Country Name:-</b> {name}
+<b>Alternative Spellings:-</b> {hu}
+<b>Country Area:-</b> {area} square kilometers
+<b>Borders:-</b> {borders}
+<b>Calling Codes:-</b> {call}
+<b>Country's Capital:-</b> {capital}
+<b>Country's currency:-</b> {currencies}
+<b>Demonym:-</b> {HmM}
+<b>Country Type:-</b> {EsCoBaR}
+<b>ISO Names:-</b> {iso}
+<b>Languages:-</b> {lMAO}
+<b>Native Name:-</b> {nonive}
+<b>Population:-</b> {waste}
+<b>Region:-</b> {reg}
+<b>Sub Region:-</b> {sub}
+<b>Time Zones:-</b> {tom}
+<b>Top Level Domain:-</b> {lanester}
+<b>wikipedia:-</b> {wiki}
+
+<i>Gathered By DaisyX.</i>
 """
 
     await borg.send_message(
