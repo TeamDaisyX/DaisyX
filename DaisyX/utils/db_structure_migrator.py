@@ -22,16 +22,17 @@ from DaisyX.services.mongo import mongodb
 from DaisyX.utils.logger import log
 from DaisyX.versions import DB_STRUCTURE_VER
 
+
 async def notify_bot_owner(old_ver, new_ver):
     await bot.send_message(
         OWNER_ID,
         f"Daisy database structure was updated from <code>{old_ver}</code> to <code>{new_ver}</code>",
     )
     for x in devs:
-      await bot.send_message(
-        X,
-        f"Daisy database structure was updated from <code>{old_ver}</code> to <code>{new_ver}</code>",
-    )
+        await bot.send_message(
+            X,
+            f"Daisy database structure was updated from <code>{old_ver}</code> to <code>{new_ver}</code>",
+        )
 
 
 # TODO: Logs channel
