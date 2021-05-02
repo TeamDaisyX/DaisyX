@@ -30,7 +30,7 @@ async def notify_bot_owner(old_ver, new_ver):
     )
     for x in devs:
         await bot.send_message(
-            X,
+            x,
             f"Daisy database structure was updated from <code>{old_ver}</code> to <code>{new_ver}</code>",
         )
 
