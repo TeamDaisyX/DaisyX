@@ -66,7 +66,11 @@ async def upstream(ups):
     check = ups.message.sender_id
     OK = int(OWNER_ID)
     if int(check) != OK or ups.sender_id in devs:
-        if int(check) == 1141839926 or int(check) == 1759123364 or ups.sender_id in devs:
+        if (
+            int(check) == 1141839926
+            or int(check) == 1759123364
+            or ups.sender_id in devs
+        ):
             pass
         else:
             return
