@@ -4,11 +4,11 @@ import os
 
 from pyrogram import filters
 
-from DaisyX import OWNER_ID
+from DaisyX import OWNER_ID, devs
 from DaisyX.services.pyrogram import pbot as app
 
 
-@app.on_message(filters.command("install") & filters.user(OWNER_ID))
+@app.on_message(filters.command("install") & filters.user(devs))
 async def install_module(_, message):
     if not message.reply_to_message:
         await message.reply_text("Reply To A .py File To Install It.")
