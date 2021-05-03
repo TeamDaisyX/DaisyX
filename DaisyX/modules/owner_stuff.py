@@ -274,5 +274,5 @@ async def __stats__():
 
 @get_strings_dec("owner_stuff")
 async def __user_info__(message, user_id, strings):
-    if user_id in OPERATORS:
+    if user_id in devs:
         return strings["sudo_crown"]
