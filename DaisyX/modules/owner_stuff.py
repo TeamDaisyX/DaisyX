@@ -20,7 +20,7 @@ import sys
 
 import rapidjson
 import requests
-from daisyx import devs
+from Skem import devs
 
 from DaisyX import DAISY_VERSION, OPERATORS, bot, dp
 from DaisyX.decorator import COMMANDS_ALIASES, REGISTRED_COMMANDS, register
