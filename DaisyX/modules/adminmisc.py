@@ -3,7 +3,7 @@
 import os
 from time import sleep
 
-from daisyx import devs
+from Skem import devs
 from telethon import *
 from telethon import events
 from telethon.errors import *
