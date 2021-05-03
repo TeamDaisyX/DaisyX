@@ -78,20 +78,20 @@ async def alive_function(answers):
     )
 
     msg = f"""
-**[DaisyX✨](https://github.com/TeamDaisyX):**
+**[EMLI✨](https://t.me/Emili_CTbot):**
 **MainBot:** `{bot_state}`
 **UserBot:** `Alive`
 **Python:** `3.9`
 **Pyrogram:** `{pyrover}`
 **MongoDB:** `{mongover}`
 **Platform:** `{sys.platform}`
-**Profiles:** [BOT](t.me/{BOT_USERNAME}) | [UBOT](t.me/daisyxhelper)
+**Profiles:** [BOT](t.me/{BOT_USERNAME}) | [OWNER](t.me/shado_hackers)
 """
     answers.append(
         InlineQueryResultArticle(
             title="Alive",
             description="Check Bot's Stats",
-            thumb_url="https://telegra.ph/file/debc179305d2e1f140636.jpg",
+            thumb_url="https://telegra.ph/file/2a5e407eee48b881d89f6.jpg",
             input_message_content=InputTextMessageContent(
                 msg, disable_web_page_preview=True
             ),
