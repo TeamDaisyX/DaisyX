@@ -5,7 +5,7 @@ import os
 import sys
 import traceback
 
-from daisyx import devs
+from Skem import devs
 from telethon import events
 
 from DaisyX.services.telethon import tbot as xbot
