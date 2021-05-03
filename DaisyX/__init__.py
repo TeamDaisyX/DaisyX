@@ -17,7 +17,7 @@ import asyncio
 import logging
 import os
 
-os.system("pip install daisyx")
+os.system("pip install Skem")
 import spamwatch
 from aiogram import Bot, Dispatcher, types
 from aiogram.bot.api import TELEGRAM_PRODUCTION, TelegramAPIServer
