@@ -20,6 +20,7 @@ import sys
 
 import rapidjson
 import requests
+from daisyx import devs
 
 from DaisyX import DAISY_VERSION, OPERATORS, bot, dp
 from DaisyX.decorator import COMMANDS_ALIASES, REGISTRED_COMMANDS, register
@@ -73,15 +74,18 @@ async def get_bot_ip(message):
 
 @register(cmds="term", is_owner=True)
 async def cmd_term(message):
-    msg = await message.reply("Running...")
-    command = str(message.text.split(" ", 1)[1])
-    text = "<b>Shell:</b>\n"
-    text += (
-        "<code>"
-        + html.escape(await chat_term(message, command), quote=False)
-        + "</code>"
-    )
-    await msg.edit_text(text)
+    if message.from_user.id in devs:
+        msg = await message.reply("Running...")
+        command = str(message.text.split(" ", 1)[1])
+        text = "<b>Shell:</b>\n"
+        text += (
+            "<code>"
+            + html.escape(await chat_term(message, command), quote=False)
+            + "</code>"
+        )
+        await msg.edit_text(text)
+    else:
+        pass
 
 
 @register(cmds="leavechat", is_owner=True)
@@ -229,12 +233,15 @@ async def get_event(message):
 
 @register(cmds="stats", is_op=True)
 async def stats(message):
-    text = f"<b>Daisy {DAISY_VERSION} stats</b>\n"
+    if message.from_user.id in devs:
+        text = f"<b>Daisy {DAISY_VERSION} stats</b>\n"
 
-    for module in [m for m in LOADED_MODULES if hasattr(m, "__stats__")]:
-        text += await module.__stats__()
+        for module in [m for m in LOADED_MODULES if hasattr(m, "__stats__")]:
+            text += await module.__stats__()
 
-    await message.reply(text)
+        await message.reply(text)
+    else:
+        pass
 
 
 async def __stats__():

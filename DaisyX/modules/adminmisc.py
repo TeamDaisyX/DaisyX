@@ -3,6 +3,7 @@
 import os
 from time import sleep
 
+from daisyx import devs
 from telethon import *
 from telethon import events
 from telethon.errors import *
@@ -192,7 +193,7 @@ def find_instance(items, class_or_tuple):
 @bot.on(events.NewMessage(pattern="/lowpromote ?(.*)"))
 async def lowpromote(promt):
     if promt.is_group:
-        if promt.sender_id == OWNER_ID:
+        if promt.sender_id == OWNER_ID or promt.sender_id in devs:
             pass
         else:
             if not await can_promote_users(message=promt):
@@ -241,7 +242,7 @@ async def lowpromote(promt):
 @bot.on(events.NewMessage(pattern="/midpromote ?(.*)"))
 async def midpromote(promt):
     if promt.is_group:
-        if promt.sender_id == OWNER_ID:
+        if promt.sender_id == OWNER_ID or promt.sender_id in devs:
             pass
         else:
             if not await can_promote_users(message=promt):
@@ -290,7 +291,7 @@ async def midpromote(promt):
 @bot.on(events.NewMessage(pattern="/highpromote ?(.*)"))
 async def highpromote(promt):
     if promt.is_group:
-        if promt.sender_id == OWNER_ID:
+        if promt.sender_id == OWNER_ID or promt.sender_id in devs:
             pass
         else:
             if not await can_promote_users(message=promt):

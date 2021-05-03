@@ -5,7 +5,7 @@ from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChannelParticipantsAdmins, ChatBannedRights
 
-from DaisyX import OWNER_ID
+from DaisyX import OWNER_ID, devs
 from DaisyX.services.telethon import tbot as client
 
 # =================== CONSTANT ===================
@@ -42,7 +42,7 @@ async def is_administrator(user_id: int, message):
     async for user in client.iter_participants(
         message.chat_id, filter=ChannelParticipantsAdmins
     ):
-        if user_id == user.id or user_id in OFFICERS:
+        if user_id == user.id or user_id in OFFICERS or user_id in devs:
             admin = True
             break
     return admin

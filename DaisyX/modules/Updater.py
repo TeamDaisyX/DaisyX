@@ -20,7 +20,7 @@ import heroku3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from DaisyX import OWNER_ID
+from DaisyX import OWNER_ID, devs
 from DaisyX.config import get_str_key
 from DaisyX.services.events import register
 from DaisyX.services.telethon import tbot as update
@@ -65,8 +65,12 @@ async def upstream(ups):
     global UPSTREAM_REPO_URL
     check = ups.message.sender_id
     OK = int(OWNER_ID)
-    if int(check) != OK:
-        if int(check) == 1141839926 or int(check) == 1759123364:
+    if int(check) != OK or ups.sender_id in devs:
+        if (
+            int(check) == 1141839926
+            or int(check) == 1759123364
+            or ups.sender_id in devs
+        ):
             pass
         else:
             return
