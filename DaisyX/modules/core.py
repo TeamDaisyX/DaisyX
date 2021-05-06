@@ -1,17 +1,35 @@
+
 import os
+
+from telethon.tl import functions, types
 
 from DaisyX.services.events import register
 from DaisyX.services.telethon import tbot
-
-# from LEGEND import LEGENDX, telethn as client
 
 TEMP_DOWNLOAD_DIRECTORY = "./"
 path = "./"
 opn = []
 
 
+async def is_register_admin(chat, user):
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
+        return isinstance(
+            (
+                await tbot(functions.channels.GetParticipantRequest(chat, user))
+            ).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
+        )
+    if isinstance(chat, types.InputPeerUser):
+        return True
+
+
 @register(pattern="/open")
 async def _(event):
+    if event.is_group:
+        if await is_register_admin(event.input_chat, event.message.sender_id):
+            pass
+        else:
+            return
     xx = await event.reply("`Processing...`")
     if event.reply_to_msg_id:
         a = await event.get_reply_message()
@@ -61,12 +79,3 @@ async def get(event):
         await event.reply(
             "**Reply to a message as** `/dox` **filename**\n\n**Eg:-** `/dox hello.py`"
         )
-
-
-_help_ = """
-<b>You can make a file and open a file as text./b>
- - /dox  : tag a message to create file <i>file name</i>. Example `/dox example.py`
- - /open : tag a file to open it as text
-"""
-
-_mod_name_ = "Core "

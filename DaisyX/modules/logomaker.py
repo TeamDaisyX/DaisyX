@@ -66,9 +66,7 @@ def mainne(name, typeo):
     download_images(images)
 
 
-@pbot.on_message(
-    filters.command("logo") & ~filters.edited & ~filters.bot & ~filters.private
-)
+@pbot.on_message(filters.command("logo") & ~filters.edited & ~filters.bot)
 @admins_only
 async def logogen(client, message):
     pablo = await client.send_message(message.chat.id, "`Creating The Logo.....`")

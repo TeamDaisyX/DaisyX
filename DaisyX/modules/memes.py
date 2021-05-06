@@ -1793,7 +1793,6 @@ __help__ = """
  - /quotly: Type /quotly in reply to a message to make a sticker of that
  - /animate: Enwrap your text in a beautiful anime
  
-The Memes module copied and modified from @Missjuliarobot.. Full credits goes to julia 
 """
 
 __mod_name__ = "Memes"

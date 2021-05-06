@@ -15,14 +15,11 @@
 
 import asyncio
 import logging
-import os
 
-os.system("pip install Skem")
 import spamwatch
 from aiogram import Bot, Dispatcher, types
 from aiogram.bot.api import TELEGRAM_PRODUCTION, TelegramAPIServer
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
-from Skem import devs
 
 from DaisyX.config import get_bool_key, get_int_key, get_list_key, get_str_key
 from DaisyX.utils.logger import log
@@ -76,6 +73,8 @@ BOT_ID = bot_info.id
 POSTGRESS_URL = get_str_key("DATABASE_URL", required=True)
 TEMP_DOWNLOAD_DIRECTORY = "./"
 
+# Sudo Users
+# SUDO_USERS = get_str_key("SUDO_USERS", required=True)
 
 # String Session
 STRING_SESSION = get_str_key("STRING_SESSION", required=True)

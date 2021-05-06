@@ -1,5 +1,8 @@
-# This file is part of Daisy (Telegram Bot)
-
+# Copyright (C) 2018 - 2020 MrYacha. All rights reserved. Source code available under the AGPL.
+# Copyright (C) 2019 Aiogram
+#
+# This file is part of AllMightBot.
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
@@ -28,6 +31,7 @@ from telethon.errors import (
     MediaEmptyError,
     MessageEmptyError,
 )
+from telethon.errors.rpcerrorlist import ChatWriteForbiddenError
 from telethon.tl.custom import Button
 
 import DaisyX.modules.utils.tmarkdown as tmarkdown
@@ -109,7 +113,7 @@ def get_parsed_msg(message):
     if not entities:
         return text, mode
 
-    if sys.maxunicode != 0xFFFF:
+    if not sys.maxunicode == 0xFFFF:
         text = text.encode("utf-16-le")
 
     result = ""
@@ -218,9 +222,6 @@ async def get_msg_file(message):
     for file_type in file_types:
         if file_type not in message:
             continue
-        if not tmsg.file:
-            # FIXME: NoneType is unexpected here
-            raise Exception("Telegram refused to give file info!")
         return {"id": tmsg.file.id, "type": file_type}
     return None
 
@@ -341,9 +342,11 @@ async def send_note(send_id, text, **kwargs):
 
     except (ButtonUrlInvalidError, MessageEmptyError, MediaEmptyError):
         return await tbot.send_message(
-            send_id, "I found this note invalid! Please update it (read Wiki)."
+            send_id, "I found this note invalid! Please update it (read help)."
         )
-
+    except ChatWriteForbiddenError:
+        log.error("Send Note Error bot is Kicked/Muted in chat [IGNORE]", exc_info=err)
+        return
     except BadRequestError:  # if reply message deleted
         del kwargs["reply_to"]
         return await tbot.send_message(send_id, text, **kwargs)

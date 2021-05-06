@@ -1,4 +1,6 @@
 # By @TroJanzHEX
+# Improved by TeamDaisyX
+
 from pyrogram import filters
 from pyrogram.types import (
     CallbackQuery,
@@ -446,9 +448,10 @@ __mod_name__ = "Image Editor"
 __help__ = """
 <b> IMAGE EDITOR </b>
 Daisy have some advanced image editing tools inbuilt
-Bright,Circle,RemBG,Blur,Border,Flip,Glitch,Sticker maker and more
+Bright, Circle, RemBG, Blur, Border, Flip, Glitch, Sticker maker and more
 
-- /edit <i> reply to image</i> : Open the image editor
+- /edit [reply to image]: Open the image editor
+- /rmbg [REPLY]: Revove BG of replied image/sticker.
 
 <i> Special credits to TroJanzHEX </i>
 """

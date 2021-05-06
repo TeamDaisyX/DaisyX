@@ -1,3 +1,7 @@
+# Copyright (C) 2018 - 2020 MrYacha. All rights reserved. Source code available under the AGPL.
+# Copyright (C) 2021 TeamDaisyX
+# Copyright (C) 2020 Inuka Asith
+
 # This file is part of Daisy (Telegram Bot)
 
 # This program is free software: you can redistribute it and/or modify
@@ -12,6 +16,7 @@
 
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import asyncio
 import functools
 import random

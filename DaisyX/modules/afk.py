@@ -1,99 +1,90 @@
-import time
+# Copyright (C) 2018 - 2020 MrYacha. All rights reserved. Source code available under the AGPL.
+# Copyright (C) 2021 HitaloSama.
+# Copyright (C) 2019 Aiogram.
+#
+# This file is part of Hitsuki (Telegram Bot)
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
 
-from telethon import events, types
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
 
-from DaisyX.services.events import register
-from DaisyX.services.sql import afk_sql as sql
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Importing from the serices
-from DaisyX.services.telethon import tbot
+import html
+import re
+
+from DaisyX.decorator import register
+from DaisyX.services.mongo import db
+
+from .utils.disable import disableable_dec
+from .utils.language import get_strings_dec
+from .utils.message import get_args_str
+from .utils.user_details import get_user, get_user_by_id, get_user_link
 
 
-@register(pattern=r"(.*?)")
-async def _(event):
-    if event.is_private:
+@register(cmds="afk")
+@disableable_dec("afk")
+@get_strings_dec("afk")
+async def afk(message, strings):
+    arg = get_args_str(message)
+
+    # dont support AFK as anon admin
+    if message.from_user.id == 1087968824:
+        await message.reply(strings["afk_anon"])
         return
-    sender = await event.get_sender()
-    prefix = event.text.split()
-    if prefix[0] == "/afk":
-        cmd = event.text[len("/afk ") :]
-        if cmd is not None:
-            reason = cmd
-        else:
-            reason = ""
-        firsname = sender.first_name
-        # print(reason)
-        start_time = time.time()
-        sql.set_afk(sender.id, reason, start_time)
-        await event.reply("**{} is now AFK !**".format(firsname), parse_mode="markdown")
-        return
 
-    if sql.is_afk(sender.id):
-        res = sql.rm_afk(sender.id)
-        if res:
-            firstname = sender.first_name
-            text = "**{} is no longer AFK !**".format(firstname)
-            await event.reply(text, parse_mode="markdown")
-
-
-@tbot.on(events.NewMessage(pattern=None))
-async def _(event):
-    if event.is_private:
-        return
-    sender = event.sender_id
-    str(event.text)
-    global let
-    global userid
-    userid = None
-    let = None
-    if event.reply_to_msg_id:
-        await event.get_reply_message()
-        userid = event.sender_id
+    if not arg:
+        reason = "No reason"
     else:
-        try:
-            for (ent, txt) in event.get_entities_text():
-                if ent.offset != 0:
-                    break
-                if isinstance(ent, types.MessageEntityMention):
-                    pass
-                elif isinstance(ent, types.MessageEntityMentionName):
-                    pass
-                else:
-                    return
-                c = txt
-                a = c.split()[0]
-                let = await tbot.get_input_entity(a)
-                userid = let.user_id
-        except Exception:
+        reason = arg
+
+    user = await get_user_by_id(message.from_user.id)
+    user_afk = await db.afk.find_one({"user": user["user_id"]})
+    if user_afk:
+        return
+
+    await db.afk.insert_one({"user": user["user_id"], "reason": reason})
+    text = strings["is_afk"].format(
+        user=(await get_user_link(user["user_id"])), reason=html.escape(reason)
+    )
+    await message.reply(text)
+
+
+@register(f="text", allow_edited=False)
+@get_strings_dec("afk")
+async def check_afk(message, strings):
+    if bool(message.reply_to_message):
+        if message.reply_to_message.from_user.id in (1087968824, 777000):
             return
-
-    if not userid:
+    if message.from_user.id in (1087968824, 777000):
         return
-    if sender == userid:
-        return
-
-    if event.is_group:
-        pass
-    else:
-        return
-    if sql.is_afk(userid):
-        user = sql.check_afk_status(userid)
-        if not user.reason:
-            etime = user.start_time
-            elapsed_time = time.time() - float(etime)
-            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
-            fst_name = "User"
-            res = "**{} is AFK !**\n\n**Last seen**: {}".format(fst_name, final)
-
-            await event.reply(res, parse_mode="markdown")
-        else:
-            etime = user.start_time
-            elapsed_time = time.time() - float(etime)
-            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
-            fst_name = "This user"
-            res = "**{} is AFK !**\n\n**He said to me that**: {}\n\n**Last seen**: {}".format(
-                fst_name, user.reason, final
+    user_afk = await db.afk.find_one({"user": message.from_user.id})
+    if user_afk:
+        afk_cmd = re.findall("^[!/]afk(.*)", message.text)
+        if not afk_cmd:
+            await message.reply(
+                strings["unafk"].format(
+                    user=(await get_user_link(message.from_user.id))
+                )
             )
-            await event.reply(res, parse_mode="markdown")
-    userid = ""  # after execution
-    let = ""  # after execution
+            await db.afk.delete_one({"_id": user_afk["_id"]})
+
+    user = await get_user(message)
+    if not user:
+        return
+
+    user_afk = await db.afk.find_one({"user": user["user_id"]})
+    if user_afk:
+        await message.reply(
+            strings["is_afk"].format(
+                user=(await get_user_link(user["user_id"])),
+                reason=html.escape(user_afk["reason"]),
+            )
+        )

@@ -1,5 +1,20 @@
-# For porting this plugin you need to add 2 things in requirements for that check requirements of this repo.
+# Copyright (C) 2021 TeamDaisyX
 
+
+# This file is part of Daisy (Telegram Bot)
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from countryinfo import CountryInfo
 
@@ -77,26 +92,26 @@ async def msg(event):
     wiki = a.get("wiki")
 
     caption = f"""<b><u>Information Gathered Successfully</b></u>
-<b>Country Name:-</b> {name}
-<b>Alternative Spellings:-</b> {hu}
-<b>Country Area:-</b> {area} square kilometers
-<b>Borders:-</b> {borders}
-<b>Calling Codes:-</b> {call}
-<b>Country's Capital:-</b> {capital}
-<b>Country's currency:-</b> {currencies}
-<b>Demonym:-</b> {HmM}
-<b>Country Type:-</b> {EsCoBaR}
-<b>ISO Names:-</b> {iso}
-<b>Languages:-</b> {lMAO}
-<b>Native Name:-</b> {nonive}
-<b>Population:-</b> {waste}
-<b>Region:-</b> {reg}
-<b>Sub Region:-</b> {sub}
-<b>Time Zones:-</b> {tom}
-<b>Top Level Domain:-</b> {lanester}
-<b>wikipedia:-</b> {wiki}
-
-<i>Gathered By DaisyX.</i>
+<b>
+Country Name:- {name}
+Alternative Spellings:- {hu}
+Country Area:- {area} square kilometers
+Borders:- {borders}
+Calling Codes:- {call}
+Country's Capital:- {capital}
+Country's currency:- {currencies}
+Demonym:- {HmM}
+Country Type:- {EsCoBaR}
+ISO Names:- {iso}
+Languages:- {lMAO}
+Native Name:- {nonive}
+population:- {waste}
+Region:- {reg}
+Sub Region:- {sub}
+Time Zones:- {tom}
+Top Level Domain:- {lanester}
+wikipedia:- {wiki}</b>
+Gathered By Daisy X.</b>
 """
 
     await borg.send_message(

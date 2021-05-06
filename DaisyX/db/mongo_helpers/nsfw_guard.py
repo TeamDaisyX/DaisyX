@@ -1,24 +1,24 @@
-from DaisyX.services.mongo import mongodb as db_x
+from DaisyX.services.mongo2 import db
 
-nsfw = db_x["NSFW_WATCH"]
-
-
-def add_chat(chat_id):
-    nsfw.insert_one({"chat_id": chat_id})
+nsfwdb = db.nsfw
 
 
-def rm_chat(chat_id):
-    nsfw.delete_one({"chat_id": chat_id})
-
-
-def get_all_nsfw_chats():
-    lol = list(nsfw.find({}))
-    return lol
-
-
-def is_chat_in_db(chat_id):
-    k = nsfw.find_one({"chat_id": chat_id})
-    if k:
-        return True
-    else:
+async def is_nsfw_on(chat_id: int) -> bool:
+    chat = await nsfwdb.find_one({"chat_id": chat_id})
+    if not chat:
         return False
+    return True
+
+
+async def nsfw_on(chat_id: int):
+    is_nsfw = await is_nsfw_on(chat_id)
+    if is_nsfw:
+        return
+    return await nsfwdb.insert_one({"chat_id": chat_id})
+
+
+async def nsfw_off(chat_id: int):
+    is_nsfw = await is_nsfw_on(chat_id)
+    if not is_nsfw:
+        return
+    return await nsfwdb.delete_one({"chat_id": chat_id})

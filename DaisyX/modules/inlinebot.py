@@ -1,16 +1,17 @@
-# Must Need to Do For Using This Plugin Given Below:-
-# Port DaisyX/pyroplugs/inlinehelper.py and DaisyX/pyroplugs/formatter.py for using this plugin.
-# Also Check Requirements in this repo Requirements Clearly Mentioned The Requirements needed for this plugin. If that requirements is not available at your repo then add it.
-# Also Need Some Additions At Config Yet Not Added. So Wait Few Time tell plugin don't ready completely to work.
+# Copyright (C) 2021 TheHamkerCat & TeamDaisyX
+
+# Ported some parts From WilliamButcherBot.
+# Pokedex Inline Credit Red-Aura[Madepranav]
+# Credits Goes to WilliamButcherBot
+
+# This file is part of Daisy (Telegram Bot)
+
 
 import datetime
 import re
 import time
 
-# Extra Plugins Provided By Team Daisy X
-# Ported From WilliamButcher Bot.
-# Pokedex Inline Credit Red-Aura[Madepranav]
-# All Credit Goes to WilliamButcherBot
+
 import urllib.request
 from datetime import datetime
 from typing import List
@@ -107,6 +108,7 @@ __help__ = """
 - so [QUERY] - Search stack overflow.
 - wiki [QUERY] - Search wikipedia.
 - ping - Check ping rate.
+- pokedex [TEXT]: Pokemon Search
 """
 
 __MODULE__ = "Inline"
@@ -150,6 +152,7 @@ __HELP__ = """
 - **so [QUERY]** - __Search stack overfolw.__
 - **wiki [QUERY]** - __Search wikipedia.__
 - **ping** - __Check ping rate.__
+- **pokedex [TEXT]** - __Pokemon Search.__
 """
 
 

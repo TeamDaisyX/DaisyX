@@ -1,15 +1,28 @@
-import glob
-import io
-import os
+# Copyright (C) 2021 TeamDaisyX
+
+
+# This file is part of Daisy (Telegram Bot)
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import re
 import urllib
 import urllib.request
 
 import bs4
 import requests
-from bing_image_downloader import downloader
 from bs4 import BeautifulSoup
-from PIL import Image
 from pyrogram import filters
 
 # This plugin is ported from https://github.com/thehamkercat/WilliamButcherBot
@@ -18,7 +31,6 @@ from search_engine_parser import GoogleSearch
 from DaisyX.modules.utils.fetch import fetch
 from DaisyX.services.events import register
 from DaisyX.services.pyrogram import pbot as app
-from DaisyX.services.telethon import tbot
 
 ARQ = "https://thearq.tech/"
 
@@ -150,104 +162,9 @@ async def ytsearch(_, message):
         await message.reply_text(str(e))
 
 
-@register(pattern="^/img (.*)")
-async def img_sampler(event):
-    if event.fwd_from:
-        return
-    query = event.pattern_match.group(1)
-    jit = f'"{query}"'
-    downloader.download(
-        jit,
-        limit=5,
-        output_dir="store",
-        adult_filter_off=False,
-        force_replace=False,
-        timeout=60,
-    )
-    os.chdir(f'./store/"{query}"')
-    types = ("*.png", "*.jpeg", "*.jpg")  # the tuple of file types
-    files_grabbed = []
-    for files in types:
-        files_grabbed.extend(glob.glob(files))
-    await tbot.send_file(event.chat_id, files_grabbed, reply_to=event.id)
-    os.chdir("/app")
-    os.system("rm -rf store")
-
-
 opener = urllib.request.build_opener()
 useragent = "Mozilla/5.0 (Linux; Android 9; SM-G960F Build/PPR1.180610.011; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/74.0.3729.157 Mobile Safari/537.36"
 opener.addheaders = [("User-agent", useragent)]
-
-
-@register(pattern=r"^/reverse(?: |$)(\d*)")
-async def okgoogle(img):
-    """For .reverse command, Google search images and stickers."""
-    if os.path.isfile("okgoogle.png"):
-        os.remove("okgoogle.png")
-    message = await img.get_reply_message()
-    if message and message.media:
-        photo = io.BytesIO()
-        await tbot.download_media(message, photo)
-    else:
-        await img.reply("`Reply to photo or sticker nigger.`")
-        return
-
-    if photo:
-        dev = await img.reply("`Processing...`")
-        try:
-            image = Image.open(photo)
-        except OSError:
-            await dev.edit("`Unsupported sexuality, most likely.`")
-            return
-        name = "okgoogle.png"
-        image.save(name, "PNG")
-        image.close()
-        # https://stackoverflow.com/questions/23270175/google-reverse-image-search-using-post-request#28792943
-        searchUrl = "https://www.google.com/searchbyimage/upload"
-        multipart = {"encoded_image": (name, open(name, "rb")), "image_content": ""}
-        response = requests.post(searchUrl, files=multipart, allow_redirects=False)
-        fetchUrl = response.headers["Location"]
-
-        if response != 400:
-            await dev.edit(
-                "`Image successfully uploaded to Google. Maybe.`"
-                "\n`Parsing source now. Maybe.`"
-            )
-        else:
-            await dev.edit("`Google told me to fuck off.`")
-            return
-
-        os.remove(name)
-        match = await ParseSauce(fetchUrl + "&preferences?hl=en&fg=1#languages")
-        guess = match["best_guess"]
-        imgspage = match["similar_images"]
-
-        if guess and imgspage:
-            await dev.edit(f"[{guess}]({fetchUrl})\n\n`Looking for this Image...`")
-        else:
-            await dev.edit("`Can't find this piece of shit.`")
-            return
-
-        if img.pattern_match.group(1):
-            lim = img.pattern_match.group(1)
-        else:
-            lim = 3
-        images = await scam(match, lim)
-        yeet = []
-        for i in images:
-            k = requests.get(i)
-            yeet.append(k.content)
-        try:
-            await tbot.send_file(
-                entity=await tbot.get_input_entity(img.chat_id),
-                file=yeet,
-                reply_to=img,
-            )
-        except TypeError:
-            pass
-        await dev.edit(
-            f"[{guess}]({fetchUrl})\n\n[Visually similar images]({imgspage})"
-        )
 
 
 async def ParseSauce(googleurl):
@@ -367,8 +284,6 @@ __help__ = """
  - /so - Search For Something On Stack OverFlow
  - /gh - Search For Something On GitHub
  - /yts - Search For Something On YouTub
- - /reverse: Does a reverse image search of the media which it was replied to.
- - /img <i>text</i>: Search Google for images and returns them\nFor greater no. of results specify lim, For eg: `/img hello lim=10`
  - /app <i>appname</i>: Searches for an app in Play Store and returns its details.
 """
 

@@ -1,30 +1,29 @@
-#    Copyright (C) 2020-2021 by @AmarnathCdj & @InukaAsith
-#    Chatbot system written by @AmarnathCdj databse added and recoded for pyrogram by @InukaAsith
-#    This programme is a part of DaisyX (TG bot) project
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+# Copyright (C) 2021 Red-Aura & TeamDaisyX
 
-#    Kang with the credits
-#    Special credits to @AmarnathCdj
-#    Edited by @ChankitSaini
+# This file is part of Daisy (Telegram Bot)
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import re
 
 import emoji
-import requests
 
 IBM_WATSON_CRED_URL = "https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/bd6b59ba-3134-4dd4-aff2-49a79641ea15"
 IBM_WATSON_CRED_PASSWORD = "UQ1MtTzZhEsMGK094klnfa-7y_4MCpJY1yhd52MXOo3Y"
 url = "https://acobot-brainshop-ai-v1.p.rapidapi.com/get"
+import re
+
+import aiohttp
 from google_trans_new import google_translator
 from pyrogram import filters
 
@@ -38,6 +37,16 @@ translator = google_translator()
 
 def extract_emojis(s):
     return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
+
+
+async def fetch(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as resp:
+            try:
+                data = await resp.json()
+            except Exception:
+                data = await resp.text()
+    return data
 
 
 daisy_chats = []
@@ -136,7 +145,11 @@ async def hmm(client, message):
         return
     if not message.reply_to_message:
         return
-    if message.reply_to_message.from_user.id != BOT_ID:
+    try:
+        senderr = message.reply_to_message.from_user.id
+    except:
+        return
+    if senderr != BOT_ID:
         return
     msg = message.text
     chat_id = message.chat.id
@@ -146,29 +159,19 @@ async def hmm(client, message):
         test = msg
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
-        querystring = {
-            "bid": "178",
-            "key": "sX5A2PcYZbsN5EY6",
-            "uid": "mashape",
-            "msg": {test},
-        }
-        headers = {
-            "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
-            "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
-        }
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        result = response.text
-        result = result.replace('{"cnt":"', "")
-        result = result.replace('"}', "")
-        result = result.replace("Aco", "Daisy")
-        result = result.replace("<a href=\\", "<a href =")
-        result = result.replace("<\/a>", "</a>")
-        pro = result
+        try:
+            URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
+            result = await fetch(URL)
+        except:
+            return
+
+        pro = result["message"]
         try:
             await daisyx.send_chat_action(message.chat.id, "typing")
             await message.reply_text(pro)
-        except CFError as e:
-            print(e)
+        except CFError:
+            return
+
     else:
         u = msg.split()
         emj = extract_emojis(msg)
@@ -198,41 +201,37 @@ async def hmm(client, message):
         else:
             rm = msg
             # print (rm)
-        lan = translator.detect(rm)
+        try:
+            lan = translator.detect(rm)
+        except:
+            return
         test = rm
         if not "en" in lan and not lan == "":
-            test = translator.translate(test, lang_tgt="en")
-
+            try:
+                test = translator.translate(test, lang_tgt="en")
+            except:
+                return
         # test = emoji.demojize(test.strip())
 
         # Kang with the credits bitches @InukaASiTH
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
-        querystring = {
-            "bid": "178",
-            "key": "sX5A2PcYZbsN5EY6",
-            "uid": "mashape",
-            "msg": {test},
-        }
-        headers = {
-            "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
-            "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
-        }
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        result = response.text
-        result = result.replace('{"cnt":"', "")
-        result = result.replace('"}', "")
-        result = result.replace("Aco", "Daisy")
-        result = result.replace("<a href=\\", "<a href =")
-        result = result.replace("<\/a>", "</a>")
-        pro = result
+        try:
+            URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
+            result = await fetch(URL)
+        except:
+            return
+        pro = result["message"]
         if not "en" in lan and not lan == "":
-            pro = translator.translate(pro, lang_tgt=lan[0])
+            try:
+                pro = translator.translate(pro, lang_tgt=lan[0])
+            except:
+                return
         try:
             await daisyx.send_chat_action(message.chat.id, "typing")
             await message.reply_text(pro)
-        except CFError as e:
-            print(e)
+        except CFError:
+            return
 
 
 @daisyx.on_message(
@@ -270,41 +269,36 @@ async def inuka(client, message):
     else:
         rm = msg
         # print (rm)
-    lan = translator.detect(rm)
+    try:
+        lan = translator.detect(rm)
+    except:
+        return
     test = rm
     if not "en" in lan and not lan == "":
-        test = translator.translate(test, lang_tgt="en")
+        try:
+            test = translator.translate(test, lang_tgt="en")
+        except:
+            return
 
     # test = emoji.demojize(test.strip())
 
     # Kang with the credits bitches @InukaASiTH
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
-    querystring = {
-        "bid": "178",
-        "key": "sX5A2PcYZbsN5EY6",
-        "uid": "mashape",
-        "msg": {test},
-    }
-    headers = {
-        "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
-        "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
-    }
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    result = response.text
-    result = result.replace('{"cnt":"', "")
-    result = result.replace('"}', "")
-    result = result.replace("Aco", "Daisy")
-    result = result.replace("<a href=\\", "<a href =")
-    result = result.replace("<\/a>", "</a>")
-    pro = result
+    try:
+        URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
+        result = await fetch(URL)
+    except:
+        return
+
+    pro = result["message"]
     if not "en" in lan and not lan == "":
         pro = translator.translate(pro, lang_tgt=lan[0])
     try:
         await daisyx.send_chat_action(message.chat.id, "typing")
         await message.reply_text(pro)
-    except CFError as e:
-        print(e)
+    except CFError:
+        return
 
 
 @daisyx.on_message(
@@ -348,54 +342,51 @@ async def inuka(client, message):
     else:
         rm = msg
         # print (rm)
-    lan = translator.detect(rm)
+    try:
+        lan = translator.detect(rm)
+    except:
+        return
     test = rm
     if not "en" in lan and not lan == "":
-        test = translator.translate(test, lang_tgt="en")
+        try:
+            test = translator.translate(test, lang_tgt="en")
+        except:
+            return
 
     # test = emoji.demojize(test.strip())
 
     # Kang with the credits bitches @InukaASiTH
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
-    querystring = {
-        "bid": "178",
-        "key": "sX5A2PcYZbsN5EY6",
-        "uid": "mashape",
-        "msg": {test},
-    }
-    headers = {
-        "x-rapidapi-key": "cf9e67ea99mshecc7e1ddb8e93d1p1b9e04jsn3f1bb9103c3f",
-        "x-rapidapi-host": "acobot-brainshop-ai-v1.p.rapidapi.com",
-    }
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    result = response.text
-    result = result.replace('{"cnt":"', "")
-    result = result.replace('"}', "")
-    result = result.replace("Aco", "Daisy")
-    result = result.replace("<a href=\\", "<a href =")
-    result = result.replace("<\/a>", "</a>")
-    pro = result
+    try:
+        URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
+        result = await fetch(URL)
+    except:
+        return
+    pro = result["message"]
     if not "en" in lan and not lan == "":
-        pro = translator.translate(pro, lang_tgt=lan[0])
+        try:
+            pro = translator.translate(pro, lang_tgt=lan[0])
+        except Exception:
+            return
     try:
         await daisyx.send_chat_action(message.chat.id, "typing")
         await message.reply_text(pro)
-    except CFError as e:
-        print(e)
+    except CFError:
+        return
 
 
 __help__ = """
 <b> Chatbot </b>
-<i> PRESENTING DAISY AI 3.0. THE ONLY AI SYSTEM WHICH CAN DETECT & REPLY UPTO 200 LANGUAGES </i>
- - /chatbot <i>ON/OFF</i>: Enables and disables AI Chat mode (EXCLUSIVE)
-<b>DaisyAI can detect and reply upto 200 languages by now</b>
+DAISY AI 3.0 IS THE ONLY AI SYSTEM WHICH CAN DETECT & REPLY UPTO 200 LANGUAGES
+
+ - /chatbot [ON/OFF]: Enables and disables AI Chat mode (EXCLUSIVE)
  - /chatbot EN : Enables English only chatbot
  
  
 <b> Assistant </b>
- - /ask <i>question</i>: Ask question from daisy
- - /ask <i> reply to voice note</i>: Get voice reply
+ - /ask [question]: Ask question from daisy
+ - /ask [reply to voice note]: Get voice reply
  
 """
 

@@ -5,10 +5,8 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
 
 <b>Available commands:</b>
 
-<b> Basics</b>
-- /direct (url): Generates direct links from the sourceforge.net
+<b>BASIC</b>
 - /github (username): Returns info about a GitHub user or organization.
-- /ip (url): Displays information about an IP / domain.
 - /wiki (keywords): Get wikipedia articles just using this bot.
 - /imdb: Search for a movie
 - /cancel: Disables current state. Can help in cases if DaisyXBot not responing on your message.
@@ -17,31 +15,48 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
 - /paste: Pase the text/file in nekobin
 - /gps: Find a location
 
-<b> Book Download </b>
+<b>BOOK DOWNLOAD </b>
 - /book <i>book name</i> : Usage :Gets Instant Download Link Of Given Book.
 
-<b>Fake Information Generator</b>
+<b>FAKE INFO</b>
 - /fakegen : Generates Fake Information
 - /picgen : generate a fake pic
 
-<b> Zipper </b>
+<b>ZIPPER</b>
 - /zip: reply to a telegram file to compress it in .zip format
 - /unzip: reply to a telegram file to decompress it from the .zip format
 
-<b> Weather </b>
+<b>WEATHER</b>
 - /weather: Gives weather forcast
 - /wheatherimg: Gives weather image
 
-<b> Phone info </b>
+<b>PHONE INFO</b>
 - /phone [phone no]: Gathers no info
 
-<b> Currency Converter </b>
+<b>CURRENCY</b>
  - /cash : currency converter
 Example syntax: `/cash 1 USD INR`
 
-<b> Name History </b>
+<b>NAME HISTORY</b>
 - /namehistory [REPLY]: Get the Username and Name history of user.
 
-<b> Send </b>
+<b>SEND</b>
 - /send [MESSAGE]: Send given text by bot.
+
+<b>CC CHECKER</b>
+- /au [cc]: Stripe Auth given CC
+- /pp [cc]: Paypal 1$ Guest Charge
+- /ss [cc]: Speedy Stripe Auth
+- /ch [cc]: Check If CC is Live
+- /bin [bin]: Gather's Info About the bin
+- /gen [bin]: Generates CC with given bin
+- /key [sk]: Checks if Stripe key is Live
+
+  Note: Format of cc is ccnum|mm|yy|cvv
+  Privacy warning: Don't check any of your personal CC's.
+  
+<b>URL TOOLS</b>
+- /short (url): Shortify given url.
+- /ip (url): Displays information about an IP / domain.
+- /direct (url): Generates direct links from the sourceforge.net
 """

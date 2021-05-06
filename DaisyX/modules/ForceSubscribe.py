@@ -1,5 +1,5 @@
 #    Copyright (C) 2020-2021 by @InukaAsith
-#    This programme is a part of Liza TG bot project
+#    This programme is a part of Daisy TG bot project
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as published by
@@ -88,7 +88,10 @@ def _check_member(client, message):
     chat_id = message.chat.id
     chat_db = sql.fs_settings(chat_id)
     if chat_db:
-        user_id = message.from_user.id
+        try:
+            user_id = message.from_user.id
+        except:
+            return
         if (
             not client.get_chat_member(chat_id, user_id).status
             in ("administrator", "creator")
@@ -194,14 +197,14 @@ def config(client, message):
 
 
 __help__ = """
-*ForceSubscribe:*
-✪ Daisy can mute members who are not subscribed your channel until they subscribe
-✪ When enabled I will mute unsubscribed members and show them a unmute button. When they pressed the button I will unmute them
-*Setup*
+<b>ForceSubscribe:</b>
+- Daisy can mute members who are not subscribed your channel until they subscribe
+- When enabled I will mute unsubscribed members and show them a unmute button. When they pressed the button I will unmute them
+<b>Setup</b>
 1) First of all add me in the group as admin with ban users permission and in the channel as admin.
 Note: Only creator of the group can setup me and i will not allow force subscribe again if not done so.
  
-*Commmands*
+<b>Commmands</b>
  - /forcesubscribe - To get the current settings.
  - /forcesubscribe no/off/disable - To turn of ForceSubscribe.
  - /forcesubscribe {channel username} - To turn on and setup the channel.

@@ -169,7 +169,8 @@ STRINGS:
     btn_source: "📦 Source code"
     btn_help: "مساعدة ❔"
     btn_lang: "اللغة 🇷🇺"
-    btn_channel: "📡 أخبار صوفي"
+    btn_channel: "📡 Daisy News"
+    btn_group: "👥 Daisy Support"
     btn_group_help: "Click me for help!"
     back: الرجوع
     #/help
@@ -667,3 +668,7 @@ STRINGS:
     #/setfloodaction
     invalid_args: "Unsupported action, expected {supported_actions}!"
     setfloodaction_success: "Successfully updated flood action to <b>{action}</b>!"
+  afk:
+    is_afk: "{user} is AFK!\nReason: {reason}"
+    unafk: "{user} is not AFK anymore!"
+    afk_anon: "AFK mode cannot be used as an anonymous administrator."

@@ -1,3 +1,22 @@
+# Copyright (C) 2021 TeamDaisyX
+
+
+# This file is part of Daisy (Telegram Bot)
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 import asyncio
 import re
 
@@ -9,6 +28,8 @@ from telethon import events
 from telethon.tl.types import ChatBannedRights
 
 from DaisyX import BOT_ID
+
+
 from DaisyX.function.telethonbasics import is_admin
 from DaisyX.services.events import register
 from DaisyX.services.mongo import mongodb as db
@@ -16,11 +37,6 @@ from DaisyX.services.telethon import tbot
 
 translator = google_translator()
 MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
-
-
-# This Module is ported from https://github.com/MissJuliaRobot/MissJuliaRobot
-# This hardwork was completely done by MissJuliaRobot
-# Full Credits goes to MissJuliaRobot
 
 
 approved_users = db.approve
@@ -216,3 +232,15 @@ async def del_profanity(event):
                     dev = await event.respond(final)
                     await asyncio.sleep(10)
                     await dev.delete()
+
+
+__help__ = """
+<b> Group Guardian: </b>
+- Protect your group from NSFW senders, Slag word users and also can force members to use English
+
+<b>Commmands</b>
+ - /globalmode [on/off]: Enable|Disable English only mode
+ - /profanity [on/off]: Enable|Disable slag word cleaning
+ 
+"""
+__mod_name__ = "Group Guardian"

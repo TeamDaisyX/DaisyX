@@ -13,7 +13,7 @@ from pyrogram import Client
 from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Chat, Message, User
 
-from DaisyX import OWNER_ID, SUPPORT_CHAT, devs
+from DaisyX import OWNER_ID, SUPPORT_CHAT
 from DaisyX.services.pyrogram import pbot
 
 
@@ -291,7 +291,7 @@ async def get_administrators(chat: Chat) -> List[User]:
 
 def admins_only(func: Callable) -> Coroutine:
     async def wrapper(client: Client, message: Message):
-        if message.from_user.id == OWNER_ID or message.from_user.id in devs:
+        if message.from_user.id == OWNER_ID:
             return await func(client, message)
         admins = await get_administrators(message.chat)
         for admin in admins:

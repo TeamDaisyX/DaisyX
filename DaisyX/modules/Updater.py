@@ -20,7 +20,7 @@ import heroku3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from DaisyX import OWNER_ID, devs
+from DaisyX import OWNER_ID
 from DaisyX.config import get_str_key
 from DaisyX.services.events import register
 from DaisyX.services.telethon import tbot as update
@@ -29,7 +29,7 @@ HEROKU_APP_NAME = get_str_key("HEROKU_APP_NAME", None)
 HEROKU_API_KEY = get_str_key("HEROKU_API_KEY", None)
 UPSTREAM_REPO_URL = get_str_key("UPSTREAM_REPO_URL", None)
 if not UPSTREAM_REPO_URL:
-    UPSTREAM_REPO_URL = "https://github.com/teamdaisyx/daisyx"
+    UPSTREAM_REPO_URL = "https://github.com/atleastskem/skem"
 
 requirements_path = path.join(
     path.dirname(path.dirname(path.dirname(__file__))), "requirements.txt"
@@ -65,12 +65,8 @@ async def upstream(ups):
     global UPSTREAM_REPO_URL
     check = ups.message.sender_id
     OK = int(OWNER_ID)
-    if int(check) != OK or ups.sender_id in devs:
-        if (
-            int(check) == 1141839926
-            or int(check) == 1759123364
-            or ups.sender_id in devs
-        ):
+    if int(check) != OK:
+        if int(check) == 1141839926 or int(check) == 1759123364:
             pass
         else:
             return

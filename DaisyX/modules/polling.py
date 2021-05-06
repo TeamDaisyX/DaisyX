@@ -1,3 +1,21 @@
+# Copyright (C) 2021 TeamDaisyX
+
+
+# This file is part of Daisy (Telegram Bot)
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from pymongo import MongoClient
 from telethon import *
 from telethon.tl import *
@@ -396,25 +414,24 @@ async def stop(event):
 
 
 __help__ = """
-You can now send polls anonymously with Julia
+You can now send polls anonymously with Daisy
 Here is how you can do it:
 <b> Parameters </b> -
- ▪️ poll-id - a poll id consists of an 5 digit random integer, this id is automatically removed from the system when you stop your previous poll
- ▪️ question - the question you wanna ask
- ▪️ [True@optionnumber/False](1) - quiz mode, you must state the correct answer with @ eg: True@ or True@2
- ▪️ [True/False](2) - public votes
- ▪️ [True/False](3) - multiple choice
+ - poll-id - a poll id consists of an 5 digit random integer, this id is automatically removed from the system when you stop your previous poll
+ - question - the question you wanna ask
+ - [True@optionnumber/False](1) - quiz mode, you must state the correct answer with @ eg: True@ or True@2
+ - [True/False](2) - public votes
+ - [True/False](3) - multiple choice
 <b> Syntax </b> -
-/poll [poll-id] <i>question</i> | <i>True@optionnumber/False</i> [True/False] [True/False] [option1] [option2] ... upto [option10]
+- /poll [poll-id] <i>question</i> | <i>True@optionnumber/False</i> [True/False] [True/False] [option1] [option2] ... upto [option10]
 <b> Examples </b> -
-/poll 12345 | am i cool? | False False False yes no`
-/poll 12345 | am i cool? | True@1 False False yes no`
+- /poll 12345 | am i cool? | False False False yes no`
+- /poll 12345 | am i cool? | True@1 False False yes no`
 <b> To stop a poll </b>
 Reply to the poll with `/stoppoll [poll-id]` to stop the poll
 <b> Fogot poll id </b>
-/forgotpollid - to reset poll
+- /forgotpollid - to reset poll
 
-Special credits to Julia project and Friday Userbot
 """
 
 

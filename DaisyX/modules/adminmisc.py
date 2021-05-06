@@ -1,9 +1,23 @@
-# Fully Written by infotechbro (github.com/infotechbro)
+# Copyright (C) 2021 AlainX &TeamDaisyX
+
+# This file is part of Daisy (Telegram Bot)
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 from time import sleep
 
-from Skem import devs
 from telethon import *
 from telethon import events
 from telethon.errors import *
@@ -193,7 +207,7 @@ def find_instance(items, class_or_tuple):
 @bot.on(events.NewMessage(pattern="/lowpromote ?(.*)"))
 async def lowpromote(promt):
     if promt.is_group:
-        if promt.sender_id == OWNER_ID or promt.sender_id in devs:
+        if promt.sender_id == OWNER_ID:
             pass
         else:
             if not await can_promote_users(message=promt):
@@ -242,7 +256,7 @@ async def lowpromote(promt):
 @bot.on(events.NewMessage(pattern="/midpromote ?(.*)"))
 async def midpromote(promt):
     if promt.is_group:
-        if promt.sender_id == OWNER_ID or promt.sender_id in devs:
+        if promt.sender_id == OWNER_ID:
             pass
         else:
             if not await can_promote_users(message=promt):
@@ -291,7 +305,7 @@ async def midpromote(promt):
 @bot.on(events.NewMessage(pattern="/highpromote ?(.*)"))
 async def highpromote(promt):
     if promt.is_group:
-        if promt.sender_id == OWNER_ID or promt.sender_id in devs:
+        if promt.sender_id == OWNER_ID:
             pass
         else:
             if not await can_promote_users(message=promt):

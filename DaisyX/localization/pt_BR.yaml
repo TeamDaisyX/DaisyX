@@ -169,6 +169,7 @@ STRINGS:
     btn_help: "❔ Ajuda"
     btn_lang: "🇧🇷 Idioma"
     btn_channel: "🙋‍♀️ Notícias do Daisy"
+    btn_group: "👥 Daisy Support"
     btn_group_help: "Clique aqui para obter ajuda!"
     back: Voltar
     #/help
@@ -666,3 +667,8 @@ STRINGS:
     #/setfloodaction
     invalid_args: "Ação não suportada, esperava-se {supported_actions}!"
     setfloodaction_success: "Atualizado com sucesso a ação anti-flood para <b>{action}</b>!"
+    
+  afk:
+    is_afk: "{user} is AFK!\nReason: {reason}"
+    unafk: "{user} is not AFK anymore!"
+    afk_anon: "AFK mode cannot be used as an anonymous administrator."

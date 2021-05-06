@@ -56,7 +56,8 @@ Usage: Create a paste or a shortened url using nekobin (https://nekobin.com)
 [UPVOTE] - Use upvote keywords like "+", "+1", "thanks" etc to upvote a message.
 [DOWNVOTE] - Use downvote keywords like "-", "-1", etc to downvote a message.
 
-/karma [Reply to a message]: Check user's karma
-/karma: Chek karma list of top 10 users
-         
+- /karma [ON/OFF]: Enable/Disable karma in group. 
+- /karma [Reply to a message]: Check user's karma
+- /karma: Chek karma list of top 10 users
+        
 """

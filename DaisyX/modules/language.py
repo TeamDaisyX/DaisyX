@@ -1,3 +1,7 @@
+# Copyright (C) 2018 - 2020 MrYacha. All rights reserved. Source code available under the AGPL.
+# Copyright (C) 2021 TeamDaisyX
+# Copyright (C) 2020 Inuka Asith
+
 # This file is part of Daisy (Telegram Bot)
 
 # This program is free software: you can redistribute it and/or modify
@@ -74,7 +78,7 @@ async def select_lang_keyboard(message, strings, edit=False):
 
     markup.add(
         InlineKeyboardButton(
-            strings["crowdin_btn"], url="https://crowdin.com/project/DaisyXx"
+            strings["crowdin_btn"], url="https://t.me/Daisysupport_official"
         )
     )
     if edit:

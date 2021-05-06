@@ -1,3 +1,21 @@
+# Copyright (C) 2021 TeamDaisyX
+
+
+# This file is part of Daisy (Telegram Bot)
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from asyncio import sleep
 
 from telethon import events
@@ -5,7 +23,7 @@ from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChannelParticipantsAdmins, ChatBannedRights
 
-from DaisyX import OWNER_ID, devs
+from DaisyX import OWNER_ID
 from DaisyX.services.telethon import tbot as client
 
 # =================== CONSTANT ===================
@@ -42,7 +60,7 @@ async def is_administrator(user_id: int, message):
     async for user in client.iter_participants(
         message.chat_id, filter=ChannelParticipantsAdmins
     ):
-        if user_id == user.id or user_id in OFFICERS or user_id in devs:
+        if user_id == user.id or user_id in OFFICERS:
             admin = True
             break
     return admin

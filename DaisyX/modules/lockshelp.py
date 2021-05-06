@@ -10,6 +10,21 @@ Comands:
 - /lock (locktype): Locks a type of messages
 - /unlock (locktype): Unlocks a type of message
 
+Locktypes:
+- all
+- messages
+- stickers
+- gifs
+- media
+- polls
+- games
+- url_prev
+- inline
+- pin
+- info 
+- invite
+
+
 <b> Url Lock </b>
 Block links sent by users in your group
 

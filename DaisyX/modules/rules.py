@@ -1,3 +1,7 @@
+# Copyright (C) 2018 - 2020 MrYacha. All rights reserved. Source code available under the AGPL.
+# Copyright (C) 2021 TeamDaisyX
+# Copyright (C) 2020 Inuka Asith
+
 # This file is part of Daisy (Telegram Bot)
 
 # This program is free software: you can redistribute it and/or modify
@@ -136,4 +140,5 @@ __help__ = """
 <b>Available Commands:</b>
 - /setrules (rules): saves the rules (also works with reply)
 - /rules: Shows the rules of chat if any!
+- /resetrules: Resets group's rules
 """

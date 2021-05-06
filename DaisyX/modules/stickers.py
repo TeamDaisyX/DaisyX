@@ -1,4 +1,7 @@
-# This file is part of DaisyXBot (Telegram Bot)
+# Copyright (C) 2021 TeamDaisyX
+
+
+# This file is part of Daisy (Telegram Bot)
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -392,6 +395,96 @@ async def _(event):
     os.system("rm -rf *.webp")
 
 
+@Daisy(pattern="^/rmkang$")
+async def _(event):
+    try:
+        if not event.is_reply:
+            await event.reply(
+                "Reply to a sticker to remove it from your personal sticker pack."
+            )
+            return
+        reply_message = await event.get_reply_message()
+        kanga = await event.reply("`Deleting .`")
+
+        if not is_message_image(reply_message):
+            await kanga.edit("Please reply to a sticker.")
+            return
+
+        rmsticker = await ubot.get_messages(event.chat_id, ids=reply_message.id)
+
+        stickerset_attr_s = reply_message.document.attributes
+        stickerset_attr = find_instance(stickerset_attr_s, DocumentAttributeSticker)
+        if not stickerset_attr.stickerset:
+            await event.reply("Sticker does not belong to a pack.")
+            return
+
+        get_stickerset = await tbot(
+            GetStickerSetRequest(
+                InputStickerSetID(
+                    id=stickerset_attr.stickerset.id,
+                    access_hash=stickerset_attr.stickerset.access_hash,
+                )
+            )
+        )
+
+        packname = get_stickerset.set.short_name
+
+        sresult = (
+            await ubot(
+                functions.messages.GetStickerSetRequest(
+                    InputStickerSetShortName(packname)
+                )
+            )
+        ).documents
+        for c in sresult:
+            if int(c.id) == int(stickerset_attr.stickerset.id):
+                pass
+            else:
+                await kanga.edit(
+                    "This sticker is already removed from your personal sticker pack."
+                )
+                return
+
+        await kanga.edit("`Deleting ..`")
+
+        async with ubot.conversation("@Stickers") as bot_conv:
+
+            await silently_send_message(bot_conv, "/cancel")
+            response = await silently_send_message(bot_conv, "/delsticker")
+            if "Choose" not in response.text:
+                await tbot.edit_message(
+                    kanga, f"**FAILED**! @Stickers replied: {response.text}"
+                )
+                return
+            response = await silently_send_message(bot_conv, packname)
+            if not response.text.startswith("Please"):
+                await tbot.edit_message(
+                    kanga, f"**FAILED**! @Stickers replied: {response.text}"
+                )
+                return
+            try:
+                await rmsticker.forward_to("@Stickers")
+            except Exception as e:
+                print(e)
+            if response.text.startswith("This pack has only"):
+                await silently_send_message(bot_conv, "Delete anyway")
+
+            await kanga.edit("`Deleting ...`")
+            response = await bot_conv.get_response()
+            if not "I have deleted" in response.text:
+                await tbot.edit_message(
+                    kanga, f"**FAILED**! @Stickers replied: {response.text}"
+                )
+                return
+
+            await kanga.edit(
+                "Successfully deleted that sticker from your personal pack."
+            )
+    except Exception as e:
+        os.remove("sticker.webp")
+        print(e)
+
+
 @register(cmds="getsticker")
 @disableable_dec("getsticker")
 @get_strings_dec("stickers")
@@ -432,9 +525,10 @@ __help__ = """
 Stickers are the best way to show emotion.
 
 <b>Available commands:</b>
-- /search: Search stickers for given query.
+- /searchsticker: Search stickers for given query.
 - /packinfo: Reply to a sticker to get it's pack info
 - /getsticker: Uploads the .png of the sticker you've replied to
 - /sticker_id : Reply to Sticker for getting sticker Id. 
-- /kang <i>emoji for sticker</i>: Reply to Image / Sticker to Kang!
+- /kang [Emoji for sticker] [reply to Image/Sticker]: Kang replied sticker/image.
+- /rmkang [REPLY]: Remove replied sticker from your kang pack.
 """

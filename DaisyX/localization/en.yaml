@@ -26,7 +26,6 @@ STRINGS:
     notelist_search: |
       <b>Pattern:</b> <code>{request}</code>
       <b>Matched notes:</b>
-
     # /clear
     note_removed: "Note <code>#{note_name}</code> removed in <b>{chat_name}</b>!"
     note_removed_multiple: |
@@ -45,7 +44,6 @@ STRINGS:
       <b>Search request in {chat_name}</b>:
       <b>Pattern:</b> <code>{request}</code>
       <b>Matched notes:</b>
-
     # /noteinfo
     note_info_title: "<b>Note info</b>\n"
     note_info_note: "Note names: %s\n"
@@ -99,7 +97,6 @@ STRINGS:
     select_filter_to_remove: |
       I have found many filters with handler '<code>{handler}</code>'.
       Please select one to remove:
-
     # /delfilters or /delallfilters
     not_chat_creator: Only chat creators can use this command!
     delall_header: This would delete all filters in this chat. This IS irreversible.
@@ -195,6 +192,7 @@ STRINGS:
     btn_help: "❔ Help"
     btn_lang: "🇺🇸 Language"
     btn_channel: "🙋‍♀️ Daisy News"
+    btn_group: "👥 Daisy Support"
     btn_group_help: "Click me for help!"
     back: "🏃‍♂️ Back"
 
@@ -260,7 +258,6 @@ STRINGS:
       <b>Chat joined federation</b> #ChatJoined
       <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
       <b>Chat:</b> {chat_name} (<code>{chat_id}</code>)
-
     # /leavefed
     chat_not_in_fed: "This chat is not in any federation yet."
     leave_fed_success: "Chat <b>{chat}</b> left the <b>{fed}</b> federation."
@@ -268,7 +265,6 @@ STRINGS:
       <b>Chat left Federation</b> #ChatLeaved
       <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
       <b>Chat:</b> {chat_name} (<code>{chat_id}</code>)
-
     # /fsub
     already_subsed: "Federation <b>{name}</b> already subscribed to <b>{name2}</b>"
     subsed_success: "Federation <b>{name}</b> subscribed to <b>{name2}</b>!"
@@ -293,12 +289,10 @@ STRINGS:
       <b>User demoted from the fed admins</b> #UserDemoted
       <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
       <b>User:</b> {user} (<code>{user_id}</code>)
-
     # /fsetlog
     already_have_chatlog: "<b>{name}</b> federation already has logging enabled in another chat/channel!"
     set_chat_log: |
       This chat is now logging all actions in <b>{name}</b> federation
-
       Federation logging is used for internal assessment of the federation and its performance.
       The federation should <b>NOT</b> be used as a public wall of shame thereby respecting user data and our privacy guidelines.
     set_log_fed_log: |
@@ -312,7 +306,6 @@ STRINGS:
     unset_log_fed_log: |
       <b>Disabled logging</b> #LoggingDisabled
       <b>Fed:</b> {fed_name} (<code>{fed_id}</code>)
-
     # /fchatlist
     no_chats: "There's no chats joined this <b>{name}</b> federation"
     chats_in_fed: "<b>Chats connected to {name} federation:</b>\n"
@@ -326,7 +319,6 @@ STRINGS:
       <b>Creator:</b> {creator}
       <b>Chats in the fed:</b> {chats}
       <b>Banned users in the fed:</b> {fbanned}
-
     finfo_subs_title: "<b>Federations subscribed to this feds:</b>\n"
 
     # /fadminlist
@@ -388,7 +380,6 @@ STRINGS:
     delfed_btn_no: No.
     delfed: |
       Are you sure you want to delete the <b>%s</b> federation?
-
       <i>Disclaimer: Deleting this federation will remove all data associated with it from our database!
       This action is permanent and cannot be reversed!</i>
     delfed_success: Successfully deleted the federation!
@@ -405,7 +396,6 @@ STRINGS:
     # /importfbans
     send_import_file: |
       Send the import file!
-
       To cancel this process use /cancel
     rpl_to_file: Please reply to a file!
     importfbans_locked: Importing fbans is locked for %s in this federation.
@@ -762,3 +752,8 @@ STRINGS:
     # /setfloodaction
     invalid_args: "Unsupported action, expected {supported_actions}!"
     setfloodaction_success: "Successfully updated flood action to <b>{action}</b>!"
+    
+  afk:
+    is_afk: "{user} is AFK!\nReason: {reason}"
+    unafk: "{user} is not AFK anymore!"
+    afk_anon: "AFK mode cannot be used as an anonymous administrator."

@@ -1,3 +1,6 @@
+# Copyright (C) 2021 TeamDaisyX
+
+
 # This file is part of Daisy (Telegram Bot)
 
 # This program is free software: you can redistribute it and/or modify

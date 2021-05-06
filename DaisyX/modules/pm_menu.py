@@ -1,3 +1,7 @@
+# Copyright (C) 2018 - 2020 MrYacha. All rights reserved. Source code available under the AGPL.
+# Copyright (C) 2021 TeamDaisyX
+# Copyright (C) 2020 Inuka Asith
+
 # This file is part of Daisy (Telegram Bot)
 
 # This program is free software: you can redistribute it and/or modify
@@ -83,7 +87,7 @@ async def get_start_func(message, strings, edit=False):
     buttons.add(
         InlineKeyboardButton(strings["btn_channel"], url="https://t.me/DaisyXUpdates"),
         InlineKeyboardButton(
-            "👥 Support Grup", url="https://t.me/DaisySupport_Official"
+            strings["btn_group"], url="https://t.me/DaisySupport_Official"
         ),
     )
     buttons.add(

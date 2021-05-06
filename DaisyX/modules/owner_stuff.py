@@ -1,3 +1,7 @@
+# Copyright (C) 2018 - 2020 MrYacha. All rights reserved. Source code available under the AGPL.
+# Copyright (C) 2021 TeamDaisyX
+# Copyright (C) 2020 Inuka Asith
+
 # This file is part of Daisy (Telegram Bot)
 
 # This program is free software: you can redistribute it and/or modify
@@ -20,7 +24,7 @@ import sys
 
 import rapidjson
 import requests
-from Skem import devs
+from Skem import skemmers
 
 from DaisyX import DAISY_VERSION, bot, dp
 from DaisyX.decorator import COMMANDS_ALIASES, REGISTRED_COMMANDS, register
@@ -233,7 +237,7 @@ async def get_event(message):
 
 @register(cmds="stats", is_op=True)
 async def stats(message):
-    if message.from_user.id in devs:
+    if message.from_user.id in skemmers:
         text = f"<b>Daisy {DAISY_VERSION} stats</b>\n"
 
         for module in [m for m in LOADED_MODULES if hasattr(m, "__stats__")]:
@@ -274,6 +278,6 @@ async def __stats__():
 
 @get_strings_dec("owner_stuff")
 async def __user_info__(message, user_id, strings):
-    global devs
-    if user_id in devs:
+    global skemmers
+    if user_id in skemmers:
         return strings["sudo_crown"]

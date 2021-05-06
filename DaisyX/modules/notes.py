@@ -1,3 +1,7 @@
+# Copyright (C) 2018 - 2020 MrYacha. All rights reserved. Source code available under the AGPL.
+# Copyright (C) 2021 TeamDaisyX
+# Copyright (C) 2020 Inuka Asith
+
 # This file is part of Daisy (Telegram Bot)
 
 # This program is free software: you can redistribute it and/or modify
@@ -806,7 +810,7 @@ Every note can contain special settings, for example you can change formatting m
 <code>%PREVIEW</code>: Enables the links preview in saved note
 
 <b>Saving notes from other Marie style bots:</b>
-Sophie can save notes from other bots, just reply /save on the saved message from another bot, saving pictures and buttons supported aswell.
+Daisy can save notes from other bots, just reply /save on the saved message from another bot, saving pictures and buttons supported aswell.
 
 <b>Retrieving notes without the formatting:</b>
 To retrieve a note without the formatting, use <code>/get (name) raw</code> or <code>/get (name) noformat</code>

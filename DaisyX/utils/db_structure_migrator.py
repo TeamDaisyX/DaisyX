@@ -17,7 +17,7 @@ import asyncio
 import time
 from importlib import import_module
 
-from DaisyX import OWNER_ID, bot, devs
+from DaisyX import OWNER_ID, bot
 from DaisyX.services.mongo import mongodb
 from DaisyX.utils.logger import log
 from DaisyX.versions import DB_STRUCTURE_VER
@@ -28,11 +28,6 @@ async def notify_bot_owner(old_ver, new_ver):
         OWNER_ID,
         f"Daisy database structure was updated from <code>{old_ver}</code> to <code>{new_ver}</code>",
     )
-    for x in devs:
-        await bot.send_message(
-            x,
-            f"Daisy database structure was updated from <code>{old_ver}</code> to <code>{new_ver}</code>",
-        )
 
 
 # TODO: Logs channel
