@@ -10,8 +10,6 @@
 import datetime
 import re
 import time
-
-
 import urllib.request
 from datetime import datetime
 from typing import List

@@ -28,8 +28,6 @@ from telethon import events
 from telethon.tl.types import ChatBannedRights
 
 from DaisyX import BOT_ID
-
-
 from DaisyX.function.telethonbasics import is_admin
 from DaisyX.services.events import register
 from DaisyX.services.mongo import mongodb as db
