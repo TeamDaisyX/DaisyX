@@ -1,11 +1,14 @@
-import aiohttp
+import requests
 
 
 async def fetch(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            try:
-                data = await resp.json()
-            except:
-                data = await resp.text()
+    try:
+        r = requests.request("GET", url=url)
+    except:
+        return
+
+    try:
+        data = r.json()
+    except:
+        data = r.text()
     return data

@@ -72,9 +72,6 @@ async def before_srv_task(loop):
         loop.create_task(module.__before_serving__(loop))
 
 
-import_module("DaisyX.utils.db_structure_migrator")
-
-
 async def start(_):
     log.debug("Starting before serving task for all modules...")
     loop.create_task(before_srv_task(loop))
@@ -97,4 +94,12 @@ if os.getenv("WEBHOOKS", False):
     port = os.getenv("WEBHOOKS_PORT", 8080)
     executor.start_webhook(dp, f"/{TOKEN}", on_startup=start_webhooks, port=port)
 else:
-    executor.start_polling(dp, loop=loop, on_startup=start)
+    executor.start_polling(
+        dp,
+        loop=loop,
+        on_startup=start,
+        timeout=15,
+        relax=0.1,
+        fast=True,
+        skip_updates=True,
+    )

@@ -661,6 +661,8 @@ STRINGS:
     ban: banned
     mute: muted
     kick: kicked
+    tmute: tmuted
+    tban: tbanned    
     #/setfloodaction
     invalid_args: "Unsupported action, expected {supported_actions}!"
     setfloodaction_success: "Successfully updated flood action to <b>{action}</b>!"

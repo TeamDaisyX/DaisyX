@@ -746,6 +746,8 @@ STRINGS:
     configuration_info:with_time: Antiflood is configured in this chat, those who send {count} message within {time} will be {action}!
     configuration_info: Antiflood is configured in this chat, those who send {count} consecutively will be {action}!
     ban: banned
+    tmute: tmuted
+    tban: tbanned
     mute: muted
     kick: kicked
 

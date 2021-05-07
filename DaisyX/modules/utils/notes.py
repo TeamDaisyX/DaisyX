@@ -30,6 +30,7 @@ from telethon.errors import (
     ButtonUrlInvalidError,
     MediaEmptyError,
     MessageEmptyError,
+    RPCError,
 )
 from telethon.errors.rpcerrorlist import ChatWriteForbiddenError
 from telethon.tl.custom import Button
@@ -344,13 +345,15 @@ async def send_note(send_id, text, **kwargs):
         return await tbot.send_message(
             send_id, "I found this note invalid! Please update it (read help)."
         )
+    except RPCError:
+        log.error("Send Note Error bot is Kicked/Muted in chat [IGNORE]")
+        return
     except ChatWriteForbiddenError:
-        log.error("Send Note Error bot is Kicked/Muted in chat [IGNORE]", exc_info=err)
+        log.error("Send Note Error bot is Kicked/Muted in chat [IGNORE]")
         return
     except BadRequestError:  # if reply message deleted
         del kwargs["reply_to"]
         return await tbot.send_message(send_id, text, **kwargs)
-
     except Exception as err:
         log.error("Something happened on sending note", exc_info=err)
 

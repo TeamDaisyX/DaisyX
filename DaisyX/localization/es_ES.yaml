@@ -665,6 +665,8 @@ STRINGS:
     ban: baneado
     mute: silenciado
     kick: expulsado
+    tmute: tmuted
+    tban: tbanned
     #/setfloodaction
     invalid_args: "¡Acción no soportada, se esperaba {supported_actions}!"
     setfloodaction_success: "¡Actualizado con éxito la acción antiflood a <b>{action}</b>!"

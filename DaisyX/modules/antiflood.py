@@ -21,6 +21,7 @@ import pickle
 from dataclasses import dataclass
 from typing import Optional
 
+from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher.handler import CancelHandler
 from aiogram.dispatcher.middlewares import BaseMiddleware
@@ -35,7 +36,12 @@ from DaisyX import dp
 from DaisyX.decorator import register
 from DaisyX.modules.utils.connections import chat_connection
 from DaisyX.modules.utils.language import get_strings, get_strings_dec
-from DaisyX.modules.utils.message import convert_time, get_args, need_args_dec
+from DaisyX.modules.utils.message import (
+    InvalidTimeUnit,
+    convert_time,
+    get_args,
+    need_args_dec,
+)
 from DaisyX.modules.utils.restrictions import ban_user, kick_user, mute_user
 from DaisyX.modules.utils.user_details import get_user_link, is_user_admin
 from DaisyX.services.mongo import db
@@ -48,6 +54,10 @@ cancel_state = CallbackData("cancel_state", "user_id")
 
 class AntiFloodConfigState(StatesGroup):
     expiration_proc = State()
+
+
+class AntiFloodActionState(StatesGroup):
+    set_time_proc = State()
 
 
 @dataclass
@@ -130,6 +140,18 @@ class AntifloodEnforcer(BaseMiddleware):
             return await kick_user(message.chat.id, message.from_user.id)
         elif action == "mute":
             return await mute_user(message.chat.id, message.from_user.id)
+        elif action.startswith("t"):
+            time = database.get("time", None)
+            if not time:
+                return False
+            if action == "tmute":
+                return await mute_user(
+                    message.chat.id, message.from_user.id, until_date=convert_time(time)
+                )
+            elif action == "tban":
+                return await ban_user(
+                    message.chat.id, message.from_user.id, until_date=convert_time(time)
+                )
         else:
             return False
 
@@ -198,8 +220,7 @@ async def antiflood_expire_proc(
 ):
     try:
         if (time := message.text) not in (0, "0"):
-            # just call for making sure its valid
-            parsed_time = convert_time(time)
+            parsed_time = convert_time(time)  # just call for making sure its valid
         else:
             time, parsed_time = None, None
     except (TypeError, ValueError):
@@ -246,7 +267,7 @@ async def antiflood(message: Message, chat: dict, strings: dict):
             strings["turned_off"].format(chat_title=chat["chat_title"])
         )
 
-    if data.get("time", None) is None:
+    if data["time"] is None:
         return await message.reply(
             strings["configuration_info"].format(
                 action=strings[data["action"]] if "action" in data else strings["ban"],
@@ -269,7 +290,7 @@ async def antiflood(message: Message, chat: dict, strings: dict):
 @chat_connection(admin=True)
 @get_strings_dec("antiflood")
 async def setfloodaction(message: Message, chat: dict, strings: dict):
-    SUPPORTED_ACTIONS = ["kick", "ban", "mute"]  # noqa
+    SUPPORTED_ACTIONS = ["kick", "ban", "mute", "tmute", "tban"]  # noqa
     if (action := message.get_args().lower()) not in SUPPORTED_ACTIONS:
         return await message.reply(
             strings["invalid_args"].format(
@@ -277,11 +298,51 @@ async def setfloodaction(message: Message, chat: dict, strings: dict):
             )
         )
 
+    if action.startswith("t"):
+        await message.reply(
+            "Send a time for t action", allow_sending_without_reply=True
+        )
+        redis.set(f"floodactionstate:{chat['chat_id']}", action)
+        return await AntiFloodActionState.set_time_proc.set()
+
     await db.antiflood.update_one(
         {"chat_id": chat["chat_id"]}, {"$set": {"action": action}}, upsert=True
     )
     await get_data.reset_cache(message.chat.id)
     return await message.reply(strings["setfloodaction_success"].format(action=action))
+
+
+@register(
+    state=AntiFloodActionState.set_time_proc,
+    user_can_restrict_members=True,
+    allow_kwargs=True,
+)
+@chat_connection(admin=True)
+@get_strings_dec("antiflood")
+async def set_time_config(
+    message: Message, chat: dict, strings: dict, state: FSMContext, **_
+):
+    if not (action := redis.get(f"floodactionstate:{chat['chat_id']}")):
+        await message.reply("setup_corrupted", allow_sending_without_reply=True)
+        return await state.finish()
+    try:
+        parsed_time = convert_time(
+            time := message.text.lower()
+        )  # just call for making sure its valid
+    except (TypeError, ValueError, InvalidTimeUnit):
+        await message.reply("Invalid time")
+    else:
+        await db.antiflood.update_one(
+            {"chat_id": chat["chat_id"]},
+            {"$set": {"action": action, "time": time}},
+            upsert=True,
+        )
+        await get_data.reset_cache(chat["chat_id"])
+        text = strings["setfloodaction_success"].format(action=action)
+        text += f" ({format_timedelta(parsed_time, locale=strings['language_info']['babel'])})"
+        await message.reply(text, allow_sending_without_reply=True)
+    finally:
+        await state.finish()
 
 
 async def __before_serving__(_):

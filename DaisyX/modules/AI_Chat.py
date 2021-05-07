@@ -33,6 +33,7 @@ from DaisyX.function.pluginhelpers import admins_only, edit_or_reply
 from DaisyX.services.pyrogram import pbot as daisyx
 
 translator = google_translator()
+import requests
 
 
 def extract_emojis(s):
@@ -40,13 +41,18 @@ def extract_emojis(s):
 
 
 async def fetch(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as resp:
-            try:
-                data = await resp.json()
-            except Exception:
-                data = await resp.text()
-    return data
+    try:
+        async with aiohttp.Timeout(10.0):
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as resp:
+                    try:
+                        data = await resp.json()
+                    except:
+                        data = await resp.text()
+            return data
+    except:
+        print("AI response Timeout")
+        return
 
 
 daisy_chats = []
@@ -159,9 +165,15 @@ async def hmm(client, message):
         test = msg
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
+        URL = "https://api.affiliateplus.xyz/api/chatbot?message=hi&botname=@DaisyXbot&ownername=@TeamDaisyX"
+
         try:
-            URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
-            result = await fetch(URL)
+            r = requests.request("GET", url=URL)
+        except:
+            return
+
+        try:
+            result = r.json()
         except:
             return
 
@@ -216,9 +228,14 @@ async def hmm(client, message):
         # Kang with the credits bitches @InukaASiTH
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
+        URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
         try:
-            URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
-            result = await fetch(URL)
+            r = requests.request("GET", url=URL)
+        except:
+            return
+
+        try:
+            result = r.json()
         except:
             return
         pro = result["message"]
@@ -285,9 +302,14 @@ async def inuka(client, message):
     # Kang with the credits bitches @InukaASiTH
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
+    URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
     try:
-        URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
-        result = await fetch(URL)
+        r = requests.request("GET", url=URL)
+    except:
+        return
+
+    try:
+        result = r.json()
     except:
         return
 
@@ -358,9 +380,14 @@ async def inuka(client, message):
     # Kang with the credits bitches @InukaASiTH
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
+    URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
     try:
-        URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
-        result = await fetch(URL)
+        r = requests.request("GET", url=URL)
+    except:
+        return
+
+    try:
+        result = r.json()
     except:
         return
     pro = result["message"]
