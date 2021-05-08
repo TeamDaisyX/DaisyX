@@ -1,7 +1,7 @@
 # Ported From William Butcher Bot :- https://github.com/thehamkercat/WilliamButcherBot/edit/dev/wbb/modules/webss.py .
 # All Credit to WilliamButcherBot.
 
-
+import os
 from pyrogram import filters
 
 from DaisyX.function.pluginhelpers import admins_only
@@ -18,7 +18,7 @@ async def take_ss(_, message):
     m = await message.reply_text("**Taking Screenshot**")
     await m.edit("**Uploading**")
     try:
-        await app.send_photo(
+        lel = await app.send_photo(
             message.chat.id,
             photo=f"https://webshot.amanoteam.com/print?q={url}",
         )
@@ -26,3 +26,4 @@ async def take_ss(_, message):
         await m.edit("No Such Website.")
         return
     await m.delete()
+    os.remove(lel)
