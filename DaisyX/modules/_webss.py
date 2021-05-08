@@ -1,7 +1,6 @@
 # Ported From William Butcher Bot :- https://github.com/thehamkercat/WilliamButcherBot/edit/dev/wbb/modules/webss.py .
 # All Credit to WilliamButcherBot.
 
-import os
 
 from pyrogram import filters
 
@@ -19,7 +18,10 @@ async def take_ss(_, message):
     m = await message.reply_text("**Taking Screenshot...**")
     await m.edit("**Uploading Screenshot...**")
     try:
-        await message.reply_photo(photo=f"https://webshot.amanoteam.com/print?q={url}", caption=f"Screenshot of {url}")
+        await message.reply_photo(
+            photo=f"https://webshot.amanoteam.com/print?q={url}",
+            caption=f"Screenshot of {url}",
+        )
     except TypeError:
         await m.edit("No Such Website.")
         return
