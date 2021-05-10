@@ -38,6 +38,6 @@ pbot = Client(
 logging.getLogger("pyrogram").setLevel(level=logging.ERROR)
 try:
     pbot.start()
-except (OSError, TimeoutError, Error):
+except (OSError, TimeoutError):
     asyncio.sleep(2)
     pbot.start()
