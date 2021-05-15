@@ -11,11 +11,6 @@ The module that contains extra tools that help you to do many cool stuff.
  Block links sent by users in your group 
 - /urllock [on/off]: Enable/Disable URL Lock
 
-<b> DOC TOOLS </b>
-You can make a file name.
-- /dox: tag a message <i>file name</i> example /dox example.py
-- /open: Open a file
-
 <b> DATE TIME </b>
 - /datetime [timezone]: Get the present date and time information
 You can check out this [link](https://timezonedb.com/time-zones) for the available timezones
@@ -51,7 +46,7 @@ Usage: Create a paste or a shortened url using nekobin (https://nekobin.com)
 <b>QR CODE</b>     
 - /getqr - Get text in qr.
 - /makeqr - Make a qr code.
-
+  
 <b> KARMA </b>
 [UPVOTE] - Use upvote keywords like "+", "+1", "thanks" etc to upvote a message.
 [DOWNVOTE] - Use downvote keywords like "-", "-1", etc to downvote a message.

@@ -15,12 +15,12 @@ async def take_ss(_, message):
         await message.reply_text("Give A Url To Fetch Screenshot.")
         return
     url = message.text.split(None, 1)[1]
-    m = await message.reply_text("**Taking Screenshot...**")
-    await m.edit("**Uploading Screenshot...**")
+    m = await message.reply_text("**Taking Screenshot**")
+    await m.edit("**Uploading**")
     try:
-        await message.reply_photo(
+        await app.send_photo(
+            message.chat.id,
             photo=f"https://webshot.amanoteam.com/print?q={url}",
-            caption=f"Screenshot of {url}",
         )
     except TypeError:
         await m.edit("No Such Website.")

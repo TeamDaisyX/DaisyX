@@ -10,6 +10,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 
+import asyncio
 
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -29,8 +30,6 @@ pbot = Client(
     api_id=APP_ID,
     api_hash=APP_HASH,
     bot_token=TOKEN,
-    workers=3,
-    sleep_threshold=5,
 )
 
 # disable logging for pyrogram [not for ERROR logging]

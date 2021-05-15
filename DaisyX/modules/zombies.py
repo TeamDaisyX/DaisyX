@@ -55,21 +55,38 @@ UNBAN_RIGHTS = ChatBannedRights(
 OFFICERS = OWNER_ID
 
 # Check if user has admin rights
-async def is_administrator(user_id: int, message):
-    admin = False
-    async for user in client.iter_participants(
-        message.chat_id, filter=ChannelParticipantsAdmins
-    ):
-        if user_id == user.id or user_id in OFFICERS:
-            admin = True
-            break
-    return admin
+async def is_register_admin(chat, user):
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
+
+        return isinstance(
+            (
+                await tbot(functions.channels.GetParticipantRequest(chat, user))
+            ).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
+        )
+    if isinstance(chat, types.InputPeerChat):
+
+        ui = await tbot.get_peer_id(user)
+        ps = (
+            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
+        ).full_chat.participants.participants
+        return isinstance(
+            next((p for p in ps if p.user_id == ui), None),
+            (types.ChatParticipantAdmin, types.ChatParticipantCreator),
+        )
+    return None
 
 
 @client.on(events.NewMessage(pattern=f"^[!/]zombies ?(.*)"))
 async def zombies(event):
     """For .zombies command, list all the zombies in a chat."""
-
+    if event.fwd_from:
+        return
+    if event.is_group:
+        if await is_register_admin(event.input_chat, event.message.sender_id):
+            pass
+        else:
+            return
     con = event.pattern_match.group(1).lower()
     del_u = 0
     del_status = "No Deleted Accounts Found, Group Is Clean."
@@ -93,13 +110,7 @@ async def zombies(event):
     creator = chat.creator
 
     # Well
-    if not await is_administrator(user_id=event.from_id, message=event):
-        await event.respond("You're Not An Admin!")
-        return
 
-    if not admin and not creator:
-        await event.respond("I Am Not An Admin Here!")
-        return
 
     cleaning_zombies = await event.respond("Cleaning Zombies...")
     del_u = 0

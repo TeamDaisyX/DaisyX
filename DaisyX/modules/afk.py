@@ -33,8 +33,10 @@ from .utils.user_details import get_user, get_user_by_id, get_user_link
 @disableable_dec("afk")
 @get_strings_dec("afk")
 async def afk(message, strings):
-    arg = get_args_str(message)
-
+    try:
+        arg = get_args_str(message)
+    except:
+        return
     # dont support AFK as anon admin
     if message.from_user.id == 1087968824:
         await message.reply(strings["afk_anon"])

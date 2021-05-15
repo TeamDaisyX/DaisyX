@@ -9,7 +9,7 @@
 import feedparser
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pyrogram import filters
-
+import asyncio
 from DaisyX.db.mongo_helpers.rss_db import (
     add_rss,
     basic_check,
@@ -155,7 +155,11 @@ async def check_rss():
             except:
                 pass
             update_rss(message, link, rss_d.entries[0].link)
-            await pbot.send_message(message, content)
+            try:
+                await pbot.send_message(message, content)
+                await asyncio.sleep(2)
+            except:
+                return
 
 
 scheduler = AsyncIOScheduler()

@@ -29,7 +29,7 @@ import wget
 import youtube_dl
 from pyrogram import filters
 from pyrogram.types import Message
-from Python_ARQ import ARQ
+from DaisyX.function.inlinehelper import arq
 from youtube_dl import YoutubeDL
 from youtubesearchpython import SearchVideos
 
@@ -58,15 +58,21 @@ async def ytmusic(client, message: Message):
         message.chat.id, f"`Getting {urlissed} From Youtube Servers. Please Wait.`"
     )
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
-    mi = search.result()
-    mio = mi["search_result"]
-    mo = mio[0]["link"]
-    mio[0]["duration"]
-    thum = mio[0]["title"]
-    fridayz = mio[0]["id"]
-    thums = mio[0]["channel"]
-    kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
-    dl_limit = dl_limit + 1
+    try:
+        mi = search.result()
+        mio = mi["search_result"]
+        mo = mio[0]["link"]
+        mio[0]["duration"]
+        thum = mio[0]["title"]
+        fridayz = mio[0]["id"]
+        thums = mio[0]["channel"]
+        kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
+    except:
+        await message.reply_text(
+            "Sorry I accounted an error.\n Unkown error raised while getting search result"
+        )
+        return
+    
     await asyncio.sleep(0.6)
     sedlyf = wget.download(kekme)
     opts = {
@@ -89,41 +95,44 @@ async def ytmusic(client, message: Message):
         "logtostderr": False,
     }
     try:
-
+        dl_limit = dl_limit +1
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(mo, download=True)
+            
     except Exception as e:
         await pablo.edit(f"**Failed To Download** \n**Error :** `{str(e)}`")
-        dl_limit = dl_limit - 1
+        #dl_limit = dl_limit-1
         return
     c_time = time.time()
     capy = f"**Song Name :** `{thum}` \n**Requested For :** `{urlissed}` \n**Channel :** `{thums}` \n**Link :** `{mo}`"
     file_stark = f"{ytdl_data['id']}.mp3"
-    await client.send_audio(
-        message.chat.id,
-        audio=open(file_stark, "rb"),
-        duration=int(ytdl_data["duration"]),
-        title=str(ytdl_data["title"]),
-        performer=str(ytdl_data["uploader"]),
-        thumb=sedlyf,
-        caption=capy,
-        progress=progress,
-        progress_args=(
-            pablo,
-            c_time,
-            f"`Uploading {urlissed} Song From YouTube Music!`",
-            file_stark,
-        ),
-    )
-    dl_limit = dl_limit - 1
+    try:
+        await client.send_audio(
+            message.chat.id,
+            audio=open(file_stark, "rb"),
+            duration=int(ytdl_data["duration"]),
+            title=str(ytdl_data["title"]),
+            performer=str(ytdl_data["uploader"]),
+            thumb=sedlyf,
+            caption=capy,
+            progress=progress,
+            progress_args=(
+                pablo,
+                c_time,
+                f"`Uploading {urlissed} Song From YouTube Music!`",
+                file_stark,
+            ),
+        )
+        dl_limit = dl_limit-1
+    except:
+        dl_limit = dl_limit - 1
+        return
     await pablo.delete()
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
             os.remove(files)
 
 
-ARQ_API = "http://35.240.133.234:8000"
-arq = ARQ(ARQ_API)
 
 
 ydl_opts = {
@@ -188,9 +197,12 @@ async def jssong(_, message):
     m = await message.reply_text("Searching...")
     try:
         songs = await arq.saavn(query)
-        sname = songs[0].song
-        slink = songs[0].media_url
-        ssingers = songs[0].singers
+        if not songs.ok:
+            await message.reply_text(songs.result)
+            return
+        sname = songs.result[0].song
+        slink = songs.result[0].media_url
+        ssingers = songs.result[0].singers
         await m.edit("Downloading")
         song = await download_song(slink)
         await m.edit("Uploading")
@@ -229,9 +241,12 @@ async def deezsong(_, message):
     m = await message.reply_text("Searching...")
     try:
         songs = await arq.deezer(query, 1)
-        title = songs[0].title
-        url = songs[0].url
-        artist = songs[0].artist
+        if not songs.ok:
+            await message.reply_text(songs.result)
+            return
+        title = songs.result[0].title
+        url = songs.result[0].url
+        artist = songs.result[0].artist
         await m.edit("Downloading")
         song = await download_song(url)
         await m.edit("Uploading")
@@ -269,13 +284,19 @@ async def ytmusic(client, message: Message):
         return
 
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
-    mi = search.result()
-    mio = mi["search_result"]
-    mo = mio[0]["link"]
-    thum = mio[0]["title"]
-    fridayz = mio[0]["id"]
-    thums = mio[0]["channel"]
-    kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
+    try:
+        mi = search.result()
+        mio = mi["search_result"]
+        mo = mio[0]["link"]
+        thum = mio[0]["title"]
+        fridayz = mio[0]["id"]
+        thums = mio[0]["channel"]
+        kekme = f"https://img.youtube.com/vi/{fridayz}/hqdefault.jpg"
+    except:
+        await message.reply_text(
+            "Unknown error raised while getting result from youtube"
+        )
+        return
     await asyncio.sleep(0.6)
     url = mo
     sedlyf = wget.download(kekme)

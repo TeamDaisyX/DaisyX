@@ -62,11 +62,17 @@ lel = 00000000
 # pylint:disable=import-error
 @Client.on_message(filters.command(["edit", "editor"]))
 async def photo(client: Client, message: Message):
-    if not message.reply_to_message.photo:
-        client.send_message(message.chat.id, "Reply to an image man!ㅤㅤ")
+    try:
+        if not message.reply_to_message.photo:
+            await client.send_message(message.chat.id, "Reply to an image man!ㅤㅤ")
+            return
+    except:
         return
     global lel
-    lel = message.from_user.id
+    try:
+        lel = message.from_user.id  
+    except:
+        return
     try:
         await client.send_message(
             chat_id=message.chat.id,

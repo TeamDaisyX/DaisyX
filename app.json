@@ -36,6 +36,12 @@
       "required": true
       
     },
+    "ARQ_API": {
+      "description": "Get this from @ARQRobot",
+      "value": "",
+      "required": true
+      
+    },
     "MONGO_PORT": {
       "description": "Dont change",
       "value": "27017",

@@ -120,6 +120,7 @@ __connect_first()
 
 
 @app.on_message(filters.command("unpinall") & ~filters.private)
+
 async def unpinall_message(_, m: Message):
     try:
         chat_id = m.chat.id
@@ -263,6 +264,21 @@ def __pre_req_pins_chats():
 
 @app.on_message(filters.command("antichannelpin") & ~filters.private)
 async def anti_channel_pin(_, m: Message):
+    chat_id = m.chat.id
+    user_id = m.from_user.id
+    permissions = await member_permissions(chat_id, user_id)
+    if "can_change_info" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
+    if "can_pin_messages" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
+    if "can_restrict_members" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
+    if "can_promote_members" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
     pinsdb = Pins(m.chat.id)
     if len(m.text.split()) == 1:
         status = pinsdb.get_settings()["antichannelpin"]
@@ -286,7 +302,21 @@ async def anti_channel_pin(_, m: Message):
 
 @app.on_message(filters.command("cleanlinked") & ~filters.private)
 async def clean_linked(_, m: Message):
-
+    chat_id = m.chat.id
+    user_id = m.from_user.id
+    permissions = await member_permissions(chat_id, user_id)
+    if "can_change_info" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
+    if "can_pin_messages" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
+    if "can_restrict_members" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
+    if "can_promote_members" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
     pinsdb = Pins(m.chat.id)
 
     if len(m.text.split()) == 1:
@@ -311,6 +341,21 @@ async def clean_linked(_, m: Message):
 
 @app.on_message(filters.command("permapin") & ~filters.private)
 async def perma_pin(_, m: Message):
+    chat_id = m.chat.id
+    user_id = m.from_user.id
+    permissions = await member_permissions(chat_id, user_id)
+    if "can_change_info" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
+    if "can_pin_messages" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
+    if "can_restrict_members" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return
+    if "can_promote_members" not in permissions:
+        await m.reply_text("You Don't Have Enough Permissions.")
+        return   
     if m.reply_to_message or len(m.text.split()) > 1:
         if m.reply_to_message:
             text = m.reply_to_message.text

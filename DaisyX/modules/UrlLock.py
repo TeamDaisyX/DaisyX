@@ -90,8 +90,12 @@ async def hi(client, message):
         )
         await asyncio.sleep(10)
         await sedlyf.delete()
+    try:
 
-    lel = get_url(message)
+        lel = get_url(message)
+    except:
+        return
+
     if lel:
         try:
             await message.delete()
@@ -102,7 +106,7 @@ async def hi(client, message):
             )
             await asyncio.sleep(10)
             await lol.delete()
-        except Exception:
+        except:
             message.continue_propagation()
     else:
         message.continue_propagation()

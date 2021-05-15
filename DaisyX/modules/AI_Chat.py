@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Red-Aura & TeamDaisyX
+# Copyright (C) 2021 Red-Aura & TeamDaisyX & HamkerCat
 
 # This file is part of Daisy (Telegram Bot)
 
@@ -31,10 +31,13 @@ from DaisyX import BOT_ID
 from DaisyX.db.mongo_helpers.aichat import add_chat, get_session, remove_chat
 from DaisyX.function.pluginhelpers import admins_only, edit_or_reply
 from DaisyX.services.pyrogram import pbot as daisyx
-
+from DaisyX.function.inlinehelper import arq
 translator = google_translator()
 import requests
 
+async def lunaQuery(query):
+    luna = await arq.luna(query)
+    return luna.result
 
 def extract_emojis(s):
     return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
@@ -165,19 +168,12 @@ async def hmm(client, message):
         test = msg
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
-        URL = "https://api.affiliateplus.xyz/api/chatbot?message=hi&botname=@DaisyXbot&ownername=@TeamDaisyX"
+        response = await lunaQuery(test)
+        response = response.replace("Aco","Daisy")
+        response = response.replace("aco","Daisy")
 
-        try:
-            r = requests.request("GET", url=URL)
-        except:
-            return
 
-        try:
-            result = r.json()
-        except:
-            return
-
-        pro = result["message"]
+        pro = response
         try:
             await daisyx.send_chat_action(message.chat.id, "typing")
             await message.reply_text(pro)
@@ -225,20 +221,14 @@ async def hmm(client, message):
                 return
         # test = emoji.demojize(test.strip())
 
-        # Kang with the credits bitches @InukaASiTH
+
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
-        URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
-        try:
-            r = requests.request("GET", url=URL)
-        except:
-            return
+        response = await lunaQuery(test)
 
-        try:
-            result = r.json()
-        except:
-            return
-        pro = result["message"]
+        response = response.replace("Aco","Daisy")
+        response = response.replace("aco","Daisy")
+        pro = response
         if not "en" in lan and not lan == "":
             try:
                 pro = translator.translate(pro, lang_tgt=lan[0])
@@ -302,18 +292,13 @@ async def inuka(client, message):
     # Kang with the credits bitches @InukaASiTH
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
-    URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
-    try:
-        r = requests.request("GET", url=URL)
-    except:
-        return
 
-    try:
-        result = r.json()
-    except:
-        return
+    response = await lunaQuery(test)
 
-    pro = result["message"]
+    response = response.replace("Aco","Daisy")
+    response = response.replace("aco","Daisy")
+
+    pro = response
     if not "en" in lan and not lan == "":
         pro = translator.translate(pro, lang_tgt=lan[0])
     try:
@@ -377,20 +362,14 @@ async def inuka(client, message):
 
     # test = emoji.demojize(test.strip())
 
-    # Kang with the credits bitches @InukaASiTH
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
-    URL = f"https://api.affiliateplus.xyz/api/chatbot?message={test}&botname=@DaisyXbot&ownername=@TeamDaisyX"
-    try:
-        r = requests.request("GET", url=URL)
-    except:
-        return
+    response = await lunaQuery(test)
+    response = response.replace("Aco","Daisy")
+    response = response.replace("aco","Daisy")
 
-    try:
-        result = r.json()
-    except:
-        return
-    pro = result["message"]
+
+    pro = response
     if not "en" in lan and not lan == "":
         try:
             pro = translator.translate(pro, lang_tgt=lan[0])

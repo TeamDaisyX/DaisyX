@@ -17,15 +17,16 @@ from pyrogram.types import (
 )
 from Python_ARQ import ARQ
 from search_engine_parser import GoogleSearch
-
+from DaisyX.config import get_str_key
 from DaisyX import BOT_USERNAME, OWNER_ID
 from DaisyX.function.pluginhelpers import convert_seconds_to_minutes as time_convert
 from DaisyX.function.pluginhelpers import fetch
 from DaisyX.services.pyrogram import pbot
 
+ARQ_API = get_str_key("ARQ_API", required=True)
 SUDOERS = OWNER_ID
-ARQ_API = "http://35.240.133.234:8000"
-arq = ARQ(ARQ_API)
+ARQ_API_URL = "https://thearq.tech"
+arq = ARQ(ARQ_API_URL,ARQ_API)
 
 app = pbot
 import socket
@@ -101,40 +102,79 @@ async def alive_function(answers):
     return answers
 
 
+
+
+async def webss(url):
+    start_time = time()
+    if "." not in url:
+        return
+    screenshot = await fetch(f"https://patheticprogrammers.cf/ss?site={url}")
+    end_time = time()
+    # m = await app.send_photo(LOG_GROUP_ID, photo=screenshot["url"])
+    await m.delete()
+    a = []
+    pic = InlineQueryResultPhoto(
+        photo_url=screenshot["url"],
+        caption=(f"`{url}`\n__Took {round(end_time - start_time)} Seconds.__"),
+    )
+    a.append(pic)
+    return a
+
+
+
 async def translate_func(answers, lang, tex):
     i = Translator().translate(tex, dest=lang)
     msg = f"""
-__**Translated to {lang}**__
+__**Translated from {i.src} to {lang}**__
 
 **INPUT:**
 {tex}
 
 **OUTPUT:**
 {i.text}"""
-    answers.append(
-        InlineQueryResultArticle(
-            title=f"Translated to {lang}",
-            description=i.text,
-            input_message_content=InputTextMessageContent(msg),
-        )
+    answers.extend(
+        [
+            InlineQueryResultArticle(
+                title=f"Translated from {i.src} to {lang}.",
+                description=i.text,
+                input_message_content=InputTextMessageContent(msg),
+            ),
+            InlineQueryResultArticle(
+                title=i.text, input_message_content=InputTextMessageContent(i.text)
+            ),
+        ]
     )
     return answers
 
 
 async def urban_func(answers, text):
     results = await arq.urbandict(text)
+    if not results.ok:
+        answers.append(
+            InlineQueryResultArticle(
+                title="Error",
+                description=results.result,
+                input_message_content=InputTextMessageContent(results.result),
+            )
+        )
+        return answers
+    results = results.result
+    limit = 0
     for i in results:
+        if limit > 48:
+            break
+        limit += 1
         msg = f"""
 **Query:** {text}
 
-**Definition:** __{results[i].definition}__
+**Definition:** __{i.definition}__
 
-**Example:** __{results[i].example}__"""
+**Example:** __{i.example}__"""
 
         answers.append(
             InlineQueryResultArticle(
-                title=results[i].word,
-                description=results[i].definition,
+                title=i.word,
+                description=i.definition,
                 input_message_content=InputTextMessageContent(msg),
             )
         )
@@ -143,7 +183,12 @@ async def urban_func(answers, text):
 
 async def google_search_func(answers, text):
     gresults = await GoogleSearch().async_search(text)
+    limit = 0
     for i in gresults:
+        if limit > 48:
+            break
+        limit += 1
+
         try:
             msg = f"""
 [{i['titles']}]({i['links']})
@@ -165,54 +210,68 @@ async def google_search_func(answers, text):
 
 async def wall_func(answers, text):
     results = await arq.wall(text)
-    for i in results:
-        try:
-            answers.append(
-                InlineQueryResultPhoto(
-                    photo_url=results[i].url_image,
-                    thumb_url=results[i].url_thumb,
-                    caption=f"[Source]({results[i].url_image})",
-                )
+    if not results.ok:
+        answers.append(
+            InlineQueryResultArticle(
+                title="Error",
+                description=results.result,
+                input_message_content=InputTextMessageContent(results.result),
             )
-        except KeyError:
-            pass
+        )
+        return answers
+    limit = 0
+    results = results.result
+    for i in results:
+        if limit > 48:
+            break
+        limit += 1
+        answers.append(
+            InlineQueryResultPhoto(
+                photo_url=i.url_image,
+                thumb_url=i.url_thumb,
+                caption=f"[Source]({i.url_image})",
+            )
+        )
     return answers
 
 
 async def saavn_func(answers, text):
     buttons_list = []
     results = await arq.saavn(text)
-    for i in results:
-        buttons = InlineKeyboard(row_width=1)
-        buttons.add(InlineKeyboardButton("Download | Play", url=results[i].media_url))
-        buttons_list.append(buttons)
-        duration = await time_convert(results[i].duration)
-        caption = f"""
-**Title:** {results[i].song}
-**Album:** {results[i].album}
-**Duration:** {duration}
-**Release:** {results[i].year}
-**Singers:** {results[i].singers}"""
-        description = (
-            f"{results[i].album} | {duration} "
-            + f"| {results[i].singers} ({results[i].year})"
-        )
-        try:
-            answers.append(
-                InlineQueryResultArticle(
-                    title=results[i].song,
-                    input_message_content=InputTextMessageContent(
-                        caption, disable_web_page_preview=True
-                    ),
-                    description=description,
-                    thumb_url=results[i].image,
-                    reply_markup=buttons_list[i],
-                )
+    if not results.ok:
+        answers.append(
+            InlineQueryResultArticle(
+                title="Error",
+                description=results.result,
+                input_message_content=InputTextMessageContent(results.result),
             )
-        except (KeyError, ValueError):
-            pass
+        )
+        return answers
+    results = results.result
+    for count, i in enumerate(results):
+        buttons = InlineKeyboard(row_width=1)
+        buttons.add(InlineKeyboardButton("Download | Play", url=i.media_url))
+        buttons_list.append(buttons)
+        duration = await time_convert(i.duration)
+        caption = f"""
+**Title:** {i.song}
+**Album:** {i.album}
+**Duration:** {duration}
+**Release:** {i.year}
+**Singers:** {i.singers}"""
+        description = f"{i.album} | {duration} " + f"| {i.singers} ({i.year})"
+        answers.append(
+            InlineQueryResultArticle(
+                title=i.song,
+                input_message_content=InputTextMessageContent(
+                    caption, disable_web_page_preview=True
+                ),
+                description=description,
+                thumb_url=i.image,
+                reply_markup=buttons_list[count],
+            )
+        )
     return answers
-
 
 async def paste_func(answers, text):
     start_time = time()
@@ -227,54 +286,43 @@ async def paste_func(answers, text):
         )
     )
     return answers
-
-
+    
 async def deezer_func(answers, text):
     buttons_list = []
     results = await arq.deezer(text, 5)
-    for i in results:
-        buttons = InlineKeyboard(row_width=1)
-        buttons.add(InlineKeyboardButton("Download | Play", url=results[i].url))
-        buttons_list.append(buttons)
-        duration = await time_convert(results[i].duration)
-        caption = f"""
-**Title:** {results[i].title}
-**Artist:** {results[i].artist}
-**Duration:** {duration}
-**Source:** [Deezer]({results[i].source})"""
-        description = f"{results[i].artist} | {duration}"
-        try:
-            answers.append(
-                InlineQueryResultArticle(
-                    title=results[i].title,
-                    thumb_url=results[i].thumbnail,
-                    description=description,
-                    input_message_content=InputTextMessageContent(
-                        caption, disable_web_page_preview=True
-                    ),
-                    reply_markup=buttons_list[i],
-                )
+    if not results.ok:
+        answers.append(
+            InlineQueryResultArticle(
+                title="Error",
+                description=results.result,
+                input_message_content=InputTextMessageContent(results.result),
             )
-        except (KeyError, ValueError):
-            pass
+        )
+        return answers
+    results = results.result
+    for count, i in enumerate(results):
+        buttons = InlineKeyboard(row_width=1)
+        buttons.add(InlineKeyboardButton("Download | Play", url=i.url))
+        buttons_list.append(buttons)
+        duration = await time_convert(i.duration)
+        caption = f"""
+**Title:** {i.title}
+**Artist:** {i.artist}
+**Duration:** {duration}
+**Source:** [Deezer]({i.source})"""
+        description = f"{i.artist} | {duration}"
+        answers.append(
+            InlineQueryResultArticle(
+                title=i.title,
+                thumb_url=i.thumbnail,
+                description=description,
+                input_message_content=InputTextMessageContent(
+                    caption, disable_web_page_preview=True
+                ),
+                reply_markup=buttons_list[count],
+            )
+        )
     return answers
-
-
-async def webss(url):
-    start_time = time()
-    if "." not in url:
-        return
-    screenshot = await fetch(f"https://patheticprogrammers.cf/ss?site={url}")
-    end_time = time()
-    # m = await app.send_photo(LOG_GROUP_ID, photo=screenshot["url"])
-    await m.delete()
-    a = []
-    pic = InlineQueryResultPhoto(
-        photo_url=screenshot["url"],
-        caption=(f"`{url}`\n__Took {round(end_time - start_time)} Seconds.__"),
-    )
-    a.append(pic)
-    return a
 
 
 # Used my api key here, don't fuck with it
@@ -292,7 +340,7 @@ async def shortify(url):
             "https://api-ssl.bitly.com/v4/shorten", headers=header, data=payload
         ) as resp:
             data = await resp.json()
-    msg = f"**Original Url:** {url}\n**Shortened Url:** {data['link']}"
+    msg = data["link"]
     a = []
     b = InlineQueryResultArticle(
         title="Link Shortened!",
@@ -307,52 +355,70 @@ async def shortify(url):
 
 async def torrent_func(answers, text):
     results = await arq.torrent(text)
+    if not results.ok:
+        answers.append(
+            InlineQueryResultArticle(
+                title="Error",
+                description=results.result,
+                input_message_content=InputTextMessageContent(results.result),
+            )
+        )
+        return answers
     limit = 0
+    results = results.result
     for i in results:
         if limit > 48:
             break
-        title = results[i].name
-        size = results[i].size
-        seeds = results[i].seeds
-        leechs = results[i].leechs
-        upload_date = results[i].uploaded + " Ago"
-        magnet = results[i].magnet
+        title = i.name
+        size = i.size
+        seeds = i.seeds
+        leechs = i.leechs
+        upload_date = i.uploaded + " Ago"
+        magnet = i.magnet
         caption = f"""
 **Title:** __{title}__
 **Size:** __{size}__
 **Seeds:** __{seeds}__
 **Leechs:** __{leechs}__
 **Uploaded:** __{upload_date}__
-**Magnet:** __{magnet}__"""
+**Magnet:** `{magnet}`"""
 
         description = f"{size} | {upload_date} | Seeds: {seeds}"
-        try:
-            answers.append(
-                InlineQueryResultArticle(
-                    title=title,
-                    description=description,
-                    input_message_content=InputTextMessageContent(
-                        caption, disable_web_page_preview=True
-                    ),
-                )
+        answers.append(
+            InlineQueryResultArticle(
+                title=title,
+                description=description,
+                input_message_content=InputTextMessageContent(
+                    caption, disable_web_page_preview=True
+                ),
             )
-            limit += 1
-        except (KeyError, ValueError):
-            pass
+        )
+        limit += 1
+        pass
     return answers
-
 
 async def wiki_func(answers, text):
     data = await arq.wiki(text)
+    if not data.ok:
+        answers.append(
+            InlineQueryResultArticle(
+                title="Error",
+                description=data.result,
+                input_message_content=InputTextMessageContent(data.result),
+            )
+        )
+        return answers
+    data = data.result
     msg = f"""
 **QUERY:**
-{data['title']}
+{data.title}
+
 **ANSWER:**
-__{data['answer']}__"""
+__{data.answer}__"""
     answers.append(
         InlineQueryResultArticle(
-            title=data["title"],
-            description=data["answer"],
+            title=data.title,
+            description=data.answer,
             input_message_content=InputTextMessageContent(msg),
         )
     )
