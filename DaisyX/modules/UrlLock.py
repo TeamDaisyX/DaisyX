@@ -29,7 +29,7 @@ from DaisyX.function.pluginhelpers import (
     member_permissions,
 )
 from DaisyX.services.pyrogram import pbot
-
+from pyrogram.errors import RPCError
 
 @pbot.on_message(
     filters.command("urllock") & ~filters.edited & ~filters.bot & ~filters.private
@@ -37,8 +37,12 @@ from DaisyX.services.pyrogram import pbot
 @admins_only
 async def hmm(_, message):
     global daisy_chats
+    try:
+        user_id = message.from_user.id
+    except:
+        return
     if not "can_change_info" in (
-        await member_permissions(message.chat.id, message.from_user.id)
+        await member_permissions(message.chat.id, user_id)
     ):
         await message.reply_text("**You don't have enough permissions**")
         return
@@ -80,16 +84,19 @@ async def hmm(_, message):
 async def hi(client, message):
     if not get_session(int(message.chat.id)):
         message.continue_propagation()
-    if not len(await member_permissions(message.chat.id, message.from_user.id)) < 1:
-        message.continue_propagation()
-    if len(await member_permissions(message.chat.id, BOT_ID)) < 1:
-        message.continue_propagation()
-    if not "can_delete_messages" in (await member_permissions(message.chat.id, BOT_ID)):
-        sedlyf = await message.reply_text(
-            "**I don't have enough permissions to delete messages here**"
-        )
-        await asyncio.sleep(10)
-        await sedlyf.delete()
+    try:
+        user_id = message.from_user.id
+    except:
+        return
+    try:
+        if not len(await member_permissions(message.chat.id, user_id)) < 1:
+            message.continue_propagation()
+        if len(await member_permissions(message.chat.id, BOT_ID)) < 1:
+            message.continue_propagation()
+        if not "can_delete_messages" in (await member_permissions(message.chat.id, BOT_ID)):
+            message.continue_propagation()
+    except RPCError:
+        return
     try:
 
         lel = get_url(message)
