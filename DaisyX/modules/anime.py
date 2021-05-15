@@ -19,14 +19,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import html
-import rapidjson as json
+
 import bs4
 import jikanpy
 import requests
-from pyrogram import Client, filters
-import asyncio
-import re
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram import filters
 
 from DaisyX.decorator import register
 from DaisyX.services.pyrogram import pbot
