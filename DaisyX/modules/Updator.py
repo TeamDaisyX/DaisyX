@@ -1,5 +1,3 @@
-
-
 import asyncio
 import sys
 from os import environ, execle, path, remove
