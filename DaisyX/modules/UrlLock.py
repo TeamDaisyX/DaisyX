@@ -19,6 +19,7 @@
 import asyncio
 
 from pyrogram import filters
+from pyrogram.errors import RPCError
 
 from DaisyX import BOT_ID
 from DaisyX.db.mongo_helpers.lockurl import add_chat, get_session, remove_chat
@@ -29,7 +30,7 @@ from DaisyX.function.pluginhelpers import (
     member_permissions,
 )
 from DaisyX.services.pyrogram import pbot
-from pyrogram.errors import RPCError
+
 
 @pbot.on_message(
     filters.command("urllock") & ~filters.edited & ~filters.bot & ~filters.private
@@ -41,9 +42,7 @@ async def hmm(_, message):
         user_id = message.from_user.id
     except:
         return
-    if not "can_change_info" in (
-        await member_permissions(message.chat.id, user_id)
-    ):
+    if not "can_change_info" in (await member_permissions(message.chat.id, user_id)):
         await message.reply_text("**You don't have enough permissions**")
         return
     if len(message.command) != 2:
@@ -93,7 +92,9 @@ async def hi(client, message):
             message.continue_propagation()
         if len(await member_permissions(message.chat.id, BOT_ID)) < 1:
             message.continue_propagation()
-        if not "can_delete_messages" in (await member_permissions(message.chat.id, BOT_ID)):
+        if not "can_delete_messages" in (
+            await member_permissions(message.chat.id, BOT_ID)
+        ):
             message.continue_propagation()
     except RPCError:
         return
