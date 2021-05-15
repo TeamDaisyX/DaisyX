@@ -120,7 +120,6 @@ __connect_first()
 
 
 @app.on_message(filters.command("unpinall") & ~filters.private)
-
 async def unpinall_message(_, m: Message):
     try:
         chat_id = m.chat.id
@@ -355,7 +354,7 @@ async def perma_pin(_, m: Message):
         return
     if "can_promote_members" not in permissions:
         await m.reply_text("You Don't Have Enough Permissions.")
-        return   
+        return
     if m.reply_to_message or len(m.text.split()) > 1:
         if m.reply_to_message:
             text = m.reply_to_message.text

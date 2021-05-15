@@ -6,10 +6,12 @@
 #
 # All rights reserved.
 
+import asyncio
+
 import feedparser
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from pyrogram import filters
-import asyncio
+
 from DaisyX.db.mongo_helpers.rss_db import (
     add_rss,
     basic_check,

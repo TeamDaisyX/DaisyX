@@ -17,8 +17,9 @@ from pyrogram.types import (
 )
 from Python_ARQ import ARQ
 from search_engine_parser import GoogleSearch
-from DaisyX.config import get_str_key
+
 from DaisyX import BOT_USERNAME, OWNER_ID
+from DaisyX.config import get_str_key
 from DaisyX.function.pluginhelpers import convert_seconds_to_minutes as time_convert
 from DaisyX.function.pluginhelpers import fetch
 from DaisyX.services.pyrogram import pbot
@@ -26,7 +27,7 @@ from DaisyX.services.pyrogram import pbot
 ARQ_API = get_str_key("ARQ_API", required=True)
 SUDOERS = OWNER_ID
 ARQ_API_URL = "https://thearq.tech"
-arq = ARQ(ARQ_API_URL,ARQ_API)
+arq = ARQ(ARQ_API_URL, ARQ_API)
 
 app = pbot
 import socket
@@ -102,8 +103,6 @@ async def alive_function(answers):
     return answers
 
 
-
-
 async def webss(url):
     start_time = time()
     if "." not in url:
@@ -119,7 +118,6 @@ async def webss(url):
     )
     a.append(pic)
     return a
-
 
 
 async def translate_func(answers, lang, tex):
@@ -273,6 +271,7 @@ async def saavn_func(answers, text):
         )
     return answers
 
+
 async def paste_func(answers, text):
     start_time = time()
     url = await paste(text)
@@ -286,7 +285,8 @@ async def paste_func(answers, text):
         )
     )
     return answers
-    
+
+
 async def deezer_func(answers, text):
     buttons_list = []
     results = await arq.deezer(text, 5)
@@ -394,8 +394,8 @@ async def torrent_func(answers, text):
             )
         )
         limit += 1
-        pass
     return answers
+
 
 async def wiki_func(answers, text):
     data = await arq.wiki(text)

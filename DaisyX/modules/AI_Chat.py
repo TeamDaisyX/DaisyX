@@ -29,15 +29,17 @@ from pyrogram import filters
 
 from DaisyX import BOT_ID
 from DaisyX.db.mongo_helpers.aichat import add_chat, get_session, remove_chat
+from DaisyX.function.inlinehelper import arq
 from DaisyX.function.pluginhelpers import admins_only, edit_or_reply
 from DaisyX.services.pyrogram import pbot as daisyx
-from DaisyX.function.inlinehelper import arq
+
 translator = google_translator()
-import requests
+
 
 async def lunaQuery(query):
     luna = await arq.luna(query)
     return luna.result
+
 
 def extract_emojis(s):
     return "".join(c for c in s if c in emoji.UNICODE_EMOJI)
@@ -169,9 +171,8 @@ async def hmm(client, message):
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
         response = await lunaQuery(test)
-        response = response.replace("Aco","Daisy")
-        response = response.replace("aco","Daisy")
-
+        response = response.replace("Aco", "Daisy")
+        response = response.replace("aco", "Daisy")
 
         pro = response
         try:
@@ -221,13 +222,12 @@ async def hmm(client, message):
                 return
         # test = emoji.demojize(test.strip())
 
-
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
         response = await lunaQuery(test)
 
-        response = response.replace("Aco","Daisy")
-        response = response.replace("aco","Daisy")
+        response = response.replace("Aco", "Daisy")
+        response = response.replace("aco", "Daisy")
         pro = response
         if not "en" in lan and not lan == "":
             try:
@@ -295,8 +295,8 @@ async def inuka(client, message):
 
     response = await lunaQuery(test)
 
-    response = response.replace("Aco","Daisy")
-    response = response.replace("aco","Daisy")
+    response = response.replace("Aco", "Daisy")
+    response = response.replace("aco", "Daisy")
 
     pro = response
     if not "en" in lan and not lan == "":
@@ -365,9 +365,8 @@ async def inuka(client, message):
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
     response = await lunaQuery(test)
-    response = response.replace("Aco","Daisy")
-    response = response.replace("aco","Daisy")
-
+    response = response.replace("Aco", "Daisy")
+    response = response.replace("aco", "Daisy")
 
     pro = response
     if not "en" in lan and not lan == "":

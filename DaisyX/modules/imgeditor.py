@@ -70,7 +70,7 @@ async def photo(client: Client, message: Message):
         return
     global lel
     try:
-        lel = message.from_user.id  
+        lel = message.from_user.id
     except:
         return
     try:

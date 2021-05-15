@@ -21,7 +21,7 @@ from asyncio import sleep
 from telethon import events
 from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
-from telethon.tl.types import ChannelParticipantsAdmins, ChatBannedRights
+from telethon.tl.types import ChatBannedRights
 
 from DaisyX import OWNER_ID
 from DaisyX.services.telethon import tbot as client
@@ -106,11 +106,10 @@ async def zombies(event):
 
     # Here laying the sanity check
     chat = await event.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
+    chat.admin_rights
+    chat.creator
 
     # Well
-
 
     cleaning_zombies = await event.respond("Cleaning Zombies...")
     del_u = 0

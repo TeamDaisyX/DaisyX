@@ -29,10 +29,10 @@ import wget
 import youtube_dl
 from pyrogram import filters
 from pyrogram.types import Message
-from DaisyX.function.inlinehelper import arq
 from youtube_dl import YoutubeDL
 from youtubesearchpython import SearchVideos
 
+from DaisyX.function.inlinehelper import arq
 from DaisyX.function.pluginhelpers import get_text, progress
 from DaisyX.services.pyrogram import pbot as Client
 
@@ -72,7 +72,7 @@ async def ytmusic(client, message: Message):
             "Sorry I accounted an error.\n Unkown error raised while getting search result"
         )
         return
-    
+
     await asyncio.sleep(0.6)
     sedlyf = wget.download(kekme)
     opts = {
@@ -95,13 +95,13 @@ async def ytmusic(client, message: Message):
         "logtostderr": False,
     }
     try:
-        dl_limit = dl_limit +1
+        dl_limit = dl_limit + 1
         with YoutubeDL(opts) as ytdl:
             ytdl_data = ytdl.extract_info(mo, download=True)
-            
+
     except Exception as e:
         await pablo.edit(f"**Failed To Download** \n**Error :** `{str(e)}`")
-        #dl_limit = dl_limit-1
+        # dl_limit = dl_limit-1
         return
     c_time = time.time()
     capy = f"**Song Name :** `{thum}` \n**Requested For :** `{urlissed}` \n**Channel :** `{thums}` \n**Link :** `{mo}`"
@@ -123,7 +123,7 @@ async def ytmusic(client, message: Message):
                 file_stark,
             ),
         )
-        dl_limit = dl_limit-1
+        dl_limit = dl_limit - 1
     except:
         dl_limit = dl_limit - 1
         return
@@ -131,8 +131,6 @@ async def ytmusic(client, message: Message):
     for files in (sedlyf, file_stark):
         if files and os.path.exists(files):
             os.remove(files)
-
-
 
 
 ydl_opts = {

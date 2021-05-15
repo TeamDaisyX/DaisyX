@@ -26,10 +26,12 @@ from pyrogram.errors.exceptions.bad_request_400 import (
 )
 from pyrogram.types import ChatPermissions, InlineKeyboardButton, InlineKeyboardMarkup
 
+from DaisyX import BOT_ID
+
 # from DaisyX import OWNER_ID as SUDO_USERS
 from DaisyX.services.pyrogram import pbot
 from DaisyX.services.sql import forceSubscribe_sql as sql
-from DaisyX import BOT_ID
+
 logging.basicConfig(level=logging.INFO)
 
 static_data_filter = filters.create(
@@ -43,7 +45,7 @@ def _onUnMuteRequest(client, cb):
         user_id = cb.from_user.id
         chat_id = cb.message.chat.id
     except:
-        return        
+        return
     chat_db = sql.fs_settings(chat_id)
     if chat_db:
         channel = chat_db.channel
@@ -72,10 +74,7 @@ def _onUnMuteRequest(client, cb):
                     show_alert=True,
                 )
         else:
-            if (
-                not client.get_chat_member(chat_id, BOT_ID).status
-                == "administrator"
-            ):
+            if not client.get_chat_member(chat_id, BOT_ID).status == "administrator":
                 client.send_message(
                     chat_id,
                     f"❗ **{cb.from_user.mention} is trying to UnMute himself but i can't unmute him because i am not an admin in this chat add me as admin again.**\n__#Leaving this chat...__",
