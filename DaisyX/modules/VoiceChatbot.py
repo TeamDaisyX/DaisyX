@@ -1,11 +1,13 @@
 # Voics Chatbot Module Credits Pranav Ajay 🐰Github = Red-Aura 🐹 Telegram= @madepranav
 # @lyciachatbot support Now
 import os
+
 import aiofiles
 import aiohttp
-from random import randint
 from pyrogram import filters
+
 from DaisyX.services.pyrogram import pbot as LYCIA
+
 
 async def fetch(url):
     async with aiohttp.ClientSession() as session:
@@ -15,6 +17,7 @@ async def fetch(url):
             except:
                 data = await resp.text()
     return data
+
 
 async def ai_lycia(url):
     ai_name = "Daisyx.mp3"
@@ -36,7 +39,9 @@ async def Lycia(_, message):
     lycia = text.replace(" ", "%20")
     m = await message.reply_text("Daisyx Is Best...")
     try:
-        L = await fetch(f"https://api.affiliateplus.xyz/api/chatbot?message={lycia}&botname=Daisy&ownername=TeamDaisyX&user=1")
+        L = await fetch(
+            f"https://api.affiliateplus.xyz/api/chatbot?message={lycia}&botname=Daisy&ownername=TeamDaisyX&user=1"
+        )
         chatbot = L["message"]
         VoiceAi = f"https://lyciavoice.herokuapp.com/lycia?text={chatbot}&lang=hi"
         name = "DaisyX"
