@@ -5,7 +5,7 @@ import aiofiles
 import aiohttp
 from random import randint
 from pyrogram import filters
-from lycia import LYCIA
+from DaisyX.services.pyrogram import pbot as LYCIA
 
 async def fetch(url):
     async with aiohttp.ClientSession() as session:
