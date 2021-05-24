@@ -30,7 +30,7 @@ async def ai_lycia(url):
     return ai_name
 
 
-@LYCIA.on_message(filters.command("Daisyx"))
+@LYCIA.on_message(filters.command("daisy"))
 async def Lycia(_, message):
     if len(message.command) < 2:
         await message.reply_text("DaisyX AI Voice Chatbot")
