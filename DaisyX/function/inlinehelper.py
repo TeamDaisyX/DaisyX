@@ -4,6 +4,7 @@ from random import randint
 from time import time
 
 import aiohttp
+from aiohttp import aiohttpsession
 from googletrans import Translator
 from motor import version as mongover
 from pykeyboard import InlineKeyboard
@@ -27,7 +28,13 @@ from DaisyX.services.pyrogram import pbot
 ARQ_API = get_str_key("ARQ_API", required=True)
 SUDOERS = OWNER_ID
 ARQ_API_URL = "https://thearq.tech"
-arq = ARQ(ARQ_API_URL, ARQ_API)
+
+# Aiohttp Client
+print("[INFO]: INITIALZING AIOHTTP SESSION")
+aiohttpsession = ClientSession()
+# ARQ Client
+print("[INFO]: INITIALIZING ARQ CLIENT")
+arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
 app = pbot
 import socket
