@@ -26,7 +26,7 @@ from DaisyX.function.pluginhelpers import fetch
 from DaisyX.services.pyrogram import pbot
 
 ARQ_API = get_str_key("ARQ_API", required=True)
-ARQ_API_KEY = get_str_key("ARQ_API_KEY", required=True)
+ARQ_API_KEY = ARQ_API
 SUDOERS = OWNER_ID
 ARQ_API_URL = "https://thearq.tech"
 
