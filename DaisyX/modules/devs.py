@@ -1,3 +1,5 @@
+#Credits Telegram @ChankitSaini
+
 __mod_name__ = "Devs"
 __help__ = """
 <b>⚠️ Notice:</b>
@@ -9,7 +11,7 @@ Group admins/group owners do not need these commands.
 <b>Bot Owner Only: </b>
 - <code>/leavechat chat id</code> : Leaves the chat
 - <code>/ip</code> : Fetch server's ip (Works in pm only)
-- <code>/term</code></code> : Runs the shell commands
+- <code>/term</code> : Runs the shell commands
 - <code>/sbroadcast</code> : Smart broadcast in chats where bot is currently added.
 - <code>/stopsbroadcast</code> : Stops the current ongoing broadcast
 - <code>/continuebroadcast</code> : Continue the stopped broadcast
