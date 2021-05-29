@@ -1,4 +1,4 @@
-#Credits Telegram @ChankitSaini
+# Credits Telegram @ChankitSaini
 
 __mod_name__ = "Devs"
 __help__ = """
