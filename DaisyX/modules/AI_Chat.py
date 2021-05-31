@@ -1,4 +1,5 @@
 # Copyright (C) 2021 Red-Aura & TeamDaisyX & HamkerCat
+# Edited by Telegram: @ChankitSaini
 
 # This file is part of Daisy (Telegram Bot)
 
@@ -173,8 +174,8 @@ async def hmm(client, message):
         response = await lunaQuery(
             test, message.from_user.id if message.from_user else 0
         )
-        response = response.replace("Aco", "Daisy")
-        response = response.replace("aco", "Daisy")
+        response = response.replace("Luna", "Daisy")
+        response = response.replace("luna", "Daisy")
 
         pro = response
         try:
@@ -224,13 +225,13 @@ async def hmm(client, message):
                 return
         # test = emoji.demojize(test.strip())
 
-        test = test.replace("daisy", "Aco")
-        test = test.replace("Daisy", "Aco")
+        test = test.replace("daisy", "Luna")
+        test = test.replace("Daisy", "Luna")
         response = await lunaQuery(
             test, message.from_user.id if message.from_user else 0
         )
-        response = response.replace("Aco", "Daisy")
-        response = response.replace("aco", "Daisy")
+        response = response.replace("Luna", "Daisy")
+        response = response.replace("luna", "Daisy")
         pro = response
         if not "en" in lan and not lan == "":
             try:
@@ -293,12 +294,12 @@ async def inuka(client, message):
     # test = emoji.demojize(test.strip())
 
     # Kang with the credits bitches @InukaASiTH
-    test = test.replace("daisy", "Aco")
-    test = test.replace("Daisy", "Aco")
+    test = test.replace("daisy", "Luna")
+    test = test.replace("Daisy", "Luna")
 
     response = await lunaQuery(test, message.from_user.id if message.from_user else 0)
-    response = response.replace("Aco", "Daisy")
-    response = response.replace("aco", "Daisy")
+    response = response.replace("Luna", "Daisy")
+    response = response.replace("luna", "Daisy")
 
     pro = response
     if not "en" in lan and not lan == "":
@@ -364,11 +365,11 @@ async def inuka(client, message):
 
     # test = emoji.demojize(test.strip())
 
-    test = test.replace("daisy", "Aco")
-    test = test.replace("Daisy", "Aco")
+    test = test.replace("daisy", "Luna")
+    test = test.replace("Daisy", "Luna")
     response = await lunaQuery(test, message.from_user.id if message.from_user else 0)
-    response = response.replace("Aco", "Daisy")
-    response = response.replace("aco", "Daisy")
+    response = response.replace("Luna", "Daisy")
+    response = response.replace("luna", "Daisy")
 
     pro = response
     if not "en" in lan and not lan == "":
