@@ -15,10 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import github #pyGithub
+import github  # pyGithub
 from pyrogram import filters
 
 from DaisyX.services.pyrogram import pbot as client
+
 
 @client.on_message(filters.command("contributors") & ~filters.edited)
 async def give_cobtribs(c, m):
