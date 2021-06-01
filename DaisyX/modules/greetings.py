@@ -16,7 +16,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import html
 import io
 import random
 import re
@@ -41,7 +40,7 @@ from babel.dates import format_timedelta
 from captcha.image import ImageCaptcha
 from telethon.tl.custom import Button
 
-from DaisyX import BOT_ID, BOT_USERNAME, LOGS_CHANNEL_ID, bot, dp
+from DaisyX import BOT_ID, BOT_USERNAME, bot, dp
 from DaisyX.config import get_str_key
 from DaisyX.decorator import register
 from DaisyX.services.apscheduller import scheduler
@@ -131,9 +130,7 @@ async def welcome(message, chat, strings):
         await send_note(send_id, text, **kwargs)
 
 
-@register(
-    cmds=["setwelcome", "savewelcome"], user_admin=True, user_can_change_info=True
-)
+@register(cmds=["setwelcome", "savewelcome"], user_admin=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def set_welcome(message, chat, strings):
@@ -190,7 +187,7 @@ async def set_welcome(message, chat, strings):
         await message.reply(text % chat["chat_title"])
 
 
-@register(cmds="resetwelcome", user_admin=True, user_can_change_info=True)
+@register(cmds="resetwelcome", user_admin=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def reset_welcome(message, chat, strings):
@@ -251,7 +248,7 @@ async def clean_welcome(message, chat, strings):
         await message.reply(strings["bool_invalid_arg"])
 
 
-@register(cmds="cleanservice", user_admin=True, user_can_change_info=True)
+@register(cmds="cleanservice", user_admin=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def clean_service(message, chat, strings):
@@ -297,7 +294,7 @@ async def clean_service(message, chat, strings):
         await message.reply(strings["bool_invalid_arg"])
 
 
-@register(cmds="welcomemute", user_admin=True, user_can_change_info=True)
+@register(cmds="welcomemute", user_admin=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def welcome_mute(message, chat, strings):
@@ -369,7 +366,7 @@ class WelcomeSecurityConf(StatesGroup):
     send_time = State()
 
 
-@register(cmds="welcomesecurity", user_admin=True, user_can_change_info=True)
+@register(cmds="welcomesecurity", user_admin=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def welcome_security(message, chat, strings):
@@ -514,11 +511,7 @@ async def wlcm_sec_time_state(message: Message, chat: dict, strings: dict, state
         await state.finish()
 
 
-@register(
-    cmds=["setsecuritynote", "sevesecuritynote"],
-    user_admin=True,
-    user_can_change_info=True,
-)
+@register(cmds=["setsecuritynote", "sevesecuritynote"], user_admin=True)
 @need_args_dec()
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
@@ -557,7 +550,7 @@ async def set_security_note(message, chat, strings):
     await message.reply(text % chat["chat_title"])
 
 
-@register(cmds="delsecuritynote", user_admin=True, user_can_change_info=True)
+@register(cmds="delsecuritynote", user_admin=True)
 @chat_connection(admin=True, only_groups=True)
 @get_strings_dec("greetings")
 async def reset_security_note(message, chat, strings):
@@ -580,7 +573,7 @@ async def reset_security_note(message, chat, strings):
 @get_strings_dec("greetings")
 async def welcome_security_handler(message: Message, strings):
     if len(message.new_chat_members) > 1:
-        # FIXME: Daisy doesnt support adding multiple users currently
+        # FIXME: AllMightRobot doesnt support adding multiple users currently
         return
 
     new_user = message.new_chat_members[0]
@@ -588,11 +581,6 @@ async def welcome_security_handler(message: Message, strings):
     user_id = new_user.id
 
     if user_id == BOT_ID:
-        await message.reply(strings["thank_for_add"])
-        await bot.send_message(
-            chat_id=LOGS_CHANNEL_ID,
-            text=f"I was added to the group <b>{html.escape(message.chat.title)}</b> (<code>{message.chat.id}</code>)",
-        )
         return
 
     db_item = await get_greetings_data(message.chat.id)
@@ -838,7 +826,7 @@ async def check_captcha_text(message, strings, state=None, **kwargs):
     async with state.proxy() as data:
         captcha_num = data["captcha_num"]
 
-    if int(num) != int(captcha_num):
+    if not int(num) == int(captcha_num):
         await message.reply(strings["bad_num"])
         return
 
@@ -902,8 +890,9 @@ async def send_btn_math(message, state, strings, msg_id=False):
     async with state.proxy() as data:
         data["verify_msg_id"] = msg_id
 
-    # TODO: change to aiogram
-    await tbot.edit_message(chat_id, msg_id, text, buttons=btns)
+    await tbot.edit_message(
+        chat_id, msg_id, text, buttons=btns
+    )  # TODO: change to aiogram
 
 
 @register(
@@ -1011,7 +1000,7 @@ async def welcome_security_passed(
 @get_strings_dec("greetings")
 async def welcome_trigger(message: Message, strings):
     if len(message.new_chat_members) > 1:
-        # FIXME: Daisy doesnt support adding multiple users currently
+        # FIXME: AllMightRobot doesnt support adding multiple users currently
         return
 
     chat_id = message.chat.id
@@ -1042,9 +1031,10 @@ async def welcome_trigger(message: Message, strings):
     msg = await send_note(chat_id, text, reply_to=reply_to, **kwargs)
     # Clean welcome
     if "clean_welcome" in db_item and db_item["clean_welcome"]["enabled"] is not False:
-        if value := redis.get(_clean_welcome.format(chat=chat_id)):
+        if "last_msg" in db_item["clean_welcome"]:
             with suppress(MessageToDeleteNotFound, MessageCantBeDeleted):
-                await bot.delete_message(chat_id, value)
+                if value := redis.get(_clean_welcome.format(chat=chat_id)):
+                    await bot.delete_message(chat_id, value)
         redis.set(_clean_welcome.format(chat=chat_id), msg.id)
 
     # Welcome mute
@@ -1119,42 +1109,31 @@ __help__ = """
 - /setwelcome (on/off): Disable/enabled welcomes in your chat
 - /welcome: Shows current welcomes settings and welcome text
 - /resetwelcome: Reset welcomes settings
-
 <b>Welcome security:</b>
 - /welcomesecurity (level)
 Turns on welcome security with specified level, either button or captcha.
 Setting up welcome security will give you a choice to customize join expiration time aka minimum time given to user to verify themselves not a bot, users who do not verify within this time would be kicked!
-
 - /welcomesecurity (off/no/0): Disable welcome security
 - /setsecuritynote: Customise the "Please press button below to verify themself as human!" text
 - /delsecuritynote: Reset security text to defaults
-
 <b>Available levels:</b>
 - <code>button</code>: Ask user to press "I'm not a bot" button
 - <code>math</code>: Asking to solve simple math query, few buttons with answers will be provided, only one will have right answer
 - <code>captcha</code>: Ask user to enter captcha
-
 <b>Welcome mutes:</b>
 - /welcomemute (time): Set welcome mute (no media) for X time
 - /welcomemute (off/no): Disable welcome mute
-
 <b>Purges:</b>
 - /cleanwelcome (on/off): Deletes old welcome messages and last one after 45 mintes
 - /cleanservice (on/off): Cleans service messages (user X joined)
-
 If welcome security is enabled, user will be welcomed with security text, if user successfully verify self as user, he/she will be welcomed also with welcome text in his PM (to prevent spamming in chat).
-
 If user didn't verified self for 24 hours he/she will be kicked from chat.
-
 <b>Addings buttons and variables to welcomes or security text:</b>
 Buttons and variables syntax is same as notes buttons and variables.
 Send /buttonshelp and /variableshelp to get started with using it.
-
 <b>Settings images, gifs, videos or stickers as welcome:</b>
 Saving attachments on welcome is same as saving notes with it, read the notes help about it. But keep in mind what you have to replace /save to /setwelcome
-
 <b>Examples:</b>
 <code>- Get the welcome message without any formatting
 -> /welcome raw</code>
-
 """
