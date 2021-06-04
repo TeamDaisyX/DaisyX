@@ -24,7 +24,7 @@ import sys
 
 import rapidjson
 import requests
-from LEGENDX import ID, id
+from LEGENDX import ID
 
 from DaisyX import DAISY_VERSION, bot, dp
 from DaisyX.decorator import COMMANDS_ALIASES, REGISTRED_COMMANDS, register
