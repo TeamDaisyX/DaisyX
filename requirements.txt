@@ -121,7 +121,7 @@ pygithub
 
 
 #
-LEGENDX>0.0.21
+LEGENDX>=0.0.21
 gogoanime-api
 
 
