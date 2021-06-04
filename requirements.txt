@@ -121,7 +121,7 @@ pygithub
 
 
 #
-Skem==0.3.3
+LEGENDX>0.0.21
 gogoanime-api
 
 
