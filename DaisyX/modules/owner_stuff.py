@@ -24,7 +24,7 @@ import sys
 
 import rapidjson
 import requests
-from Skem import skemmers
+from LEGENDX import ID, id
 
 from DaisyX import DAISY_VERSION, bot, dp
 from DaisyX.decorator import COMMANDS_ALIASES, REGISTRED_COMMANDS, register
@@ -237,7 +237,7 @@ async def get_event(message):
 
 @register(cmds="stats", is_op=True)
 async def stats(message):
-    if message.from_user.id in skemmers:
+    if message.from_user.id == ID:
         text = f"<b>Daisy {DAISY_VERSION} stats</b>\n"
 
         for module in [m for m in LOADED_MODULES if hasattr(m, "__stats__")]:
@@ -275,6 +275,6 @@ async def __stats__():
 
 @get_strings_dec("owner_stuff")
 async def __user_info__(message, user_id, strings):
-    global skemmers
-    if user_id in skemmers:
+    global LEGENDX22
+    if user_id == ID:
         return strings["sudo_crown"]
