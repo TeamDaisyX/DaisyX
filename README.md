@@ -89,6 +89,8 @@ $ python(3) -m DaisyX
 
 ## Special Credits
 - [OWNER + X](https://GitHub.com/LEGENDXOP)
+
+
 The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie) and many other projects
 This repo was just revamped to suit an Anime-centric & comedy loving community. All original credits go to SophieBot and their dedication, Without his efforts, this fork would not have been possible!
 
