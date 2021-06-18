@@ -52,7 +52,7 @@ $ bash deploy.sh
 $ pip(3) install -r requirements.txt
 # Rename ./DaisyX/data/bot_conf.yaml.example to bot_conf.yaml and fill
 # Start Bot 
-$ python(3) -m DaisyX
+$ python(3) -m AnikhaX
 ```
 
 ### Mandatory Vars 📒
@@ -80,7 +80,7 @@ $ python(3) -m DaisyX
  - [Alita_Robot](https://github.com/Divkix/Alita_Robot/)
  - [FridayUserbot](https://github.com/DevsExpo/FridayUserbot)
  - [MissJuliaRobot](https://github.com/MissJuliaRobot/MissJuliaRobot)
- - [DaisyX](https://github.com/teamdaisyx/daisy-x)
+ - [AnikhaX](https://github.com/teamdaisyx/daisy-x)
  - [ADV-Auto-Filter-Bot-V2](https://github.com/AlbertEinsteinTG/Adv-Auto-Filter-Bot-V2)
  - [Image-Editor](https://github.com/TroJanzHEX/Image-Editor/)
  - [Utah](https://github.com/minatouzuki/utah).
@@ -88,7 +88,7 @@ $ python(3) -m DaisyX
  - [LEGENDX](https://github.com/LEGENDXOP/LEGEND-X)
 
 ## Special Credits
-- [OWNER + X](https://GitHub.com/LEGENDXOP)
+- [OWNER + X](https://t.me/sachin_official_admin)
 
 
 The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie) and many other projects
