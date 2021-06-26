@@ -1,0 +1,630 @@
+---
+language_info:
+  flag: "🇹🇷"
+  code: tr
+STRINGS:
+  notes:
+    #/save
+    note_saved: "🗒 <b>{chat_title}</b> içinde <code>{note_name}</code> notu kaydedildi!"
+    note_updated: "🗒 <b>{chat_title}</b> içinde <code>{note_name}</code> notu güncellendi!"
+    you_can_get_note: "Bu notu <code>/get{note_name}</code> veya <code>#{note_name}</code> kullanarak alabilirsiniz."
+    #Translator note: please keep sure that you don't have space in the end of string
+    note_aliases: "Not takma adları:"
+    blank_note: "Boş notu kaydetmeye izin verilmiyor!"
+    notename_cant_contain: "Not adı \"<code>{symbol}</code>\" içeremez!"
+    #/get
+    cant_find_note: Bu notu <b>{chat_name}</b> içinde bulamıyorum!
+    no_note: "Not bulunamadı."
+    no_notes_pattern: "<code>%s</code> desenine göre not bulunamadı"
+    u_mean: "Bunu mu demek istediniz <code>#{note_name}</code> ?"
+    #/notes
+    notelist_no_notes: "<b>{chat_title}</b> içinde herhangi bir not yok!"
+    notelist_header: "<b>{chat_name}'deki notlar</b>:"
+    notes_in_private: "Not listesini almak için aşağıdaki düğmeye tıklayın."
+    notelist_search: |
+      <b>Desen:</b> <code>{request}</code>
+      <b>Eşleşen notlar:</b>
+    #/clear
+    note_removed: "<b>{chat_name}</b> 'da <code>#{note_name}</code> notu kaldırıldı!"
+    note_removed_multiple: |
+      <b>{chat_name}</b> içinde birden fazla not kaldırılıyor
+      <b>Kaldırılan:</b><code>{removed}</code>
+    not_removed_multiple: "<b>Kaldırılmadı:</b><code>{not_removed}</code>"
+    #/clearall
+    clear_all_text: "Bu, tüm notları {chat_name} ' dan kaldıracaktır. Emin misin?"
+    clearall_btn_yes: "Evet. Tüm notlarımı kaldır!"
+    clearall_btn_no: "Hayır!"
+    clearall_done: "{chat_name} içindeki (<code>{num}</code>) not kaldırıldı!"
+    #/search
+    search_header: |
+      <b>{chat_name} içinde arama isteği</b>:
+      <b>Desen:</b> <code>{request}</code>
+      <b>Eşleşen notlar:</b>
+    #/noteinfo
+    note_info_title: "<b>Not bilgisi</b>\n"
+    note_info_note: "Not adları: %s\n"
+    note_info_content: "Not içeriği: %s\n"
+    note_info_parsing: "Ayrıştırma modu: <code>%s</code>"
+    note_info_created: "{user} tarafından <code>{date}</code> tarihinde oluşturuldu"
+    note_info_updated: "Son güncelleme tarihi: {user} tarafından <code>{date}</code>"
+    user_blocked: "PM'den /start yaz"
+    #/privatenotes
+    private_notes_false_args: "2 seçeneğiniz var <code>Devre Dışı Bırak</code> ve <code>Etkinleştir</code>!"
+    already_enabled: "Özel notlar %s içinde zaten etkinleştirildi"
+    current_state_info: "Şu anda özel not {chat} içinde {state}!"
+    enabled_successfully: "Özel notlar %s içinde <b>Etkinleştirildi</b>!"
+    disabled_successfully: "Özel notlar %s içinde <b>Devre dışı bırakıldı</b>!"
+    not_enabled: "Özel notlar etkinleştirilmediği için devre dışı bırakılamıyor."
+    privatenotes_notif: "<b>{chat}</b> notlarına başarıyla bağlandınız! Bağlantıyı kesmek için lütfen <code>/disconnect</code> komutunu kullanın!"
+    enabled: 'Etkinleştirildi'
+    disabled: 'Devre dışı bırakıldı'
+    #/cleannotes
+    clean_notes_enable: "<b>{chat_name}</b> grubunda temizleme servisi başarıyla etkinleştirildi"
+    clean_notes_disable: "<b>{chat_name}</b> grubunda temizleme servisi başarıyla devre dışı bırakıldı"
+    clean_notes_enabled: "<b>{chat_name}</b> grubunda temizleme servisi başarıyla <b>etkinleştirildi</b>"
+    clean_notes_disabled: "<b>{chat_name}</b> grubunda temizleme servisi başarıyla <b>devre dışı bırakıldı</b>"
+    #Filter
+    filters_title: 'Bir not gönder'
+    filters_setup_start: 'Lütfen bir not adı gönderin.'
+  #delmsg_no_arg: "deletemsg button can contain only 'admin' or 'user' argument!"
+  #bot_msg: "I'm sorry, I am not able to get this message, probably this a other bot's message, so I can't save it."
+  filters:
+    no_filters_found: "<b>{chat_name}</b> içerisinde filtre bulunamadı!"
+    #/addfilter
+    adding_filter: |
+      <b>{chat_name}</b> içinde <code>{handler}</code> filtresi ekleme
+      Aşağıdaki işlemi seçin:
+    #/filters
+    list_filters: "<b>{chat_name}</b> grubundaki filtreler:\n"
+    #/delfilter
+    no_such_filter: Bu filtreyi <b>{chat_name}</b> içinde bulamıyorum, etkin filtreleri <code>/filters</code> komutuyla kontrol edin.
+    del_filter: "'<code>{handler}</code>' işleyicisiyle filtre başarıyla kaldırıldı!"
+    select_filter_to_remove: |
+      '<code>{handler}</code>' işleyicisine sahip birçok filtre buldum.
+      Lütfen kaldırmak için birini seçin:
+  warns:
+    #/warn
+    warn_sofi: "Haha, kendimi uyarmanın bir yolu yok!"
+    warn_self: "Kendini uyarmak ister misin? Sadece sohbetten ayrıl."
+    warn_admin: "Şey... yanılıyorsun. Bir yöneticiyi uyaramazsın."
+    warn: "{admin}, <b>{chat_name}</b> 'da {user} adlı kullanıcıyı uyardı"
+    warn_bun: "Uyarı sınırı aşıldı! {user} yasaklandı!"
+    warn_num: "Mevcut uyarılar: {curr_warns}/{max_warns}\n"
+    warn_rsn: "Sebep: <code>{reason}</code>\n"
+    max_warn_exceeded: Uyarılar aşıldı! %s %s oldu!
+    "max_warn_exceeded:tmute": Uyarılar aşıldı! %s, %s için açıldı!
+    #warn rmv callback
+    warn_no_admin_alert: "⚠ Uyarıyı kaldırmak için yönetici DEĞİLSİNİZ!"
+    warn_btn_rmvl_success: "✅ Uyarı {admin} tarafından kaldırıldı !"
+    #/warns
+    warns_header: "İşte bu sohbetteki uyarılarınız\n\n"
+    warns: "{admin} tarafından {count} : <code>{reason}</code>"
+    no_warns: "{user} adlı kullanıcının herhangi bir uyarısı yok."
+    #/warnlimit
+    warn_limit: "<b>{chat_name}</b> grubunda uyarı limiti: <code>{num}</code>"
+    warnlimit_short: 'Uyarı limiti en az 2 olmalıdır!'
+    warnlimit_long: 'Uyarı limiti 1.000''den daha kısa olmalıdır!'
+    warnlimit_updated: '✅ Uyarı limiti {num} olarak güncellendi'
+    #/delwarns
+    purged_warns: "{admin}, {user} kullanıcısının <code>{num}</code> adet uyarısını <b>{chat_title}</b> grubunda kaldırdı!"
+    usr_no_wrn: "{user} sıfırlamak için herhangi bir uyarıya sahip değildir."
+    rst_wrn_sofi: 'AllMight asla sıfırlama konusunda uyarmadı.'
+    not_digit: Uyarı limiti rakam olmalı!
+    #/warnmode
+    same_mode: Bu geçerli mod! Bunu nasıl değiştirebilirim?
+    no_time: '''tmute'' modunu seçmek için bir zaman diliminden bahsetmelisiniz!'
+    invalid_time: Geçersiz zaman !
+    warnmode_success: <b>%s</b> uyarı modu başarıyla <b>%s</b> olarak değiştirildi!
+    wrng_args: |
+      Mevcut seçenekler şunlardır:
+      <code>%s</code>
+    mode_info: 'Bu sohbetteki geçerli mod <b>%s</b>.'
+    banned: yasaklandı
+    muted: susturuldu
+    filters_title: Kullanıcıyı uyar
+    filter_handle_rsn: Otomatik filtre eylemi!
+  msg_deleting:
+    no_rights_purge: "Bu grubu temizlemek için yeterli izniniz yok!"
+    reply_to_msg: "Silmek için bir mesaja cevap verin!"
+    purge_error: "Silmeye devam edemiyorum, çünkü çoğunlukla 2 günden daha eski bir mesajdan silmeye başladınız."
+    fast_purge_done: "<b>Hızlı temizleme tamamlandı!</b>\nBu mesaj 5 saniye içinde silinecektir."
+    purge_user_done: "{user} adlı kullanıcının tüm mesajları başarıyla silindi!"
+  misc:
+    your_id: "Senin ID: <code>{id}</code>\n"
+    chat_id: "Grup ID: <code>{id}</code>\n"
+    user_id: "{user}'in ID: <code>{id}</code>\n"
+    conn_chat_id: "Geçerli bağlanmış olan sohbet kimliği: <code>{id}</code>"
+    help_btn: "Yardım için tıkla!"
+    help_txt: "Yardım için aşağıdaki düğmeye tıklayın!"
+    paste_success_extra: "<b>Başarıyla yapıştırıldı!</b>\nKısaltılmış link: {}\nOrijinal doglin linki: {}"
+    paste_success: "<b>Başarıyla yapıştırıldı!</b>\nDogbin linki: {}"
+    paste_fail: "Dogbin'e ulaşılamadı!"
+    paste_no_text: "Yapıştırmak için bir metin girmeniz gerekiyor!"
+    delmsg_filter_title: 'Mesajı sil'
+    send_text: Lütfen cevap mesajını gönderin!
+    replymsg_filter_title: 'Mesaja cevap verin'
+  promotes:
+    promote_success: "{user}, {chat_name} içinde başarıyla yükseltildi!"
+    promote_title: "Özel rol <code>{role}</code> ile!"
+    rank_to_loong: "Özel rol metni 16 sembolden uzun olamaz."
+    promote_failed: "Yetkilendirme başarısız! İzinlerimi kontrol et."
+    demote_success: "{user}, {chat_name} içinde başarıyla düşürüldü!"
+    demote_not_admin: "Bu kullanıcı yönetici değil."
+    demote_failed: "Düşürme başarısız. Yetkim olmayabilir veya bu kişi başka bir kişi tarafından yönetici yapıldı"
+    cant_get_user: "Kullanıcıyı alamadım! Eğer sakıncası varsa, lütfen mesajına cevap verin ve tekrar deneyin."
+    emoji_not_allowed: "Üzgünüm, ama yönetici rollerinde emoji olamaz 😞"
+  pm_menu:
+    start_hi_group: 'Selam! Benim adım AllMight'
+    start_hi: "Selam! Adım AllMight, grubunuzu verimli bir şekilde yönetmenize yardım ediyorum!"
+    btn_source: "📦 Code source"
+    btn_help: "❔ Yardım"
+    btn_lang: "🇹🇷 Dil"
+    btn_group: "👥 Daisy Grubu"
+    btn_channel: "📡 Daisy Kanalı"
+    back: Geri
+    #/help
+    help_header: Hey! check help here
+    click_btn: Buraya tıklayın
+  disable:
+    #/disableable
+    disablable: "<b>Devredışı bırakılabilen komutlar:</b>\n"
+    #/disabled
+    no_disabled_cmds: <b>{chat_name}</b> içinde devre dışı bırakılmış komut yok!
+    disabled_list: "<b>{chat_name} grubunda devre dışı bırakılan komutlar:</b>\n"
+    #/disable
+    wot_to_disable: "Neyi devre dışı bırakmak istiyorsun?"
+    already_disabled: "Bu komut zaten devre dışı!"
+    disabled: "<code>{cmd}</code> komutu <b>{chat_name}</b> grubunda devre dışı bırakıldı!"
+    #/enable
+    wot_to_enable: "Neyi etkinleştirmek istiyorsunuz?"
+    already_enabled: "Bu komut devre dışı bırakılamaz!"
+    enabled: "<code>{cmd}</code> komutu <b>{chat_name}</b> grubunda etkinleştirildi!"
+    #/enableall
+    not_disabled_anything: "<b>{chat_title}</b> 'da hiçbir şey devre dışı bırakılmadı!"
+    enable_all_text: "Bu, <b>{chat_name}</b> içindeki tüm komutları etkinleştirir. Emin misin?"
+    enable_all_btn_yes: "Evet. Tüm komutları etkinleştir!"
+    enable_all_btn_no: "Hayır!"
+    enable_all_done: "Tüm (<code>{num}</code>) adet komut <b>{chat_name}</b> için etkinleştirildi!"
+  bot_rights:
+    change_info: "Grup bilgisini değiştirmek için yetkim yok. Gerekli yetkileri verirsin işini görebilirim."
+    edit_messages: "Mesajları düzenleme iznim yok!"
+    delete_messages: "Mesajları silmek için yeterince yetkim yok."
+    ban_user: "Kullanıcıları yasaklamam için yetkim yok, lütfen bana bu yetkiyle yöneticilik verin."
+    pin_messages: "Mesajları sabitlemek için yetkim yok, lütfen bana bu yetkiyle yöneticilik verin."
+    add_admins: "Yönetici ekleme iznim yok, lütfen beni bu izin ile yönetici yap."
+  feds:
+    #decorators
+    need_fed_admin: "<b>{name}</b> Federasyonunda yönetici değilsin"
+    need_fed_owner: "<b>{name}</b> Federasyonunun sahibi değilsin"
+    cant_get_user: "Maalesef, bu kullanıcıyı bulamadım, kullanıcı ID kullanmayı deneyin"
+    #/fnew
+    fed_name_long: "Federasyon adı 60 sembolden daha uzun olamaz!"
+    can_only_1_fed: "1 kullanıcı sadece 1 Federasyon oluşturabilir, lütfen birini kaldırın."
+    name_not_avaible: "<code>{name}</code> isimli federasyon zaten mevcut! Lütfen başka bir ad kullanın."
+    created_fed: |
+      Tebrikler, Federasyon'u başarıyla oluşturdunuz.
+      <b>İsim:</b> {name}
+      <b>ID:</b> <code>{id}</code>
+      <b>Oluşturan:</b> {creator}
+      <code>/fjoin {id}</code> federasyonu sohbete bağlama için bu komutu kullanın
+    #/fjoin
+    only_creators: "Sohbeti federasyona bağlayabilmek için bir sohbet yaratıcısı olmalısınız."
+    fed_id_invalid: "Belirtilen Federasyon Kimliği geçersiz! Lütfen bana geçerli bir kimlik verin."
+    joined_fed_already: "Bu sohbet zaten bir Federasyon katıldı! Bu federasyondan ayrılmak için lütfen /fleave komutunu kullanın"
+    join_fed_success: "Harika! Sohbet <b>{chat}</b> artık <b>{fed}</b> Federasyonunun bir parçası!"
+    join_chat_fed_log: |
+      <b>Federasyona yeni sohbet katıldı</b> #SohbetKatıldı
+      <b>Federasyon:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>Sohbet:</b> {chat_name} (<code>{chat_id}</code>)
+    #/leavefed
+    chat_not_in_fed: "Bu sohbet henüz herhangi bir federasyonda değil."
+    leave_fed_success: "Sohbet <b>{chat}</b> <b>{fed}</b> federasyonundan ayrıldı."
+    leave_chat_fed_log: |
+      <b>Sohbet federasyondan ayrıldı </b> #SohbetAyrıldı
+      <b>Federasyon:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>Sohbet:</b> {chat_name} (<code>{chat_id}</code>)
+    #/fsub
+    already_subsed: "<b>{name}</b> federasyonu zaten <b>{name2}</b> 'a abone oldu"
+    subsed_success: "<b>{name}</b> federasyonu <b>{name2}</b> 'a abone oldu!"
+    #/funsub
+    not_subsed: "<b>{name}</b> federasyonu zaten <b>{name2}</b> 'a abone olmadığı için abonelikten çıkılamıyor"
+    unsubsed_success: "<b>{name}</b> federasyonu <b>{name2}</b> 'a abonelikten ayrıldı!"
+    #/fpromote
+    #admin_already_in_fed: "User {user} is already a fed admin in <b>{name}</b> Federation."
+    admin_added_to_fed: "Kullanıcı {user} <b>{name}</b> örgütündeki yöneticilere eklendi."
+    promote_user_fed_log: |
+      <b>Kullanıcı federasyon yöneticisi oldu</b> #KullanıcıYükseltildi
+      <b>Federasyon:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>Kullanıcı:</b> {user} (<code>{user_id}</code>)
+    #/fdemote
+    #admin_not_in_fed: "User {user} is not <b>{name}</b> Federation admin."
+    admin_demoted_from_fed: "{user}, <b>{name}</b> Federasyonu yöneticiliğinden alındı."
+    demote_user_fed_log: |
+      <b>Kullanıcı federasyon yöneticilerinden düşürüldü</b> #KullanıcıDüşürüldü
+      <b>Federasyon:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>Kullanıcı:</b> {user} (<code>{user_id}</code>)
+    #/fsetlog
+    already_have_chatlog: "Görünüşe göre <b>{name} </b> federasyonu için başka bir sohbete / kanala günlükleme özelliği etkinleştirilmiş!"
+    set_chat_log: |
+      Bu sohbet artık <b>{name}</b> Federasyonundaki tüm işlemleri günlüğe kaydediyor
+
+      Federasyon günlüğü, federasyonun ve performansının iç değerlendirmesi için kullanılır.
+      kullanıcı verilerine ve gizlilik yönergelerimize saygı göstererek halka gösterme duvarı olarak KULLANILMAMALIDIR.
+    set_log_fed_log: |
+      <b>Etkinleştirilen günlük kaydı</b> #GünlükKaydıEtkin
+      <b>Federasyon:</b> {fed_name} (<code>{fed_id}</code>)
+    no_right_to_post: O kanala mesaj gönderme hakkım yok!
+    #/funsetlog
+    not_logging: "<b>{name}</b> Federasyonu hiçbir sohbete / kanala giriş yapamıyor!"
+    logging_removed: "Günlük kaydı alma <b>{name}</b> Federasyonundan başarıyla kaldırıldı."
+    unset_log_fed_log: |
+      <b>Devre dışı bırakılan günlük kaydı</b> #GünlükKaydıDevreDışı
+      <b>Federasyon:</b> {fed_name} (<code>{fed_id}</code>)
+    #/fchatlist
+    chats_in_fed: "<b>Sohbet {name} Örgüt'üne bağlandı:</b>\n"
+    too_large: "Çıktı çok büyük, dosya olarak gönderiliyor"
+    #/finfo
+    finfo_text: |
+      <b>Federasyon Bilgisi</b>
+      <b>İsim:</b> {name}
+      <b>ID:</b> <code>{fed_id}</code>
+      <b>Sahibi:</b> {creator}
+      <b>Federasyondaki sohbetler:</b> {chats}
+      <b>Federasyondaki yasaklı kullanıcılar:</b> {fbanned}
+    finfo_subs_title: "<b>Federasyon şu federasyonlara abone oldu:</b>"
+    #/fadminlist
+    fadmins_header: "<b>{fed_name}</b> Federasyonunun yöneticileri:"
+    #no_fbanned_in_fed: "There isn't any banned users in {fed_name} Federation!"
+    #/fban
+    user_wl: "Bu kullanıcı beyaz listede olduğundan yasaklanamıyor."
+    fban_self: "Bu güzel bir şov!"
+    fban_creator: "Federasyon sahibini nasıl yasaklayabilirim?! Komik olacağını sanmıyorum."
+    fban_fed_admin: "Bir federasyon yöneticisini kendi federasyonundan yasaklayamam!"
+    already_fbanned: "{user} bu federasyonda zaten yasaklanmıştı."
+    fbanned_header: "<b>Yeni FedBan</b>\n"
+    fban_info: '| #ChatLeaved <b>Federasyon:</b>{fed}<b>Federasyon yöneticisi:</b>{fadmin}<b>Kullanıcı:</b>{user}(<code>{user_id}</code>)'
+    fbanned_reason: "<b>Nedeni:</b> <code>{reason}</code>"
+    fbanned_process: "<b>Durum:</b> <code>{num}</code> adet federasyon sohbetlerinden yasaklanıyor..."
+    fbanned_done: "<b>Durum:</b> Bitti! <code>{num}</code> adet federasyon sohbetlerinden yasaklandı!"
+    fbanned_silence: "Bu mesaj 5 saniye içinde silinecek"
+    fbanned_subs_process: "\n<b>Durum:</b> <code>{feds}</code> adet federasyona bağlı sohbetlerden yasaklanıyor..."
+    fbanned_subs_done: "<b>Durum:</b> Bitti! <code>{chats} </code> federasyonun sohbetlerinden, <code>{feds}</code> aboneliğinin <code>{subs_chats}</code> sohbetlerinden yasaklandı"
+    fban_usr_rmvd: |
+      {user} kullanıcısı grupta geçerli olan <b>{fed}</b> federasyonundan yasaklandı. Bu sebeple kullanıcı gruptan yasaklandı!
+      Sebep: <code>{rsn}</code>
+    fban_log_fed_log: |
+      <b>Federasyondaki kullanıcıyı yasakla</b> #FedBan
+      <b>Federasyon:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>Kullanıcı:</b> {user} ({user_id})
+      <b>Kim Tarafından ?:</b> {by}
+      <b>Sohbetler içinde yasaklama:</b> Kullanıcı <code>{chat_count}</code>/<code>{all_chats}</code> sohbet(ler) de yasaklandı
+    fban_reason_fed_log: "<b>Nedeni:</b> <code>{reason}</code>"
+    fban_subs_fed_log: "<b>Abone olunan federasyonlar:</b> <code>{feds}</code> federasyonlarının <code>{subs_chats}</code> sohbetlerinden yasaklandı"
+    #/unfban
+    unfban_self: "Bunun yerine eğlenmek için başka bir şey düşünün."
+    user_not_fbanned: "{user} bu federasyondan yasaklanmadı."
+    un_fbanned_header: "<b>Yeni Un-FedBan</b>\n"
+    un_fbanned_process: "<b>Durum:</b> <code>{num}</code> adet federasyon sohbetlerinden yasağı kaldırılıyor..."
+    un_fbanned_done: "<b>Durum:</b> Bitti! <code>{num}</code> adet federasyon sohbetlerinden yasağı kaldırıldı!"
+    un_fbanned_subs_process: "\n<b>Durum:</b> <code>{feds}</code> adet federasyona bağlı sohbetlerden yasak kaldırılıyor..."
+    un_fbanned_subs_done: "<b>Durum:</b> Bitti! <code>{chats} </code> federasyonun sohbetlerinden, <code>{feds}</code> aboneliğinin <code>{subs_chats}</code> sohbetlerinden yasağı kaldırıldı"
+    un_fban_log_fed_log: |
+      <b>Federasyondaki kullanıcının yasağını kaldır</b> #FedUnBan
+      <b>Federasyon:</b> {fed_name} (<code>{fed_id}</code>)
+      <b>Kullanıcı:</b> {user} ({user_id})
+      <b>Kim Tarafından ?:</b> {by}
+      <b>Sohbetler:</b> Kullanıcı <code>{chat_count}</code>/<code>{all_chats}</code> sohbet(ler) den yasağı kaldırıldı
+    un_fban_subs_fed_log: "<b>Abone olunan federasyonlar:</b> <code>{feds}</code> federasyonlarının <code>{subs_chats}</code> sohbetlerinden yasağı kaldırıldı"
+    #/delfed
+    delfed_btn_yes: Evet. Federasyonu sil
+    delfed_btn_no: Hayır.
+    delfed: |
+      Bu federasyonu <b>%s</b> silmek istediğinizden emin misiniz?
+
+      <i>Uyarı: Federasyonun silinmesi, kendisiyle ilişkili tüm verileri Veritabanımızdan kaldıracaktır!
+      Bu işlem ne pahasına olursa olsun geri alınamaz!</i>
+    delfed_success: Federasyon başarıyla silindi!
+    #/frename
+    frename_same_name: Lütfen mevcut olandan farklı bir ad girin!
+    frename_success: Federasyon ismi <b>{old_name}</b> isminden <b>{new_name}</b> ismine başarıyla değiştirildi!
+    #/fbanlist
+    fbanlist_locked: Fbanlist'i tekrar kullanmak için lütfen %s kadar bekleyin.
+    creating_fbanlist: Fban listesi oluşturuluyor! Lütfen bekle ..
+    fbanlist_done: Federasyonun fban listesi <b>%s</b>!
+    #/importfbans
+    send_import_file: |
+      İçe aktarma dosyasını gönderin!
+
+      Bu işlemi iptal etmek için; /cancel komutunu kullanın
+    rpl_to_file: Lütfen bir dosyaya cevap verin!
+    importfbans_locked: Bu federasyonda fbanları içe aktarma %s için kilitlendi.
+    big_file_csv: Yalnızca {num} Megabayttan daha az içe aktarılan csv dosyalarını destekler!
+    big_file_json: |
+      Şu anda json dosyaları {num} Megabyte ile sınırlıdır!
+      Daha büyük dosyaları içe aktarmak istiyorsanız bir csv biçimi kullanın.
+    wrong_file_ext: "Hatalı dosya biçimi! Şu anda destek verilen dosya türleri: json, csv"
+    importing_process: <b>Federasyon yasakları içe aktarılıyor...</b>
+    import_done: Federasyon yasaklarının içe aktarılması tamamlandı! {num} yasak içe aktarıldı.
+    #def
+    automatic_ban: '{user} kullanıcısı grupta geçerli olan <b>{fed_name}</b> federasyonundan yasaklandı. Bu sebeple kullanıcı gruptan yasaklandı!'
+    automatic_ban_sfed: '{user} kullanıcısı grupta geçerli olan <b>{fed_name}</b> federasyonundan yasaklandı. Bu sebeple kullanıcı gruptan yasaklandı!'
+    automatic_ban_reason: "Sebep: <code>{text}</code>"
+    #/fcheck
+    fcheck_header: "<b>Federasyon yasağı bilgileri:</b>"
+    fbanned_count_pm: "{count} federasyon(lar) da yasaklandınız!"
+    "fban_info:fcheck": "{date} tarihinde {fed} federasyonundan yasaklandınız, hiçbir neden belirtilmedi!"
+    "fban_info:fcheck:reason": "{reason} nedeniyle {date} tarihinde {fed} federasyonundan yasaklandınız"
+    fbanned_data: "{user}, {count} federasyon(lar) dan yasaklandı"
+    fbanned_nowhere: "{user} hiçbir yerde yasaklanmadı!"
+    fbanned_in_fed: "Bu <b>{fed}</b> federasyonunu da içeriyor!"
+    "fbanned_in_fed:reason": "Bu <b>{fed}</b> federasyonunu -\n <code>{reason}</code>"
+    contact_in_pm: "Fbanlarınız hakkında daha fazla bilgi için lütfen bana doğrudan mesaj gönderin, böylece gizliliğiniz güvence altına alınır!"
+    too_long_fbaninfo: "İyi! fbaninfo bir dosya gerektirir!"
+    didnt_fbanned: "Bu federasyonda yasaklanmadın."
+  reports:
+    user_user_admin: "Sen burada bir yöneticisin, neden birini rapor etmek istiyorsun?.."
+    user_is_whitelisted: "Sen beyaz listeye alınmış bir kullanıcısın, neden birini rapor etmek istiyorsun?.."
+    reports_disabled: "Rapor etme bu grupta <b>kapalı</b>."
+    no_user_to_report: "Kimi bildirmek istiyorsun?"
+    report_admin: "Yönetici <b>bildiremezsiniz</b>."
+    report_whitedlisted: "Beyaz liste'de bulunan bir kullanıcıyı <b>bildiremezsin</b>."
+    reported_user: "{user} yöneticilere <b>bildirildi</b>."
+    reported_reason: "\n<b>Sebep:</b>\n<code>{reason}</code>"
+    reports_on: "Bu grupta rapor etme <b>açıldı</b>."
+    reports_off: "Bu grupta rapor etme <b>kapatıldı</b>."
+    reports_already_on: "<b>Rapor etme zaten açık.</b>"
+    reports_turned_on: "Rapor etme <b>açık.</b>"
+    reports_already_off: "<b>Rapor etme zaten kapalı.</b>"
+    wrong_argument: "<b>Yanlış argüman.</b>"
+  language:
+    your_lang: "Mevcut diliniz: <b>{lang}</b>"
+    chat_lang: "Mevcut sohbet dili: <b>{lang}</b>"
+    select_pm_lang: "<b>Yeni dilinizi seçin:</b>"
+    select_chat_lang: "<b>Yeni sohbet dili seçin:</b>"
+    crowdin_btn: "🌎 Çeviri konusunda bize yardımcı olun"
+    help_us_translate: "<a href=\"https://crowdin.com/project/AllMightbot\">🌎 Dilleri geliştirmemize yardımcı olun</a>"
+    not_supported_lang: Bu dil desteklenmiyor!
+    lang_changed: Dil <b>{lang_name}</b> olarak değiştirildi.
+    see_translators: '👥 Çevirenleri gör'
+    back: Geri
+  connections:
+    pm_connected: "PM'niz başarıyla <b>{chat_name}</b> sohbetine bağlandı!"
+    connected_pm_to_me: "PM'niz <b>{chat_name}</b> ile başarıyla bağlandı! Bağlantıyı kullanmaya başlamak için lütfen bana pm atın."
+    chat_connection_tlt: "<b>Sohbet bağlantısı</b>"
+    connected_chat: |
+      <b>Geçerli bağlı sohbet:</b>
+      {chat_name}
+      Sohbet bağlantısını kesmek için /disconnect yazın
+    u_wasnt_connected: "Daha önce hiçbir sohbete bağlanmadın!"
+    select_chat_to_connect: "<b>Bağlanmak için bir sohbet seçin:</b>"
+    disconnected: "<b> {chat_name}</b> ile bağlantınız kesildi."
+    cant_find_chat: "Bu sohbeti bulamıyorum."
+    cant_find_chat_use_id: "Bu sohbeti bulamıyorum. Sohbet kimliğini kullan."
+    bad_arg_bool: "Kötü seçim: yalnızca <code>açık</code>/<code>kapalı</code><code>etkinleştir</code>/<code>devre dışı</code>"
+    enabled: etkin
+    disabled: devre dışı
+    chat_users_connections_info: "Normal kullanıcılar için şu anda <b>{chat_name}</b> için bağlantılar <b>{status}</b>"
+    chat_users_connections_cng: "Normal kullanıcılar için bağlantılar <b>{chat_name}</b> için <b>{status}</b> olarak değiştirildi"
+    not_in_group: "Bu grupta değilsin ki bağlanasın, katıl ve mesaj at."
+    history_empty: "Geçmiş tarihte hiçbir sohbete bağlanmadın, bağlanmak için `/connect (grup id)` yaz"
+    not_in_chat: "Sen artık bu sohbette değilsin, bağlantını keseceğim."
+    u_should_be_admin: "{} grubunda yönetici olmalısın!"
+    usage_only_in_groups: "Gruplarda kullanım sınırlandı!"
+  global:
+    u_not_admin: Bunu yapmak için yönetici olmalısınız!
+    #Rights
+    "bot_no_right:not_admin": Yönetici değilim!
+    bot_no_right: "Bunu yapmak için gerekli iznim yok!\nEksik izin(ler): <b>%s</b>"
+    user_no_right: "Bunu yapmak için gerekli izne sahip olmalısınız!\nEksik izin(ler): <b>%s</b>"
+    "user_no_right:not_admin": Bunu yapmak için yönetici olmalısınız!
+  owner_stuff:
+    father: "\nİşte benim yaratıcım."
+    sudo_crown: "Hey! Bak, o kullanıcının bir tacı var, bir bakayım... Vay, bir gravür var - <b>'sudo kullanıcısı'</b>!"
+  stickers:
+    dev: "\nHey! Look, that user has a crown, let me see it... Wow, it has an engraving - <b>'dev user'</b>!"
+    rpl_to_sticker: "Bir çıkartmaya yanıt verin!"
+    ur_sticker: |
+      <b>Emoji:</b> <code>{emoji}</code>
+      <b>Çıkartma ID:</b> <code>{id}</code>
+  pins:
+    no_reply_msg: "Sabitlemek için bir mesajı yanıtlayın!"
+    chat_not_modified_pin: "Bu mesaj zaten sabitlendi!"
+    chat_not_modified_unpin: "Sabitlemeyi kaldıracak sabit bir mesaj yok!"
+    pinned_success: "Başarıyla sabitlendi!"
+    unpin_success: "Sabitlenme başarıyla kaldırıldı!"
+  users:
+    user_info: "<b>Kullanıcı bilgisi:</b>\n"
+    info_id: "ID:<code>{id}</code>"
+    info_first: "\nİsim: {first_name}"
+    info_last: "\nSoyisim: {last_name}"
+    info_username: "Kullanıcı adı: {username}"
+    info_sw_ban: "\nThis user is banned in @SpamWatch!"
+    info_sw_ban_reason: "\nReason: <code>{sw_reason}</code>"
+    info_link: "\nKullanıcı bağlantısı: {user_link}"
+    info_saw: "Onu yaklaşık olarak <code>{num}</code> adet grupta gördüm"
+    info_fbanned: "\nBulunan örgütte yasaklı: "
+    info_admeme: "\nKullanıcı bu sohbette yönetici."
+    upd_cache: "Önbellek şimdi güncelleniyor..."
+    upd_cache_done: "Yönetici önbelleği güncellendi."
+    admins: "<b>Bu gruptaki yöneticiler:</b>\n"
+  imports_exports:
+    #Exporting
+    started_exporting: Dışa aktarma başladı! Lütfen bekle...
+    export_done: <b>{chat_name}</b> 'den dışa aktarma bitti!
+    exports_locked: Lütfen dışa aktarmayı tekrar kullanabilmek için %s süre zarfında bekleyin!
+    #Importing
+    send_import_file: Lütfen bir içe aktarma dosyası gönderin!
+    rpl_to_file: Lütfen bir dosyaya cevap verin!
+    big_file: Yalnızca 50 MB'ın altındaki dosyaları içe aktarma desteklenir!
+    started_importing: İçe aktarma başladı! Lütfen bekle...
+    bad_file: Bozuk dosya! Beklenen <code>'genel'</code> sütunu.
+    file_version_so_new: Dışa aktarılan dosya sürümü AllMight'nin şu anda desteklediğinden daha yeni!
+    imports_locked: Lütfen içe aktarmayı tekrar kullanabilmek için %s süre zarfında bekleyin!
+    import_done: İçe aktarma tamamlandı!
+  restrictions:
+    user_not_in_chat: Kullanıcı bu sohbette değil!
+    #Kicks
+    kick_DaisyX: Beni tekmelemeye çalışmak yerine zamanını daha iyi geçirebilirsin. Bu sadece sıkıcı.
+    kick_admin: Yönetici tekmelemek iyi bir düşünce değildir.
+    kick_self: Kendini tekmelemek istiyorsan - sadece bu sohbetten ayrıl. Kendi kendini cezalandırma konusundaki bu acınası girişimlere bakmak yerine bir daha seni görmek istemiyorum.
+    user_kicked: "{user}, {chat_name} grubunda {admin} tarafından tekmelendi."
+    #Mutes
+    mute_DaisyX: Aslında, onun yerine seni susturmaktan mutluluk duyarım.
+    mute_admin: Yönetici susturabileceğinizi düşünüyorsanız, yanılıyorsunuz!
+    mute_self: Kendini tekmelemek istiyorsan - sadece bu sohbetten ayrıl. Kendi kendini cezalandırma konusundaki bu acınası girişimlere bakmak yerine bir daha seni görmek istemiyorum.
+    user_muted: "{user}, {chat_name} grubunda {admin} tarafından susturuldu."
+    unmute_DaisyX: Aslında, sessiz değilim.
+    unmute_admin: Haha hayır, önce onu susturmayı dene!
+    unmute_self: Önce seni susturmalı mıyım?
+    user_unmuted: "{user}, {chat_name} grubunda {admin} tarafından tekrar konuşabilir."
+    #Bans
+    ban_DaisyX: Hayır, yapmayacağım! Sohbet sahibinden bunu yapmasını isteyin!
+    ban_admin: Haha, önce onu <code>/demote</code> edelim.
+    ban_self: Neden kendini yasaklamaya çalışıyorsun?
+    user_banned: "{user}, {chat_name} grubunda {admin} tarafından yasaklandı."
+    unban_DaisyX: Aslında, yasaklı değilim.
+    unban_admin: Haha hayır, önce onu yasaklamayı dene!
+    unban_self: Önce seni yasaklamalı mıyım?
+    user_unband: "{user}, {chat_name} grubunda {admin} tarafından yasağı kaldırıldı."
+    invalid_time: Geçersiz zaman!
+    enter_time: Lütfen zaman ekleyin!
+    on_time: "<code>%s</code> için"
+    reason: "Sebep: <code>%s</code>"
+    purge: "\n5 saniye içinde mesajlar silinecek!"
+    filter_title_ban: Kullanıcıyı yasakla
+    filter_action_rsn: <code>Otomatik filtre eylemi!</code>
+    filtr_ban_success: '%s, %s grubunda %s süre zarfında yasaklandı'
+    filtr_mute_success: '%s, %s grubunda %s süre zarfında susturuldu'
+    filtr_tmute_success: |
+      %s, %s grubunda %s süre zarfında susturuldu
+      nedeni %s
+    time_setup_start: Lütfen zaman gönderin!
+    filtr_tban_success: |
+      %s, %s grubunda %s süre zarfında yasaklandı
+      nedeni %s
+    filter_title_tmute: Kullanıcıyı zamanlı susturma
+    filter_title_mute: Kullanıcıyı susturma
+    filter_title_tban: Kullanıcıyı zamanlı yasakla
+    filter_title_kick: Kullanıcı tekmele
+  rules:
+    #Set
+    saved: Kurallar <b>%s</b> içinde kaydedildi
+    updated: Kurallar <b>%s</b> içinde güncellendi
+    #Reset
+    deleted: Kurallar silindi!
+    not_found: Kurallar bulunamadı!
+    #Callback
+    user_blocked: "PM'den /start yaz!"
+    rules_was_pmed: Kurallar PM'den gönderildi!
+  #cannot_find_note: "I can't find the note <code>{}</code>"
+  #set_note: "Successfully set the rules note to <code>{}</code>"
+  #didnt_set_note: "This group doesn't have rules note set."
+  #cannot_find_set_note: "I can't find the rules note."
+  #havent_set_rules_note: "You haven't set the rules note yet."
+  #success_remove_rules_note: "Successfully removed rules note in <b>{}</b>."
+  greetings:
+    default_welcome: "Merhaba {mention}! Nasılsın?"
+    default_security_note: "Hoşgeldin {mention}! Lütfen kendini insan olarak doğrulamak için aşağıdaki düğmeye basın!"
+    thank_for_add: "Thanks for adding me to your group! Take a look at /help and follow my news channel @DaisyXUpdates."
+    bool_invalid_arg: Geçersiz argüman, beklenen <code>on</code>/<code>off</code>.
+    #/setwelcome
+    saved: Karşılama mesajı <b>%s</b> içinde kaydedildi
+    updated: Karşılama mesajı <b>%s</b> içinde güncellendi
+    #/turnwelcome
+    turnwelcome_status: Karşılamalar <b>{chat_name}</b> sohbeti için <code>{status}</code>
+    turnwelcome_enabled: <b>%s</b> içinde karşılama mesajı etkinleştirildi
+    turnwelcome_disabled: <b>%s</b> içinde karşılama mesajı devre dışı bırakıldı
+    #/welcome
+    enabled: etkin
+    disabled: devre dışı
+    wlcm_security_enabled: "etkinleştirildi, {level} olarak ayarlandı"
+    wlcm_mutes_enabled: "etkinleştirildi, {time} olarak ayarlandı"
+    welcome_info: |
+      <b>{chat_name} içindeki karşılama ayarları:</b>
+      Karşılama durumu <code>{welcomes_status}</code>
+      Karşılama güvenliği <code>{wlcm_security}</code>
+      Karşılama susturma durumu <code>{wlcm_mutes}</code>
+      Eski karşılama mesajlarının silinmesi <code>{clean_welcomes}</code>
+      Servis mesajlarını silme <code>{clean_service}</code>
+    wlcm_note: "\n\nKarşılama notu:"
+    raw_wlcm_note: "Raw karşılama notu:"
+    security_note: "Karşılama güvenlik metni:"
+    #/setsecuritynote
+    security_note_saved: "Özel güvenlik metni <b>%s</b> kaydedildi"
+    security_note_updated: "Özel güvenlik metni <b>%s</b> güncellendi"
+    #/delsecuritynote
+    security_note_not_found: <b>%s</b> içindeki güvenlik metni daha önce yüklenmedi
+    del_security_note_ok: Güvenlik metni <b>%s</b> 'de varsayılana sıfırlandı
+    #/cleanwelcome
+    cleanwelcome_enabled: Temiz karşılama <b>%s</b> içinde etkinleştirildi
+    cleanwelcome_disabled: Temiz karşılama <b>%s</b> içinde devre dışı bırakıldı
+    cleanwelcome_status: Karşılama mesajını temizleme <b>{chat_name}</b> sohbeti için <code>{status}</code>
+    #/cleanservice
+    cleanservice_enabled: Temizlenen hizmeti iletileri <b>%s</b> içinde etkinleştirildi
+    cleanservice_disabled: Temizlenen hizmeti iletileri <b>%s</b> içinde devre dışı bırakıldı
+    cleanservice_status: Hizmet mesajları temizliği <b>{chat_name}</b> sohbeti için <code>{status}</code>
+    #/welcomemute
+    welcomemute_invalid_arg: Geçersiz argüman, beklenen süre.
+    welcomemute_enabled: <b>%s</b> içinde karşılama susturması etkinleştirildi
+    welcomemute_disabled: <b>%s</b> içinde karşılama susturması devre dışı bırakıldı
+    welcomemute_status: Karşılama susturması <b>{chat_name}</b> sohbeti için <code>{status}</code>
+    #/welcomesecurity
+    welcomesecurity_enabled: Karşılama güvenliği <b>{chat_name}</b> 'da <code>{level}</code>. seviyeye etkinleştirildi.
+    welcomesecurity_enabled_word: etkinleştirildi, {level}. seviye düzeyine ayarlandı
+    welcomesecurity_disabled: Karşılama güvenliği <b>%s</b> içinde devre dışı bırakıldı.
+    welcomesecurity_invalid_arg: Geçersiz argüman, beklenen <code>button</code>/<code>captcha</code>.
+    welcomesecurity_status: Karşılama güvenliği <b>{chat_name}</b> sohbeti için <code>{status}</code>
+    #Welcomesecurity handler
+    click_here: Buraya tıklayın!
+    not_allowed: Bunu kullanma izniniz yok!
+    ws_captcha_text: Merhaba {user}, lütfen sohbette sesini açmak için captcha'nın numarasını girin.
+    regen_captcha_btn: '🔄 Captcha''yı değiştir'
+    num_is_not_digit: Lütfen yalnızca rakam girin!
+    bad_num: Yanlış numara! Lütfen tekrar deneyin.
+    passed: Doğrulama başarıyla geçildi, <b>%s</b> içinde tekrar konuşabilirsin!
+    passed_no_frm: Doğrulama başarılı, %s içinde sesiniz açıldı!
+    last_chance: Captcha'ya girmek için son bir şansın var!
+    btn_button_text: "Kendinizi kanıtlamak için aşağıdaki düğmeye tıklayınız."
+    btn_wc_text: |
+      Lütfen bu ifadeyle eşleşen sağ düğmeye basın:
+      %s
+    math_wc_rtr_text: "Son şansın! Dikkatli ol.\n"
+    math_wc_wrong: Yanlış, lütfen tekrar deneyin!
+    math_wc_sry: Üzgünüm son hakkını kullandın. Sohbet yöneticilerine sorun.
+    not_admin_wm: Burada insanları kısıtlayamıyorum, bu yüzden karşılama sessizliğini kullanmayacağım!
+    not_admin_ws: Burada insanları kısıtlayamıyorum, bu yüzden hoşgeldin güvenliğini kullanmayacağım!
+    not_admin_wsr: Burada mesajları silemiyorum, bu yüzden servis mesajlarını silmeyeceğim!
+    #/resetwelcome
+    deleted: <b>{chat}</b> 'de karşılama mesajı başarıyla sıfırlandı!
+    not_found: Sıfırlanacak bir şey yok!
+    #/welcomerestrict
+    del_url: '{user} ''dan URL içeren mesaj silindi!'
+    del_fwd: '{user} adlı kullanıcıdan iletilen mesaj silindi!'
+    del_media: '{user} kullanıcısından medya içeren mesaj silindi!'
+    banned: '{by} tarafından yasaklandı {user}!'
+    whitelisted: '{by} beyaz listeye eklenen {user}!'
+    enabled_sucessfully: Sohbet güvenliği <b>{chat}</b> 'de başarıyla etkinleştirildi
+    disabled_sucessfully: Sohbet güvenliği <b>{chat}</b> 'de başarıyla devre dışı bırakıldı
+    already_enabled: Sohbet güvenliği zaten etkinleştirildi!
+    already_disabled: Sohbet güvenliği zaten devre dışı bırakıldı!
+    restrict_status: Karşılama kısıtlaması <b>{chat}</b> sohbeti için <b>{state}</b>!
+    unkown_option: Lütfen bana geçerli bir seçenek verin! (<code>etkinleştir</code> veya <code>devre dışı</code>)
+    whitelist: '🏳️ Beyaz Liste'
+    ban: '❌ Yasakla'
+  locks:
+    locks_header: "{chat_title} içindeki mevcut kilit ayarları"
+    no_lock_args: Kilitlemem için bana birkaç argüman ver!
+    already_locked: Bu zaten kilitli kardeşim
+    no_such_lock: Neyin kilitlenebileceğini ve kilidinin açılabileceğini öğrenmek için /locks komutunu kullan!
+    locked_successfully: '{chat} içinde {lock} başarıyla kilitlendi!'
+    no_unlock_args: Kilidi açmam için bana birkaç argüman ver!
+    not_locked: Kilidini açacağım bir şey yok.
+    unlocked_successfully: '{chat} içinde {lock} kilidi başarıyla açıldı!'
+  afk:
+    is_afk: "{user} is AFK!\nReason: {reason}"
+    unafk: "{user} is not AFK anymore!"
+    afk_anon: "AFK mode cannot be used as an anonymous administrator."    
+    
+
+    
+

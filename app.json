@@ -1,0 +1,194 @@
+{
+  "name": "DaisyX",
+  "description": "?",
+  "keywords": [
+    "telegram",
+    "Daisy",
+    "plugin",
+    "telegram-DaisyX",
+    "fuck-TG"
+  ],
+  "repository": "https://github.com/TeamDaisyX/Daisy-x",
+  "website": "daisyproject.studio",
+  "success_url": "t.me/DaisyXUpdates",
+  "buildpacks": [
+   {
+     "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+   },
+   {
+     "url": "heroku/python"
+   }     
+  ],    
+  "env": {
+    "APP_ID": {
+      "description": "Get this value from my.telegram.org! Please do not steal",
+      "value": "",
+      "required": true
+    },
+    "APP_HASH": {
+      "description": "Get this value from my.telegram.org! Please do not steal",
+      "value": "",
+      "required": true
+    },
+    "MONGO_URI": {
+      "description": "Create A Database In Mongodb And Get URL",
+      "value": "",
+      "required": true
+      
+    },
+    "ARQ_API": {
+      "description": "Get this from @ARQRobot",
+      "value": "",
+      "required": true
+      
+    },
+    "MONGO_PORT": {
+      "description": "Dont change",
+      "value": "27017",
+      "required": false
+    },
+    "MONGO_DB": {
+      "description": "Don't change.",
+      "value": "DaisyX",
+      "required": false
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Your heroku app name (not compulsory)",
+      "value": "",
+      "required": false  
+    },
+    "HEROKU_API_KEY": {
+      "description": "Your heroku api key (not compulsory)",
+      "value": "",
+      "required": false  
+    },
+    "UPSTREAM_REPO_URL": {
+      "description": "Only for fork users else don't change",
+      "value": "https://github.com/TeamDaisyX/DaisyX-v2.0",
+      "required": false  
+    },
+    "API_PORT": {
+      "description": "Don't change.",
+      "value": "8080"
+    },
+    "API_PORT": {
+      "description": "Your Bot Token Obtained From @BotFather.",
+      "value": ""
+    },
+    "REDIS_URI": {
+      "description": "Get from redislabs.com",
+      "value": "",
+      "required": true
+    },
+    "REDIS_PORT": {
+      "description": "Get from redislabs.com",
+      "value": "",
+      "required": true
+    },
+    "REDIS_PASS": {
+      "description": "Get from redislabs.com",
+      "value": "",
+      "required": true
+    },
+    "OWNER_ID": {
+      "description": "Your Id",
+      "value": "",
+      "required": true
+    },
+    "OPERATORS": {
+      "description": "Space seperated list of sudoes",
+      "value": "",
+      "required": true
+    },
+    "SUPPORT_CHAT": {
+      "description": "support chat id",
+      "value": "",
+      "required": true
+    },
+    "LYDIA_API_KEY": {
+      "description": "AI chat",
+      "value": "",
+      "required": false
+    },
+    "DATABASE_URL": {
+      "description": "get from elephantsql.com",
+      "value": "",
+      "required": true
+    },
+    "VIRUS_API_KEY": {
+      "description": "Cloudmersive api (no need)",
+      "value": "",
+      "required": false
+    },
+    "TIME_API_KEY": {
+      "description": "Time api key (no need)",
+      "value": "",
+      "required": false
+    },
+    "REM_BG_API_KEY": {
+      "description": "remove.bg api (no need)",
+      "value": "",
+      "required": false
+    },
+    "SW_API": {
+      "description": "Spamwatch api @SpamWatchBot",
+      "value": "",
+      "required": true
+    },
+    "IBM_WATSON_CRED_URL": {
+      "description": "IBM_WATSON_CRED_URL (no need)",
+      "value": "",
+      "required": false
+    },
+    "IBM_WATSON_CRED_PASSWORD": {
+      "description": "IBM_WATSON_CRED_PASSWORD (no need)",
+      "value": "",
+      "required": false
+    },
+    "OPENWEATHERMAP_ID": {
+      "description": "weather api (no need)",
+      "value": "",
+      "required": false
+    },
+    "WOLFRAM_ID": {
+      "description": "WOLFRAM ai api (no need)",
+      "value": "",
+      "required": false
+    },
+    "DEBUG_MODE": {
+      "description": "DEBUG_MODE (no need)",
+      "value": "False",
+      "required": false
+    },
+    "DEBUG_MODE": {
+      "description": "DEBUG_MODE (no need)",
+      "value": "False",
+      "required": false
+    },
+    "LOAD_MODULES": {
+      "description": "Don't edit",
+      "value": "True",
+      "required": false
+    },
+    "LOGS_CHANNEL_ID": {
+      "description": "Id of your log group/channel",
+      "value": "",
+      "required": true
+    },
+    "ALLOW_FORWARDS_COMMANDS": {
+      "description": "ALLOW_FORWARDS_COMMANDS",
+      "value": "False",
+      "required": false
+    },
+    "TOKEN": {
+      "description": "Tg bot token by @BotFarther",
+      "value": "",
+      "required": true
+    },
+    "STRING_SESSION": {
+      "description": "run repl run And get your String Session",
+      "value": "",
+      "required": true
+    }
+  }
+}

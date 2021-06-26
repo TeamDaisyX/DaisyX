@@ -1,0 +1,3 @@
+files:
+  - source: DaisyX/localization/en.yaml
+    translation: /**/DaisyX/localization/%locale_with_underscore%.yaml
