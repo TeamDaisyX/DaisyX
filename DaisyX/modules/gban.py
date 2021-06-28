@@ -1,10 +1,13 @@
-from DaisyX import SUDO_USERS, tbot, OWNER_ID
-from telethon.tl.types import ChatBannedRights
-from telethon import events
-from telethon.tl.functions.channels import EditBannedRequest
-from pymongo import MongoClient
 import asyncio
 import os
+
+from pymongo import MongoClient
+from telethon import events
+from telethon.tl.functions.channels import EditBannedRequest
+from telethon.tl.types import ChatBannedRights
+
+from DaisyX import OWNER_ID, SUDO_USERS, tbot
+
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
     view_messages=True,
@@ -18,12 +21,13 @@ BANNED_RIGHTS = ChatBannedRights(
 )
 
 
+MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
+sed = os.environ.get("GBAN_LOGS")
 
-MONGO_DB_URI = os.environ.get("MONGO_DB_URI") 
-sed = os.environ.get("GBAN_LOGS") 
 
 def get_reason(id):
     return gbanned.find_one({"user": id})
+
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -31,6 +35,8 @@ db = client["daisyx"]
 gbanned = db.gban
 
 edit_time = 3
+
+
 @tbot.on(events.NewMessage(pattern="^/gban (.*)"))
 async def _(event):
     if event.fwd_from:
@@ -49,8 +55,8 @@ async def _(event):
         cid = iid.strip()
         reason = reasonn.strip()
     elif "|" not in quew:
-          cid = quew
-          reason = sun
+        cid = quew
+        reason = sun
     if cid.isnumeric():
         cid = int(cid)
     entity = await tbot.get_input_entity(cid)
@@ -168,7 +174,6 @@ async def join_ban(event):
         return
     if event.chat_id == int(sed):
         return
-    pass
     user = event.user_id
     chats = gbanned.find({})
     for c in chats:
@@ -195,7 +200,6 @@ async def type_ban(event):
         return
     if event.chat_id == int(sed):
         return
-    pass
     chats = gbanned.find({})
     for c in chats:
         if event.sender_id == c["user"]:
