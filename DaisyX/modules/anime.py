@@ -267,7 +267,7 @@ async def site_search(message, site: str):
             result += f"• <a href='{post_link}'>{post_name}</a>\n"
 
     elif site == "ganime":
-        search_url = f"https://gogoanime.so//search.html?keyword={search_query}"
+        search_url = f"https://gogoanime2.org/search/{search_query}"
         html_text = requests.get(search_url).text
         soup = bs4.BeautifulSoup(html_text, "html.parser")
         search_result = soup.find_all("h2", {"class": "title"})
@@ -319,7 +319,7 @@ def quote(_, message):
     message.reply_text(quote)
 
 
-# added ganime search based on gogoanime.so
+# added ganime search based on gogoanime2.org
 
 __mod_name__ = "Anime"
 
