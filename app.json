@@ -105,10 +105,10 @@
       "value": "",
       "required": true
     },
-    "LYDIA_API_KEY": {
-      "description": "AI chat",
+    "SUDO_USERS": {
+      "description": "For gbans",
       "value": "",
-      "required": false
+      "required": true
     },
     "DATABASE_URL": {
       "description": "get from elephantsql.com",
