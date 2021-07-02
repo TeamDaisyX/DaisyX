@@ -75,7 +75,7 @@ POSTGRESS_URL = get_str_key("DATABASE_URL", required=True)
 TEMP_DOWNLOAD_DIRECTORY = "./"
 
 # Sudo Users
-# SUDO_USERS = get_str_key("SUDO_USERS", required=True)
+SUDO_USERS = get_str_key("SUDO_USERS", required=True)
 
 # String Session
 STRING_SESSION = get_str_key("STRING_SESSION", required=True)
