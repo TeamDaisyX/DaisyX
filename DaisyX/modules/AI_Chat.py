@@ -18,13 +18,12 @@ import re
 
 import emoji
 
-IBM_WATSON_CRED_URL = "https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/bd6b59ba-3134-4dd4-aff2-49a79641ea15"
-IBM_WATSON_CRED_PASSWORD = "UQ1MtTzZhEsMGK094klnfa-7y_4MCpJY1yhd52MXOo3Y"
 url = "https://acobot-brainshop-ai-v1.p.rapidapi.com/get"
 import re
 
 import aiohttp
-from google_trans_new import google_translator
+#from google_trans_new import google_translator
+from googletrans import Translator as google_translator
 from pyrogram import filters
 
 from DaisyX import BOT_ID
@@ -63,37 +62,6 @@ async def fetch(url):
 daisy_chats = []
 en_chats = []
 # AI Chat (C) 2020-2021 by @InukaAsith
-"""
-@daisyx.on_message(
-    filters.voice & filters.reply & ~filters.bot & ~filters.via_bot & ~filters.forwarded,
-    group=2,
-)
-async def hmm(client, message):
-    if not get_session(int(message.chat.id)):
-        message.continue_propagation()
-    if message.reply_to_message.from_user.id != BOT_ID:
-        message.continue_propagation()
-    previous_message = message
-    required_file_name = message.download()
-    if IBM_WATSON_CRED_URL is None or IBM_WATSON_CRED_PASSWORD is None:
-        await message.reply(
-            "You need to set the required ENV variables for this module. \nModule stopping"
-        )
-    else:
-        headers = {
-            "Content-Type": previous_message.voice.mime_type,
-        }
-        data = open(required_file_name, "rb").read()
-        response = requests.post(
-            IBM_WATSON_CRED_URL + "/v1/recognize",
-            headers=headers,
-            data=data,
-            auth=("apikey", IBM_WATSON_CRED_PASSWORD),
-        )
-        r = response.json()
-        print(r)
-        await client.send_message(message, r)
-"""
 
 
 @daisyx.on_message(
@@ -214,12 +182,14 @@ async def hmm(client, message):
             # print (rm)
         try:
             lan = translator.detect(rm)
+            lan = lan.lang
         except:
             return
         test = rm
         if not "en" in lan and not lan == "":
             try:
-                test = translator.translate(test, lang_tgt="en")
+                test = translator.translate(test, dest="en")
+                test = test.text
             except:
                 return
         # test = emoji.demojize(test.strip())
@@ -231,10 +201,13 @@ async def hmm(client, message):
         )
         response = response.replace("Aco", "Daisy")
         response = response.replace("aco", "Daisy")
+        response = response.replace("Luna", "Daisy")
+        response = response.replace("luna", "Daisy")        
         pro = response
         if not "en" in lan and not lan == "":
             try:
-                pro = translator.translate(pro, lang_tgt=lan[0])
+                pro = translator.translate(pro, dest=lan)
+                pro = pro.text
             except:
                 return
         try:
@@ -281,12 +254,14 @@ async def inuka(client, message):
         # print (rm)
     try:
         lan = translator.detect(rm)
+        lan = lan.lang
     except:
         return
     test = rm
     if not "en" in lan and not lan == "":
         try:
-            test = translator.translate(test, lang_tgt="en")
+            test = translator.translate(test, dest="en")
+            test = test.text
         except:
             return
 
@@ -302,7 +277,8 @@ async def inuka(client, message):
 
     pro = response
     if not "en" in lan and not lan == "":
-        pro = translator.translate(pro, lang_tgt=lan[0])
+        pro = translator.translate(pro, dest=lan)
+        pro = pro.text
     try:
         await daisyx.send_chat_action(message.chat.id, "typing")
         await message.reply_text(pro)
@@ -353,12 +329,14 @@ async def inuka(client, message):
         # print (rm)
     try:
         lan = translator.detect(rm)
+        lan = lan.lang
     except:
         return
     test = rm
     if not "en" in lan and not lan == "":
         try:
-            test = translator.translate(test, lang_tgt="en")
+            test = translator.translate(test, dest="en")
+            test = test.text
         except:
             return
 
@@ -373,7 +351,8 @@ async def inuka(client, message):
     pro = response
     if not "en" in lan and not lan == "":
         try:
-            pro = translator.translate(pro, lang_tgt=lan[0])
+            pro = translator.translate(pro, dest=lan)
+            pro = pro.text
         except Exception:
             return
     try:
