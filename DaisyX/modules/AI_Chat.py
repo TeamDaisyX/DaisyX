@@ -22,7 +22,8 @@ url = "https://acobot-brainshop-ai-v1.p.rapidapi.com/get"
 import re
 
 import aiohttp
-#from google_trans_new import google_translator
+
+# from google_trans_new import google_translator
 from googletrans import Translator as google_translator
 from pyrogram import filters
 
@@ -202,7 +203,7 @@ async def hmm(client, message):
         response = response.replace("Aco", "Daisy")
         response = response.replace("aco", "Daisy")
         response = response.replace("Luna", "Daisy")
-        response = response.replace("luna", "Daisy")        
+        response = response.replace("luna", "Daisy")
         pro = response
         if not "en" in lan and not lan == "":
             try:
