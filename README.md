@@ -77,7 +77,7 @@ $ python3 -m DaisyX
 
  - [Hitsuki](https://github.com/HitsukiNetwork/Hitsukix)
  - [SophieBot](https://gitlab.com/SophieBot/sophie)
- - [Alita_Robot](https://github.com/Divkix/Alita_Robot/)
+ - [Alita_Robot](https://github.com/DivideProjects/Alita_Robot/)
  - [FridayUserbot](https://github.com/DevsExpo/FridayUserbot)
  - [MissJuliaRobot](https://github.com/MissJuliaRobot/MissJuliaRobot)
  - [DaisyX](https://github.com/teamdaisyx/daisy-x)
