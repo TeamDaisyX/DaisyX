@@ -58,8 +58,8 @@ $ python3 -m DaisyX
 ### Mandatory Vars 📒
 ```
 [+] Make Sure You Add All These Mandatory Vars. 
-    [-] API_ID:   You can get this value from https://my.telegram.org
-    [-] API_HASH :   You can get this value from https://my.telegram.org
+    [-] APP_ID:   You can get this value from https://my.telegram.org
+    [-] APP_HASH :   You can get this value from https://my.telegram.org
     [-] STRINGSESSION : Your String Session, You can get this From Repl or BY running String_Gen File Locally
     [-] MONGO_URI : Your Mongo DB DataBase Url. .
     [-] TOKEN: Get from botfarther
