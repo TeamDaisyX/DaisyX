@@ -1,6 +1,9 @@
 
 <h1 align="center"><b>❤️ DaisyX 2.0  ❤️</b></h1>
 
+## Unmaintained. The new repo of @DaisyXbot is private. 
+(It is no longer based on this source code. The completely rewritten bot available now on telegram)
+
 <h4 align="center">A Powerful, Smart And Simple Group Manager <br> ... Written with AioGram , Pyrogram and Telethon...</h4>
 <p align='center'>
   <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=flat-square&logo=python&color=blue" /> </a>
