@@ -272,8 +272,3 @@ async def __stats__():
     return text
 
 
-@get_strings_dec("owner_stuff")
-async def __user_info__(message, user_id, strings):
-    global skemmers
-    if user_id in skemmers:
-        return strings["sudo_crown"]
