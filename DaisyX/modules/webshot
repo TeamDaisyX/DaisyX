@@ -2,7 +2,7 @@ from pyrogram import filters, Client as Daisy
 from pyrogram.types import Message
 
 
-@Daisy.on_message(filters.command('webshot', ["."]) & filters.me)
+@abhinasroy.on_message(filters.command('webshot', ["."]) & filters.me)
 async def webshot(client: Daisy, message: Message):
     try:
         user = message.command[1]
