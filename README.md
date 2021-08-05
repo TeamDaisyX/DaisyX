@@ -106,6 +106,7 @@ $ python3 -m DaisyX
 - [Dan](https://github.com/delivrance) 
 - [Lonami](https://github.com/Lonami) 
 - [AioGram Project group](https://github.com/aiogram) 
+- [AnyDL Bot](https://github.com/SpEcHiDe/AnyDLBot)
 
 The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie) and many other projects
 This repo was just revamped to suit an Anime-centric & comedy loving community. All original credits go to SophieBot and their dedication, Without his efforts, this fork would not have been possible!
