@@ -11,6 +11,20 @@
 </p>
 
 ## JUST ANOTHER MODIFIED UNMAINTAINED SOURCE CODE
+### ⚠️ PLEASE NOTE EVERYONE MODIFY, DEPLOY OR FORK THIS SOURCE CODE
+#### This source code has too many bugs and personally I (@Inukaasith) heavily recommend you not to use this source code. Why Dont Use 👇
+- Not maintained
+- Can't handle too many traffic
+- Consume more ram
+- Code Quality is extreamly low
+- Not compatible with latest updates of requirements
+- Archived
+
+So what should I use?. 
+   Well that varies according to you. May be https://github.com/AnimeKaizoku/SaitamaRobot or https://github.com/HarukaNetwork/HarukaAya maybe better
+Thanks for coming here..
+
+
 
 <p align="center"><a href="https://t.me/DaisySupport_Official"><img src="https://telegra.ph/file/23448c98735bd81df47e7.jpg" width="400"></a></p>
 <p align="center">
