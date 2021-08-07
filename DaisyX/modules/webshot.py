@@ -1,5 +1,4 @@
 from pyrogram import filters
-from pyrogram.types import Message
 
 from DaisyX.services.pyrogram import pbot as Daisy
 
