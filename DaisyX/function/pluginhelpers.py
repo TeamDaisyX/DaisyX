@@ -328,6 +328,7 @@ def capture_err(func):
 
     return capture
 
+
 # Ported from https://github.com/TheHamkerCat/WilliamButcherBot
 """
 MIT License
