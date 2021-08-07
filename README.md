@@ -14,6 +14,7 @@
 ### ⚠️ PLEASE NOTE EVERYONE MODIFY, DEPLOY OR FORK THIS SOURCE CODE
 #### This source code has too many bugs and personally I (@Inukaasith) heavily recommend you not to use this source code. Why Dont Use 👇
 - Not maintained
+- Older version of Daisy [NEW ONE CLOSED SOURCE]
 - Can't handle too many traffic
 - Consume more ram
 - Code Quality is extreamly low
@@ -39,7 +40,7 @@ Thanks for coming here..
 > ⭐️ Thanks to everyone who starred Daisy, That is the greatest pleasure we have !
 
 ### https://daisyproject.studio
-## Avaiilable on Telegram as [@DaisyXBot](https://t.me/daisyxbot)
+## Avaiilable a latest version as  [@DaisyXBot](https://t.me/daisyxbot) on Telegram [CLOSED SOURCE]
 
 # 🧙‍♀️ Deploy Guide
 Complete guide on deploying @DaisyXBot's clone on Heroku.
