@@ -1,6 +1,7 @@
 from typing import Dict, List, Union
 
 from DaisyX.services.mongo2 import db
+
 # Ported from https://github.com/TheHamkerCat/WilliamButcherBot
 """
 MIT License
