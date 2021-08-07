@@ -1,9 +1,10 @@
-from pyrogram import filters, Client as Daisy
+from pyrogram import filters, 
+from DaisyX.services.pyrogram import pbot as Daisy
 from pyrogram.types import Message
 
 
-@Daisy.on_message(filters.command('webshot', ["."]) & filters.me)
-async def webshot(client: Daisy, message: Message):
+@Daisy.on_message(filters.command('webshot', ["."]))
+async def webshot(clien, message):
     try:
         user = message.command[1]
         await message.delete()
