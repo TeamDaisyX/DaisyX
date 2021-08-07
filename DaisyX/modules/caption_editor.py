@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from pyrogram import filters
+from pyrogram.errors import RPCError
 
 from DaisyX.function.pluginhelpers import admins_only, get_text
 from DaisyX.services.pyrogram import pbot
-from pyrogram.errors import RPCError
 
 
 @pbot.on_message(
@@ -34,7 +34,7 @@ async def loltime(client, message):
         await lol.edit("reply to any message to edit caption")
     reply = message.reply_to_message
     try:
-        await reply.copy(message.chat.id,caption= cap)
+        await reply.copy(message.chat.id, caption=cap)
         await lol.delete()
     except RPCError as i:
         await lol.edit(i)
