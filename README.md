@@ -12,18 +12,12 @@
 
 ## JUST ANOTHER MODIFIED UNMAINTAINED SOURCE CODE
 ### ⚠️ PLEASE NOTE EVERYONE MODIFY, DEPLOY OR FORK THIS SOURCE CODE
-#### This source code has too many bugs and personally I (@Inukaasith) heavily recommend you not to use this source code. Why Dont Use 👇
+#### This source code is unmaintained. We recommend you not to use this source code. Why Don't Use 👇
 - Not maintained
 - Older version of Daisy [NEW ONE CLOSED SOURCE]
-- Can't handle too many traffic
-- Consume more ram
-- Code Quality is extreamly low
 - Not compatible with latest updates of requirements
 - Archived
 
-So what should I use?. 
-   Well that varies according to you. May be https://github.com/AnimeKaizoku/SaitamaRobot or https://github.com/HarukaNetwork/HarukaAya maybe better
-Thanks for coming here..
 
 
 
