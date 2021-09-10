@@ -119,7 +119,7 @@ pyromod
 aiofiles
 pygithub
 
-tzlocal==3.0
+tzlocal==2.0
 
 
 
