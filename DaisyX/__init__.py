@@ -34,9 +34,7 @@ log.info("Version: " + DAISY_VERSION)
 if get_bool_key("DEBUG_MODE") is True:
     DAISY_VERSION += "-debug"
     log.setLevel(logging.DEBUG)
-    log.warn(
-        "! Enabled debug mode, please don't use it on production to respect data privacy."
-    )
+    log.warn("! Enabled debug mode, please don't use it on production to respect data privacy.")
 
 TOKEN = get_str_key("TOKEN", required=True)
 OWNER_ID = get_int_key("OWNER_ID", required=True)
