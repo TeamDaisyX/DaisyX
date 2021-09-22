@@ -13,10 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import asyncio
-import logging
-
-import spamwatch
+import asyncio, logging, spamwatch
 from aiogram import Bot, Dispatcher, types
 from aiogram.bot.api import TELEGRAM_PRODUCTION, TelegramAPIServer
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
