@@ -26,10 +26,10 @@ from urllib.parse import urlparse
 import aiofiles
 import aiohttp
 import wget
-import youtube_dl
+import yt_dlp as youtube_dl
 from pyrogram import filters
 from pyrogram.types import Message
-from youtube_dl import YoutubeDL
+from yt_dlp import YoutubeDL
 from youtubesearchpython import SearchVideos
 
 from DaisyX.function.inlinehelper import arq
