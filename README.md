@@ -4,22 +4,19 @@
 ## Unmaintained. The new repo of @DaisyXbot is private. 
 (It is no longer based on this source code. The completely rewritten bot available now on telegram)
 
-<h4 align="center">A Powerful, Smart And Simple Group Manager <br> ... Written with AioGram , Pyrogram and Telethon...</h4>
-<p align='center'>
-  <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=flat-square&logo=python&color=blue" /> </a>
-  <a href="https://github.com/TeamDaisyX/DaisyX-v2/graphs/commit-activity" alt="Maintenance"> <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square" /> </a>
-</p>
-
 ## JUST ANOTHER MODIFIED UNMAINTAINED SOURCE CODE
 ### ⚠️ PLEASE NOTE EVERYONE MODIFY, DEPLOY OR FORK THIS SOURCE CODE
 #### This source code is unmaintained. We recommend you not to use this source code. Why Don't Use 👇
 - Not maintained
 - Older version of Daisy [NEW ONE CLOSED SOURCE]
 - Not compatible with latest updates of requirements
-- Archived
 
 
-
+<h4 align="center">A Powerful, Smart And Simple Group Manager <br> ... Written with AioGram , Pyrogram and Telethon...</h4>
+<p align='center'>
+  <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=flat-square&logo=python&color=blue" /> </a>
+  <a href="https://github.com/TeamDaisyX/DaisyX-v2/graphs/commit-activity" alt="Maintenance"> <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square" /> </a>
+</p>
 
 <p align="center"><a href="https://t.me/DaisySupport_Official"><img src="https://telegra.ph/file/23448c98735bd81df47e7.jpg" width="400"></a></p>
 <p align="center">
