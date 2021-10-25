@@ -5,7 +5,7 @@ aiogram == 2.13
 
 # DBs
 redis
-aioredis # Redis memery storage fom aiogram
+aioredis==1.3.0 # Redis memery storage fom aiogram
 pymongo
 motor
 odmantic # MongoDB ORM
@@ -119,10 +119,8 @@ pyromod
 aiofiles
 pygithub
 
-
-#
-Skem==0.3.3
-gogoanime-api
+tzlocal==2.0
+yt_dlp
 
 
 

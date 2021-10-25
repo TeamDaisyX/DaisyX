@@ -4,6 +4,14 @@
 ## Unmaintained. The new repo of @DaisyXbot is private. 
 (It is no longer based on this source code. The completely rewritten bot available now on telegram)
 
+## JUST ANOTHER MODIFIED UNMAINTAINED SOURCE CODE
+### ⚠️ PLEASE NOTE EVERYONE MODIFY, DEPLOY OR FORK THIS SOURCE CODE
+#### This source code is unmaintained. We recommend you not to use this source code. Why Don't Use 👇
+- Not maintained
+- Older version of Daisy [NEW ONE CLOSED SOURCE]
+- Not compatible with latest updates of requirements
+
+
 <h4 align="center">A Powerful, Smart And Simple Group Manager <br> ... Written with AioGram , Pyrogram and Telethon...</h4>
 <p align='center'>
   <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=flat-square&logo=python&color=blue" /> </a>
@@ -23,7 +31,7 @@
 > ⭐️ Thanks to everyone who starred Daisy, That is the greatest pleasure we have !
 
 ### https://daisyproject.studio
-## Avaiilable on Telegram as [@DaisyXBot](https://t.me/daisyxbot)
+## Avaiilable a latest version as  [@DaisyXBot](https://t.me/daisyxbot) on Telegram [CLOSED SOURCE]
 
 # 🧙‍♀️ Deploy Guide
 Complete guide on deploying @DaisyXBot's clone on Heroku.
@@ -42,6 +50,7 @@ Complete guide on deploying @DaisyXBot's clone on Heroku.
 
 # ❤️ Support
 <a href="https://t.me/DaisySupport_Official"><img src="https://img.shields.io/badge/Join-Telegram%20Channel-red.svg?logo=Telegram"></a>
+
 <a href="https://t.me/DaisyXupdates"><img src="https://img.shields.io/badge/Join-Telegram%20Group-blue.svg?logo=telegram"></a>
 
 ### Self-hosting (For Devs) ⚔
@@ -106,6 +115,7 @@ $ python3 -m DaisyX
 - [Dan](https://github.com/delivrance) 
 - [Lonami](https://github.com/Lonami) 
 - [AioGram Project group](https://github.com/aiogram) 
+- [AnyDL Bot](https://github.com/SpEcHiDe/AnyDLBot)
 
 The bot is based on the original work done by [SophieBot](https://gitlab.com/SophieBot/sophie) and many other projects
 This repo was just revamped to suit an Anime-centric & comedy loving community. All original credits go to SophieBot and their dedication, Without his efforts, this fork would not have been possible!

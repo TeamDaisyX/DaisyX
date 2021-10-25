@@ -23,3 +23,5 @@ from DaisyX.function.pluginhelpers import edit_or_reply
 async def hi(client,message):
   await edit_or_reply("Hi")
 ```
+## SOME FUNCTIONS ARE COPIED FROM https://github.com/TheHamkerCat/WilliamButcherBot
+## AND SOME FROM FRIDAY USERBOT

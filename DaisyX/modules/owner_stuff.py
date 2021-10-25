@@ -235,7 +235,7 @@ async def get_event(message):
 
 @register(cmds="stats", is_op=True)
 async def stats(message):
-    if message.from_user.id in OWNER_ID:
+    if message.from_user.id == OWNER_ID:
         text = f"<b>Daisy {DAISY_VERSION} stats</b>\n"
 
         for module in [m for m in LOADED_MODULES if hasattr(m, "__stats__")]:
