@@ -20,9 +20,9 @@ MONGO_DB': 'DaisyX'
 
 API_PORT': 8080
 
-REDIS_URI: "redis-1324.c234.us-east-1-4.ec4.cloud.redislabs.com"
-REDIS_PORT: 15514
-REDIS_PASS: "sdfgg"
+REDIS_URI: "redis-13952.c1.us-west-2-2.ec2.cloud.redislabs.com"
+REDIS_PORT: 13952
+REDIS_PASS: "UmVYceTiKzcwg99niwTRQ9j3btvM5Pmf"
 TEMP_MAIL_KEY: ""
 OWNER_ID: 1141839926
 OPERATORS: [1141839926, 00000000]
@@ -32,8 +32,9 @@ SUDO_USERS: ""
 DATABASE_URL: ""
 VIRUS_API_KEY: ""
 TIME_API_KEY: ""
-REM_BG_API_KEY: ""
-ARQ_API: ""
+REM_BG_API_KEY: "LwcGvqExqUj6S5Aq2AcUZcaq
+"
+ARQ_API: "WPQFGR-FWZKCN-SNZFPY-LUNMVP-ARQ"
 
 # Advanced
 SW_API: ""
