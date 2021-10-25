@@ -2,11 +2,11 @@
 
 
 # Basic
-TOKEN: ""
+TOKEN: "2059648913:AAFdRZn-M8VYHpi2k0LpyfzFA2JUq8bTzD4"
 
 # Get they in https://my.telegram.org/
-APP_ID: 000000
-APP_HASH: ""
+APP_ID: 6369084
+APP_HASH: "3af7bfca3a921722da2eba35f8ac452f"
 
 #Generate a telethon str session  with https://repl.it/@SpEcHiDe/GenerateStringSession (telethon one)
 STRING_SESSION: ""
