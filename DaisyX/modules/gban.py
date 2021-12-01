@@ -170,9 +170,9 @@ async def _(event):
 
 @tbot.on(events.ChatAction())
 async def join_ban(event):
-    if event.chat_id == int(sed):
+    if event.chat_id == sed:
         return
-    if event.chat_id == int(sed):
+    if event.chat_id == sed:
         return
     user = event.user_id
     chats = gbanned.find({})
@@ -196,9 +196,9 @@ async def join_ban(event):
 
 @tbot.on(events.NewMessage(pattern=None))
 async def type_ban(event):
-    if event.chat_id == int(sed):
+    if event.chat_id == sed:
         return
-    if event.chat_id == int(sed):
+    if event.chat_id == sed:
         return
     chats = gbanned.find({})
     for c in chats:
