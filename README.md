@@ -1,6 +1,10 @@
 
 <h1 align="center"><b>❤️ DaisyX 2.0  ❤️</b></h1>
 
+# <p align="center"><a href="https://github.com/TeamDaisyX/DaisyX"><img src="https://github-readme-stats.vercel.app/api/pin?username=TeamDaisyX&show_icons=true&theme=dracula&hide_border=true&repo=DaisyX"></a></p>
+<p align="center">
+
+
 ## Unmaintained. The new repo of @DaisyXbot is private. 
 (It is no longer based on this source code. The completely rewritten bot available now on telegram)
 
