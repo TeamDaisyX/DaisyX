@@ -312,11 +312,12 @@ async def kayo(message):
     await site_search(message, "ganime")
 
 
-@pbot.on_message(filters.command("aq"))
+@anime.on_message(filters.command("aq"))
 def quote(_, message):
     quote = requests.get("https://animechan.vercel.app/api/random").json()
-    quote = truth.get("quote")
-    message.reply_text(quote)
+    message.reply_text('`'+quote['quote']+'`\n '+quote['anime']+' (In '+quote['character']+')')
+
+
 
 
 # added ganime search based on gogoanime2.org
