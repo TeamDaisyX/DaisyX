@@ -58,12 +58,13 @@ async def _(event):
     if not event.is_reply:
         await event.reply("Reply to a file to compress it.")
         return
-    if event.is_group:
-        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-            await event.reply(
-                "Hai.. You are not admin.. You can't use this command.. But you can use in my pm"
-            )
-            return
+    if event.is_group and not (
+        await is_register_admin(event.input_chat, event.message.sender_id)
+    ):
+        await event.reply(
+            "Hai.. You are not admin.. You can't use this command.. But you can use in my pm"
+        )
+        return
 
     mone = await event.reply("`⏳️ Please wait...`")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
@@ -78,12 +79,13 @@ async def _(event):
             directory_name = downloaded_file_name
         except Exception as e:  # pylint:disable=C0103,W0703
             await mone.reply(str(e))
-    zipfile.ZipFile(directory_name + ".zip", "w", zipfile.ZIP_DEFLATED).write(
+    zipfile.ZipFile(f"{directory_name}.zip", "w", zipfile.ZIP_DEFLATED).write(
         directory_name
     )
+
     await event.client.send_file(
         event.chat_id,
-        directory_name + ".zip",
+        f"{directory_name}.zip",
         force_document=True,
         allow_cache=False,
         reply_to=event.message.id,
@@ -104,8 +106,8 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from telethon.tl.types import DocumentAttributeVideo
 
-extracted = TEMP_DOWNLOAD_DIRECTORY + "extracted/"
-thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
+extracted = f"{TEMP_DOWNLOAD_DIRECTORY}extracted/"
+thumb_image_path = f"{TEMP_DOWNLOAD_DIRECTORY}/thumb_image.jpg"
 if not os.path.isdir(extracted):
     os.makedirs(extracted)
 
@@ -140,12 +142,13 @@ async def _(event):
     if not event.is_reply:
         await event.reply("Reply to a zip file.")
         return
-    if event.is_group:
-        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-            await event.reply(
-                " Hai.. You are not admin.. You can't use this command.. But you can use in my pm🙈"
-            )
-            return
+    if event.is_group and not (
+        await is_register_admin(event.input_chat, event.message.sender_id)
+    ):
+        await event.reply(
+            " Hai.. You are not admin.. You can't use this command.. But you can use in my pm🙈"
+        )
+        return
 
     mone = await event.reply("Processing ...")
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
@@ -209,9 +212,10 @@ async def _(event):
                 except Exception as e:
                     await client.send_message(
                         event.chat_id,
-                        "{} caused `{}`".format(caption_rts, str(e)),
+                        f"{caption_rts} caused `{str(e)}`",
                         reply_to=event.message.id,
                     )
+
                     continue
                 os.remove(single_file)
         os.remove(downloaded_file_name)

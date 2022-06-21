@@ -23,7 +23,7 @@ class AFK(BASE):
         self.start_time = start_time
 
     def __repr__(self):
-        return "afk_status for {}".format(self.user_id)
+        return f"afk_status for {self.user_id}"
 
 
 AFK.__table__.create(checkfirst=True)
@@ -35,7 +35,6 @@ AFK_USERSS = {}
 
 def is_afk(user_id):
     return user_id in AFK_USERS
-    return user_id in AFK_USERSS
 
 
 def check_afk_status(user_id):
@@ -62,8 +61,7 @@ def set_afk(user_id, reason, start_time=""):
 
 def rm_afk(user_id):
     with INSERTION_LOCK:
-        curr = SESSION.query(AFK).get(user_id)
-        if curr:
+        if curr := SESSION.query(AFK).get(user_id):
             if user_id in AFK_USERS:  # sanity check
                 del AFK_USERS[user_id]
                 del AFK_USERSS[user_id]

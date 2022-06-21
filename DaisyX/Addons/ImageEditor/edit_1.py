@@ -12,7 +12,6 @@ async def bright(client, message):
         if not os.path.isdir(f"./DOWNLOADS/{userid}"):
             os.makedirs(f"./DOWNLOADS/{userid}")
         download_location = "./DOWNLOADS" + "/" + userid + "/" + userid + ".jpg"
-        edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "brightness.jpg"
         if not message.reply_to_message.empty:
             msg = await message.reply_to_message.reply_text(
                 "Downloading image", quote=True
@@ -23,6 +22,7 @@ async def bright(client, message):
             await msg.edit("Processing Image...")
             image = Image.open(a)
             brightness = ImageEnhance.Brightness(image)
+            edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "brightness.jpg"
             brightness.enhance(1.5).save(edit_img_loc)
             await message.reply_chat_action("upload_photo")
             await message.reply_to_message.reply_photo(edit_img_loc, quote=True)
@@ -34,16 +34,15 @@ async def bright(client, message):
         except Exception:
             pass
     except Exception as e:
-        print("bright-error - " + str(e))
+        print(f"bright-error - {str(e)}")
         if "USER_IS_BLOCKED" in str(e):
             return
-        else:
-            try:
-                await message.reply_to_message.reply_text(
-                    "Something went wrong!", quote=True
-                )
-            except Exception:
-                return
+        try:
+            await message.reply_to_message.reply_text(
+                "Something went wrong!", quote=True
+            )
+        except Exception:
+            return
 
 
 async def mix(client, message):
@@ -52,7 +51,6 @@ async def mix(client, message):
         if not os.path.isdir(f"./DOWNLOADS/{userid}"):
             os.makedirs(f"./DOWNLOADS/{userid}")
         download_location = "./DOWNLOADS" + "/" + userid + "/" + userid + ".jpg"
-        edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "mix.jpg"
         if not message.reply_to_message.empty:
             msg = await message.reply_to_message.reply_text(
                 "Downloading image", quote=True
@@ -64,6 +62,7 @@ async def mix(client, message):
             image = Image.open(a)
             red, green, blue = image.split()
             new_image = Image.merge("RGB", (green, red, blue))
+            edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "mix.jpg"
             new_image.save(edit_img_loc)
             await message.reply_chat_action("upload_photo")
             await message.reply_to_message.reply_photo(edit_img_loc, quote=True)
@@ -75,16 +74,15 @@ async def mix(client, message):
         except Exception:
             pass
     except Exception as e:
-        print("mix-error - " + str(e))
+        print(f"mix-error - {str(e)}")
         if "USER_IS_BLOCKED" in str(e):
             return
-        else:
-            try:
-                await message.reply_to_message.reply_text(
-                    "Something went wrong!", quote=True
-                )
-            except Exception:
-                return
+        try:
+            await message.reply_to_message.reply_text(
+                "Something went wrong!", quote=True
+            )
+        except Exception:
+            return
 
 
 async def black_white(client, message):
@@ -115,16 +113,15 @@ async def black_white(client, message):
         except Exception:
             pass
     except Exception as e:
-        print("black_white-error - " + str(e))
+        print(f"black_white-error - {str(e)}")
         if "USER_IS_BLOCKED" in str(e):
             return
-        else:
-            try:
-                await message.reply_to_message.reply_text(
-                    "Something went wrong!", quote=True
-                )
-            except Exception:
-                return
+        try:
+            await message.reply_to_message.reply_text(
+                "Something went wrong!", quote=True
+            )
+        except Exception:
+            return
 
 
 async def normal_blur(client, message):
@@ -133,7 +130,6 @@ async def normal_blur(client, message):
         if not os.path.isdir(f"./DOWNLOADS/{userid}"):
             os.makedirs(f"./DOWNLOADS/{userid}")
         download_location = "./DOWNLOADS" + "/" + userid + "/" + userid + ".jpg"
-        edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "BlurImage.jpg"
         if not message.reply_to_message.empty:
             msg = await message.reply_to_message.reply_text(
                 "Downloading image", quote=True
@@ -144,6 +140,7 @@ async def normal_blur(client, message):
             await msg.edit("Processing Image...")
             OriImage = Image.open(a)
             blurImage = OriImage.filter(ImageFilter.BLUR)
+            edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "BlurImage.jpg"
             blurImage.save(edit_img_loc)
             await message.reply_chat_action("upload_photo")
             await message.reply_to_message.reply_photo(edit_img_loc, quote=True)
@@ -155,16 +152,15 @@ async def normal_blur(client, message):
         except Exception:
             pass
     except Exception as e:
-        print("normal_blur-error - " + str(e))
+        print(f"normal_blur-error - {str(e)}")
         if "USER_IS_BLOCKED" in str(e):
             return
-        else:
-            try:
-                await message.reply_to_message.reply_text(
-                    "Something went wrong!", quote=True
-                )
-            except Exception:
-                return
+        try:
+            await message.reply_to_message.reply_text(
+                "Something went wrong!", quote=True
+            )
+        except Exception:
+            return
 
 
 async def g_blur(client, message):
@@ -173,7 +169,6 @@ async def g_blur(client, message):
         if not os.path.isdir(f"./DOWNLOADS/{userid}"):
             os.makedirs(f"./DOWNLOADS/{userid}")
         download_location = "./DOWNLOADS" + "/" + userid + "/" + userid + ".jpg"
-        edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "gaussian_blur.jpg"
         if not message.reply_to_message.empty:
             msg = await message.reply_to_message.reply_text(
                 "Downloading image", quote=True
@@ -184,6 +179,7 @@ async def g_blur(client, message):
             await msg.edit("Processing Image...")
             im1 = Image.open(a)
             im2 = im1.filter(ImageFilter.GaussianBlur(radius=5))
+            edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "gaussian_blur.jpg"
             im2.save(edit_img_loc)
             await message.reply_chat_action("upload_photo")
             await message.reply_to_message.reply_photo(edit_img_loc, quote=True)
@@ -195,16 +191,15 @@ async def g_blur(client, message):
         except Exception:
             pass
     except Exception as e:
-        print("g_blur-error - " + str(e))
+        print(f"g_blur-error - {str(e)}")
         if "USER_IS_BLOCKED" in str(e):
             return
-        else:
-            try:
-                await message.reply_to_message.reply_text(
-                    "Something went wrong!", quote=True
-                )
-            except Exception:
-                return
+        try:
+            await message.reply_to_message.reply_text(
+                "Something went wrong!", quote=True
+            )
+        except Exception:
+            return
 
 
 async def box_blur(client, message):
@@ -213,7 +208,6 @@ async def box_blur(client, message):
         if not os.path.isdir(f"./DOWNLOADS/{userid}"):
             os.makedirs(f"./DOWNLOADS/{userid}")
         download_location = "./DOWNLOADS" + "/" + userid + "/" + userid + ".jpg"
-        edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "box_blur.jpg"
         if not message.reply_to_message.empty:
             msg = await message.reply_to_message.reply_text(
                 "Downloading image", quote=True
@@ -224,6 +218,7 @@ async def box_blur(client, message):
             await msg.edit("Processing Image...")
             im1 = Image.open(a)
             im2 = im1.filter(ImageFilter.BoxBlur(0))
+            edit_img_loc = "./DOWNLOADS" + "/" + userid + "/" + "box_blur.jpg"
             im2.save(edit_img_loc)
             await message.reply_chat_action("upload_photo")
             await message.reply_to_message.reply_photo(edit_img_loc, quote=True)
@@ -235,13 +230,12 @@ async def box_blur(client, message):
         except Exception:
             pass
     except Exception as e:
-        print("box_blur-error - " + str(e))
+        print(f"box_blur-error - {str(e)}")
         if "USER_IS_BLOCKED" in str(e):
             return
-        else:
-            try:
-                await message.reply_to_message.reply_text(
-                    "Something went wrong!", quote=True
-                )
-            except Exception:
-                return
+        try:
+            await message.reply_to_message.reply_text(
+                "Something went wrong!", quote=True
+            )
+        except Exception:
+            return

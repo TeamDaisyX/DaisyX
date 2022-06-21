@@ -61,11 +61,7 @@ def tparse_ent(ent, text, as_html=True):
     if sys.maxunicode == 0xFFFF:
         return text[offset : offset + length]
 
-    if not isinstance(text, bytes):
-        entity_text = text.encode("utf-16-le")
-    else:
-        entity_text = text
-
+    entity_text = text if isinstance(text, bytes) else text.encode("utf-16-le")
     entity_text = entity_text[offset * 2 : (offset + length) * 2].decode("utf-16-le")
 
     if etype == "bold":
@@ -104,17 +100,13 @@ def get_parsed_msg(message):
     text = message.caption or message.text
 
     mode = get_msg_parse(text)
-    if mode == "html":
-        as_html = True
-    else:
-        as_html = False
-
+    as_html = mode == "html"
     entities = message.caption_entities or message.entities
 
     if not entities:
         return text, mode
 
-    if not sys.maxunicode == 0xFFFF:
+    if sys.maxunicode != 0xFFFF:
         text = text.encode("utf-16-le")
 
     result = ""
@@ -125,11 +117,9 @@ def get_parsed_msg(message):
 
         if sys.maxunicode == 0xFFFF:
             part = text[offset : entity.offset]
-            result += part + entity_text
         else:
             part = text[offset * 2 : entity.offset * 2].decode("utf-16-le")
-            result += part + entity_text
-
+        result += part + entity_text
         offset = entity.offset + entity.length
 
     if sys.maxunicode == 0xFFFF:
@@ -167,26 +157,23 @@ def parse_button(data, name):
     if not pattern:
         return ""
 
-    action = pattern.group(1)
+    action = pattern[1]
     args = raw_button[1]
 
     if action in BUTTONS:
-        text = f"\n[{name}](btn{action}:{args}*!repl!*)"
+        return f"\n[{name}](btn{action}:{args}*!repl!*)"
     else:
-        if args:
-            text = f"\n[{name}].(btn{action}:{args})"
-        else:
-            text = f"\n[{name}].(btn{action})"
-
-    return text
+        return (
+            f"\n[{name}].(btn{action}:{args})"
+            if args
+            else f"\n[{name}].(btn{action})"
+        )
 
 
 def get_reply_msg_btns_text(message):
     text = ""
     for column in message.reply_markup.inline_keyboard:
-        btn_num = 0
-        for btn in column:
-            btn_num += 1
+        for btn_num, btn in enumerate(column, start=1):
             name = btn["text"]
 
             if "url" in btn:
@@ -199,10 +186,12 @@ def get_reply_msg_btns_text(message):
             elif "callback_data" in btn:
                 text += parse_button(btn["callback_data"], name)
 
-            if btn_num > 1:
-                text = text.replace("*!repl!*", ":same")
-            else:
-                text = text.replace("*!repl!*", "")
+            text = (
+                text.replace("*!repl!*", ":same")
+                if btn_num > 1
+                else text.replace("*!repl!*", "")
+            )
+
     return text
 
 
@@ -220,11 +209,14 @@ async def get_msg_file(message):
         "video_note",
         "voice",
     ]
-    for file_type in file_types:
-        if file_type not in message:
-            continue
-        return {"id": tmsg.file.id, "type": file_type}
-    return None
+    return next(
+        (
+            {"id": tmsg.file.id, "type": file_type}
+            for file_type in file_types
+            if file_type in message
+        ),
+        None,
+    )
 
 
 async def get_parsed_note_list(message, allow_reply_message=True, split_args=1):
@@ -234,7 +226,7 @@ async def get_parsed_note_list(message, allow_reply_message=True, split_args=1):
         text, note["parse_mode"] = get_parsed_msg(message.reply_to_message)
         # Get parsed origin msg text
         text += " "
-        to_split = "".join([" " + q for q in get_args(message)[:split_args]])
+        to_split = "".join([f" {q}" for q in get_args(message)[:split_args]])
         if not to_split:
             to_split = " "
         text += get_parsed_msg(message)[0].partition(message.get_command() + to_split)[
@@ -281,15 +273,12 @@ async def t_unparse_note_item(
 ):
     text = db_item["text"] if "text" in db_item else ""
 
-    file_id = None
     preview = None
 
     if not user:
         user = message.from_user
 
-    if "file" in db_item:
-        file_id = db_item["file"]["id"]
-
+    file_id = db_item["file"]["id"] if "file" in db_item else None
     if noformat:
         markup = None
         if "parse_mode" not in db_item or db_item["parse_mode"] == "none":
@@ -303,7 +292,7 @@ async def t_unparse_note_item(
         db_item["parse_mode"] = None
 
     else:
-        pm = True if message.chat.type == "private" else False
+        pm = message.chat.type == "private"
         text, markup = button_parser(chat_id, text, pm=pm)
 
         if not text and not file_id:
@@ -374,7 +363,7 @@ def button_parser(chat_id, texts, pm=False, aio=False, row_width=None):
             argument = raw_button[3][1:].lower().replace("`", "")
         elif action in ("#"):
             argument = raw_button[2]
-            print(raw_button[2])
+            print(argument)
         else:
             argument = ""
 
@@ -383,13 +372,12 @@ def button_parser(chat_id, texts, pm=False, aio=False, row_width=None):
             string = f"{cb}_{argument}_{chat_id}" if argument else f"{cb}_{chat_id}"
             if aio:
                 start_btn = InlineKeyboardButton(
-                    name, url=f"https://t.me/{BOT_USERNAME}?start=" + string
+                    name, url=f"https://t.me/{BOT_USERNAME}?start={string}"
                 )
+
                 cb_btn = InlineKeyboardButton(name, callback_data=string)
             else:
-                start_btn = Button.url(
-                    name, f"https://t.me/{BOT_USERNAME}?start=" + string
-                )
+                start_btn = Button.url(name, f"https://t.me/{BOT_USERNAME}?start={string}")
                 cb_btn = Button.inline(name, string)
 
             if cb.endswith("sm"):
@@ -425,11 +413,10 @@ def button_parser(chat_id, texts, pm=False, aio=False, row_width=None):
         if btn:
             if aio:
                 buttons.insert(btn) if raw_button[4] else buttons.add(btn)
+            elif len(buttons) < 1 and raw_button[4]:
+                buttons.add(btn) if aio else buttons.append([btn])
             else:
-                if len(buttons) < 1 and raw_button[4]:
-                    buttons.add(btn) if aio else buttons.append([btn])
-                else:
-                    buttons[-1].append(btn) if raw_button[4] else buttons.append([btn])
+                buttons[-1].append(btn) if raw_button[4] else buttons.append([btn])
 
     if not aio and len(buttons) == 0:
         buttons = None
@@ -466,9 +453,9 @@ async def vars_parser(
         and event.new_chat_members
         and event.new_chat_members[0].username
     ):
-        username = "@" + event.new_chat_members[0].username
+        username = f"@{event.new_chat_members[0].username}"
     elif user.username:
-        username = "@" + user.username
+        username = f"@{user.username}"
     else:
         username = mention
 
@@ -489,7 +476,7 @@ async def vars_parser(
     text = (
         text.replace("{first}", first_name)
         .replace("{last}", last_name)
-        .replace("{fullname}", first_name + " " + last_name)
+        .replace("{fullname}", f"{first_name} {last_name}")
         .replace("{id}", str(user_id).replace("{userid}", str(user_id)))
         .replace("{mention}", mention)
         .replace("{username}", username)
@@ -500,4 +487,5 @@ async def vars_parser(
         .replace("{time}", str(current_time))
         .replace("{timedate}", str(current_timedate))
     )
+
     return text

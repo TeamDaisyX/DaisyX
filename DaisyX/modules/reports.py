@@ -32,9 +32,8 @@ from .utils.user_details import get_admins_rights, get_user_link, is_user_admin
 async def report1_cmd(message, chat, strings):
     # Checking whether report is disabled in chat!
     check = await db.disabled.find_one({"chat_id": chat["chat_id"]})
-    if check:
-        if "report" in check["cmds"]:
-            return
+    if check and "report" in check["cmds"]:
+        return
     await report(message, chat, strings)
 
 

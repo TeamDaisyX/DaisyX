@@ -58,8 +58,7 @@ def add_goodbye_setting(
 
 
 def rm_goodbye_setting(chat_id):
-    rem = SESSION.query(Goodbye).get(str(chat_id))
-    if rem:
+    if rem := SESSION.query(Goodbye).get(str(chat_id)):
         SESSION.delete(rem)
         SESSION.commit()
 

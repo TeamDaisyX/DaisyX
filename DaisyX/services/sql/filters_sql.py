@@ -84,14 +84,14 @@ def add_filter(
 
 
 def remove_filter(chat_id, keyword):
-    saved_filter = SESSION.query(Filters).get((str(chat_id), keyword))
-    if saved_filter:
+    if saved_filter := SESSION.query(Filters).get((str(chat_id), keyword)):
         SESSION.delete(saved_filter)
         SESSION.commit()
 
 
 def remove_all_filters(chat_id):
-    saved_filter = SESSION.query(Filters).filter(Filters.chat_id == str(chat_id))
-    if saved_filter:
+    if saved_filter := SESSION.query(Filters).filter(
+        Filters.chat_id == str(chat_id)
+    ):
         saved_filter.delete()
         SESSION.commit()

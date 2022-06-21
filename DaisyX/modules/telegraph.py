@@ -51,27 +51,24 @@ async def _(event):
             )
             end = datetime.now()
             ms = (end - start).seconds
-            await event.reply(
-                "Downloaded to {} in {} seconds.".format(downloaded_file_name, ms)
-            )
+            await event.reply(f"Downloaded to {downloaded_file_name} in {ms} seconds.")
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
                 start = datetime.now()
                 media_urls = upload_file(downloaded_file_name)
             except exceptions.TelegraphException as exc:
-                await event.edit("ERROR: " + str(exc))
+                await event.edit(f"ERROR: {str(exc)}")
                 os.remove(downloaded_file_name)
             else:
                 end = datetime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await event.reply(
-                    "Uploaded to https://telegra.ph{} in {} seconds.".format(
-                        media_urls[0], (ms + ms_two)
-                    ),
+                    f"Uploaded to https://telegra.ph{media_urls[0]} in {ms + ms_two} seconds.",
                     link_preview=True,
                 )
+
         elif input_str == "text":
             user_object = await borg.get_entity(r_message.sender_id)
             title_of_page = user_object.first_name  # + " " + user_object.last_name
@@ -96,11 +93,10 @@ async def _(event):
             end = datetime.now()
             ms = (end - start).seconds
             await event.reply(
-                "Pasted to https://telegra.ph/{} in {} seconds.".format(
-                    response["path"], ms
-                ),
+                f'Pasted to https://telegra.ph/{response["path"]} in {ms} seconds.',
                 link_preview=True,
             )
+
     else:
         await event.reply("Reply to a message to get a permanent telegra.ph link. ")
 

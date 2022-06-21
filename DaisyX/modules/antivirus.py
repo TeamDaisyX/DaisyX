@@ -56,11 +56,10 @@ allow_password_protected_files = True
 async def virusscan(event):
     if event.fwd_from:
         return
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        else:
-            return
+    if event.is_group and not await is_register_admin(
+        event.input_chat, event.message.sender_id
+    ):
+        return
     if not event.reply_to_msg_id:
         await event.reply("Reply to a file to scan it.")
         return
@@ -88,7 +87,7 @@ async def virusscan(event):
         await event.client.download_file(c, virus)
         gg = await event.reply("Scanning the file ...")
         fsize = c.file.size
-        if not fsize <= 3145700:  # MAX = 3MB
+        if fsize > 3145700:  # MAX = 3MB
             await gg.edit("File size exceeds 3MB")
             return
         api_response = api_instance.scan_file_advanced(

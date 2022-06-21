@@ -90,9 +90,10 @@ async def check_msg(message):
     text = message.text
 
     # Workaround to disable all filters if admin want to remove filter
-    if await is_user_admin(chat_id, message.from_user.id):
-        if text[1:].startswith("addfilter") or text[1:].startswith("delfilter"):
-            return
+    if await is_user_admin(chat_id, message.from_user.id) and (
+        text[1:].startswith("addfilter") or text[1:].startswith("delfilter")
+    ):
+        return
 
     for handler in filters:  # type: str
         if handler.startswith("re:"):
@@ -137,7 +138,7 @@ async def add_handler(message, chat, strings):
 
     if handler.startswith("re:"):
         pattern = handler
-        random_text_str = "".join(random.choice(printable) for i in range(50))
+        random_text_str = "".join(random.choice(printable) for _ in range(50))
         try:
             regex.match(pattern, random_text_str, timeout=0.2)
         except TimeoutError:
@@ -409,19 +410,19 @@ async def __export__(chat_id):
 
 
 async def __import__(chat_id, data):
-    new = []
-    for filter in data:
-        new.append(
-            UpdateOne(
-                {
-                    "chat_id": chat_id,
-                    "handler": filter["handler"],
-                    "action": filter["action"],
-                },
-                {"$set": filter},
-                upsert=True,
-            )
+    new = [
+        UpdateOne(
+            {
+                "chat_id": chat_id,
+                "handler": filter["handler"],
+                "action": filter["action"],
+            },
+            {"$set": filter},
+            upsert=True,
         )
+        for filter in data
+    ]
+
     await db.filters.bulk_write(new)
     await update_handlers_cache(chat_id)
 

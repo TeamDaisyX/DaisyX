@@ -51,9 +51,8 @@ async def _(event):
         translated = translator.translate(text, lang_tgt=lan)
         after_tr_text = translated
         detect_result = translator.detect(text)
-        output_str = ("**TRANSLATED Succesfully** from {} to {}\n\n" "{}").format(
-            detect_result[0], lan, after_tr_text
-        )
+        output_str = f"**TRANSLATED Succesfully** from {detect_result[0]} to {lan}\n\n{after_tr_text}"
+
         await event.reply(output_str)
     except Exception as exc:
         await event.reply(str(exc))
@@ -74,8 +73,7 @@ async def _(event):
     for change in changes:
         start = change.get("From")
         end = change.get("To") + 1
-        suggestions = change.get("Suggestions")
-        if suggestions:
+        if suggestions := change.get("Suggestions"):
             sugg_str = suggestions[0].get("Text")
             curr_string += msg[prev_end:start] + sugg_str
             prev_end = end

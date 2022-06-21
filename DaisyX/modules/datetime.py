@@ -57,11 +57,7 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
                 country_zone = zone["zoneName"]
                 country_code = zone["countryCode"]
 
-                if zone["dst"] == 1:
-                    daylight_saving = "Yes"
-                else:
-                    daylight_saving = "No"
-
+                daylight_saving = "Yes" if zone["dst"] == 1 else "No"
                 date_fmt = r"%d-%m-%Y"
                 time_fmt = r"%H:%M:%S"
                 day_fmt = r"%A"
@@ -95,11 +91,10 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        else:
-            return
+    if event.is_group and not await is_register_admin(
+        event.input_chat, event.message.sender_id
+    ):
+        return
 
     gay = event.pattern_match.group(1)
 

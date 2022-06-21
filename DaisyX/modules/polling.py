@@ -63,9 +63,7 @@ async def _(event):
     if event.is_group:
         if await is_register_admin(event.input_chat, event.message.sender_id):
             pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
+        elif event.chat_id != iid or event.sender_id != userss:
             return
     try:
         quew = event.pattern_match.group(1)
@@ -104,7 +102,7 @@ async def _(event):
 
     ques = quess.strip()
     option = options.strip()
-    quiz = option.split(" ")[1 - 1]
+    quiz = option.split(" ")[0]
     if "True" in quiz:
         quizy = True
         if "@" in quiz:
@@ -120,8 +118,7 @@ async def _(event):
         try:
             ab = option.split(" ")[4 - 1]
             cd = option.split(" ")[5 - 1]
-            quizoptionss.append(types.PollAnswer(ab, b"1"))
-            quizoptionss.append(types.PollAnswer(cd, b"2"))
+            quizoptionss.extend((types.PollAnswer(ab, b"1"), types.PollAnswer(cd, b"2")))
         except Exception:
             await event.reply("At least need two options to create a poll")
             return
@@ -192,8 +189,7 @@ async def _(event):
     try:
         ab = option.split(" ")[4 - 1]
         cd = option.split(" ")[5 - 1]
-        optionss.append(types.PollAnswer(ab, b"1"))
-        optionss.append(types.PollAnswer(cd, b"2"))
+        optionss.extend((types.PollAnswer(ab, b"1"), types.PollAnswer(cd, b"2")))
     except Exception:
         await event.reply("At least need two options to create a poll")
         return
@@ -336,9 +332,7 @@ async def stop(event):
     if event.is_group:
         if await is_register_admin(event.input_chat, event.message.sender_id):
             pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
+        elif event.chat_id != iid or event.sender_id != userss:
             return
 
     if not event.reply_to_msg_id:
@@ -370,7 +364,7 @@ async def stop(event):
     if msg.poll:
         allpoll = poll_id.find({})
         for c in allpoll:
-            if not event.sender_id == c["user"] and not secret == c["pollid"]:
+            if event.sender_id != c["user"] and secret != c["pollid"]:
                 await event.reply(
                     "Oops, either you haven't created this poll or you have given wrong poll id"
                 )
@@ -399,9 +393,7 @@ async def stop(event):
     if event.is_group:
         if await is_register_admin(event.input_chat, event.message.sender_id):
             pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
+        elif event.chat_id != iid or event.sender_id != userss:
             return
     allpoll = poll_id.find({})
     for c in allpoll:

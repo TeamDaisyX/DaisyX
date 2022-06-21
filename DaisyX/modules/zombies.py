@@ -77,16 +77,15 @@ async def is_register_admin(chat, user):
     return None
 
 
-@client.on(events.NewMessage(pattern=f"^[!/]zombies ?(.*)"))
+@client.on(events.NewMessage(pattern="^[!/]zombies ?(.*)"))
 async def zombies(event):
     """For .zombies command, list all the zombies in a chat."""
     if event.fwd_from:
         return
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        else:
-            return
+    if event.is_group and not await is_register_admin(
+        event.input_chat, event.message.sender_id
+    ):
+        return
     con = event.pattern_match.group(1).lower()
     del_u = 0
     del_status = "No Deleted Accounts Found, Group Is Clean."

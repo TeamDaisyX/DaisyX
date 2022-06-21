@@ -148,15 +148,13 @@ async def ytsearch(_, message):
         query = message.text.split(None, 1)[1]
         m = await message.reply_text("Searching....")
         results = await fetch(f"{ARQ}youtube?query={query}&count=3")
-        i = 0
         text = ""
-        while i < 3:
+        for i in range(3):
             text += f"Title - {results[i]['title']}\n"
             text += f"Duration - {results[i]['duration']}\n"
             text += f"Views - {results[i]['views']}\n"
             text += f"Channel - {results[i]['channel']}\n"
             text += f"https://youtube.com{results[i]['url_suffix']}\n\n"
-            i += 1
         await m.edit(text, disable_web_page_preview=True)
     except Exception as e:
         await message.reply_text(str(e))
@@ -218,8 +216,9 @@ async def apk(e):
         remove_space = app_name.split(" ")
         final_name = "+".join(remove_space)
         page = requests.get(
-            "https://play.google.com/store/search?q=" + final_name + "&c=apps"
+            f"https://play.google.com/store/search?q={final_name}&c=apps"
         )
+
         str(page.status_code)
         soup = bs4.BeautifulSoup(page.content, "lxml", from_encoding="utf-8")
         results = soup.findAll("div", "ZmHEEd")
@@ -251,7 +250,7 @@ async def apk(e):
             .img["data-src"]
         )
         app_details = "<a href='" + app_icon + "'>📲&#8203;</a>"
-        app_details += " <b>" + app_name + "</b>"
+        app_details += f" <b>{app_name}</b>"
         app_details += (
             "\n\n<code>Developer :</code> <a href='"
             + app_dev_link
@@ -276,7 +275,7 @@ async def apk(e):
     except IndexError:
         await e.reply("No result found in search. Please enter **Valid app name**")
     except Exception as err:
-        await e.reply("Exception Occured:- " + str(err))
+        await e.reply(f"Exception Occured:- {str(err)}")
 
 
 __help__ = """

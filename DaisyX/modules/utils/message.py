@@ -47,8 +47,7 @@ def get_args_str(message):
 
 
 def get_cmd(message):
-    cmd = message.get_command().lower()[1:].split("@")[0]
-    return cmd
+    return message.get_command().lower()[1:].split("@")[0]
 
 
 def convert_time(time_val):
@@ -68,9 +67,7 @@ def convert_time(time_val):
     else:
         raise InvalidTimeUnit()
 
-    val = timedelta(**kwargs)
-
-    return val
+    return timedelta(**kwargs)
 
 
 def convert_timedelta(time):

@@ -43,8 +43,7 @@ async def addrss(client, message):
             "ERROR: The link does not seem to be a RSS feed or is not supported"
         )
         return
-    lol = is_get_chat_rss(message.chat.id, lenk)
-    if lol:
+    if lol := is_get_chat_rss(message.chat.id, lenk):
         await pablo.edit("This Link Already Added")
         return
     content = ""
@@ -65,14 +64,7 @@ async def addrss(client, message):
 @admins_only
 async def testrss(client, message):
     pablo = await edit_or_reply(message, "`Processing....`")
-    damn = basic_check(message.chat.id)
-    if not damn:
-        URL = "https://www.reddit.com/r/funny/new/.rss"
-        rss_d = feedparser.parse(URL)
-        Content = rss_d.entries[0]["title"] + "\n\n" + rss_d.entries[0]["link"]
-        await client.send_message(message.chat.id, Content)
-        await pablo.edit("This Chat Has No RSS So Sent Reddit RSS")
-    else:
+    if damn := basic_check(message.chat.id):
         all = get_chat_rss(message.chat.id)
         for x in all:
             link = x.get("rss_link")
@@ -86,6 +78,11 @@ async def testrss(client, message):
                 pass
             await client.send_message(message.chat.id, content)
         await pablo.delete()
+    else:
+        rss_d = feedparser.parse("https://www.reddit.com/r/funny/new/.rss")
+        Content = rss_d.entries[0]["title"] + "\n\n" + rss_d.entries[0]["link"]
+        await client.send_message(message.chat.id, Content)
+        await pablo.edit("This Chat Has No RSS So Sent Reddit RSS")
 
 
 @pbot.on_message(
