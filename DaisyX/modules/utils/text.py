@@ -132,8 +132,7 @@ class KeyValue:
         self.suffix = suffix
 
     def __str__(self) -> str:
-        text = f"{self.title}{self.suffix}{self.value}"
-        return text
+        return f"{self.title}{self.suffix}{self.value}"
 
 
 class MultiKeyValue:

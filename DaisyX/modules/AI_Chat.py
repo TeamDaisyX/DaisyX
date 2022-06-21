@@ -78,7 +78,7 @@ async def hmm(_, message):
         message.continue_propagation()
     status = message.text.split(None, 1)[1]
     chat_id = message.chat.id
-    if status == "ON" or status == "on" or status == "On":
+    if status in ["ON", "on", "On"]:
         lel = await edit_or_reply(message, "`Processing...`")
         lol = add_chat(int(message.chat.id))
         if not lol:
@@ -88,7 +88,7 @@ async def hmm(_, message):
             f"Daisy AI Successfully Added For Users In The Chat {message.chat.id}"
         )
 
-    elif status == "OFF" or status == "off" or status == "Off":
+    elif status in ["OFF", "off", "Off"]:
         lel = await edit_or_reply(message, "`Processing...`")
         Escobar = remove_chat(int(message.chat.id))
         if not Escobar:
@@ -98,8 +98,8 @@ async def hmm(_, message):
             f"Daisy AI Successfully Deactivated For Users In The Chat {message.chat.id}"
         )
 
-    elif status == "EN" or status == "en" or status == "english":
-        if not chat_id in en_chats:
+    elif status in ["EN", "en", "english"]:
+        if chat_id not in en_chats:
             en_chats.append(chat_id)
             await message.reply_text("English AI chat Enabled!")
             return
@@ -146,12 +146,6 @@ async def hmm(client, message):
         response = response.replace("aco", "Daisy")
 
         pro = response
-        try:
-            await daisyx.send_chat_action(message.chat.id, "typing")
-            await message.reply_text(pro)
-        except CFError:
-            return
-
     else:
         u = msg.split()
         emj = extract_emojis(msg)
@@ -187,7 +181,7 @@ async def hmm(client, message):
         except:
             return
         test = rm
-        if not "en" in lan and not lan == "":
+        if "en" not in lan and lan != "":
             try:
                 test = translator.translate(test, dest="en")
                 test = test.text
@@ -205,17 +199,17 @@ async def hmm(client, message):
         response = response.replace("Luna", "Daisy")
         response = response.replace("luna", "Daisy")
         pro = response
-        if not "en" in lan and not lan == "":
+        if "en" not in lan and lan != "":
             try:
                 pro = translator.translate(pro, dest=lan)
                 pro = pro.text
             except:
                 return
-        try:
-            await daisyx.send_chat_action(message.chat.id, "typing")
-            await message.reply_text(pro)
-        except CFError:
-            return
+    try:
+        await daisyx.send_chat_action(message.chat.id, "typing")
+        await message.reply_text(pro)
+    except CFError:
+        return
 
 
 @daisyx.on_message(
@@ -259,7 +253,7 @@ async def inuka(client, message):
     except:
         return
     test = rm
-    if not "en" in lan and not lan == "":
+    if "en" not in lan and lan != "":
         try:
             test = translator.translate(test, dest="en")
             test = test.text
@@ -277,7 +271,7 @@ async def inuka(client, message):
     response = response.replace("aco", "Daisy")
 
     pro = response
-    if not "en" in lan and not lan == "":
+    if "en" not in lan and lan != "":
         pro = translator.translate(pro, dest=lan)
         pro = pro.text
     try:
@@ -334,7 +328,7 @@ async def inuka(client, message):
     except:
         return
     test = rm
-    if not "en" in lan and not lan == "":
+    if "en" not in lan and lan != "":
         try:
             test = translator.translate(test, dest="en")
             test = test.text
@@ -350,7 +344,7 @@ async def inuka(client, message):
     response = response.replace("aco", "Daisy")
 
     pro = response
-    if not "en" in lan and not lan == "":
+    if "en" not in lan and lan != "":
         try:
             pro = translator.translate(pro, dest=lan)
             pro = pro.text

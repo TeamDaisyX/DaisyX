@@ -88,9 +88,8 @@ async def variants(message):
     for i in device:
         name = i["name"]
         model = i["model"]
-        m += "<b>Model</b>: <code>{}</code> \n<b>Name:</b> <code>{}</code>\n\n".format(
-            model, name
-        )
+        m += f"<b>Model</b>: <code>{model}</code> \n<b>Name:</b> <code>{name}</code>\n\n"
+
 
     await http.aclose()
     await message.reply(m)
@@ -240,7 +239,7 @@ async def check(message):
         await message.reply(m)
         return
 
-    model = "sm-" + temp if not temp.upper().startswith("SM-") else temp
+    model = temp if temp.upper().startswith("SM-") else f"sm-{temp}"
     async with httpx.AsyncClient(http2=True) as http:
         fota = await http.get(
             f"http://fota-cloud-dn.ospserver.net/firmware/{csc.upper()}/{model.upper()}/version.xml"
@@ -291,23 +290,18 @@ async def check(message):
         buttons.add(
             InlineKeyboardButton(
                 "SamMobile",
-                url="https://www.sammobile.com/samsung/firmware/{}/{}/".format(
-                    model.upper(), csc.upper()
-                ),
+                url=f"https://www.sammobile.com/samsung/firmware/{model.upper()}/{csc.upper()}/",
             ),
             InlineKeyboardButton(
                 "SamFw",
-                url="https://samfw.com/firmware/{}/{}/".format(
-                    model.upper(), csc.upper()
-                ),
+                url=f"https://samfw.com/firmware/{model.upper()}/{csc.upper()}/",
             ),
             InlineKeyboardButton(
                 "SamFrew",
-                url="https://samfrew.com/model/{}/region/{}/".format(
-                    model.upper(), csc.upper()
-                ),
+                url=f"https://samfrew.com/model/{model.upper()}/region/{csc.upper()}/",
             ),
         )
+
 
         await message.reply(m, reply_markup=buttons)
 
@@ -326,18 +320,19 @@ async def orangefox(message):
     except BaseException:
         build_type = ""
 
-    if build_type == "":
+    if not build_type:
         build_type = "stable"
 
-    if codename == "devices" or codename == "":
+    if codename in {"devices", ""}:
         reply_text = (
             f"<b>OrangeFox Recovery <i>{build_type}</i> is currently avaible for:</b>"
         )
 
         async with httpx.AsyncClient(http2=True) as http:
             data = await http.get(
-                API_HOST + f"devices/?release_type={build_type}&sort=device_name_asc"
+                f"{API_HOST}devices/?release_type={build_type}&sort=device_name_asc"
             )
+
             devices = json.loads(data.text)
             await http.aclose()
         try:
@@ -354,18 +349,20 @@ async def orangefox(message):
         if build_type == "stable":
             reply_text += (
                 "\n\n"
-                + f"To get the latest Stable release use <code>/ofox (codename)</code>, for example: <code>/ofox raphael</code>"
+                + "To get the latest Stable release use <code>/ofox (codename)</code>, for example: <code>/ofox raphael</code>"
             )
+
         elif build_type == "beta":
             reply_text += (
                 "\n\n"
-                + f"To get the latest Beta release use <code>/ofox (codename) beta</code>, for example: <code>/ofox raphael beta</code>"
+                + "To get the latest Beta release use <code>/ofox (codename) beta</code>, for example: <code>/ofox raphael beta</code>"
             )
+
         await message.reply(reply_text)
         return
 
     async with httpx.AsyncClient(http2=True) as http:
-        data = await http.get(API_HOST + f"devices/get?codename={codename}")
+        data = await http.get(f"{API_HOST}devices/get?codename={codename}")
         device = json.loads(data.text)
         await http.aclose()
     if data.status_code == 404:
@@ -393,7 +390,7 @@ async def orangefox(message):
             file_id = build["_id"]
 
     async with httpx.AsyncClient(http2=True) as http:
-        data = await http.get(API_HOST + f"releases/get?_id={file_id}")
+        data = await http.get(f"{API_HOST}releases/get?_id={file_id}")
         release = json.loads(data.text)
         await http.aclose()
     if data.status_code == 404:
@@ -404,10 +401,9 @@ async def orangefox(message):
     reply_text += ("  <b>Device:</b> {fullname} (<code>{codename}</code>)\n").format(
         fullname=device["full_name"], codename=device["codename"]
     )
-    reply_text += ("  <b>Version:</b> {}\n").format(release["version"])
-    reply_text += ("  <b>Release date:</b> {}\n").format(
-        time.strftime("%d/%m/%Y", time.localtime(release["date"]))
-    )
+    reply_text += f'  <b>Version:</b> {release["version"]}\n'
+    reply_text += f'  <b>Release date:</b> {time.strftime("%d/%m/%Y", time.localtime(release["date"]))}\n'
+
 
     reply_text += ("  <b>Maintainer:</b> {name}\n").format(
         name=device["maintainer"]["name"]

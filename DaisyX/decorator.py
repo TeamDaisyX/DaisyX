@@ -37,8 +37,8 @@ COMMANDS_ALIASES = {}
 # Import filters
 log.info("Filters to load: %s", str(ALL_FILTERS))
 for module_name in ALL_FILTERS:
-    log.debug("Importing " + module_name)
-    imported_module = import_module("DaisyX.utils.filters." + module_name)
+    log.debug(f"Importing {module_name}")
+    imported_module = import_module(f"DaisyX.utils.filters.{module_name}")
 log.info("Filters loaded!")
 
 
@@ -104,7 +104,7 @@ def register(*args, cmds=None, f=None, allow_edited=True, allow_kwargs=False, **
                 message.conf["cmds"] = cmds
 
             if allow_kwargs is False:
-                def_kwargs = dict()
+                def_kwargs = {}
 
             with configure_scope() as scope:
                 parsed_update = parse_update(dict(message))
@@ -115,9 +115,7 @@ def register(*args, cmds=None, f=None, allow_edited=True, allow_kwargs=False, **
                 # log.debug('Event: \n' + str(message))
                 start = time.time()
                 await func(*def_args, **def_kwargs)
-                log.debug(
-                    "[*] {} Time: {} sec.".format(func.__name__, time.time() - start)
-                )
+                log.debug(f"[*] {func.__name__} Time: {time.time() - start} sec.")
             else:
                 await func(*def_args, **def_kwargs)
             raise SkipHandler()

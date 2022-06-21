@@ -43,15 +43,11 @@ async def update_users_handler(message):
 
     # Update chat
     new_chat = message.chat
-    if not new_chat.type == "private":
+    if new_chat.type != "private":
 
         old_chat = await db.chat_list.find_one({"chat_id": chat_id})
 
-        if not hasattr(new_chat, "username"):
-            chatnick = None
-        else:
-            chatnick = new_chat.username
-
+        chatnick = new_chat.username if hasattr(new_chat, "username") else None
         if old_chat and "first_detected_date" in old_chat:
             first_detected_date = old_chat["first_detected_date"]
         else:
@@ -114,11 +110,7 @@ async def update_user(chat_id, new_user):
     else:
         first_detected_date = datetime.datetime.now()
 
-    if new_user.username:
-        username = new_user.username.lower()
-    else:
-        username = None
-
+    username = new_user.username.lower() if new_user.username else None
     if hasattr(new_user, "last_name") and new_user.last_name:
         last_name = html.escape(new_user.last_name, quote=False)
     else:
@@ -215,7 +207,7 @@ async def get_id(message, user, strings, chat):
     if chat["status"] is True:
         text += strings["conn_chat_id"].format(id=chat["chat_id"])
 
-    if not user["user_id"] == user_id:
+    if user["user_id"] != user_id:
         text += strings["user_id"].format(
             user=await get_user_link(user["user_id"]), id=user["user_id"]
         )
@@ -223,8 +215,8 @@ async def get_id(message, user, strings, chat):
     if (
         "reply_to_message" in message
         and "forward_from" in message.reply_to_message
-        and not message.reply_to_message.forward_from.id
-        == message.reply_to_message.from_user.id
+        and message.reply_to_message.forward_from.id
+        != message.reply_to_message.from_user.id
     ):
         text += strings["user_id"].format(
             user=await get_user_link(message.reply_to_message.forward_from.id),
@@ -244,7 +236,7 @@ async def adminlist(message, chat, strings):
     for admin, rights in admins.items():
         if rights["anonymous"]:
             continue
-        text += "- {} (<code>{}</code>)\n".format(await get_user_link(admin), admin)
+        text += f"- {await get_user_link(admin)} (<code>{admin}</code>)\n"
 
     await message.reply(text, disable_notification=True)
 

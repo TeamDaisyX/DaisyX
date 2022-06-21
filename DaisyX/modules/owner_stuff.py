@@ -40,9 +40,7 @@ from .utils.term import chat_term
 
 @register(cmds="allcommands", is_op=True)
 async def all_commands_list(message):
-    text = ""
-    for cmd in REGISTRED_COMMANDS:
-        text += "* /" + cmd + "\n"
+    text = "".join(f"* /{cmd}" + "\n" for cmd in REGISTRED_COMMANDS)
     await message.reply(text)
 
 
@@ -55,9 +53,7 @@ async def all_cmds_aliases_list(message):
 
 @register(cmds="loadedmodules", is_op=True)
 async def all_modules_list(message):
-    text = ""
-    for module in LOADED_MODULES:
-        text += "* " + module.__name__ + "\n"
+    text = "".join(f"* {module.__name__}" + "\n" for module in LOADED_MODULES)
     await message.reply(text)
 
 
@@ -65,7 +61,7 @@ async def all_modules_list(message):
 async def all_btns_list(message):
     text = "Avaible message inline btns:\n"
     for module in BUTTONS:
-        text += "* " + module + "\n"
+        text += f"* {module}" + "\n"
     await message.reply(text)
 
 
@@ -86,8 +82,6 @@ async def cmd_term(message):
             + "</code>"
         )
         await msg.edit_text(text)
-    else:
-        pass
 
 
 @register(cmds="leavechat", is_owner=True)
@@ -115,7 +109,7 @@ async def sbroadcast(message):
 
     await db.sbroadcast.insert_one(data)
     await message.reply(
-        "Smart broadcast planned for <code>{}</code> chats".format(len(chats))
+        f"Smart broadcast planned for <code>{len(chats)}</code> chats"
     )
 
 
@@ -242,8 +236,6 @@ async def stats(message):
             text += await module.__stats__()
 
         await message.reply(text)
-    else:
-        pass
 
 
 async def __stats__():
@@ -254,18 +246,13 @@ async def __stats__():
         text += "* Long-polling mode\n"
     local_db = await db.command("dbstats")
     if "fsTotalSize" in local_db:
-        text += "* Database size is <code>{}</code>, free <code>{}</code>\n".format(
-            convert_size(local_db["dataSize"]),
-            convert_size(local_db["fsTotalSize"] - local_db["fsUsedSize"]),
-        )
-    else:
-        text += "* Database size is <code>{}</code>, free <code>{}</code>\n".format(
-            convert_size(local_db["storageSize"]),
-            convert_size(536870912 - local_db["storageSize"]),
-        )
+        text += f'* Database size is <code>{convert_size(local_db["dataSize"])}</code>, free <code>{convert_size(local_db["fsTotalSize"] - local_db["fsUsedSize"])}</code>\n'
 
-    text += "* <code>{}</code> total keys in Redis database\n".format(len(redis.keys()))
-    text += "* <code>{}</code> total commands registred, in <code>{}</code> modules\n".format(
-        len(REGISTRED_COMMANDS), len(LOADED_MODULES)
-    )
+    else:
+        text += f'* Database size is <code>{convert_size(local_db["storageSize"])}</code>, free <code>{convert_size(536870912 - local_db["storageSize"])}</code>\n'
+
+
+    text += f"* <code>{len(redis.keys())}</code> total keys in Redis database\n"
+    text += f"* <code>{len(REGISTRED_COMMANDS)}</code> total commands registred, in <code>{len(LOADED_MODULES)}</code> modules\n"
+
     return text

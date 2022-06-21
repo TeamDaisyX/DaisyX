@@ -35,27 +35,15 @@ async def msg(event):
         await event.reply("Country Not Avaiable Currently")
     name = a.get("name")
     bb = a.get("altSpellings")
-    hu = ""
-    for p in bb:
-        hu += p + ",  "
-
+    hu = "".join(f"{p},  " for p in bb)
     area = a.get("area")
-    borders = ""
     hell = a.get("borders")
-    for fk in hell:
-        borders += fk + ",  "
-
-    call = ""
+    borders = "".join(f"{fk},  " for fk in hell)
     WhAt = a.get("callingCodes")
-    for what in WhAt:
-        call += what + "  "
-
+    call = "".join(f"{what}  " for what in WhAt)
     capital = a.get("capital")
-    currencies = ""
     fker = a.get("currencies")
-    for FKer in fker:
-        currencies += FKer + ",  "
-
+    currencies = "".join(f"{FKer},  " for FKer in fker)
     HmM = a.get("demonym")
     geo = a.get("geoJSON")
     pablo = geo.get("features")
@@ -66,29 +54,20 @@ async def msg(event):
     iSo = a.get("ISO")
     for hitler in iSo:
         po = iSo.get(hitler)
-        iso += po + ",  "
+        iso += f"{po},  "
     fla = iSo.get("alpha2")
     fla.upper()
 
     languages = a.get("languages")
-    lMAO = ""
-    for lmao in languages:
-        lMAO += lmao + ",  "
-
+    lMAO = "".join(f"{lmao},  " for lmao in languages)
     nonive = a.get("nativeName")
     waste = a.get("population")
     reg = a.get("region")
     sub = a.get("subregion")
     tik = a.get("timezones")
-    tom = ""
-    for jerry in tik:
-        tom += jerry + ",   "
-
+    tom = "".join(f"{jerry},   " for jerry in tik)
     GOT = a.get("tld")
-    lanester = ""
-    for targaryen in GOT:
-        lanester += targaryen + ",   "
-
+    lanester = "".join(f"{targaryen},   " for targaryen in GOT)
     wiki = a.get("wiki")
 
     caption = f"""<b><u>Information Gathered Successfully</b></u>

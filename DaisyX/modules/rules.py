@@ -69,10 +69,7 @@ async def rules(message, chat, strings):
     else:
         rpl_id = message.message_id
 
-    if len(args := message.get_args().split()) > 0:
-        arg1 = args[0].lower()
-    else:
-        arg1 = None
+    arg1 = args[0].lower() if len(args := message.get_args().split()) > 0 else None
     noformat = arg1 in ("noformat", "raw")
 
     if not (db_item := await db.rules.find_one({"chat_id": chat_id})):
@@ -127,7 +124,7 @@ async def __export__(chat_id):
 
 async def __import__(chat_id, data):
     rules = data
-    for column in [i for i in data if i not in ALLOWED_COLUMNS]:
+    for column in [i for i in rules if i not in ALLOWED_COLUMNS]:
         del rules[column]
 
     rules["chat_id"] = chat_id

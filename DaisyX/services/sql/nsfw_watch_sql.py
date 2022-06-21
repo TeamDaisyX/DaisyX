@@ -28,14 +28,13 @@ Nsfwatch.__table__.create(checkfirst=True)
 
 
 def add_nsfwatch(chat_id: str):
-    nsfws = Nsfwatch(str(chat_id))
+    nsfws = Nsfwatch(chat_id)
     SESSION.add(nsfws)
     SESSION.commit()
 
 
 def rmnsfwatch(chat_id: str):
-    nsfwm = SESSION.query(Nsfwatch).get(str(chat_id))
-    if nsfwm:
+    if nsfwm := SESSION.query(Nsfwatch).get(chat_id):
         SESSION.delete(nsfwm)
         SESSION.commit()
 
@@ -48,8 +47,7 @@ def get_all_nsfw_enabled_chat():
 
 def is_nsfwatch_indb(chat_id: str):
     try:
-        s__ = SESSION.query(Nsfwatch).get(str(chat_id))
-        if s__:
+        if s__ := SESSION.query(Nsfwatch).get(chat_id):
             return str(s__.chat_id)
     finally:
         SESSION.close()

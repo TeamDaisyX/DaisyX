@@ -67,9 +67,7 @@ class cached:
     def __build_key(self, *args: dict, **kwargs: dict) -> str:
         ordered_kwargs = sorted(kwargs.items())
 
-        new_key = (
-            self.key if self.key else (self.func.__module__ or "") + self.func.__name__
-        )
+        new_key = self.key or (self.func.__module__ or "") + self.func.__name__
         new_key += str(args[1:] if self.no_self else args)
 
         if ordered_kwargs:

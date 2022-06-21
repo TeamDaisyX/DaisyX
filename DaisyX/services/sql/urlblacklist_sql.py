@@ -49,8 +49,9 @@ def blacklist_url(chat_id, domain):
 
 def rm_url_from_blacklist(chat_id, domain):
     with URL_BLACKLIST_FILTER_INSERTION_LOCK:
-        domain_filt = SESSION.query(URLBlackListFilters).get((str(chat_id), domain))
-        if domain_filt:
+        if domain_filt := SESSION.query(URLBlackListFilters).get(
+            (str(chat_id), domain)
+        ):
             if domain in CHAT_URL_BLACKLISTS.get(str(chat_id), set()):
                 CHAT_URL_BLACKLISTS.get(str(chat_id), set()).remove(domain)
             SESSION.delete(domain_filt)

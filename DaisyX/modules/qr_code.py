@@ -29,11 +29,7 @@ from DaisyX.services.telethon import tbot as client
 
 def progress(current, total):
     """Calculate and return the download progress with given arguments."""
-    print(
-        "Downloaded {} of {}\nCompleted {}".format(
-            current, total, (current / total) * 100
-        )
-    )
+    print(f"Downloaded {current} of {total}\nCompleted {current / total * 100}")
 
 
 async def is_register_admin(chat, user):
@@ -69,16 +65,15 @@ async def parseqr(qr_e):
         await qr_e.get_reply_message(), progress_callback=progress
     )
     url = "https://api.qrserver.com/v1/read-qr-code/?outputformat=json"
-    file = open(downloaded_file_name, "rb")
-    files = {"file": file}
-    resp = post(url, files=files).json()
-    qr_contents = resp[0]["symbol"][0]["data"]
-    file.close()
+    with open(downloaded_file_name, "rb") as file:
+        files = {"file": file}
+        resp = post(url, files=files).json()
+        qr_contents = resp[0]["symbol"][0]["data"]
     os.remove(downloaded_file_name)
     end = datetime.now()
     duration = (end - start).seconds
     await qr_e.reply(
-        "Obtained QRCode contents in {} seconds.\n{}".format(duration, qr_contents)
+        f"Obtained QRCode contents in {duration} seconds.\n{qr_contents}"
     )
 
 
@@ -103,9 +98,7 @@ async def make_qr(qrcode):
             m_list = None
             with open(downloaded_file_name, "rb") as file:
                 m_list = file.readlines()
-            message = ""
-            for media in m_list:
-                message += media.decode("UTF-8") + "\r\n"
+            message = "".join(media.decode("UTF-8") + "\r\n" for media in m_list)
             os.remove(downloaded_file_name)
         else:
             message = previous_message.message
@@ -128,5 +121,5 @@ size=200x200&charset-source=UTF-8&charset-target=UTF-8\
     )
     os.remove(required_file_name)
     duration = (datetime.now() - start).seconds
-    await qrcode.reply("Created QRCode in {} seconds".format(duration))
+    await qrcode.reply(f"Created QRCode in {duration} seconds")
     await sleep(5)

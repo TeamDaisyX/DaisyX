@@ -38,11 +38,7 @@ async def direct_link_generator(message):
         await message.reply(m)
         return
 
-    if text:
-        links = re.findall(r"\bhttps?://.*\.\S+", text)
-    else:
-        return
-
+    links = re.findall(r"\bhttps?://.*\.\S+", text)
     reply = []
     if not links:
         await message.reply("No links found!")

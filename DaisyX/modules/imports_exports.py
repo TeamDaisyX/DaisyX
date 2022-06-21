@@ -48,7 +48,7 @@ class ImportFileWait(StatesGroup):
 @get_strings_dec("imports_exports")
 async def export_chat_data(message, chat, strings):
     chat_id = chat["chat_id"]
-    key = "export_lock:" + str(chat_id)
+    key = f"export_lock:{str(chat_id)}"
     if redis.get(key) and message.from_user.id not in OPERATORS:
         ttl = format_timedelta(
             timedelta(seconds=redis.ttl(key)), strings["language_info"]["babel"]
@@ -72,7 +72,7 @@ async def export_chat_data(message, chat, strings):
     for module in [m for m in LOADED_MODULES if hasattr(m, "__export__")]:
         await asyncio.sleep(0)  # Switch to other events before continue
         if k := await module.__export__(chat_id):
-            data.update(k)
+            data |= k
 
     jfile = InputFile(
         io.StringIO(rapidjson.dumps(data, indent=2)), filename=f"{chat_id}_export.json"
@@ -115,7 +115,7 @@ async def import_state(message, state=None, **kwargs):
 @get_strings_dec("imports_exports")
 async def import_fun(message, document, chat, strings):
     chat_id = chat["chat_id"]
-    key = "import_lock:" + str(chat_id)
+    key = f"import_lock:{str(chat_id)}"
     if redis.get(key) and message.from_user.id not in OPERATORS:
         ttl = format_timedelta(
             timedelta(seconds=redis.ttl(key)), strings["language_info"]["babel"]

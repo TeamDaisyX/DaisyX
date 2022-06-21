@@ -46,9 +46,7 @@ def register(**args):
                 return
             if check.fwd_from:
                 return
-            if check.is_group or check.is_private:
-                pass
-            else:
+            if not check.is_group and not check.is_private:
                 # print("i don't work in channels")
                 return
             users = gbanned.find({})
@@ -63,8 +61,6 @@ def register(**args):
                     LOAD_PLUG.update({file_test: [func]})
             except BaseException:
                 return
-            else:
-                pass
 
         tbot.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper

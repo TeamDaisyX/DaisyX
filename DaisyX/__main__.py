@@ -33,11 +33,7 @@ LOAD = get_list_key("LOAD")
 DONT_LOAD = get_list_key("DONT_LOAD")
 
 if get_bool_key("LOAD_MODULES"):
-    if len(LOAD) > 0:
-        modules = LOAD
-    else:
-        modules = ALL_MODULES
-
+    modules = LOAD if len(LOAD) > 0 else ALL_MODULES
     modules = [x for x in modules if x not in DONT_LOAD]
 
     log.info("Modules to load: %s", str(modules))
@@ -46,7 +42,7 @@ if get_bool_key("LOAD_MODULES"):
         if module_name == "pm_menu":
             continue
         log.debug(f"Importing <d><n>{module_name}</></>")
-        imported_module = import_module("DaisyX.modules." + module_name)
+        imported_module = import_module(f"DaisyX.modules.{module_name}")
         if hasattr(imported_module, "__help__"):
             if hasattr(imported_module, "__mod_name__"):
                 MOD_HELP[imported_module.__mod_name__] = imported_module.__help__
@@ -68,7 +64,7 @@ if not get_bool_key("DEBUG_MODE"):
 
 async def before_srv_task(loop):
     for module in [m for m in LOADED_MODULES if hasattr(m, "__before_serving__")]:
-        log.debug("Before serving: " + module.__name__)
+        log.debug(f"Before serving: {module.__name__}")
         loop.create_task(module.__before_serving__(loop))
 
 

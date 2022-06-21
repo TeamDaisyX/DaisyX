@@ -93,9 +93,10 @@ async def get_start_func(message, strings, edit=False):
     buttons.add(
         InlineKeyboardButton(
             "👸🏼 Add DaisyX to your group",
-            url=f"https://telegram.me/daisyxbot?startgroup=true",
+            url="https://telegram.me/daisyxbot?startgroup=true",
         )
     )
+
     # Handle error when user click the button 2 or more times simultaneously
     with suppress(MessageNotModified):
         await task(strings["start_hi"], reply_markup=buttons)
@@ -143,7 +144,7 @@ async def help_cmd_g(message, strings):
 @register(helpmenu_cb.filter(), f="cb", allow_kwargs=True)
 async def helpmenu_callback(query, callback_data=None, **kwargs):
     mod = callback_data["mod"]
-    if not mod in MOD_HELP:
+    if mod not in MOD_HELP:
         await query.answer()
         return
     msg = f"Help for <b>{mod}</b> module:\n"
@@ -155,4 +156,4 @@ async def helpmenu_callback(query, callback_data=None, **kwargs):
         await query.message.edit_text(
             msg, disable_web_page_preview=True, reply_markup=button
         )
-        await query.answer("Help for " + mod)
+        await query.answer(f"Help for {mod}")

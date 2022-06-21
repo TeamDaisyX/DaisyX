@@ -49,11 +49,10 @@ async def is_register_admin(chat, user):
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        else:
-            return
+    if event.is_group and not await is_register_admin(
+        event.input_chat, event.message.sender_id
+    ):
+        return
     input_str = event.pattern_match.group(1)
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
@@ -102,11 +101,10 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        else:
-            return
+    if event.is_group and not await is_register_admin(
+        event.input_chat, event.message.sender_id
+    ):
+        return
     start = datetime.now()
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -127,11 +125,12 @@ async def _(event):
             }
             data = open(required_file_name, "rb").read()
             response = requests.post(
-                IBM_WATSON_CRED_URL + "/v1/recognize",
+                f"{IBM_WATSON_CRED_URL}/v1/recognize",
                 headers=headers,
                 data=data,
                 auth=("apikey", IBM_WATSON_CRED_PASSWORD),
             )
+
             r = response.json()
             if "results" in r:
                 # process the json to appropriate string format
@@ -147,13 +146,11 @@ async def _(event):
                 end = datetime.now()
                 ms = (end - start).seconds
                 if transcript_response != "":
-                    string_to_show = "TRANSCRIPT: `{}`\nTime Taken: {} seconds\nConfidence: `{}`".format(
-                        transcript_response, ms, transcript_confidence
-                    )
+                    string_to_show = f"TRANSCRIPT: `{transcript_response}`\nTime Taken: {ms} seconds\nConfidence: `{transcript_confidence}`"
+
                 else:
-                    string_to_show = "TRANSCRIPT: `Nil`\nTime Taken: {} seconds\n\n**No Results Found**".format(
-                        ms
-                    )
+                    string_to_show = f"TRANSCRIPT: `Nil`\nTime Taken: {ms} seconds\n\n**No Results Found**"
+
                 await event.reply(string_to_show)
             else:
                 await event.reply(r["error"])

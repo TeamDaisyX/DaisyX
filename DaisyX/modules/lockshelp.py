@@ -107,7 +107,7 @@ async def lock_parser(chat_id, rev=False):
     ):
         if keyword is not None and lock in keyword:
             if rev:
-                lock = list([keyword[0], keyword[1]])
+                lock = [keyword[0], keyword[1]]
                 status = not current_lock[keyword[1]]
             else:
                 status = not current_lock[lock]

@@ -40,7 +40,7 @@ class NoArgs(BoundFilter):
         self.no_args = no_args
 
     async def check(self, message: types.Message):
-        if not len(message.text.split(" ")) > 1:
+        if len(message.text.split(" ")) <= 1:
             return True
 
 
@@ -62,13 +62,11 @@ class CmdNotMonospaced(BoundFilter):
         self.cmd_not_mono = cmd_not_mono
 
     async def check(self, message: types.Message):
-        if (
-            message.entities
-            and message.entities[0]["type"] == "code"
-            and message.entities[0]["offset"] < 1
-        ):
-            return False
-        return True
+        return (
+            not message.entities
+            or message.entities[0]["type"] != "code"
+            or message.entities[0]["offset"] >= 1
+        )
 
 
 dp.filters_factory.bind(NotForwarded)

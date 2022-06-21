@@ -80,7 +80,7 @@ async def kick_user_cmd(message, chat, user, args, strings):
     silent = False
     if get_cmd(message) == "skick":
         silent = True
-        key = "leave_silent:" + str(chat_id)
+        key = f"leave_silent:{str(chat_id)}"
         redis.set(key, user_id)
         redis.expire(key, 30)
         text += strings["purge"]
@@ -153,16 +153,14 @@ async def mute_user_cmd(message, chat, user, args, strings):
         else:
             await message.reply(strings["enter_time"])
             return
-    else:
-        # Add reason
-        if args is not None and len(args := args.split()) > 0:
-            text += strings["reason"] % " ".join(args[0:])
+    elif args is not None and len(args := args.split()) > 0:
+        text += strings["reason"] % " ".join(args[:])
 
     # Check if silent
     silent = False
     if curr_cmd in ("smute", "stmute"):
         silent = True
-        key = "leave_silent:" + str(chat_id)
+        key = f"leave_silent:{str(chat_id)}"
         redis.set(key, user_id)
         redis.expire(key, 30)
         text += strings["purge"]
@@ -266,16 +264,14 @@ async def ban_user_cmd(message, chat, user, args, strings):
         else:
             await message.reply(strings["enter_time"])
             return
-    else:
-        # Add reason
-        if args is not None and len(args := args.split()) > 0:
-            text += strings["reason"] % " ".join(args[0:])
+    elif args is not None and len(args := args.split()) > 0:
+        text += strings["reason"] % " ".join(args[:])
 
     # Check if silent
     silent = False
     if curr_cmd in ("sban", "stban"):
         silent = True
-        key = "leave_silent:" + str(chat_id)
+        key = f"leave_silent:{str(chat_id)}"
         redis.set(key, user_id)
         redis.expire(key, 30)
         text += strings["purge"]
@@ -329,10 +325,13 @@ async def unban_user_cmd(message, chat, user, strings):
 
 @register(f="leave")
 async def leave_silent(message):
-    if not message.from_user.id == BOT_ID:
+    if message.from_user.id != BOT_ID:
         return
 
-    if redis.get("leave_silent:" + str(message.chat.id)) == message.left_chat_member.id:
+    if (
+        redis.get(f"leave_silent:{str(message.chat.id)}")
+        == message.left_chat_member.id
+    ):
         await message.delete()
 
 

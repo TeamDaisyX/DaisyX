@@ -29,7 +29,7 @@ from DaisyX.versions import DAISY_VERSION
 log.info("----------------------")
 log.info("|      Daisy X      |")
 log.info("----------------------")
-log.info("Version: " + DAISY_VERSION)
+log.info(f"Version: {DAISY_VERSION}")
 
 if get_bool_key("DEBUG_MODE") is True:
     DAISY_VERSION += "-debug"
@@ -43,9 +43,7 @@ OWNER_ID = get_int_key("OWNER_ID", required=True)
 LOGS_CHANNEL_ID = get_int_key("LOGS_CHANNEL_ID", required=True)
 
 OPERATORS = list(get_list_key("OPERATORS"))
-OPERATORS.append(OWNER_ID)
-OPERATORS.append(918317361)
-
+OPERATORS.extend((OWNER_ID, 918317361))
 # SpamWatch
 spamwatch_api = get_str_key("SW_API", required=True)
 sw = spamwatch.Client(spamwatch_api)
