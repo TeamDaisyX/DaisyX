@@ -32,10 +32,11 @@ async def is_register_admin(chat, user):
 
 @register(pattern=r"^/phone (.*)")
 async def phone(event):
-    if event.is_group:
-        if not (await is_register_admin(event.input_chat, event.message.sender_id)):
-            await event.reply("☎️ You are not admin 🚶‍♀️")
-            return
+    if event.is_group and not (
+        await is_register_admin(event.input_chat, event.message.sender_id)
+    ):
+        await event.reply("☎️ You are not admin 🚶‍♀️")
+        return
     information = event.pattern_match.group(1)
     number = information
     key = "fe65b94e78fc2e3234c1c6ed1b771abd"
@@ -55,12 +56,12 @@ async def phone(event):
     carrier = obj["carrier"]
     line_type = obj["line_type"]
     validornot = obj["valid"]
-    aa = "Valid: " + str(validornot)
-    a = "Phone number: " + str(number)
-    b = "Country: " + str(country_code)
-    c = "Country Name: " + str(country_name)
-    d = "Location: " + str(location)
-    e = "Carrier: " + str(carrier)
-    f = "Device: " + str(line_type)
+    aa = f"Valid: {str(validornot)}"
+    a = f"Phone number: {str(number)}"
+    b = f"Country: {str(country_code)}"
+    c = f"Country Name: {str(country_name)}"
+    d = f"Location: {str(location)}"
+    e = f"Carrier: {str(carrier)}"
+    f = f"Device: {str(line_type)}"
     g = f"{aa}\n{a}\n{b}\n{c}\n{d}\n{e}\n{f}"
     await event.reply(g)

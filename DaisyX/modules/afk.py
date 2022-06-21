@@ -42,11 +42,7 @@ async def afk(message, strings):
         await message.reply(strings["afk_anon"])
         return
 
-    if not arg:
-        reason = "No reason"
-    else:
-        reason = arg
-
+    reason = arg or "No reason"
     user = await get_user_by_id(message.from_user.id)
     user_afk = await db.afk.find_one({"user": user["user_id"]})
     if user_afk:
@@ -62,9 +58,10 @@ async def afk(message, strings):
 @register(f="text", allow_edited=False)
 @get_strings_dec("afk")
 async def check_afk(message, strings):
-    if bool(message.reply_to_message):
-        if message.reply_to_message.from_user.id in (1087968824, 777000):
-            return
+    if bool(
+        message.reply_to_message
+    ) and message.reply_to_message.from_user.id in (1087968824, 777000):
+        return
     if message.from_user.id in (1087968824, 777000):
         return
     user_afk = await db.afk.find_one({"user": message.from_user.id})

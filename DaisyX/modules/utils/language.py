@@ -27,8 +27,8 @@ LANGUAGES = {}
 log.info("Loading localizations...")
 
 for filename in os.listdir("DaisyX/localization"):
-    log.debug("Loading language file " + filename)
-    with open("DaisyX/localization/" + filename, "r", encoding="utf8") as f:
+    log.debug(f"Loading language file {filename}")
+    with open(f"DaisyX/localization/{filename}", "r", encoding="utf8") as f:
         lang = yaml.load(f, Loader=yaml.CLoader)
 
         lang_code = lang["language_info"]["code"]
@@ -47,26 +47,24 @@ log.info(
 
 
 async def get_chat_lang(chat_id):
-    r = redis.get("lang_cache_{}".format(chat_id))
-    if r:
+    if r := redis.get(f"lang_cache_{chat_id}"):
         return r
-    else:
-        db_lang = await db.lang.find_one({"chat_id": chat_id})
-        if db_lang:
+    db_lang = await db.lang.find_one({"chat_id": chat_id})
+    if db_lang:
             # Rebuild lang cache
-            redis.set("lang_cache_{}".format(chat_id), db_lang["lang"])
-            return db_lang["lang"]
-        user_lang = await db.user_list.find_one({"user_id": chat_id})
-        if user_lang and user_lang["user_lang"] in LANGUAGES:
+        redis.set(f"lang_cache_{chat_id}", db_lang["lang"])
+        return db_lang["lang"]
+    user_lang = await db.user_list.find_one({"user_id": chat_id})
+    if user_lang and user_lang["user_lang"] in LANGUAGES:
             # Add telegram language in lang cache
-            redis.set("lang_cache_{}".format(chat_id), user_lang["user_lang"])
-            return user_lang["user_lang"]
-        else:
-            return "en"
+        redis.set(f"lang_cache_{chat_id}", user_lang["user_lang"])
+        return user_lang["user_lang"]
+    else:
+        return "en"
 
 
 async def change_chat_lang(chat_id, lang):
-    redis.set("lang_cache_{}".format(chat_id), lang)
+    redis.set(f"lang_cache_{chat_id}", lang)
     await db.lang.update_one(
         {"chat_id": chat_id}, {"$set": {"chat_id": chat_id, "lang": lang}}, upsert=True
     )

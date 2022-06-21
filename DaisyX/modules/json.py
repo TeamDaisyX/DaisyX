@@ -55,9 +55,7 @@ async def _(event):
     if event.is_group:
         if await is_register_admin(event.input_chat, event.message.sender_id):
             pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
+        elif event.chat_id != iid or event.sender_id != userss:
             return
     the_real_message = None
     reply_to_id = None
@@ -80,4 +78,4 @@ async def _(event):
             )
             await event.delete()
     else:
-        await event.reply("`{}`".format(the_real_message))
+        await event.reply(f"`{the_real_message}`")

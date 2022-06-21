@@ -59,11 +59,8 @@ async def _(event):
         return
     if event.is_private:
         return
-    if event.is_group:
-        if await can_change_info(message=event):
-            pass
-        else:
-            return
+    if event.is_group and not await can_change_info(message=event):
+        return
     chat = event.chat
     urls = event.text.split(None, 1)
     if len(urls) > 1:
@@ -74,29 +71,25 @@ async def _(event):
         for uri in to_blacklist:
             extract_url = tldextract.extract(uri)
             if extract_url.domain and extract_url.suffix:
-                blacklisted.append(extract_url.domain + "." + extract_url.suffix)
-                urlsql.blacklist_url(
-                    chat.id, extract_url.domain + "." + extract_url.suffix
-                )
+                blacklisted.append(f"{extract_url.domain}.{extract_url.suffix}")
+                urlsql.blacklist_url(chat.id, f"{extract_url.domain}.{extract_url.suffix}")
 
         if len(to_blacklist) == 1:
             extract_url = tldextract.extract(to_blacklist[0])
             if extract_url.domain and extract_url.suffix:
                 await event.reply(
-                    "Added <code>{}</code> domain to the blacklist!".format(
-                        html.escape(extract_url.domain + "." + extract_url.suffix)
-                    ),
+                    f'Added <code>{html.escape(f"{extract_url.domain}.{extract_url.suffix}")}</code> domain to the blacklist!',
                     parse_mode="html",
                 )
+
             else:
                 await event.reply("You are trying to blacklist an invalid url")
         else:
             await event.reply(
-                "Added <code>{}</code> domains to the blacklist.".format(
-                    len(blacklisted)
-                ),
+                f"Added <code>{len(blacklisted)}</code> domains to the blacklist.",
                 parse_mode="html",
             )
+
     else:
         await event.reply("Tell me which urls you would like to add to the blacklist.")
 
@@ -107,11 +100,8 @@ async def _(event):
         return
     if event.is_private:
         return
-    if event.is_group:
-        if await can_change_info(message=event):
-            pass
-        else:
-            return
+    if event.is_group and not await can_change_info(message=event):
+        return
     chat = event.chat
     urls = event.text.split(None, 1)
 
@@ -122,37 +112,35 @@ async def _(event):
         for uri in to_unblacklist:
             extract_url = tldextract.extract(uri)
             success = urlsql.rm_url_from_blacklist(
-                chat.id, extract_url.domain + "." + extract_url.suffix
+                chat.id, f"{extract_url.domain}.{extract_url.suffix}"
             )
+
             if success:
                 unblacklisted += 1
 
         if len(to_unblacklist) == 1:
             if unblacklisted:
                 await event.reply(
-                    "Removed <code>{}</code> from the blacklist!".format(
-                        html.escape(to_unblacklist[0])
-                    ),
+                    f"Removed <code>{html.escape(to_unblacklist[0])}</code> from the blacklist!",
                     parse_mode="html",
                 )
+
             else:
                 await event.reply("This isn't a blacklisted domain...!")
         elif unblacklisted == len(to_unblacklist):
             await event.reply(
-                "Removed <code>{}</code> domains from the blacklist.".format(
-                    unblacklisted
-                ),
+                f"Removed <code>{unblacklisted}</code> domains from the blacklist.",
                 parse_mode="html",
             )
+
         elif not unblacklisted:
             await event.reply("None of these domains exist, so they weren't removed.")
         else:
             await event.reply(
-                "Removed <code>{}</code> domains from the blacklist. {} did not exist, so were not removed.".format(
-                    unblacklisted, len(to_unblacklist) - unblacklisted
-                ),
+                f"Removed <code>{unblacklisted}</code> domains from the blacklist. {len(to_unblacklist) - unblacklisted} did not exist, so were not removed.",
                 parse_mode="html",
             )
+
     else:
         await event.reply(
             "Tell me which domains you would like to remove from the blacklist."
@@ -171,7 +159,7 @@ async def on_url_message(event):
         if isinstance(ent, types.MessageEntityUrl):
             url = txt
             extract_url = tldextract.extract(url)
-            extracted_domains.append(extract_url.domain + "." + extract_url.suffix)
+            extracted_domains.append(f"{extract_url.domain}.{extract_url.suffix}")
     for url in urlsql.get_blacklisted_urls(chat.id):
         if url in extracted_domains:
             try:
@@ -186,11 +174,8 @@ async def _(event):
         return
     if event.is_private:
         return
-    if event.is_group:
-        if await can_change_info(message=event):
-            pass
-        else:
-            return
+    if event.is_group and not await can_change_info(message=event):
+        return
     chat = event.chat
     base_string = "Current <b>blacklisted</b> domains:\n"
     blacklisted = urlsql.get_blacklisted_urls(chat.id)
@@ -198,7 +183,7 @@ async def _(event):
         await event.reply("There are no blacklisted domains here!")
         return
     for domain in blacklisted:
-        base_string += "- <code>{}</code>\n".format(domain)
+        base_string += f"- <code>{domain}</code>\n"
     await event.reply(base_string, parse_mode="html")
 
 

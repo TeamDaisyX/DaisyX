@@ -119,16 +119,12 @@ async def wiki(message):
         return
     except wikipedia.exceptions.DisambiguationError as refer:
         refer = str(refer).split("\n")
-        if len(refer) >= 6:
-            batas = 6
-        else:
-            batas = len(refer)
-        text = ""
-        for x in range(batas):
-            if x == 0:
-                text += refer[x] + "\n"
-            else:
-                text += "- `" + refer[x] + "`\n"
+        batas = min(len(refer), 6)
+        text = "".join(
+            refer[x] + "\n" if x == 0 else f"- `{refer[x]}" + "`\n"
+            for x in range(batas)
+        )
+
         await message.reply(text)
         return
     except IndexError:
@@ -140,7 +136,7 @@ async def wiki(message):
         InlineKeyboardButton("🔧 More Info...", url=wikipedia.page(args).url)
     )
     await message.reply(
-        ("The result of {} is:\n\n<b>{}</b>\n{}").format(args, title, summary),
+        f"The result of {args} is:\n\n<b>{title}</b>\n{summary}",
         reply_markup=button,
     )
 
@@ -195,9 +191,9 @@ async def github(message):
                     if x == "Blog":
                         x = "Website"
                         y = f"<a href='{y}'>Here!</a>"
-                        text += "\n<b>{}:</b> {}".format(x, y)
+                        text += f"\n<b>{x}:</b> {y}"
                     else:
-                        text += "\n<b>{}:</b> <code>{}</code>".format(x, y)
+                        text += f"\n<b>{x}:</b> <code>{y}</code>"
         reply_text = text
     else:
         reply_text = "User not found. Make sure you entered valid username!"
@@ -210,7 +206,7 @@ async def ip(message):
     try:
         ip = message.text.split(maxsplit=1)[1]
     except IndexError:
-        await message.reply(f"Apparently you forgot something!")
+        await message.reply("Apparently you forgot something!")
         return
 
     response = await http.get(f"http://ip-api.com/json/{ip}")
@@ -224,14 +220,14 @@ async def ip(message):
 
     fixed_lookup = {}
 
+    special = {
+        "lat": "Latitude",
+        "lon": "Longitude",
+        "isp": "ISP",
+        "as": "AS",
+        "asname": "AS name",
+    }
     for key, value in lookup_json.items():
-        special = {
-            "lat": "Latitude",
-            "lon": "Longitude",
-            "isp": "ISP",
-            "as": "AS",
-            "asname": "AS name",
-        }
         if key in special:
             fixed_lookup[special[key]] = str(value)
             continue
@@ -247,7 +243,7 @@ async def ip(message):
     text = ""
 
     for key, value in fixed_lookup.items():
-        text = text + f"<b>{key}:</b> <code>{value}</code>\n"
+        text = f"{text}<b>{key}:</b> <code>{value}</code>\n"
 
     await message.reply(text)
 

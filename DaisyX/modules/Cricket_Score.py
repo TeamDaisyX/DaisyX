@@ -49,18 +49,15 @@ async def is_register_admin(chat, user):
 async def _(event):
     if event.fwd_from:
         return
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        else:
-            return
+    if event.is_group and not await is_register_admin(
+        event.input_chat, event.message.sender_id
+    ):
+        return
     score_page = "http://static.cricinfo.com/rss/livescores.xml"
     page = urllib.request.urlopen(score_page)
     soup = BeautifulSoup(page, "html.parser")
     result = soup.find_all("description")
-    Sed = ""
-    for match in result:
-        Sed += match.get_text() + "\n\n"
+    Sed = "".join(match.get_text() + "\n\n" for match in result)
     await event.reply(
         f"<b><u>Match information gathered successful</b></u>\n\n\n<code>{Sed}</code>",
         parse_mode="HTML",

@@ -62,7 +62,7 @@ async def list_disabled(message, chat, strings):
 @get_strings_dec("disable")
 async def disable_command(message, chat, strings):
     cmd = get_arg(message).lower()
-    if cmd[0] == "/" or cmd[0] == "!":
+    if cmd[0] in ["/", "!"]:
         cmd = cmd[1:]
 
     # Check on commands aliases
@@ -97,7 +97,7 @@ async def disable_command(message, chat, strings):
 async def enable_command(message, chat, strings):
     chat_id = chat["chat_id"]
     cmd = get_arg(message).lower()
-    if cmd[0] == "/" or cmd[0] == "!":
+    if cmd[0] in ["/", "!"]:
         cmd = cmd[1:]
 
     # Check on commands aliases
@@ -167,13 +167,7 @@ async def __export__(chat_id):
 
 
 async def __import__(chat_id, data):
-    new = []
-    for cmd in data:
-        if cmd not in DISABLABLE_COMMANDS:
-            continue
-
-        new.append(cmd)
-
+    new = [cmd for cmd in data if cmd in DISABLABLE_COMMANDS]
     await db.disabled.update_one(
         {"chat_id": chat_id}, {"$set": {"cmds": new}}, upsert=True
     )

@@ -99,7 +99,7 @@ def main():
 
     try:
         if options.show_version:
-            print("fortune, version {}".format(__version__))
+            print(f"fortune, version {__version__}")
         else:
             print(get_random_fortune(fortune_file))
     except ValueError as msg:

@@ -24,11 +24,11 @@ from DaisyX.services.pyrogram import pbot as client
 @client.on_message(filters.command("contributors") & ~filters.edited)
 async def give_cobtribs(c, m):
     g = github.Github()
-    co = ""
-    n = 0
     repo = g.get_repo("TeamDaisyX/DaisyX")
-    for i in repo.get_contributors():
-        n += 1
-        co += f"{n}. [{i.login}](https://github.com/{i.login})\n"
+    co = "".join(
+        f"{n}. [{i.login}](https://github.com/{i.login})\n"
+        for n, i in enumerate(repo.get_contributors(), start=1)
+    )
+
     t = f"**DaisyX Contributors**\n\n{co}"
     await m.reply(t, disable_web_page_preview=True)

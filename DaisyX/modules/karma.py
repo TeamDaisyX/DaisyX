@@ -37,11 +37,8 @@ karma_negative_group = 4
 
 async def int_to_alpha(user_id: int) -> str:
     alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"]
-    text = ""
     user_id = str(user_id)
-    for i in user_id:
-        text += alphabet[int(i)]
-    return text
+    return "".join(alphabet[int(i)] for i in user_id)
 
 
 async def alpha_to_int(user_id_alphabet: str) -> int:
@@ -69,10 +66,7 @@ async def get_karmas_count() -> dict:
 
 async def get_karmas(chat_id: int) -> Dict[str, int]:
     karma = await karmadb.find_one({"chat_id": chat_id})
-    if karma:
-        karma = karma["karma"]
-    else:
-        karma = {}
+    karma = karma["karma"] if karma else {}
     return karma
 
 
@@ -134,12 +128,10 @@ async def upvote(_, message):
     if current_karma:
         current_karma = current_karma["karma"]
         karma = current_karma + 1
-        new_karma = {"karma": karma}
-        await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
     else:
         karma = 1
-        new_karma = {"karma": karma}
-        await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
+    new_karma = {"karma": karma}
+    await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
     await message.reply_text(
         f"Incremented Karma of {user_mention} By 1 \nTotal Points: {karma}"
     )
@@ -175,12 +167,10 @@ async def downvote(_, message):
     if current_karma:
         current_karma = current_karma["karma"]
         karma = current_karma - 1
-        new_karma = {"karma": karma}
-        await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
     else:
         karma = 1
-        new_karma = {"karma": karma}
-        await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
+    new_karma = {"karma": karma}
+    await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
     await message.reply_text(
         f"Decremented Karma Of {user_mention} By 1 \nTotal Points: {karma}"
     )
@@ -215,12 +205,8 @@ async def karma(_, message):
         else:
             user_id = message.reply_to_message.from_user.id
             karma = await get_karma(chat_id, await int_to_alpha(user_id))
-            if karma:
-                karma = karma["karma"]
-                await message.reply_text(f"**Total Points**: __{karma}__")
-            else:
-                karma = 0
-                await message.reply_text(f"**Total Points**: __{karma}__")
+            karma = karma["karma"] if karma else 0
+            await message.reply_text(f"**Total Points**: __{karma}__")
         return
     status = message.text.split(None, 1)[1].strip()
     status = status.lower()
@@ -230,12 +216,12 @@ async def karma(_, message):
     if "can_change_info" not in permissions:
         await message.reply_text("You don't have enough permissions.")
         return
-    if status == "on" or status == "ON":
+    if status in ["on", "ON"]:
         await karma_on(chat_id)
         await message.reply_text(
             f"Added Chat {chat_id} To Database. Karma will be enabled here"
         )
-    elif status == "off" or status == "OFF":
+    elif status in ["off", "OFF"]:
         await karma_off(chat_id)
         await message.reply_text(
             f"Removed Chat {chat_id} To Database. Karma will be disabled here"

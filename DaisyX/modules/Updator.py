@@ -23,13 +23,11 @@ requirements_path = path.join(
 
 
 async def gen_chlog(repo, diff):
-    ch_log = ""
     d_form = "%d/%m/%y"
-    for c in repo.iter_commits(diff):
-        ch_log += (
-            f"•[{c.committed_datetime.strftime(d_form)}]: {c.summary} by <{c.author}>\n"
-        )
-    return ch_log
+    return "".join(
+        f"•[{c.committed_datetime.strftime(d_form)}]: {c.summary} by <{c.author}>\n"
+        for c in repo.iter_commits(diff)
+    )
 
 
 async def updateme_requirements():
@@ -59,8 +57,11 @@ async def upstream(ups):
     force_update = False
 
     try:
-        txt = "`Oops.. Updater cannot continue "
-        txt += "please add heroku apikey, name`\n\n**LOGTRACE:**\n"
+        txt = (
+            "`Oops.. Updater cannot continue "
+            + "please add heroku apikey, name`\n\n**LOGTRACE:**\n"
+        )
+
         repo = Repo()
     except NoSuchPathError as error:
         await lol.edit(f"{txt}\n`directory {error} is not found`")
@@ -117,9 +118,8 @@ async def upstream(ups):
         )
         if len(changelog_str) > 4096:
             await lol.edit("`Changelog is too big, view the file to see it.`")
-            file = open("output.txt", "w+")
-            file.write(changelog_str)
-            file.close()
+            with open("output.txt", "w+") as file:
+                file.write(changelog_str)
             await update.send_file(
                 ups.chat_id,
                 "output.txt",
@@ -138,7 +138,6 @@ async def upstream(ups):
     if conf == "deploy":
         if HEROKU_API_KEY is not None:
             heroku = heroku3.from_key(HEROKU_API_KEY)
-            heroku_app = None
             heroku_applications = heroku.apps()
             if not HEROKU_APP_NAME:
                 await lol.edit(
@@ -146,10 +145,15 @@ async def upstream(ups):
                 )
                 repo.__del__()
                 return
-            for app in heroku_applications:
-                if app.name == HEROKU_APP_NAME:
-                    heroku_app = app
-                    break
+            heroku_app = next(
+                (
+                    app
+                    for app in heroku_applications
+                    if app.name == HEROKU_APP_NAME
+                ),
+                None,
+            )
+
             if heroku_app is None:
                 await lol.edit(
                     f"{txt}\n`Invalid Heroku credentials for updating bot dyno.`"
@@ -163,8 +167,9 @@ async def upstream(ups):
             ups_rem.fetch(ac_br)
             repo.git.reset("--hard", "FETCH_HEAD")
             heroku_git_url = heroku_app.git_url.replace(
-                "https://", "https://api:" + HEROKU_API_KEY + "@"
+                "https://", f"https://api:{HEROKU_API_KEY}@"
             )
+
             if "heroku" in repo.remotes:
                 remote = repo.remote("heroku")
                 remote.set_url(heroku_git_url)
