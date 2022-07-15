@@ -12,7 +12,7 @@ An "odds and ends" module for small, simple commands which don't really fit anyw
 - /cancel: Disables current state. Can help in cases if DaisyXBot not responing on your message.
 - /id: get the current group id. If used by replying to a message, gets that user's id.
 - /info: get information about a user.
-- /paste: Pase the text/file in nekobin
+- /paste: Paste the text/file in nekobin
 - /gps: Find a location
 
 <b>BOOK DOWNLOAD </b>
@@ -54,7 +54,7 @@ Example syntax: `/cash 1 USD INR`
 
   Note: Format of cc is ccnum|mm|yy|cvv
   Privacy warning: Don't check any of your personal CC's.
-  
+
 <b>URL TOOLS</b>
 - /short (url): Shortify given url.
 - /ip (url): Displays information about an IP / domain.
